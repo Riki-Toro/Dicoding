@@ -40,5 +40,54 @@
             <td>Jerman</td>
         </tr>
     </table>
+
+
+
+    <h1>Spanning Cell</h1>
+    <!-- Terkadang kita membutuhkan sebuah sel yang mencakup untuk dua kolom ataupun dua baris sekaligus. Dalam aplikasi seperti Microsoft Word, hal ini biasa kita kenal sebagai merging cell atau menggabungkan sebuah sel. Ini memang menjadi sebuah fitur dasar dalam membuat sebuah tabel. Sehingga, pada HTML pun kita dapat melakukan hal tersebut. 
+
+    Pada HTML hal ini lebih dikenal sebagai Spanning cell yang artinya menjangkau atau merentangkan sebuah ukuran sel lebih dari ukuran yang biasanya. Dengan spanning cell kita dapat membuat sebuah tabel yang lebih kompleks, tetapi akan membuat markup yang kita tulis menjadi sedikit sulit dibaca. -->
+
+    <h2>Column Spans</h2>
+    <!-- Untuk merentangkan sebuah kolom (column spanning) kita bisa menggunakan atribut colspan pada elemen <td> atau <th>. Berikut contoh untuk penggunaan colspan sehingga sebuah header mencangkup dua kolom. 
+    Maka sebuah elemen yang menggunakan atribut colspan akan mencakup ruang kolom sesuai nilai dari atribut itu sendiri.-->
+
+    <table border="1">
+        <tr>
+            <th>18:00</th>
+            <th>19:00</th>
+            <th>20:00</th>
+        </tr>
+        <tr>
+            <td colspan="2">Avengers: Infinity Wars</td>
+            <td>It Chapter 2</td>
+        </tr>
+        <tr>
+            <td>One Piece: Stampede</td>
+            <td>Wheatering With You</td>
+            <td>Gundala</td>
+        </tr>
+        <tr>
+            <td>Gundala</td>
+            <td colspan="2">Avengers: Infinity Wars</td>
+        </tr>
+    </table>
+
+
+    <h2>Row Spans</h2>
+    <!-- Untuk merentangkan sebuah baris (row spanning) kita dapat menggunakan atribut rowspan. Sama seperti column spanning, tetapi atribut ini akan merentangkan sebuah sel ke bawah. Berikut contohnya. -->
+
+    <table border="1">
+        <tr>
+            <th rowspan="3">18:00</th>
+            <td>Avengers: Infinity Wars</td>
+        </tr>
+        <tr>
+            <td>One Piece: Stampede</td>
+        </tr>
+        <tr>
+            <td>Gundala</td>
+        </tr>
+    </table>
 </body>
 </html>
