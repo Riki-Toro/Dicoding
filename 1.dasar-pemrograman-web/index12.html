@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generic Element</title>
+    <style>
+        div {
+            width: 250px;
+            border: 1px solid #333;
+            padding: 5px 15px;
+            box-shadow: 8px 8px 5px #444;
+            background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+        }
+        .phone {
+            font-weight: bold;
+        }
+        .merah {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- Setelah mengenal beberapa elemen yang ada, bagaimana jika tidak terdapat elemen sesuai yang mampu menggambarkan konten kita? Dalam dunia nyata, jenis informasi sangat beragam dan mungkin tidak semua semantik elemen yang kalian ketahui dapat menggambarkan jenis informasinya. Untungnya, HTML menyediakan dua tipe elemen umum (generic element) yang bisa kita kustomisasi untuk menggambarkan konten kita dengan tepat. Terdapat dua generic elemen yang dapat kita manfaatkan.  -->
+
+    <h1>DIV</h1>
+    <!-- Yang pertama elemen <div>, elemen ini merupakan sebuah wadah (container) yang bersifat umum untuk menampung beberapa konten. Elemen ini tidak akan memberikan efek apapun pada konten atau layout sebelum menerapkan sebuah style menggunakan CSS. -->
+    <!-- Sebagai sebuah wadah yang murni, elemen <div> tidak merepresentasikan apapun. Elemen ini lebih sering digunakan untuk mengelompokkan sebuah konten sehingga dapat memudahkan styling dengan menggunakan atribut class atau id. -->
+    <div>
+        <p>Paragraf ini berada di dalam elemen div, namun akan ditampilkan sama seperti paragraf biasanya. Eleman ini lebih sering digunakan untuk mengelompokkan sebuah konten sehingga dapat memudahkan styling dengan menggunakan atribut class atau id.</p>
+    </div>
+
+    <h1>SPAN</h1>
+    <!-- Yang kedua elemen <span>, elemen ini memberikan manfaat yang sama seperti <div>, bedanya elemen ini digunakan sebagai phrase elements dan tidak terdapat line breaks ketika menggunakannya. Sederhananya, <span> merupakan sebuah <div> yang digunakan dalam sebuah baris teks yang dapat diwadahi oleh paragraf, list, heading atau lainnya. 
+    Mari kita ambil contoh. Tidak ada elemen pada inline element yang memiliki arti untuk menampung sebuah informasi telepon. Maka dari itu, tiap item pada nomor telepon bisa ditampung dalam elemen <span> dan diklasifikasikan (menggunakan atribut class) dengan nilai “phone”. -->
+    <ul>
+        <li>Riki : <span class="phone">08123xxx</span></li>
+        <li>Widi : <span class="phone">08222xxx</span></li>
+        <li>Toro : <span class="phone">08333xxx</span></li>
+    </ul>
+    <p>Untuk membuat sebuah bakso kita membutuhkan <span class="merah">daging sapi, tepung tapioka, bawang merah dan bawang putih</span> kemudian satu sendok makan <span class="merah">gula</span> dan <span class="merah">garam.</span></p>
+</body>
+</html>
