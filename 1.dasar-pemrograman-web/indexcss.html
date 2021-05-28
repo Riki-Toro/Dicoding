@@ -48,5 +48,19 @@
 
     Seperti contoh yang beberapa kali telah Anda lihat di atas, CSS comments ditempatkan pada elemen <style> dengan cara penulisan dimulai dengan /* dan diakhiri */  -->
 
+    <!-- Inheritance -->
+    <!-- Styling HTML bersifat inheritance yang artinya dapat mewarisi properti style “tertentu” pada elemen yang ada di dalamnya. Contohnya pada rules yang kita tuliskan untuk elemen <body> akan diterapkan pada seluruh elemen yang ada di dalam elemennya (body). Contoh lainnya, pada rules yang diterapkan pada elemen <footer> dengan properti color yang bernilai white, akan diterapkan pada seluruh elemen yang ada di dalam <footer>. Hal ini menjadi alasan mengapa memahami struktur dokumen itu penting. -->
+
+    <!-- Group Selector -->
+    <!-- Jika kita menerapkan rule yang sama pada beberapa selector yang berbeda, di CSS kita dapat menggabungkan selector tersebut sehingga dapat meminimalisir penulisan kode yang berulang. kita dapat menuliskan dua selector sekaligus dalam satu struktur rule. Gunakan tanda koma (,) untuk memisahkan tiap selector-nya. -->
+
+    <!-- Rule Order -->
+    <!-- Sesuai dengan namanya, cascading artinya “mengalir.” Demikian halnya dengan alur kerja CSS dalam membaca kode yang mengalir dari atas ke bawah. Karena itu kita harus memperhatikan urutan dalam penulisan rules, terutama saat terjadi sebuah konflik.
+
+    Konflik dapat terjadi karena kita dapat menerapkan beberapa styling pada satu dokumen HTML. Contohnya, apa yang seharusnya ditampilkan pada browser ketika eksternal css mengharuskan elemen <p> menampilkan warna merah, tetapi pada embedded css <p> harus menampilkan warna biru? Kembali pada alur kerja CSS yang membaca dari atas ke bawah, sehingga warna yang akan diterapkan adalah warna yang paling akhir didefinisikan.  -->
+    
+    <!-- Tetapi kita bisa membuat sebuah property styling agar dianggap penting oleh browser untuk diterapkan dan tidak memperhatikan urutan. Kita bisa menambahkan keyword !important pada akhir nilai propertinya.  -->
+
+    
 </body>
 </html>
