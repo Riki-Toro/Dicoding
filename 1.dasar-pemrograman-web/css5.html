@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+</head>
+<body>
+    <!-- Numeric Value -->
+    <!-- Cara yang paling banyak digunakan dalam menetapkan warna adalah  dengan menggunakan numeric value. Apa pasal? Dengan menggunakannya kita dapat menentukan warna yang kita inginkan dengan tepat. Terlebih dengan bantuan color picker maka kita tak perlu repot memahami dan mencari nilai kode warna secara manual. -->
+
+    <!-- 
+        /* Warna hijau menggunakan format RGB */
+        color: rgb(78,231,23);
+        
+        /* Warna hijau Menggunakan format HEX */
+        color: #4ee717;
+        
+        /* Warna hijau menggunakan format HSL (hanya di CSS3)*/
+        color: hsl(104, 82%, 50%);
+    -->
+
+    <!-- Kode tersebut merupakan nilai warna hijau yang dituliskan dalam beberapa format. Dari kode tersebut kita tahu tidak hanya format RGB yang dapat digunakan dalam menetapkan warna. Selain RGB ada juga format Hex dan HSL (Hue, Saturation, Light). -->
+
+
+    <!-- Predefined Color Name -->
+    <!-- 
+        Menentukan warna bisa juga dilakukan selain dengan menggunakan format angka. Kita bisa menggunakan sebuah kata seperti blue, yellow, red dan lainnya
+
+        color: black;
+        color: white;
+        color: blue;
+
+        Dengan menggunakan kata tentu kita dapat lebih mudah dan cepat dalam menentukan warna, tetapi mungkin hanya warna dasar yang sudah kita hafal. Faktanya, varian warna ada banyak jumlahnya! Hampir seluruh browser saat ini mendukung 140 nama warna, wow! Kita dapat melihat apa saja warna yang tersedia pada tautan berikut: 
+        https://www.w3schools.com/colors/colors_names.asp.
+    -->
+
+
+    <!-- Opacity -->
+    <!--  
+        CSS3 mengenalkan properti opacity yang dapat menspesifikasikan nilai transparan pada elemen HTML. Nilai dari properti opacity merupakan angka desimal antara 0.0 hingga 1.0, jika kita menetapkan nilainya 0.5 itu berarti 50% transparan.
+
+        div#opacity {
+            background-color: red;
+            opacity: 0.5;
+        }
+
+        Selain pada elemen, menetapkan opacity juga dapat kita lakukan pada warna. Untuk melakukannya, gunakan format rgba dan hsla, di mana format ini merupakan format rgb ditambahkan nilai alpha.
+
+        p {
+            color: rgba(78,231,23, 0.5);
+            color: hsla(104, 82%, 50%, 0.5);
+        }
+    -->
+
+
+
+    <!-- Text Color (Foreground Color) -->
+    <!--  
+        Pada sub-modul Pendahuluan Styling kita sudah mencoba bagaimana mudahnya mengganti warna pada teks yang ditampilkan. Sejujurnya tidak ada lagi yang perlu kita bahas disini. Kita dapat dengan mudahnya mengganti warna teks dengan properti color.
+
+        Nilai dari properti color dapat berupa predefined color name atau sebuah numeric value dengan menggunakan RGB, RGBA, HEX, HSL, ataupun HSLA. Berikut sebagai contoh, seluruh elemen <p> akan diberi warna abu-abu (gray) dengan menggunakan beberapa cara yang ada:
+
+            p { color: gray; }
+            p { color: #666666; }
+            p { color: #666; }
+            p { color: rgb(102,102,102); }
+
+        Properti color dapat diaplikasikan ke seluruh elemen yang ada pada HTML dan nilainya dapat diturunkan pada elemen turunannya. Jadi kita bisa mengubah warna teks pada seluruh dokumen HTML dengan menerapkan properti color pada elemen <body>, seperti ini:
+
+            body {
+                color: steelblue;
+            }
+    -->
+
+
+    <!-- Background Color -->
+    <!--  
+        CSS memperlakukan setiap elemen HTML seperti berada pada sebuah kotak (kita akan tahu lebih tentang ini pada pembahasan box model). Properti background-color dapat mengatur warna untuk background dari kotak tersebut. 
+
+        Sama seperti text color, kita dapat menspesifikasikan warna yang dipilih dengan numeric values atau dengan predefined color name. Properti background-color akan bernilai transparan jika tidak kita tetapkan.
+
+        Kebanyakan browser menetapkan nilai putih sebagai standar untuk nilai background-color, tetapi nilai standar tersebut dapat pengguna ubah melalui pengaturan browser-nya. Maka untuk memastikan website kita memiliki tampilan background putih, kita dapat terapkan nilai background-color: white; pada elemen <body>.
+
+        Biasanya kita juga menerapkan padding saat menetapkan background-color guna memberi jarak antara konten dan pinggiran kotak elemen.
+
+            <!doctype html>
+            <html lang="en">
+            <head>
+                <style>
+                    body {
+                        font-family: sans-serif;
+                    }
+                
+                    div#content {
+                        background-color: rgb(200, 200, 200);
+                        padding: 20px 15px;
+                    }
+                
+                    #content > h2 {
+                        background-color: #4c5450;
+                        padding: 15px;
+                        color: white;
+                    }
+                
+                    #content > h3 {
+                        background-color: #60d0a8;
+                        padding: 15px;
+                        color: white;
+                    }
+                
+                    #content > p {
+                        background-color: hsl(56, 62%, 85%);
+                        padding: 20px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div id="content">
+                    <h2>Lorem Ipsum</h2>
+                    <h3>Dolor sit amet lorem ipsum</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus officiis perspiciatis quidem ratione? Distinctio eos ex expedita iusto necessitatibus velit, veritatis. Aliquid, debitis dignissimos in iusto magnam nulla sed tempora.</p>
+                </div>
+            </body>
+            </html>
+    -->
+</body>
+</html>
