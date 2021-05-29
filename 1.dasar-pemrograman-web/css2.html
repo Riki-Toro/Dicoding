@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combinators</title>
+</head>
+<body>
+    <!-- Ada empat kombinator yang dapat kita gunakan yaitu: Adjacent Sibling Selector, General Sibling Selector, Child Selector, dan Descendant Selector. -->
+
+    <h1>Adjacent Sibling Selector (+)</h1>
+    <!-- Adjacent Sibling Selector menggabungkan dua buah basic selector dengan menggunakan tanda + di antara keduanya. Contohnya seperti ini: -->
+
+    <!-- img + p {
+        color: green;
+        } -->
+
+    <!-- Adjacent Sibling Selector terdiri dari dua buah target elemen, namun hanya elemen kedua yang menerapkan rule selama elemen tersebut dituliskan langsung setelah elemen pertama pada berkas HTML. Selain itu kedua elemen tersebut harus berada di dalam induk elemen yang sama. Pada contoh di atas rule akan diterapkan pada elemen paragraf yang berada tepat setelah elemen gambar. Berikut contoh penerapannya: -->
+
+
+    <h1>General Sibling Selector (~)</h1>
+    <!-- Mirip seperti Adjacent Sibling Selector namun rules akan diterapkan pada seluruh elemen kedua yang berada setelah elemen pertama. Dengan catatan, induknya sama, walaupun posisi dari elemen kedua tidak berada tepat setelahnya. General Sibling Selector menggunakan tanda ~ untuk menetapkan elemenya. Contohnya seperti berikut: -->
+
+    <!-- img ~ p {
+        color: green;
+    } -->
+
+    <!-- Rule di atas akan diterapkan pada elemen paragraf yang berada setelah elemen img selama masih di dalam induk yang sama. -->
+
+    
+    <h1>Child Selector (>)</h1>
+    <!-- Child Selector menggabungkan dua buah basic selector dengan menggunakan tanda greater than (>) di antara basic selector-nya. Contohnya sebagai berikut: -->
+
+    <!-- div > p {
+        background-color: yellow;
+    } -->
+
+    <!-- Pada contoh di atas, rule akan diterapkan pada seluruh elemen paragraf yang berada di dalam elemen div secara langsung. Dalam arti lain, elemen paragraf merupakan anak dari elemen div secara langsung. -->
+
+
+    <h1>Descendant Selector (space)</h1>
+    <!-- Descendant Selector mirip seperti child selector namun hierarkinya lebih luas, karena rule akan diterapkan pada seluruh elemen yang menjadi turunannya walaupun secara tidak langsung. Basic selector pertama yang dituliskan pada selector ini menjadi induknya dan basic selector yang kedua merupakan elemen yang akan menerapkan rule. Selector ini menggunakan spasi dalam menggabungkan dua basic selector. Contohnya sebagai berikut: -->
+
+    <!-- div p {
+        background-color: yellow;
+    } -->
+
+    <!-- Pada contoh di atas rule akan diterapkan pada seluruh elemen paragraf yang merupakan turunan dari elemen div. -->
+
+
+    <h1>Pseudo Selector</h1>
+    <!-- Selain beberapa selector yang sudah kita pelajari, CSS masih memiliki dua selector lagi yang dapat kita manfaatkan membantu menyeleksi elemen dalam menerapkan sebuah rule, yakni Pseudo-class dan Pseudo-element.
+
+    Sebelum menjelaskan lebih detail tentang kedua selector tersebut, perlu kita ketahui pseudo selector berbeda dari selector yang sudah dibahas sebelumnya, selector ini menargetkan elemen pada bagian yang “tidak terlihat” seperti sifat pada elemen, sehingga untuk menetapkannya, kita tidak bisa menggunakan selector biasa. Salah satu contoh yang paling sering kita terapkan adalah :hover, Pseudo Selector tersebut kita gunakan untuk menetapkan rule ketika cursor diarahkan ke target elemen. -->
+
+    <!-- a:hover {
+        color: blue;
+    } -->
+
+    <!-- Contoh kode di atas merupakan salah satu pseudo-class selector dimana elemen anchor akan menerapkan warna biru ketika kursor diarahkan pada elemen tersebut. -->
+
+
+    <h1>Pseudo-class Selector</h1>
+    <!-- Pseudo-class merupakan sebuah class “semu” yang sebenarnya ada pada tiap elemen HTML. Pada contoh sebelumnya kita sudah mengetahui salah satu pseudo-class selector, dengan menggunakan selector ini kita dapat memilih elemen berdasarkan class yang tidak nampak pada dokumen. Kita bisa menetapkan rule hanya ketika sebuah tautan telah dikunjungi (:visited) atau ketika sebuah elemen diarahkan dengan kursor (:hover).
+
+    Untuk menggunakan pseudo-class kita gunakan tanda titik dua (:) pada basic selector kemudian diikuti dengan pseudo-class nya. Berikut contoh penerapan beberapa pseudo-class pada sebuah elemen anchor: -->
+
+    <!-- /* rule akan diterapkan pada sebuah tautan yang belum pernah dikunjungi */
+    a:link {
+        color: red;
+    }
+    
+    /* rule akan diterapkan pada sebuah tautan yang sudah pernah dikunjungi */
+    a:visited {
+        color: green;
+    }
+    
+    /* rule akan diterapkan pada sebuah tautan ketika diarahkan dengan kursor */
+    a:hover {
+        color: pink;
+    }
+    
+    /* rule akan diterapkan pada sebuah tautan ketika ditekan */
+    a:active {
+        color:orange;
+    } -->
+
+    <!-- Tidak hanya yang dicontohkan di atas, ada banyak sekali class semu yang menjadi standar pseudo-classes dalam CSS.  -->
+
+
+    <h1>Pseudo-elemen Selector</h1>
+    <!-- Sama seperti pseudo-class, pseudo-elemen merupakan sebuah elemen “semu” yang sebenarnya ada tetapi tidak tampak secara tertulis pada berkas HTML. Selector ini biasa digunakan ketika kita ingin menambahkan sebuah konten tepat sebelum dan setelah sebuah elemen paragraf. Alhasil kita tidak perlu menuliskan struktur elemen tersebut pada berkas HTML. Cukup manfaatkan pseudo-elemen ::before dan ::after kemudian tuliskan konten tersebut cukup pada CSS. Contohnya kita ingin menambahkan tanda kutip sebelum dan sesudah elemen blockquote. Seperti ini cara menuliskannya: -->
+
+    <!-- blockquote::before,
+    blockquote::after {
+        content: '"';
+        font-size: 24px;
+        font-style: italic;
+        font-weight: bold;
+    } -->
+
+    <!-- Dengan menuliskan rule tersebut, elemen <blockquote> memiliki tanda kutip pada awal dan akhir elemennya. -->
+
+    <!-- Untuk menggunakan pseudo-elemen kita gunakan dua buah tanda titik dua (::) kemudian diikuti dengan pseudo-elemen nya. Sebenarnya kita bisa menggunakan satu buah tanda tanda titik dua (:) namun kita perlu membedakannya dengan pseudo-class. Karena itulah baiknya ketika menggunakan pseudo-elemen, gunakanlah dua buah titik dua (::).
+
+    Pseudo-element tidak hanya ::before dan ::after. Dengan pseudo-elemen kita juga dapat menentukan rule pada awal karakter konten elemen. -->
+
+
+</body>
+</html>
