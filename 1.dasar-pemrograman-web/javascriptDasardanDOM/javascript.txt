@@ -1,0 +1,72 @@
+<!-- Perkenalan JavaScript And DOM -->
+
+<!--  
+    Pada sub-modul ini kita akan banyak berkenalan dengan JavaScript. Berbeda dengan HTML dan CSS, sekarang kita berada di wilayah pemrograman yang benar-benar memanfaatkan logic dalam penulisan kodenya. Pengembangan website tidak hanya mengandalkan seni untuk membangun tampilan yang cantik, melainkan juga memerlukan bahasa pemrograman agar meningkatkan fungsionalitas dan membuat website lebih interaktif.
+
+    Kita akan memulainya dengan memahami apa sebenarnya itu JavaScript, mencoba menulis dan menggunakannya pada sebuah website. Selanjutnya kita akan mengenal variabel, fungsi operator, perulangan dan hal lainnya. Kita juga akan belajar bagaimana memanipulasi elemen menggunakan syntax JavaScript, menampilkan alert dan mengetahui fungsi - fungsi dari Web API yang ada seperti document, window dan sebagainya.
+
+    Pada akhir sub-modul ini kita akan menerapkan apa yang sudah kita pelajari pada project Web Kalkulator sehingga kalkulator dapat berfungsi sesuai yang kita harapkan.
+-->
+
+
+<!-- Apa itu JavaScript? -->
+<!--  
+    JavaScript merupakan bahasa pemrograman client-side sehingga seluruh prosesnya berjalan pada sisi pengguna bukan server. JavaScript diperlukan pada pengembangan website ketika kita membutuhkan suatu interaksi dari pengguna. Sesungguhnya website hanya menampilkan konten yang statis jika hanya menggunakan HTML dan CSS.
+
+    Karena diolah pada sisi client, JavaScript sangat bergantung pada pengaturan dan kemampuan browser ketika melakukan sebuah proses (compiling atau rendering pada DOM). Bahkan pengguna dapat sepenuhnya tidak mengizinkan JavaScript berjalan pada browser dengan menonaktifkan dukungan JavaScript pada browser.
+
+    Meskipun memiliki nama JavaScript bahasa pemrograman ini sama sekali tidak ada hubungannya dengan bahasa pemrograman Java. Sebenarnya pada tahun 1995 Netscape melahirkan bahasa pemrograman ini dengan nama “LiveScript”, namun pada saat itu bahasa pemrograman Java sedang populer. Untuk memanfaatkan kepopulerannya, namanya pun diubah menjadi “JavaScript” dan benar bahasa pemrograman ini pun akhirnya memiliki popularitas yang tidak kalah dari Java.
+
+    Setelah diadopsi di luar Netscape, JavaScript distandarisasi oleh European Computer Manufacturer’s Association (ECMA) itulah sebabnya terkadang ada yang menyebutnya dengan ECMAScript.
+
+    Terdapat beberapa versi dari JavaScript. Pada tahun 2000 - 2010, ECMAScript 3 merupakan versi yang banyak digunakan ketika JavaScript sedang mendominasi. Selama waktu tersebut, ECMAScript 4 sedang dalam proses pengembangan dengan harapan akan memberikan improvisasi yang cukup signifikan, namun ambisi tersebut tidak berjalan mulus sehingga pada tahun 2008 pengembangan ECMAScript 4 ditinggalkan. 
+
+    Walaupun begitu, ini bukan akhir dari JavaScript. Pengembangan digantikan dengan ECMAScript 5 dengan mengurangi ambisinya dan hanya melakukan perbaikan pada hal yang tidak jadi kontroversi. Pembaharuan tersebut berhasil dan akhirnya ECMAScript 5 rilis pada tahun 2009.
+
+    Lalu pada tahun 2015 ECMAScript 6 rilis dengan membawa perubahan yang cukup besar termasuk ide - ide yang sudah direncanakan untuk versi 4. Mulai dari itu tiap tahun JavaScript melakukan update bersifat minor.
+-->
+
+
+<!-- Menuliskan Syntax Javascript pada HTML -->
+
+<!--  
+    Sama seperti styling, untuk menggunakan JavaScript pada website kita bisa menerapkannya melalui atribut HTML, embed script, atau menggunakan file external.
+
+    Atribut HTML
+        Untuk menuliskan JavaScript menggunakan atribut, kita bisa menerapkannya pada atribut event seperti “onclick”, sehingga JavaScript akan dieksekusi ketika elemen tersebut ditekan oleh kursor.
+
+        Ada banyak sekali atribut event yang dapat digunakan untuk menuliskan script di dalamnya. Kita bisa lihat apa saja atributnya pada tautan berikut: https://www.w3schools.com/tags/ref_eventattributes.asp.
+
+        Tentunya atribut tersebut kita gunakan sesuai dengan kebutuhan kita. onclick merupakan salah satu atribut yang common atau banyak digunakan karena interaksi tersebut sering pengguna lakukan.
+
+    Embedded Script
+        JavaScript juga dapat dituliskan dengan menanamnya (embedding) pada berkas HTML dengan menggunakan elemen <script>.
+
+        Elemen <script> dapat diletakan di dalam elemen <head> atau <body>. Akan tetapi jika kita menerapkan banyak script pada elemen <head> proses memuat halaman akan menjadi lambat, karena HTML akan membaca kode dari atas ke bawah.
+
+    External Script
+        Metode lainnya yaitu dengan menggunakan berkas external yang berekstensi .js. Di dalam berkas tersebutlah seluruh JavaScript dituliskan. Keuntungan menggunakan metode ini adalah script dapat diterapkan pada berbagai berkas HTML tanpa menuliskan ulang scriptnya (keuntungan yang sama juga ketika kita menggunakan external css).
+
+        Untuk menghubungkan external script dengan berkas HTML, kita gunakan elemen <script> lalu tambahkan atribut src dengan nilai alamat berkas .js yang digunakan.
+
+        Sama seperti Embedded Script kita bisa tuliskan elemen script tersebut di dalam elemen <header> namun direkomendasikan untuk disimpan di dalam elemen <body> sebelum tag penutup </body>. Teknik inilah yang akan kita gunakan dalam penerapan JavaScript pada project kalkulator.
+-->
+
+
+
+<!-- Membuat Berkas JavaScript Pertama -->
+<!--  
+    Setelah mengetahui beberapa metode untuk menuliskan JavaScript pada HTML, mari kita terapkan salah satu metode yang sudah kita ketahui. Kita akan menerapkan metode external script dengan membuat berkas JavaScript yang nantinya akan digunakan untuk menuliskan script dari project kalkulator yang sudah kita buat.
+
+    Buka project kalkulator yang sudah kita buat. Di dalam folder assets, buat berkas baru dengan memberikan nama “kalkulator.js”. Ingat berkas ini harus diakhiri dengan ekstensi .js. Ekstensi tersebut menandakan bahwa berkas ini merupakan berkas JavaScript.
+
+    Jangan khawatir jika Anda belum memahami maksud dari kode tersebut, nanti akan dijelaskan apa yang sudah kita tuliskan.
+
+    Simpan perubahan pada berkas JavaScript tersebut kemudian buka index.html dan tambahkan elemen <script> dengan atribut src bernilai alamat berkas kalkulator.js. Tuliskan elemen <script> tepat sebelum closing tag </body>.
+
+    Simpan perubahan pada index.html kemudian kita coba buka halaman tersebut dengan menggunakan browser. Tidak ada perubahan apa apa bukan? Yups, benar. Tetapi ketika kita mencoba membuka console pada DevTools kita akan mendapati pesan yang dituliskan menggunakan JavaScript. Silakan buka console pada DevTools dengan menekan ctrl+shift+i.
+
+    Script yang kita tuliskan sebelumnya berfungsi untuk menampilkan sebuah data baik itu teks (string) atau variabel, objek, fungsi dsb. Pada console website  console.log() biasanya digunakan sebagai sarana debugging sederhana untuk mengetahui nilai dari suatu variabel.
+
+    Mungkin ini akan membuat Anda bingung jika tidak memiliki dasar pemrograman. Tak apa, yang terpenting ketika pesan ini muncul pada console, itu menandakan kita sudah berhasil menerapkan JavaScript pada website kita.
+-->
