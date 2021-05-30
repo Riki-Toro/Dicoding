@@ -35,7 +35,51 @@
 
         Kemudian di dalam elemen .display tersebut tambahkan elemen <h1></h1> sebagai teks yang berfungsi untuk menampilkan angka pada layar tersebut.
 
-        
+    -->
+
+
+    <!-- Menerapkan Flexbox pada Halaman Kalkulator -->
+    <!--  
+        Setelah kita selesai membuat struktur HTML selanjutnya kita percantik elemen - elemen tersebut dengan styling.
+
+        Buatlah folder baru di dalam project WebCalculator dan berikan nama “assets”. Kemudian di dalam folder tersebut buatlah berkas css dan berikan nama “style.css”. Sehingga struktur project kita saat ini akan tampak seperti ini:
+
+        Untuk memulai menuliskan styling, kita buka berkas style.css. Kita mulai dengan membuat seluruh elemen menerapkan nilai border-box pada properti box-sizing. Tuliskan rule berikut pada berkas style.css.
+
+        Lalu kita tetapkan font family pada seluruh teks yang ada di dalam body dengan menggunakan sans-serif.
+
+        Selanjutnya kita mulai terapkan flexbox pada .flex-container-column dengan memberikan nilai flex pada properti display. Jangan lupa tetapkan properti flex-direction: column dan properti pendukung lainnya. Terapkan juga properti display: flex pada .flex-container-row. Namun kita tidak harus menerapkan flex-direction pada elemen ini, karena nilai row sudah menjadi default pada flex-container.
+
+        Mari kita lanjut atur styling untuk tombol kalkulatornya. Pada tiap .button kita akan beri nilai flex-basis sebesar 25% beserta properti pendukung lainnya sehingga tombol kalkulator akan memenuhi seluruh ruang kosong pada container. 
+
+        Sekarang sudah terlihat tampilan kalkulator pada umumnya, bukan? Tombol kalkulator akan memenuhi seluruh ruang kosong pada container terkecuali tombol yang terdapat pada flex-container-row terakhir karena jumlah button nya hanya tiga buah.
+
+        Agar kontainer terisi penuh, kita buat tombol equals (=) memiliki nilai flex-basis: 50% sehingga tombol tersebut memiliki besar 2 kali dibandingkan dengan tombol yang lainnya. Tambahkan nilai class “double” pada tombol tersebut. Kemudian tetapkan nilai flex-basis: 50%; pada .double
+    -->
+
+
+
+    <!-- Mempercantik tampilan kalkulator -->
+    <!--  
+        Setelah selesai dengan penerapan flexbox untuk tombol kalkulator, selanjutnya kita akan mempercantik bagian lain pada kalkulator. Pada bagian kali ini sebenarnya Anda bisa bebas berekspresi dalam menerapkan styling. Anda bisa gunakan kemampuan seni Anda ditambah pengetahuan CSS yang sudah Anda kuasai. Yang pertama kita akan mempercantik display yang ada pada kalkulator dengan menambahkan background-color, padding, border, dan lain sebagainya. Selanjutnya kita akan membuat tombol kalkulator yang merupakan sebuah operator, fungsi negative dan fungsi equals berwarna orange. Dengan begitu kita perlu menetapkan nilai background-color pada elemen yang memiliki class .operator, .negative, dan .equals.
+
+        Lalu kita akan membuat efek card pada calculator agar kalkulator tampak seperti berada pada sebuah kartu yang terdapat bayangan pada tepiannya. Hal ini sudah pernah kita lakukan pada latihan project halaman profile, masih ingat kan?
+
+        Kemudian terapkan dengan menambahkan class card pada flex-container column. Sehingga sekarang kalkulator akan tampak seolah - olah berada di dalam kartu. Terakhir, kita juga bisa tambahkan sebuah efek lain pada tombol dengan memanfaatkan pseudo-class :hover. Kita buat efek teks menjadi lebih tebal ketika kursor diarahkan pada salah satu tombol. Tambahkan rule dengan selector .button:hover dengan nilai properties berikut. Sekarang teks pada tombol akan menjadi tebal ketika terdapat kursor yang diarahkan.
+    -->
+
+
+    <!-- Responsibilitas pada tampilan mobile -->
+    <!--  
+        Sejauh ini layout kalkulator yang kita buat sudah cukup baik, namun apakah sudah cukup baik juga ketika tampil pada device mobile? Untuk melihatnya, kita bisa coba dengan menggunakan Dev Tools pada browser kita.
+
+        Gambar di atas merupakan kalkulator yang kita buat di akses melalui device Google Pixel 2 XL. Tampilan kalkulator sudah responsif namun, teks tombol masih terlalu kecil tampilannya. Aspek aksesibilitas penggunanya, kurang.
+
+        Agar tampilan lebih optimal pada viewport mobile devices, pertama kita tambahkan meta tag viewport pada index.html agar tampilan dapat menyesuaikan dengan beberapa layar yang berbeda.
+
+        Dengan begitu ukuran teks dan box dimension akan disesuaikan pada mobile devices. Namun tampilan tombol akan overflow karena padding pada tiap tombol yang kita tentukan terlalu besar.
+
+        Pada situasi ini kita dapat menggunakan @media query untuk menetapkan nilai padding yang pas ketika di akses pada mobile device. Sekarang tampilan tombol akan menerapkan nilai padding yang lebih kecil ketika diakses menggunakan ukuran layar dengan lebar di bawah 513px.
     -->
 </body>
 </html>
