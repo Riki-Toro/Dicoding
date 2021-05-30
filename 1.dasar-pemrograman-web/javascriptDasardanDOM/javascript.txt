@@ -70,3 +70,113 @@
 
     Mungkin ini akan membuat Anda bingung jika tidak memiliki dasar pemrograman. Tak apa, yang terpenting ketika pesan ini muncul pada console, itu menandakan kita sudah berhasil menerapkan JavaScript pada website kita.
 -->
+
+
+
+Dasar JavaScript
+
+Wajar jika kita menemukan banyak buku JavaScript dengan halaman super tebal karena memang banyak sekali bahasan seputar JavaScript ini. Tetapi pada materi ini kita rangkum menjadi beberapa pembahasan penting yang Anda perlu ketahui. Tujuannya agar Anda familier dengan dasar - dasar JavaScript. Dengan memahami dasar-dasar JavaScript, nantinya diharapkan kita dapat terus berlatih sehingga terbiasa dengan penggunaan sintaksnya.
+
+Ketika mempelajari bahasa pemrograman apapun pertama kita harus memahami logika yang mendasari dari penulisan script, meskipun secara sintaksis setiap bahasa pemrograman berbeda namun secara umum logikanya akan sama.
+
+Maka dari itu hindari belajar dengan cara menghafal seluruh struktur kode yang dituliskan, tapi belajarlah dengan memahami tujuan dari kode yang dituliskan. Dengan memahami kode-kode yang ada dan dipadukan logika maka kita akan mudah dalam menghadapi suatu masalah - masalah yang ada ketika mengembangkan suatu aplikasi/web.
+
+Pada akhir materi ini, kita akan mengenal tentang variabel, array, operator komparasi, if else statement dan masih banyak lagi. Sudah siap belajar?
+
+Mungkin selama pembelajaran dasar JavaScript kita perlu mencoba coba kode yang sedang dipelajari, kami menyediakan interaktif kode yang bisa Anda jalankan dan ubah secara langsung. Selain itu Anda bisa gunakan tools online seperti glot.io ketika menjalankan kodenya. Atau Anda juga bisa mencobanya langsung pada console browser melalui DevTools. Silakan baca artikel berikut sebelum melanjutkan pada materi selanjutnya:
+
+Glot.io: Code Editor dan Compiler Online Terbaik
+Get Started With Running JavaScript In The Console
+
+
+
+Statement
+
+Sebuah script dibangun dari serangkaian statement. Statement merupakan sebuah perintah yang bertujuan untuk memberitahu apa yang harus dilakukan browser. Contohnya kode berikut merupakan statement yang menyatakan bahwa browser harus menampilkan pesan (alert) dengan kalimat “Terima kasih”.
+
+    alert("Terimakasih.");
+
+Pada akhir kode terdapat tanda titik koma (;) yang digunakan untuk menandai akhir dari sebuah statement. Meskipun sebenarnya pada JavaScript kita dapat menghiraukan penulisan titik koma (;) pada akhir statement, tetapi dalam best practice nya kita biasakan akhiri statement dengan titik koma (;).
+
+
+
+Comment
+
+Pada JavaScript juga terdapat fitur komentar. Seluruh teks yang dituliskan pada tanda komentar akan diabaikan (tidak dianggap ada) atau tidak akan dieksekusi. Dalam komentar ini kita bisa menuliskan teks untuk mengingatkan atau menjelaskan kode yang kita tuliskan. Hal ini bisa saja berguna jika kode yang kita tuliskan akan diubah oleh orang lain. Tapi ingat, jangan terlalu berupaya dalam menuliskan komentar yang sebenarnya tidak perlu dituliskan.
+
+Terdapat dua metode ketika memberikan komentar. Untuk memberikan komentar pada satu baris saja, kita bisa gunakan tanda dua buah garis miring (//) pada awal barisnya.
+
+    // ini merupakan komentar satu baris komentar
+    // alert("Terima kasih")
+
+Sedangkan untuk menggunakan komentar lebih dari satu baris (multiple lines comment) kita bisa gunakan tanda /* sebagai pembuka komentar dan tanda */ sebagai penutup komentar. Teks apapun yang berada di antara tanda tersebut akan dijadikan komentar dan tidak akan dieksekusi.
+
+    /* Ini merupakan komentar dengan lebih dari satu baris
+    Teks apapun yang berada disini akan dijadikan komentar.
+    Ketika menggunakan ini, jangan lupa untuk menutupnya.
+    */
+
+
+
+Variabel
+
+Ketika mendengar variabel apakah Anda teringat tentang pelajaran matematika? Yups, variabel di sini memiliki konsep yang sama. Variabel umumnya digunakan untuk menyimpan informasi atau nilai yang akan dikelola di dalam sebuah program. Sebelum ECMAScript 2015 (ES6) untuk membuat variabel pada JavaScript kita gunakan keyword var.
+
+    var firstName = "Harry";
+
+Tanda sama dengan (=) digunakan untuk menginisialisasikan nilai pada variabel, sehingga sekarang variabel firstName memiliki nilai teks “Harry”. Kita bisa menggunakan apapun yang kita mau untuk menamai sebuah variabel, tetapi pastikan penamaannya masih masuk akal dengan konteksnya agar berikutnya kode mudah di-maintenance. Sebaiknya hindari penamaan variabel dengan istilah umum seperti “data”, Gunakanlah penamaan variabel yang dapat mendeskripsikan nilai dari variabel itu sendiri. Berikut beberapa aturan dalam penamaan variabel yang perlu Anda ketahui:
+
+    Harus dimulai dengan huruf atau underscore (_).
+    Dapat terdiri dari huruf, angka, dan underscore (_) dengan berbagai kombinasi.
+    Tidak dapat mengandung spasi (white space), jika penamaan variabel lebih dari dua kata maka tuliskan secara camelCase. Contoh firstName, lastName, catName, dll.
+    Tidak dapat mengandung karakter spesial (! . , / \ + * = dll.)
+
+Nilai variabel yang diinisialisasi menggunakan var dapat diubah kembali nilainya, contoh:
+
+
+        var firstName = "Harry";
+        console.log(firstName);
+
+        firstName = "Ron";
+        console.log(firstName);
+
+        /* output: 
+        Harry
+        Ron
+        */
+
+Sejak ECMAScript 2015 (ES6) selain var, menginisialisasikan variabel dapat menggunakan let dan const. ES6 melakukan improvisasi pada deklarasi variabel karena menggunakan var terdapat beberapa hal yang kontroversial, salah satunya hoisting. Apa itu hoisting? sesuai artinya “Mengangkat” variabel yang dideklarasikan menggunakan var ini dapat diinisialisasi terlebih dahulu sebelum dideklarasikan, Contoh:
+
+        x = 100;
+        var x;
+        console.log(x);
+
+        /* output: 100 */
+             
+Ini dikarenakan proses hoisting, sebenarnya di belakang layar deklarasi variabel x diangkat ke atas sehingga kode yang tampak seperti ini:
+
+        var x;
+        x = 100;
+        console.log(x);
+
+        /* output: 100 */
+            
+Hoisting menjadi kontroversial karena tidak sedikit developer yang dibuat bingung akan hal ini. Masalah ini sudah terselesaikan jika kita menggunakan let dalam mendeklarasikan variabel.
+
+        y = 100;
+        let y;
+        console.log(y);
+
+        /* ReferenceError: Cannot access 'y' before initialization */
+             
+Kemudian const digunakan untuk mendeklarasikan sebuah variabel yang sifatnya immutable atau tidak perlu diinisialisasi kembali. Jika kita menginisialisasi kembali nilai variabel yang menggunakan const, maka akan mendapati eror “TypeError: Assignment to constant variable.”
+
+        const z = 100;
+        console.log(z);
+        ​
+        z = 200;
+        console.log(z)
+        ​
+        /* TypeError: Assignment to constant variable. */
+         
+Dengan begitu sebaiknya kita gunakan let atau const ketika mendeklarasikan variabel daripada menggunakan var.
