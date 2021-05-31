@@ -1,0 +1,11 @@
+Perkenalan ke Web Storage
+
+Kita sudah sampai di penghujung materi dari kelas ini. Selamat bagi Anda yang sudah menguasai dasar dari tiga pilar pembentuk website. Pada materi kali ini  kita akan berkenalan mengenai salah satu web API yang menarik untuk diterapkan pada proyek kalkulator, yakni Web Storage.
+
+
+Apa itu Web Storage?
+Web storage adalah salah satu Web API yang dapat menyimpan data secara lokal pada sisi client. Berbeda dengan objek atau array, data yang disimpan pada objek atau array JavaScript bersifat sementara, dan akan hilang jika terjadi reload atau pergantian URL pada browser. Sedangkan data yang disimpan pada Web Storage akan bertahan lebih lama karena data akan disimpan pada storage browser.
+
+Sebelum HTML5, kita melakukan hal ini dengan menggunakan cookies, namun penyimpanan cookies terbatas. Dengan hadirnya Web Storage kita dapat menampung data lebih besar dan tentunya lebih aman. 
+
+Data yang disimpan web storage tersedia berdasarkan domain. Artinya, data pada suatu domain web hanya dapat diakses oleh domainnya itu sendiri. Web storage dapat menampung sebesar 10MB untuk satu domain.
