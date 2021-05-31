@@ -17,11 +17,11 @@ Web API menyediakan dua tipe Web Storage untuk kita gunakan, yakni sessionStorag
 
 Sebelum menggunakan Web Storage baik sessionStorage atau localStorage, kita perlu memastikan browser support terhadap fitur tersebut, dengan cara:
 
-if (typeof(Storage) !== "undefined") {
-  // Browser mendukung sessionStorage/localStorage.
-} else {
-  // Browser tidak mendukung sessionStorage/LocalStorage
-}
+    if (typeof(Storage) !== "undefined") {
+    // Browser mendukung sessionStorage/localStorage.
+    } else {
+    // Browser tidak mendukung sessionStorage/LocalStorage
+    }
 Seharusnya browser yang ada pada saat ini sudah mendukung kedua fitur tersebut. Google Chrome dan Mozilla Firefox tentu memilikinya.
 
 Pada sessionStorage atau localStorage data yang disimpan adalah nilai primitif seperti number, boolean, atau string. Namun kita juga dapat menyimpan data berbentuk objek dengan mengubahnya dalam bentuk string, begitu pula sebaliknya ketika kita ingin menggunakan datanya kembali.
@@ -74,7 +74,6 @@ Berikut contoh penerapan dari session storage:
 </body>
  
 </html>
-20191206214918049c9ee8ea00b53b8180b744e9862493.gif
 
 Bisa kita lihat bahwa data yang disimpan pada sessionStorage akan bertahan jika terjadi reload pada browser, namun data tersebut akan hilang apabila tab browser atau browser itu sendiri ditutup.
 
@@ -129,7 +128,7 @@ Berikut contoh penerapan dari local storage:
 </body>
  
 </html>
-20191206215045100580da075718404cc777290b0cbc7d.gif
+
 
 Pada gif di atas kita bisa mengetahui bahwa data yang disimpan pada localStorage akan bertahan walaupun jendela browser atau tab browser ditutup, untuk menghapus datanya bisa dengan tombol “Hapus Storage” dimana tombol tersebut akan memanggil method localStorage.removeItem().
 
