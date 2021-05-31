@@ -38,42 +38,42 @@ Untuk menggunakan Session Storage kita gunakan object sessionStorage, kemudian u
 
 Berikut contoh penerapan dari session storage:
 
-<!DOCTYPE html>
-<html>
- 
-<head>
-   <title>Session Storage</title>
-</head>
- 
-<body>
-   <p>Anda sudah menekan tombol sebanyak <span id="count"></span> kali</p>
-   <button id="button">Click Disini!</button>
- 
-   <script>
-       const cacheKey = "NUMBER";
-       if (typeof(Storage) !== "undefined") {
- 
-           // pengecekkan apakah data sessionStorage dengan key NUMBER tersedia atau belum
-           if (sessionStorage.getItem(cacheKey) === "undefined") {
-               // Jika belum maka akan atur dengan nilai awal yakni 0
-               sessionStorage.setItem(cacheKey, 0);
-           }
- 
-           const button = document.querySelector("#button");
-           const count = document.querySelector("#count");
-           button.addEventListener('click', function(event) {
-               let number = sessionStorage.getItem(cacheKey);
-               number++;
-               sessionStorage.setItem(cacheKey, number);
-               count.innerText = sessionStorage.getItem(cacheKey);
-           })
-       } else {
-           alert("Browser tidak mendukung Web Storage")
-       }
-   </script>
-</body>
- 
-</html>
+            <!DOCTYPE html>
+            <html>
+            
+            <head>
+            <title>Session Storage</title>
+            </head>
+            
+            <body>
+            <p>Anda sudah menekan tombol sebanyak <span id="count"></span> kali</p>
+            <button id="button">Click Disini!</button>
+            
+            <script>
+                const cacheKey = "NUMBER";
+                if (typeof(Storage) !== "undefined") {
+            
+                    // pengecekkan apakah data sessionStorage dengan key NUMBER tersedia atau belum
+                    if (sessionStorage.getItem(cacheKey) === "undefined") {
+                        // Jika belum maka akan atur dengan nilai awal yakni 0
+                        sessionStorage.setItem(cacheKey, 0);
+                    }
+            
+                    const button = document.querySelector("#button");
+                    const count = document.querySelector("#count");
+                    button.addEventListener('click', function(event) {
+                        let number = sessionStorage.getItem(cacheKey);
+                        number++;
+                        sessionStorage.setItem(cacheKey, number);
+                        count.innerText = sessionStorage.getItem(cacheKey);
+                    })
+                } else {
+                    alert("Browser tidak mendukung Web Storage")
+                }
+            </script>
+            </body>
+            
+            </html>
 
 Bisa kita lihat bahwa data yang disimpan pada sessionStorage akan bertahan jika terjadi reload pada browser, namun data tersebut akan hilang apabila tab browser atau browser itu sendiri ditutup.
 
@@ -86,50 +86,460 @@ Untuk penggunaan localStorage identik dengan sessionStorage, perbedaanya storage
 
 Berikut contoh penerapan dari local storage:
 
-<!DOCTYPE html>
-<html>
- 
-<head>
-   <title>Local Storage</title>
-</head>
- 
-<body>
-   <p>Anda sudah menekan tombol sebanyak <span id="count"></span> kali</p>
-   <button id="button">Click Disini!</button>
-   <button id="clear">Hapus Storage</button>
- 
-   <script>
-       const cacheKey = "NUMBER";
-       if (typeof(Storage) !== "undefined") {
- 
-           // pengecekkan apakah data sessionStorage dengan key NUMBER tersedia atau belum
-           if (localStorage.getItem(cacheKey) === "undefined") {
-               // Jika belum maka akan atur dengan nilai awal yakni 0
-               localStorage.setItem(cacheKey, 0);
-           }
- 
-           const button = document.querySelector("#button");
-           const clearButton = document.querySelector("#clear")
-           const count = document.querySelector("#count");
-           button.addEventListener('click', function(event) {
-               let number = localStorage.getItem(cacheKey);
-               number++;
-               localStorage.setItem(cacheKey, number);
-               count.innerText = localStorage.getItem(cacheKey);
-           });
- 
-           clearButton.addEventListener('click', function(event) {
-               localStorage.removeItem(cacheKey);
-           });
-       } else {
-           alert("Browser tidak mendukung Web Storage")
-       }
-   </script>
-</body>
- 
-</html>
+            <!DOCTYPE html>
+            <html>
+            
+            <head>
+            <title>Local Storage</title>
+            </head>
+            
+            <body>
+            <p>Anda sudah menekan tombol sebanyak <span id="count"></span> kali</p>
+            <button id="button">Click Disini!</button>
+            <button id="clear">Hapus Storage</button>
+            
+            <script>
+                const cacheKey = "NUMBER";
+                if (typeof(Storage) !== "undefined") {
+            
+                    // pengecekkan apakah data sessionStorage dengan key NUMBER tersedia atau belum
+                    if (localStorage.getItem(cacheKey) === "undefined") {
+                        // Jika belum maka akan atur dengan nilai awal yakni 0
+                        localStorage.setItem(cacheKey, 0);
+                    }
+            
+                    const button = document.querySelector("#button");
+                    const clearButton = document.querySelector("#clear")
+                    const count = document.querySelector("#count");
+                    button.addEventListener('click', function(event) {
+                        let number = localStorage.getItem(cacheKey);
+                        number++;
+                        localStorage.setItem(cacheKey, number);
+                        count.innerText = localStorage.getItem(cacheKey);
+                    });
+            
+                    clearButton.addEventListener('click', function(event) {
+                        localStorage.removeItem(cacheKey);
+                    });
+                } else {
+                    alert("Browser tidak mendukung Web Storage")
+                }
+            </script>
+            </body>
+            
+            </html>
 
 
 Pada gif di atas kita bisa mengetahui bahwa data yang disimpan pada localStorage akan bertahan walaupun jendela browser atau tab browser ditutup, untuk menghapus datanya bisa dengan tombol “Hapus Storage” dimana tombol tersebut akan memanggil method localStorage.removeItem().
 
 Bagaimana? Cukup mudah kan untuk menggunakan Web Storage? Selanjutnya kita akan coba terapkan localStorage pada Web Kalkulator yang kita buat untuk menampung riwayat kalkulasi yang pengguna lakukan.
+
+
+
+Menambahkan Riwayat Kalkulasi pada Web Kalkulator
+Kali ini kita akan menerapkan apa yang sudah dipelajari sebelumnya mengenai Web Storage. Pada kasus ini tipe storage yang cocok untuk digunakan pada Web Kalkulator adalah localStorage, karena data akan tetap bertahan meskipun browser sudah tertutup.
+
+Kita akan memisahkan berkas JavaScript yang akan kita buat kali ini dengan yang sudah kita buat sebelumnya. Jadi untuk langkah awal silakan buka kembali proyek kalkulator yang sudah kita buat, buat berkas JavaSript baru di dalam folder assets kemudian beri nama “storage.js”.
+
+Sebelum menuliskan kode pada berkas storage.js, kita siapkan terlebih dahulu elemen table untuk menampilkan daftar riwayat kalkulasi.
+
+Menyiapkan Tabel Elemen
+Silakan buka berkas index.html, kemudian buat elemen div baru dengan menerapkan nilai class history dan card. Letakan elemen tersebut tepat di atas tag <script> pada akhir </body>.
+
+   .......
+   <div class="history card">
+      
+   </div>
+ 
+   <script src="assets/kalkulator.js"></script>
+</body>
+Kemudian di dalam elemen <div> tersebut buat elemen heading dan table seperti pada kode berikut:
+
+<div class="history card">
+       <h2>Riwayat Perhitungan</h2>
+       <table>
+           <thead>
+               <tr>
+                   <th>Angka Pertama</th>
+                   <th>Operator</th>
+                   <th>Angka Kedua</th>
+                   <th>Hasil</th>
+               </tr>
+           </thead>
+           <tbody id="historyList"></tbody>
+       </table>
+ </div>
+Elemen <tbody> yang kita beri id historyList merupakan elemen yang akan menampung data dinamis berdasarkan data dari localStorage yang ada. Kita akan memberi konten pada elemen ini secara dinamis menggunakan JavaScript nantinya.
+
+Keseluruhan berkas pada index.html sekarang akan nampak seperti ini:
+
+        <!DOCTYPE html>
+        <html>
+        
+        <head>
+        <title>Web Calculator</title>
+        <link rel="stylesheet" href="assets/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        </head>
+        
+        <body>
+        <div class="flex-container-column card">
+            <div class="display">
+                <h1 id="displayNumber">0</h1>
+            </div>
+            <div class="flex-container-row">
+                <div class="button">7</div>
+                <div class="button">8</div>
+                <div class="button">9</div>
+                <div class="button negative">+/-</div>
+            </div>
+            <div class="flex-container-row">
+                <div class="button">4</div>
+                <div class="button">5</div>
+                <div class="button">6</div>
+                <div class="button operator">-</div>
+            </div>
+            <div class="flex-container-row">
+                <div class="button">1</div>
+                <div class="button">2</div>
+                <div class="button">3</div>
+                <div class="button operator">+</div>
+            </div>
+            <div class="flex-container-row">
+                <div class="button clear">CE</div>
+                <div class="button">0</div>
+                <div class="button equals double">=</div>
+            </div>
+        </div>
+        <div class="history card">
+            <h2>Riwayat Perhitungan</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Angka Pertama</th>
+                        <th>Operator</th>
+                        <th>Angka Kedua</th>
+                        <th>Hasil</th>
+                    </tr>
+                </thead>
+                <tbody id="historyList"></tbody>
+            </table>
+        </div>
+        
+        <script src="assets/kalkulator.js"></script>
+        </body>
+        
+        </html>
+
+Selanjutnya kita akan menerapkan styling pada tabel riwayat agar informasi lebih mudah dibaca.
+
+
+
+
+Menerapkan styling pada tabel riwayat
+Sebelumnya kita sudah membuat elemen tabel yang nantinya akan menjadi tempat informasi riwayat kalkulasi, namun tampilannya masih kurang baik. Kita akan merombaknya dengan menerapkan CSS pada elemen tersebut.
+
+Silakan buka berkas style.css, kemudian tambahkan rule berikut:
+
+        .history {
+        width: 80%;
+        margin: 30px auto 0 auto;
+        overflow: scroll;
+        }
+Rule tersebut akan mengatur lebar 80% dari viewport pada elemen <div> yang menerapkan class history. Kemudian terapkan pada properti overflow dengan nilai scroll sehingga elemen <div> akan memiliki scroll bar secara horizontal dan vertikal.
+
+Lalu tambahkan juga rule berikut pada style.css:
+
+        table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+        }
+Rule tersebut akan membuat tabel memiliki lebar 100% terhadap parentnya dan menetapkan border pada tepian tabelnya.
+
+Lanjut kita tambahkan rule berikut untuk mengatur padding pada table head (<th>) dan table data (<td>) agar ukuran tampak lebih proporsional.
+
+        th,
+        td {
+        text-align: center;
+        padding: 16px;
+        }
+
+Lalu kita tambahkan rule berikut untuk menerapkan backgroud-color pada element <th> dan <tr>, sementara untuk elemen <tr> kita manfaatkan pseudo-class dalam selectornya.
+
+        th {
+        background-color: orange;
+        color: white;
+        }
+        
+        tr:nth-child(even) {
+        background-color: #d2d2d2;
+        }
+
+Untuk mengoptimalkan tampilan pada perangkat seluler, kita atur elemen <div> untuk menerapkan width: 100% pada @media query.
+
+        @media screen and (max-width: 513px) {
+        .button {
+            padding: 10px;
+        }
+        .history {
+            width: 100%;
+        }
+        }
+Sekarang struktur kode pada berkas styles.css akan tampak seperti ini:
+
+        * {
+        box-sizing: border-box;
+        }
+        body {
+        font-family: sans-serif;
+        }
+        .flex-container-column {
+        display: flex;
+        /* properti pendukung */
+        flex-direction: column;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: right;
+        }
+        .flex-container-row {
+        display: flex;
+        }
+        .button {
+        flex-basis: 25%;
+        /* properti pendukung */
+        font-size: 1.5em;
+        text-align: center;
+        padding: 40px;
+        border: 1px solid black;
+        background: -webkit-linear-gradient(top, #d2d2d2, #ddd);
+        cursor: pointer;
+        }
+        .double {
+        flex-basis: 50%;
+        }
+        .display {
+        color: white;
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #333333;
+        border: 1px solid black;
+        font-size: 2em;
+        }
+        .operator,
+        .negative,
+        .equals {
+        background: orange;
+        }
+        .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        padding: 30px;
+        margin-top: 20px;
+        }
+        .button:hover {
+        font-weight: bold;
+        }
+        .history {
+        width: 80%;
+        margin: 30px auto 0 auto;
+        overflow: scroll;
+        }
+        table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+        }
+        th,
+        td {
+        text-align: center;
+        padding: 16px;
+        }
+        th {
+        background-color: orange;
+        color: white;
+        }
+        tr:nth-child(even) {
+        background-color: #d2d2d2;
+        }
+        @media screen and (max-width: 513px) {
+        .button {
+            padding: 10px;
+        }
+        .history {
+            width: 100%;
+        }
+        }
+Setelah persiapan tampilan table selesai, selanjutnya kita akan mulai menerapkan JavaScript untuk mengelola data riwayat kalkulasinya.
+
+
+
+
+Menerapkan localStorage pada Kalkulator
+Sebelum kita menuliskan sintaks pada storage.js, pastikan kita sudah menghubungkan berkas tersebut dengan index.html seperti berikut ini:
+
+....
+   <script src="assets/storage.js"></script>
+   <script src="assets/kalkulator.js"></script>
+</body>
+Pastikan juga kita menghubungkannya sebelum kalkulator.js karena kita akan menggunakan storage.js pada berkas kalkulator.js. Alhasil, berkas storage.js perlu dimuat terlebih dahulu.
+
+Setelah kita menghubungkan berkas JavaScript dengan HTML, buka berkas storage.js. Kemudian buat variabel CACHE_KEY dengan nilai “calculation_history”.
+
+            const CACHE_KEY = "calculation_history";
+Variabel ini digunakan sebagai key untuk mengakses dan menyimpan data pada localStorage.
+
+Selanjutnya kita buat fungsi checkForStorage() dengan mengembalikan nilai boolean dari pengecekan fitur Storage pada browser.
+
+            function checkForStorage() {
+                return typeof(Storage) !== "undefined"
+            }
+Fungsi tersebut akan kita gunakan di dalam if statement setiap fungsi transaksi pada localStorage.
+
+Lalu kita buat juga fungsi untuk menyimpan data riwayat kalkulasi pada localStorage. Fungsi tersebut memiliki satu argumen yang merupakan data dari hasil kalkulasi yang nantinya akan dimasukkan ke dalam localStorage.
+
+            function putHistory(data) {
+                if (checkForStorage()) {
+                    let historyData = null;
+                    if (localStorage.getItem(CACHE_KEY) === null) {
+                        historyData = [];
+                    } else {
+                        historyData = JSON.parse(localStorage.getItem(CACHE_KEY));
+                    }
+                
+                    historyData.unshift(data);
+                
+                    if (historyData.length > 5) {
+                        historyData.pop();
+                    }
+                
+                    localStorage.setItem(CACHE_KEY, JSON.stringify(historyData));
+                }
+            }
+Banyak istilah kode yang asing pada kode di atas. Mari kita lihat satu per satu.
+
+Yang pertama fungsi JSON.parse() yang mana digunakan untuk mengubah nilai objek dalam bentuk string kembali pada bentuk objek JavaScript. Kemudian JSON.stringify() digunakan untuk mengubah objek JavaScript ke dalam bentuk String. Seperti yang kita tahu, bahwa localStorage hanya dapat menyimpan data primitif seperti string, sehingga kita perlu mengubah objek ke dalam bentuk string jika ingin menyimpan ke dalam localStorage.
+
+JSON sendiri adalah singkatan dari JavaScript Object Notation. JSON merupakan format yang sering digunakan dalam pertukaran data. Saat ini JSON banyak diandalkan karena formatnya berbasis teks dan relatif mudah dibaca.
+
+Lalu di sana juga ada fungsi unshift(), fungsi ini digunakan untuk menambahkan nilai baru pada array yang ditempatkan pada awal index. Fungsi ini juga mengembalikan nilai panjang array setelah ditambahkan dengan nilai baru.
+
+Fungsi pop() di atas merupakan fungsi untuk menghapus nilai index terakhir pada array, sehingga ukuran array historyData tidak akan pernah lebih dari 5. Hal ini kita terapkan agar riwayat kalkulasi yang muncul adalah lima hasil kalkulasi terakhir oleh pengguna.
+
+Dari sini kita bisa mengetahui bahwa data yang disimpan pada localStorage adalah array yang berisi beberapa objek hasil kalkulasi, kemudian array tersebut diubah menjadi string. Struktur data tersebut dalam bentuk string nampak seperti ini:
+
+            [
+                {
+                    "firstNumber": "23",
+                    "secondNumber": "15",
+                    "operator": "-",
+                    "result": 8
+                },
+                {
+                    "firstNumber": "23",
+                    "secondNumber": "6",
+                    "operator": "-",
+                    "result": 17
+                }
+            ]
+Selanjutnya kita buat fungsi untuk mendapatkan data dari localStorage. Kita namakan fungsi tersebut “showHistory().”
+
+            function showHistory() {
+                if (checkForStorage()) {
+                    return JSON.parse(localStorage.getItem(CACHE_KEY)) || [];
+                } else {
+                    return [];
+                }
+            }
+Fungsi ini mengembalikan nilai array dari localStorage jika sudah memiliki nilai sebelumnya melalui JSON.parse(). Namun jika localStorage masih kosong, fungsi ini akan mengembalikan nilai array kosong.
+
+Lalu yang terakhir, kita tambahkan fungsi untuk merender data riwayat kalkulasi pada tabel HTML. Fungsi ini diberi nama dengan renderHistory().
+
+            function renderHistory() {
+                const historyData = showHistory();
+                let historyList = document.querySelector("#historyList");
+                
+                
+                // selalu hapus konten HTML pada elemen historyList agar tidak menampilkan data ganda
+                historyList.innerHTML = "";
+                
+                
+                for (let history of historyData) {
+                    let row = document.createElement('tr');
+                    row.innerHTML = "<td>" + history.firstNumber + "</td>";
+                    row.innerHTML += "<td>" + history.operator + "</td>";
+                    row.innerHTML += "<td>" + history.secondNumber + "</td>";
+                    row.innerHTML += "<td>" + history.result + "</td>";
+                
+                
+                    historyList.appendChild(row);
+                }
+            }
+Pada akhir berkas storage.js, panggil fungsi renderHistory(); agar data history muncul ketika website pertama kali dijalankan.
+
+renderHistory();
+Sampai saat ini, struktur kode pada storage.js akan tampak seperti berikut:
+
+            const CACHE_KEY = "calculation_history";
+            
+            function checkForStorage() {
+                return typeof(Storage) !== "undefined";
+            }
+            
+            function putHistory(data) {
+                if (checkForStorage()) {
+                    let historyData = null;
+                    if (localStorage.getItem(CACHE_KEY) === null) {
+                        historyData = [];
+                    } else {
+                        historyData = JSON.parse(localStorage.getItem(CACHE_KEY));
+                    }
+                
+                    historyData.unshift(data);
+                
+                    if (historyData.length > 5) {
+                        historyData.pop();
+                    }
+                
+                    localStorage.setItem(CACHE_KEY, JSON.stringify(historyData));
+                }
+            }
+            
+            function showHistory() {
+                if (checkForStorage) {
+                    return JSON.parse(localStorage.getItem(CACHE_KEY)) || [];
+                } else {
+                    return [];
+                }
+            }
+            
+            function renderHistory() {
+                const historyData = showHistory();
+                let historyList = document.querySelector("#historyList");
+                historyList.innerHTML = "";
+                
+                for (let history of historyData) {
+                    let row = document.createElement('tr');
+                    row.innerHTML = "<td>" + history.firstNumber + "</td>";
+                    row.innerHTML += "<td>" + history.operator + "</td>";
+                    row.innerHTML += "<td>" + history.secondNumber + "</td>";
+                    row.innerHTML += "<td>" + history.result + "</td>";
+                
+                    historyList.appendChild(row);
+                }
+            }
+            
+            renderHistory();
+Terakhir kita gunakan fungsi putHistory() yang sudah kita buat ketika kalkulator melakukan proses kalkulasi, tepatnya pada fungsi performCalculation() berkas kalkulator.js.
+
+Sebelum memanggil fungsi putHistory(), tentu kita harus menyiapkan data yang akan dikirimkan sebagai argumen fungsi tersebut. Pada performCalculation() kita buat variabel baru dengan nama history yang merupakan objek dari data history yang akan dikirimkan. Struktur objeknya tampak seperti berikut:
+
+            const history = {
+                firstNumber: calculator.firstNumber,
+                secondNumber: calculator.displayNumber,
+                operator: calculator.operator,
+                result: result
+            }
+Setelah menyiapkan datanya, barulah kita bisa memanggil fungsi putHistory() dengan mengirimkan variabel history sebagai argumen fungsinya. Jangan lupa juga panggil fungsi renderHistory() agar riwayat kalkulasi langsung tampil pada tabel setelah kalkulasi dilakukan.
