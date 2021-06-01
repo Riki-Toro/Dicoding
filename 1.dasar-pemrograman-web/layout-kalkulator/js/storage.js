@@ -14,7 +14,7 @@ function putHistory(data) {
             historyData = JSON.parse(localStorage.getItem(CACHE_KEY));
         }
 
-        historyData.unshif(data);
+        historyData.unshift(data);
 
         if( historyData.length > 5 ) {
             historyData.pop();
