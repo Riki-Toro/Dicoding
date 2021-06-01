@@ -73,7 +73,7 @@ function samadenganDisplay() {
 }
 
 
-const buttons =document.querySelectorAll(".button");
+const buttons = document.querySelectorAll(".button");
 for( button of buttons ) {
     button.addEventListener('click', function(even) {
         const target = even.target;
@@ -84,21 +84,22 @@ for( button of buttons ) {
             return;
         }
 
-        if( target.classList.contains('operator') ) {
-            operatorDisplay(target.innerText);
-            return;
-        }
         if( target.classList.contains('negatif') ) {
             negatifDisplay();
             updateDisplay();
             return;
         }
+        
         if( target.classList.contains('samadengan') ) {
             samadenganDisplay();
             updateDisplay();
             return;
         }
-
+        
+        if( target.classList.contains('operator') ) {
+            operatorDisplay(target.innerText);
+            return;
+        }
 
         inputDigit(target.innerText);
         updateDisplay();
