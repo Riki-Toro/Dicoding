@@ -12,7 +12,8 @@ body {
 
 /* header */
 header {
-    background-color: rgb(100, 210, 224);
+    background-color: #233e8b;
+    color: white;
 }
 header h1 {
     text-align: center;
