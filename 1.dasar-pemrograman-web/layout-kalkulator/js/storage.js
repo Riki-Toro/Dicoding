@@ -8,7 +8,7 @@ function putHistory(data) {
     if( checkForStorage() ) {
         let historyData = null;
         
-        if( localStorage.getItem(CACHE_KEY === null) ) {
+        if( localStorage.getItem(CACHE_KEY) === null ) {
             historyData = [];
         } else {
             historyData = JSON.parse(localStorage.getItem(CACHE_KEY));
