@@ -24,18 +24,19 @@ header h1 {
 
 /* main */
 main {
-    clear: both;
-    padding: 20px;
     box-sizing: border-box;
+    display: flex;
+    border: 1px solid #233e8b;
 }
 main .content {
-    float: left;
-    width: 600px;
+    max-width: 600px;
+    padding: 10px;
+    border-right: 1px solid #233e8b;
 }
 
 main .aside {
-    float: right;
-    width: 300px;
+    max-width: 300px;
+    padding: 10px;
 }
 
 
@@ -43,5 +44,14 @@ main .aside {
 
 /* footer */
 footer {
+    background-color: #233e8b;
+    color: white;
+    padding: 10px;
+}
+footer p {
     text-align: center;
+}
+footer p a {
+    color: white;
+    text-decoration: none;
 }
