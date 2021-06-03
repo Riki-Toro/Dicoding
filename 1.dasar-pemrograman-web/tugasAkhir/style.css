@@ -48,6 +48,13 @@ main .content {
     padding: 10px;
     border-right: 1px solid #233e8b;
 }
+.content img {
+    float: left;
+    width: 310px;
+    margin-top: 5px;
+    margin-right: 7px;
+}
+
 
 main .aside {
     max-width: 300px;
