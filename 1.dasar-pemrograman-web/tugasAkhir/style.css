@@ -17,6 +17,13 @@ header {
 header h1 {
     text-align: center;
 }
+header nav {
+    background-color: brown;
+}
+header nav li a {
+    color: white;
+    display: block;
+}
 
 
 
@@ -37,6 +44,14 @@ main .content {
 main .aside {
     max-width: 300px;
     padding: 10px;
+    font-size: 14px;
+}
+.aside img {
+    margin: 5px auto;
+    border-radius: 10px;
+}
+.aside p {
+    margin-top: 5px;
 }
 
 
