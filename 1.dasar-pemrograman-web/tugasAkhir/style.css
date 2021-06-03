@@ -51,6 +51,9 @@ main .content {
     padding: 10px;
     border-right: 1px solid #233e8b;
 }
+.content article {
+    margin-bottom: 12px;
+}
 .content img {
     float: left;
     width: 310px;
