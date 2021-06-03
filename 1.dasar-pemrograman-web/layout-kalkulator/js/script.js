@@ -5,7 +5,6 @@ const calculator = {
     waitingForSecondNumber: false
 };
 
-
 function updateDisplay() {
     document.querySelector(".display").innerText = calculator.displayNumber;
 }
