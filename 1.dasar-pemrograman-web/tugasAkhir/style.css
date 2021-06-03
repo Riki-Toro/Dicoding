@@ -40,7 +40,8 @@ header nav li a {
 main {
     box-sizing: border-box;
     display: flex;
-    border: 1px solid #233e8b;
+    border-left: 1px solid #233e8b;
+    border-right: 1px solid #233e8b;
 }
 main .content {
     max-width: 600px;
