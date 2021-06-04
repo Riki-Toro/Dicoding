@@ -1,25 +1,16 @@
-let a = -100;
-setInterval(function() {
-    if(a!=0) {
-        slide = document.getElementById('slider');
-        slide.style = "margin-left:"+a+"%;transition: 1s ease-in;";
+function dropdown() {
+    document.getElementById('dropKonten').classList.toggle('tampil');
+}
 
-        if(a== -300) {
-            a = 0;
-        } else {
-            a = a+ -100;
+window.onclick = function(event) {
+    if(!event.target.matches('.tombolDrop')) {
+        let dropdowns = document.getElementsByClassName('dropKonten');
+        var i;
+        for(i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if(openDropdown.classList.contains('tampil')) {
+                openDropdown.classList.remove('tampil');
+            }
         }
-        return a;
-
-    } else {
-        slide = document.getElementById('slider');
-        slide.style = "margin-left:"+a+"%;";
-
-        if(a== -300) {
-            a=0;
-        } else {
-            a = a+ -100;
-        }
-        return a;
     }
-}, 2000)
+}
