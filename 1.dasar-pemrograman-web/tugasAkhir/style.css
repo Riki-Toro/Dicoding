@@ -47,7 +47,7 @@ main {
     background-color: white;
 }
 main .content {
-    max-width: 600px;
+    flex-basis: 75%;
     padding: 10px;
     border-right: 1px solid #233e8b;
 }
@@ -63,7 +63,7 @@ main .content {
 
 
 main .aside {
-    max-width: 300px;
+    flex-basis: 25%;
     padding: 10px;
     font-size: 14px;
 }
