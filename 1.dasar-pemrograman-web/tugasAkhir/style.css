@@ -54,6 +54,9 @@ main .content {
 .content article {
     margin-bottom: 12px;
 }
+.content article p span {
+    font-style: italic;
+}
 .content img {
     float: left;
     width: 310px;
