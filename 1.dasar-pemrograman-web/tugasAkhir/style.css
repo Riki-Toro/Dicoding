@@ -15,11 +15,11 @@ body {
 header {
     background-color: #233e8b;
     color: white;
-    padding-top: 30px;
+    padding-top: 50px;
 }
 header h1 {
     text-align: center;
-    margin-bottom: 40px;
+    z-index: 1;
 }
 header nav { 
     background-color: violet ;
@@ -32,6 +32,13 @@ header nav li {
 header nav li a {
     color: white;
     text-decoration: none; 
+}
+
+header .slider {
+    width: 100%;
+    opacity: .3;
+    margin-top: -120px;
+    overflow: hidden;
 }
 
 
