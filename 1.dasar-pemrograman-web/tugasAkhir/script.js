@@ -4,12 +4,12 @@ function dropdown() {
 
 window.onclick = function(event) {
     if(!event.target.matches('.tombolDrop')) {
-        let dropdowns = document.getElementsByClassName('dropKonten');
-        var i;
+        let dropdrop = document.getElementsByClassName('dropKonten');
+        let i;
         for(i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if(openDropdown.classList.contains('tampil')) {
-                openDropdown.classList.remove('tampil');
+            let bukaDropdown = dropdrop[i];
+            if(bukaDropdown.classList.contains('tampil')) {
+                bukaDropdown.classList.remove('tampil');
             }
         }
     }
