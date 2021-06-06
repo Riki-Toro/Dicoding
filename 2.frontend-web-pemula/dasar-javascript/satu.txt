@@ -1,0 +1,38 @@
+Pendahuluan Dasar JavaScript
+    Di kelas Belajar Dasar Pemrograman Web, Anda sudah mampu membuat website sederhana menggunakan HTML dan CSS. Bila Anda paham dan menguasai kedua skill tersebut, sebenarnya Anda sudah mampu membuat website yang sangat amat cantik. Wah!
+
+    Kini timbul pertanyaan, apakah dengan HTML dan CSS saja apakah cukup dalam membuat website? Memang benar dengan HTML dan CSS saja Anda dapat membuat sebuah website, namun website hanya sebatas halaman informasi yang statis (seperti website yang Anda buat di kelas Belajar Dasar Pemrograman Web). Tidak akan ada interaktivitas dengan pengguna, kaku, dan sulit dalam menampilkan konten yang dinamis.
+
+    Lalu bagaimana agar kita dapat mengembangkan website yang interaktif dan dinamis? Perkenalkan, JavaScript!
+
+    JavaScript merupakan satu-satunya bahasa pemrograman yang dapat dipahami oleh browser untuk membantu website lebih interaktif dan dinamis. Dengan JavaScript, kita dapat memberikan fungsionalitas lebih pada website. Kita bisa membuat game di website, membuat website layaknya aplikasi, bahkan mengedit foto sekalipun. Luar biasa! JavaScript mampu mengubah fungsi dari website yang sebelumnya hanya sebatas portal untuk menampilkan informasi statis.
+
+    Sebelum kita melakukan hal-hal keren menggunakan JavaScript, tentu kita perlu mendalami dulu dasar dari bahasa pemrograman JavaScript. Kita akan belajar JavaScript untuk pengembangan web secara runut agar Anda tidak bingung.
+
+    Nah, di modul ini kita akan membahas detail dasar dari JavaScript hingga Anda mampu:
+
+        Menuliskan sintaks JavaScript
+        Mengetahui Statement dan Expressions
+        Mengetahui cara menuliskan komentar di JavaScript
+        Mengetahui cara membuat variabel
+        Mengetahui tipe data yang ada di JavaScript
+        Mengetahui berbagai macam operator yang ada di JavaScript
+        Mengetahui cara melakukan percabangan di JavaScript
+        Mengetahui cara melakukan perulangan di JavaScript
+        Mengetahui cara mengelola data yang kompleks menggunakan objek dan array.
+        Mengetahui mendeklarasikan atau membuat fungsi dan menggunakannya.
+
+    Supaya proses belajar menjadi lebih interaktif, apabila Anda memiliki pertanyaan perihal materi disajikan, jangan segan untuk bertanya via forum diskusi. Mentor kami akan sigap untuk berusaha menjawab pertanyaan serta. Sebaliknya, Anda juga dipersilahkan untuk membantu menjawab pertanyaan yang diajukan oleh peserta belajar lainnya.
+
+
+
+Apa itu JavaScript
+    JavaScript adalah bahasa pemrograman tingkat tinggi yang pada awalnya dikembangkan untuk membuat website menjadi lebih “hidup”. Bersama dengan HTML dan CSS, JavaScript menjadi bahasa pemrograman paling populer untuk mengembangkan aplikasi berbasis web. Bahasa ini mampu memberikan logic ke dalam website, sehingga website tersebut memiliki fungsionalitas tambahan dan lebih interaktif.
+
+    JavaScript termasuk ke dalam kategori scripting language. Apa maksudnya? Salah satu ciri-ciri utama dari bahasa scripting adalah kode tidak perlu dikompilasi agar bisa dijalankan. Scripting language menggunakan interpreter untuk menerjemahkan kode atau perintah yang kita tulis supaya dimengerti oleh mesin.
+
+    Itulah kenapa bahasa scripting tidak membutuhkan banyak kode yang perlu ditulis agar sebuah program bisa dijalankan. Hanya dengan satu baris kode berikut Anda sudah bisa membuat program yang menampilkan teks “Hello, World!” ke layar.
+
+        console.log("Hello World");
+
+    Sederhana, bukan? Itulah salah satu ciri utama JavaScript sebagai scripting language. Tentu tidak lengkap rasanya ketika kita sudah mengetahui apa itu JavaScript, tetapi tidak tahu sejarah di baliknya. Sejarah singkat dari JavaScript dapat Anda simak di materi berikutnya.
