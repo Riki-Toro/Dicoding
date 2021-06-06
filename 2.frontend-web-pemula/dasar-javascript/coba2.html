@@ -34,6 +34,51 @@
         console.log(x > 15 || y > 15); // false || false = false
 
         console.log(!(x > 15 || y > 15)); // ((false || false) = false) = true
+
+        console.log('-------------');
+
+
+        // if/else statment
+        let isRunning = true;
+
+        console.log('Anda ingin keluar jalan-jalan!');
+        if( isRunning ) {
+            console.log('Hari ini hujan, Anda perlu bawa payung!');
+        }
+        console.log('berangkat!');
+
+        console.log('------');
+
+        let nilai = 50;
+        if( nilai > 70 ) {
+            console.log(nilai);
+        } else {
+            console.log('Nilai Anda kurang dari 70!');
+        }
+            // ternary
+        let nilaiAkhir = 90;
+        let jumlah = nilaiAkhir > 70 ? "lulus" : "tidak lulus";
+        console.log(jumlah); // lulus
+        console.log('------');
+
+        let bahasa = "Indonesia";
+        let ucapan = "";
+
+        if( bahasa === "English" ) {
+            console.log("Good Morning!");
+        } else if( bahasa === "Indonesia" ) {
+            console.log("Selamat Pagi!"); // ini yg dicetak
+        } else if( bahasa === "French" ) {
+            console.log("Bonjour!");
+        }
+        console.log('------');
+
+        let nama = "";
+        if( nama ) {
+            console.log("Hallo, " + nama);
+        } else {
+            console.log("Nama Anda kosong!"); //yg dicetak karena falsy
+        }
     </script>
 </body>
 </html>
