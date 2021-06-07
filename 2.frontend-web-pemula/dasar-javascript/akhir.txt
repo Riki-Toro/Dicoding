@@ -1,0 +1,14 @@
+Ikhtisar Dasar JavaScript
+    Anda berada di akhir dari modul Dasar JavaScript. Mari kita uraikan materi yang sudah Anda pelajari untuk mempertajam pemahaman.
+
+        Menuliskan sintaks JavaScript.
+        Mengetahui Statement dan Expressions.
+        Mengetahui cara menuliskan komentar di JavaScript.
+        Mengetahui cara membuat variabel.
+        Mengetahui tipe data yang ada di JavaScript.
+        Mengetahui berbagai macam operator yang ada di JavaScript.
+        Mengetahui cara melakukan percabangan di JavaScript.
+        Mengetahui cara melakukan perulangan di JavaScript.
+        Mengetahui cara mengelola data yang kompleks menggunakan objek dan array.
+        Mengetahui mendeklarasikan atau membuat fungsi dan menggunakannya.
+        Dengan ringkasan tersebut, diharapkan Anda dapat memahami semua materi yang telah disampaikan. Jika belum, Anda bisa ulas kembali materi yang diberikan pada modul ini dan juga menanyakannya di forum diskusi. Untuk Anda yang sudah merasa mantap, yuk lanjut ke modul berikutnya. Kita akan belajar banyak tentang manipulasi DOM untuk membuat website interaktif melalui JavaScript.
