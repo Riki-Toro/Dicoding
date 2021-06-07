@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis 4</title>
+</head>
+<body>
+    <h1>Kuis 4</h1>
+
+    <script>
+        /**
+         * TODO:
+         * Buatlah sebuah variabel dengan nama evenNumber yang merupakan sebuah array dengan ketentuan:
+         *   - Array tersebut menampung bilangan genap dari 1 hingga 100
+         *
+         * Catatan:
+         *   - Agar lebih mudah, gunakanlah for loop dan logika if untuk mengisi bilangan genap pada array.
+         */
+
+        let evenNumber = [];
+        for( let i = 1; i <= 100; i++ ) {
+            let x = i % 2;
+            if( x == 0 ) {
+                evenNumber.push(i);
+            }
+        }
+        console.log(evenNumber);
+    </script>
+</body>
+</html>
