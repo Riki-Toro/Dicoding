@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coba 5</title>
+</head>
+<body>
+    <h1>Haiiii 5</h1>
+    <script>
+        // FUNCTION DECLARATION/DEKLARASI
+        function halo() {
+            console.log("Selamat Pagi!");
+        }
+        halo();
+
+        console.log("--------------------");
+
+        function ucapan(nama, bahasa) {
+            if( bahasa === "English" ) {
+                console.log("Good Morning! " + nama);
+            } else if(bahasa === "French") {
+                console.log("Bonjour! " + nama);
+            } else if(bahasa === "Japanese") {
+                console.log("Ohayo! " + nama);
+            } else if(bahasa === "Indonesia") {
+                console.log("Selamat Pagi! " + nama);
+            } else {
+                console.log("Maaf " + nama + ", Anda memasukkan bahasa yang salah");
+            }
+        }
+
+        ucapan("Riki", "Indonesia");
+
+        console.log("--------------------");
+
+        function kali(a, b) {
+            return a * b;
+        }
+
+        let hasil = kali(10, 5);
+        console.log(hasil);
+
+        console.log("--------------------");
+
+        function ucapanSelamat(name, languange) {
+            if( languange === "English" ) {
+                return "Good Morning, " + name + "!";
+            } else if( languange === "French" ) {
+                return "Bonjour, " + name + "!";
+            } else if( languange === "Japanese" ) {
+                return "Ohayo, " + name + "!";
+            } else if( languange === "Indonesia" ) {
+                return "Selamat Pagi, " + name + "!";
+            } else {
+                return "Maaf " + name + ", Anda memasukkan bahasa lain!";
+            }
+        }
+
+        let pesan = ucapanSelamat("Riki Widiantoro", "Indonesia");
+        console.log(pesan);
+
+
+        console.log("--------------------");
+        console.log("--------------------");
+
+        // FUNCTION EXPRESSION / EKSPRESI
+        
+
+    </script>
+</body>
+</html>
