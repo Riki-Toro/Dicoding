@@ -10,7 +10,36 @@
     <h1>Hai 4</h1>
 
     <script>
-        
+        let array = ['riki', 'widiantoro', 22, false, 'ponorogo'];
+        console.log(array);
+        console.log(array[1]);
+        console.log(array[5]);
+        console.log("panjang nilai array adalah " + array.length);
+        console.log("--------------------");
+
+        array.push("javascript"); //untuk menambahkan nilai array di bagian akhir
+        array.push("haii");
+        console.log(array);
+
+        array.pop(); //untuk mengeluarkan elemen terakhir array
+        console.log(array);
+        console.log("--------------------");
+
+        array.shift(); //untuk mengeluarkan nilai array di bagian awal / pertama
+        console.log(array);
+
+        array.unshift("aku"); //untuk menambahkan array di elemen pertama
+        array.unshift("kamu");
+        console.log(array);
+        console.log("--------------------");
+
+        delete array[1]; //menghapus array index ke 1 = aku tapi posisinya jadi kosong, bukan menghapus
+        console.log(array);
+
+        array.splice(1, 2); // untuk menghapus elemen array; => menghapus index ke 1 sebanyak 2 elemen
+        console.log(array);
+
+
     </script>
 </body>
 </html>
