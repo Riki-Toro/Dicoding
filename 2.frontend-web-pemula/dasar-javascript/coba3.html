@@ -39,6 +39,32 @@
             console.log(b);
             b++;
         } while( b <= 5 );
+        console.log('---------------');
+
+
+        // object
+        const orang = {
+            namaDepan: "Riki",
+            namaBelakang: "Widiantoro",
+            umur: 22,
+            kawin: false,
+            "alamat tinggal": "Bungkal, Ponorogo"
+        };
+
+        console.log("Nama saya " + orang.namaDepan + " " + orang.namaBelakang + ". saya berumur " + orang.umur + " tahun.");
+        console.log("Saya tinggal di " + orang["alamat tinggal"]); //Untuk mengakses key yang memiliki spasi atau karakter khusus lainnya maka kita perlu menggunakan bracket
+
+        // mengubah nilai properti object
+        orang.namaDepan = "Riikii";
+        console.log(orang.namaDepan);
+
+        orang.warga = "Indonesia"; //menambahkan properti baru jika belum ada
+        console.log(orang);
+
+        delete orang.kawin; //menghapus properti
+        console.log(orang);
+
+
     </script>
 </body>
 </html>
