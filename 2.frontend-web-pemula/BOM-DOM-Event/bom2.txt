@@ -87,3 +87,29 @@ Anggota BOM: console
         info() Menampilkan pesan yang berisi informasi penting ke console browser.
         warn() Menampilkan pesan yang berisi informasi dalam bentuk peringatan ke console browser.
         error() Menampilkan pesan yang berisi informasi dalam bentuk error ke console browser.
+
+
+Cara Memanggil Anggota BOM
+    Sebelum kita lanjut ke materi berikutnya ada baiknya kita membahas hal ini terlebih dahulu. Ketika kalian ingat akan peraturan sintaks JavaScript, bukankah memanggil properti atau sebuah method milik sebuah objek harus menggunakan sintaks "<nama objek>.<nama properti>"? Hal ini benar dan juga berlaku untuk object browser yang diwakilkan oleh sebuah objek yang bernama window pada environment browser. Maksudnya, kita dapat memanggil method alert() dengan sintaks berikut:
+
+        // cara pertama
+        window.alert("Hello World");
+ 
+        // cara kedua
+        alert("Hello World");
+
+    Kedua cara di atas sama-sama valid untuk memanggil method alert(), di mana cara pertama secara eksplisit memerintah kode JavaScript untuk memanggil method alert() milik objek window. Lalu, mengapa cara kedua tetap bisa dilakukan? Karena properti serta method dari objek window bersifat global.
+
+    Walau cara kedua terkesan lebih singkat, kita harus tetap hati-hati karena jika pada scope sebuah berkas .js terdapat fungsi buatan kita yang bernama alert(), maka cara kedua justru akan memanggil fungsi buatan kita tersebut, bukan milik objek window. Contohnya sebagai berikut:
+
+        function alert(nama){
+            console.log("Hati-hati, "+nama);
+        }
+        
+        alert("Chewbacca");
+        // tulisan ‘Hati-hati, Chewbacca’ akan tercetak ke konsol browser
+        
+        window.alert("Chewbacca");
+        // fungsi alert() yang ditulis di atas tetap terpanggil
+
+    Jadi harap hati-hati ya teman-teman jika kita menamakan sebuah method yang sama dengan method milik objek window, karena bisa jadi halaman web kita akan berperilaku tidak terduga.
