@@ -40,3 +40,40 @@ Anggota BOM
         Maka jika dijalankan pada console browser menjadi sebagai berikut:
 
         Keren bukan? Kita bisa menampilkan pesan yang telah ditentukan melalui JavaScript. Namun, ada satu hal yang perlu kita ingat saat menggunakan alert(), yakni ketika dialog boxalert() muncul, user tidak bisa berinteraksi dengan bagian lain dari halaman web sampai dialog box tersebut ditutup dengan menekan tombol "OK".
+
+
+Anggota BOM: prompt()
+    Kita telah mengenal cara untuk memunculkan dialog box dengan sebuah pesan yang sudah ditentukan sendiri. Sekarang kita akan mempelajari cara menggunakan sebuah method untuk menampilkan dialog box yang bisa juga menangkap input dari user, method tersebut adalah prompt(). Method ini berguna jika kita memerlukan input dari user melalui sebuah dialog box. Karena method ini bisa menangkap input dari user, maka terdapat lebih banyak fungsionalitas ketimbang method alert() untuk memenuhi kebutuhan tersebut. Yuk, kita bahas satu-satu:
+
+    Nilai return dari method prompt()
+        Tidak seperti method alert() yang tidak mengembalikan (alias return) nilai (undefined), method prompt()  akan mengembalikan sebuah nilai sesuai dengan input dari user. Nilai tersebut harus disimpan pada sebuah variabel jika kita ingin menggunakannya kembali. Contohnya coba jalankan kode berikut pada console browser:
+
+            let pesanInput = prompt("Masukkan pesan sesukamu...")
+
+        Lalu, coba kita tampilkan isi dari variabel pesanInput, maka hasilnya pasti akan sesuai dengan pesan yang kita input pada dialog box.
+
+        Kita bisa melihat bahwa sekarang nilai yang tersimpan di variabel pesanInput sesuai dengan input yang diberikan, yakni "Aku suka belajar koding!". Jika user tidak mengisi apa pun dan tetap menekan tombol "OK", maka nilai yang diberikan ke variabel pesanInput hanya berisi string kosong.
+
+        Pada contoh di atas, kita telah menekan tombol "OK", tetapi apa yang terjadi jika kita menekan tombol "Cancel"? Jika kita menekan tombol "Cancel", justru nilai yang dikembalikan adalah null. Silahkan coba kembali contoh di atas tetapi kali ini tekan tombol "Cancel", nanti nilai dari variabel pesanInput akan bernilai null.
+
+        Ada satu hal yang perlu kita ingat selama menggunakan method prompt(), yakni nilai apa pun yang diketik oleh user pada input akan diproses menjadi string terlebih dahulu baru dijadikan nilai kembalian (alias return) dari method tersebut. Coba kita jalankan contoh kode berikut pada console:
+
+            let pesanInput = prompt("Silakan masukkan angka...");
+
+        Ketika kita menampilkan tipe data dari nilai milik variabel pesanInput, maka sudah pasti tipe datanya adalah string, walau yang kita masukkan berupa angka.
+
+        Hal ini perlu kita ingat baik-baik karena jika kode tidak menduga bahwa variabel pesanInput berupa string, maka bisa saja menimbulkan bug yang tidak terduga pula. Jadi harap lebih teliti, ya. Walau begitu, kita bisa cast input dari method prompt ke tipe data tertentu. Misalkan pada contoh di atas kita ubah kode baris pertama menjadi:
+
+            let pesanInput = Number(prompt("Masukkan pesan sesukamu..."));
+
+        Kemudian periksa tipe data dari variabel pesanInput, pasti tipe datanya berupa number.
+
+    Memberikan nilai balikan default pada method prompt()
+        Ada satu lagi parameter yang bisa kita masukkan ke method prompt, di mana parameter ini berguna untuk mengisi field input secara otomatis dengan nilai yang berada pada parameter kedua tersebut. Mari kita coba dengan kode berikut:
+
+            let nama = prompt("Silakan masukkan nama Anda", "Lorem Ipsum");
+
+        Ketika kita jalankan pada browser, maka field input yang muncul pada dialog box akan secara otomatis terpenuhi.
+
+        Sama halnya dengan method alert(), ketika dialog box dari method prompt() terbuka, maka kita tidak bisa berinteraksi dengan komponen lain pada halaman web sampai dialog box tersebut ditutup.
+
