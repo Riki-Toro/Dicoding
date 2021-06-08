@@ -4,3 +4,34 @@ Document Object Model (DOM)
     Apa sih DOM itu? Pada lingkungan browser, DOM memberikan izin bagi kode JavaScript untuk mengakses dan memanipulasi konten pada dokumen melalui sebuah application programming interface (API) yakni sesuatu yang memungkinkan JavaScript dan dokumen HTML untuk ‘berkomunikasi’. Masih ingat browser object model yang diwakilkan oleh objek window yang bisa kita masukkan ke kode JavaScript? Nah, document object model diwakilkan oleh objek bernama document yang bisa juga kita gunakan dalam kode JavaScript kita.
 
     Sebelum mempraktekkan penggunaan DOM dalam kode JavaScript, yuk kita pelajari bentuk struktur dari sebuah DOM sehingga bisa digunakan layaknya sebuah objek pada JavaScript.
+
+
+
+DOM Tree
+    Ketika Anda membaca topik sub-modul ini, kemungkinan akan muncul pertanyaan “Apa hubungannya DOM dengan tree (pohon)?”. Tree yang dimaksud di sini adalah nama dari sebuah struktur data pada komputer yang secara visual mirip seperti sebuah pohon. Struktur data ini disebut tree, karena layaknya pohon terdapat satu batang induk tunggal yang kemudian bercabang menjadi batang-batang lainnya dan bisa saja bercabang kembali. Jika batang tersebut buntu, maka ujungnya terdapat daun (pada struktur data tree, daun disebut sebagai node).
+
+    Pada berkas HTML, batang induk tunggal adalah elemen <html>, sedangkan cabang-cabangnya adalah adalah elemen-elemen yang terdapat di dalamnya. Misalkan kita mempunyai berkas HTML dengan isi berikut:
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>DOM Tree</title>
+            </head>
+            <body>
+                <h1>Hello Developer Front-End Web!</h1>
+                <p>Belajar Membuat Front-End Web untuk Pemula</p>
+            </body>
+        </html>
+
+    Jika kita buat berkas HTML di atas menjadi dalam bentuk DOM, maka strukturnya akan menjadi sedemikian rupa:
+
+    Pada contoh yang diberikan di atas, DOM memiliki bentuk struktur data tree yang dibuat berdasarkan berkas HTML di atas. Struktur data tree di atas inilah yang akan direpresentasikan dalam bentuk objek bernama document nanti.
+
+    Walaupun struktur dari DOM terbentuk berdasarkan isi dari berkas HTML, tetapi ada beberapa skenario tertentu yang menyebabkan struktur DOM berbeda dengan struktur elemen-elemen dalam berkas HTML. Salah satu skenarionya adalah jika terdapat kesalahan penulisan dalam berkas HTML. Mari kita lihat contohnya seperti berikut:
+
+        <!DOCTYPE html>
+        <html>
+        Hello World!
+        </html>
+
+    Pada berkas HTML di atas, jelas terlihat bahwa tidak ada elemen dengan tag <head> maupun <body> yang mengakibatkan berkas HTML tersebut tidak valid. Walaupun berkas HTML tersebut tidak valid pada bentuk DOM-nya, object structure-nya akan diperbaiki. Bagaimana caranya? Caranya yakni elemen dengan tag <head> maupun <body> akan ditambahkan secara otomatis kemudian teks “Hello, World!” ditempatkan di elemen <body>.
