@@ -1,0 +1,6 @@
+Document Object Model (DOM)
+    Sejauh ini kita sudah mempelajari bagaimana cara menggunakan JavaScript untuk memanipulasi browser object melalui objek window. Sehingga, kita bisa membuat browser melakukan hal-hal tertentu sesuai keinginan. Namun, bagaimana jika kita ingin memanipulasi atau mengatur elemen-elemen yang terdapat pada berkas HTML dengan JavaScript? Jawabannya adalah kita bisa! Yakni melalui Document Object Model (yang berikutnya akan lebih sering kita sebut DOM saja).
+
+    Apa sih DOM itu? Pada lingkungan browser, DOM memberikan izin bagi kode JavaScript untuk mengakses dan memanipulasi konten pada dokumen melalui sebuah application programming interface (API) yakni sesuatu yang memungkinkan JavaScript dan dokumen HTML untuk ‘berkomunikasi’. Masih ingat browser object model yang diwakilkan oleh objek window yang bisa kita masukkan ke kode JavaScript? Nah, document object model diwakilkan oleh objek bernama document yang bisa juga kita gunakan dalam kode JavaScript kita.
+
+    Sebelum mempraktekkan penggunaan DOM dalam kode JavaScript, yuk kita pelajari bentuk struktur dari sebuah DOM sehingga bisa digunakan layaknya sebuah objek pada JavaScript.
