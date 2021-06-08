@@ -20,3 +20,23 @@ Pendahuluan Browser Object Model (BOM)
     Setiap browser menyediakan apa yang disebut browser object model (BOM) yang bisa kita gunakan dalam kode JavaScript kita. Dalam browser, object browser model ini diwakilkan oleh sebuah objek bernama window. Mari kita ketik window pada console browser dan lihat method dan method apa saja yang tersedia melalui objek ini:
 
     Melalui objek window inilah kode JavaScript kita bisa mengakses berbagai method dan atribut yang bisa membantu kita membuat halaman web menjadi lebih interaktif. Kemungkinan Anda akan tertegun melihat begitu banyak method serta atribut, tetapi Anda tidak diharapkan untuk menghafal semuanya. Karena pada materi berikutnya, kita cukup membahas 3 method paling dasar yakni method alert(), prompt(), dan objek console.
+
+
+Anggota BOM
+    Pada sub-modul ini kita akan membahas lebih dalam method dari masing-masing ketiga anggota BOM di atas. Ketiga anggota BOM (Browser Object Model) adalah method alert(), method prompt(), dan diakhiri dengan objek console. Mari mulai membahas method alert terlebih dahulu!
+
+    method alert()
+        method alert(), seperti method pada JavaScript menerima 1 parameter opsional yakni sebuah pesan string yang ingin kita tampilkan dalam sebuah dialog box oleh browser. Contohnya jika kita ingin menampilkan sebuah pesan berisi string "Halo user!" menggunakan console, maka caranya adalah sebagai berikut:
+
+            alert("Halo user!");
+
+        Sehingga tampilannya akan terlihat seperti di bawah ini:
+
+        Sama seperti memanggil method pada umumnya pada JavaScript, bukan? Kita bahkan hanya perlu memasukkan variabel yang berisi string ke dalam method alert() sebagai berikut:
+
+            let pesan = "Halo user!";
+            alert(pesan);
+            
+        Maka jika dijalankan pada console browser menjadi sebagai berikut:
+
+        Keren bukan? Kita bisa menampilkan pesan yang telah ditentukan melalui JavaScript. Namun, ada satu hal yang perlu kita ingat saat menggunakan alert(), yakni ketika dialog boxalert() muncul, user tidak bisa berinteraksi dengan bagian lain dari halaman web sampai dialog box tersebut ditutup dengan menekan tombol "OK".
