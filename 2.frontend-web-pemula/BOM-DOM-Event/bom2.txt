@@ -77,3 +77,13 @@ Anggota BOM: prompt()
 
         Sama halnya dengan method alert(), ketika dialog box dari method prompt() terbuka, maka kita tidak bisa berinteraksi dengan komponen lain pada halaman web sampai dialog box tersebut ditutup.
 
+
+Anggota BOM: console
+    Akhirnya kita sampai pada pembahasan objek console yang merupakan peralatan yang wajib diketahui oleh semua front-end developer yang menggunakan JavaScript. Mengapa demikian? Karena objek console memberikan kita akses ke fitur debugging alias peralatan-peralatan yang bisa membantu menghilangkan bug yang bersembunyi di dalam kode JavaScript.
+
+    Tentu Anda masih ingat jika ingin menampilkan sebuah nilai dari variabel maupun sebuah string, dapat menggunakan sintaks "console.log(<isi pesan>)". Wah, ternyata kita sudah menggunakan objek console sejak awal! Melalui objek console ini, kita dapat membuat kode JavaScript menampilkan pesan-pesan khusus berdasarkan konteks tertentu pada console milik browser. Berikut beberapa method milik objek console yang umum digunakan:
+
+        log() Menampilkan pesan ke console browser.
+        info() Menampilkan pesan yang berisi informasi penting ke console browser.
+        warn() Menampilkan pesan yang berisi informasi dalam bentuk peringatan ke console browser.
+        error() Menampilkan pesan yang berisi informasi dalam bentuk error ke console browser.
