@@ -1,0 +1,22 @@
+Pendahuluan Event
+    Kita telah mempelajari browser object model (BOM), document object model (DOM), penggunaan BOM untuk membangkitkan fungsionalitas khusus dari browser, dan cara menggunakan DOM untuk memanipulasi atau mengubah konten dari sebuah berkas HTML.
+
+    Lalu, bagaimana JavaScript menjalankan serangkaian perintah jika user berinteraksi dengan salah satu elemen HTML pada halaman web? Misalnya, menampilkan pesan menggunakan method alert ketika user menekan sebuah tombol pada halaman web atau mengubah tampilan halaman web jika user menekan sebuah key khusus pada keyboard?
+
+    Solusinya terdapat pada materi ini, mari berkenalan dengan event!
+
+    Ketika browser selesai menampilkan halaman web, menekan tombol tertentu pada keyboard, atau mungkin meletakkan kursor pada elemen HTML tertentu, itulah yang dinamakan event alias “kejadian”. Hampir apa pun yang berhubungan dengan adanya interaksi dengan berkas HTML bisa kita sebut sebagai event. Lalu, apa fungsinya?
+
+    Melalui JavaScript, kita bisa menulis kode tertentu yang akan dijalankan ketika merasakan sebuah “kejadian” tertentu. Contohnya jika user menekan sebuah tombol, JavaScript (melalui DOM) akan mengubah tampilan halaman web kita seperti mengubah warna pada elemen tertentu, atau bahkan membawa kita ke bagian tertentu pada halaman web tersebut. Ambil contoh elemen button HTML berikut yang akan memunculkan dialog box alert ketika ditekan:
+
+        <button onclick="alert('Halo! Apa Kabar')">Tekan Aku</button>
+
+    Untuk materi Event, kita akan membahas mengenai:
+
+    Macam-macam Event.
+        Membuat kode JavaScript untuk menjalankan kode berdasarkan event tertentu.
+        Memberikan kemampuan sebuah elemen HTML untuk membuat sebuah event.
+        Memberikan kemampuan sebuah elemen HTML untuk bereaksi terhadap event.
+        Membuat Custom Event, yakni event yang sudah dimodifikasi sesuai dengan keperluan kita.
+
+    Ketika sudah memahami bagaimana cara menggunakan event dan mengimplementasikannya bersama dengan manipulasi melalui DOM dan BOM, maka dijamin halaman web Anda sangat interaktif dan tidak terkesan “hambar”. Semangat!
