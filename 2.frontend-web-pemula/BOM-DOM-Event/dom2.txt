@@ -1,0 +1,32 @@
+Membuat Elemen HTML
+    Manipulasi DOM memberikan kemampuan bagi kita untuk membuat elemen-elemen HTML melalui kode JavaScript. Selain itu, melalui DOM kita mampu membuat konten HTML. 
+
+    Sekarang mari kita mulai dengan membahas method createElement(). Dengan method tersebut, kita bisa membuat sebuah elemen HTML yang benar-benar baru tanpa memanipulasi isi kontek berkas HTML.
+
+    Contohnya, jika kita ingin membuat sebuah elemen HTML dengan tag <p> maka sintaksnya adalah sebagai berikut:
+
+        const newElement = document.createElement('p');
+
+    Mudah sekali bukan? Tetapi rasanya ada yang kurang, bagaimana jika kita ingin menambahkan teks? Jawabannya terletak pada assignment melalui atribut innerText.
+
+        newElement.innerText = "Selamat datang ke HTML kosong ini :)";
+
+    Misalnya kita ingin menambahkan tag tambahan seperti tag <b> antara kata "Selamat datang", maka bisa kita tulis ulang pesannya dengan melakukan assignment menggunakan innerHTML.
+
+        newElement.innerHTML = "<b>Selamat datang</b> ke HTML kosong ini :)";
+
+    Contoh di atas menerapkan createElement() untuk membuat teks melalui tag <p>. Apakah method createElement memungkinkan untuk membuat elemen dengan tag <img>? Jawabannya adalah sangat mungkin! Mari kita awali dengan membuat elemen dengan method createElement.
+
+        const newElement = document.createElement('img');
+
+    Berhasil! Tetapi masih ada yang janggal. Apa gunanya tag <img> jika tidak ada atribut src untuk menjadi sumber gambar? Untuk memberikan atribut src pada elemen <img> yang baru saja dibuat, kita bisa menggunakan atribut setAttribute().
+
+    Pada contoh sintaks di bawah, kita akan menggunakan sebuah pranala yang memberikan gambar acak. Jadi jangan khawatir jika hasilnya berbeda dengan contoh di bawah.
+
+        newElement.setAttribut("src", "https://picsum.photos/200/300");
+
+    Selama kita mengerjakan praktik di atas, pasti Anda menyadari bahwa elemen HTML tidak muncul ketika kita membuatnya. Mengapa demikian? Karena elemen-elemen tersebut belum kita tambahkan ke berkas HTML.
+
+    Sama halnya jika Anda menyiapkan berbagai bumbu pada piring terpisah sebelum menambahkannya ke hidangan utama. Hidangan tidak akan berubah sebelum menuangkan bumbu-bumbu tersebut. Kita akan mempelajari lebih lanjut mengenai penambahan elemen HTML ke berkas HTML pada materi "Menambahkan Elemen HTML".
+
+    Jika Anda belum begitu paham dengan apa kegunaan innerHTML, innerText , maupun setAttribute(), tidak perlu khawatir karena kita akan membahasnya secara rinci pada materi "Mengubah Konten HTML".
