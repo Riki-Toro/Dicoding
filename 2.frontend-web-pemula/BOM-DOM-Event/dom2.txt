@@ -285,3 +285,90 @@ Memanipulasi Konten Melalui innerText, innerHTML, dan style.property
                 button.childNodes[0].style.borderRadius = "4px"
 
             Lho? Styling yang kita ingin ubah namanya "border-radius" kenapa malah menjadi "borderRadius"? Singkatnya, nama properti dari objek DOM mengikuti standar penamaan variabel khusus. Penamaannya tidak boleh mengandung tanda "-". Sehingga, nama properti CSS yang memiliki tanda "-" diubah menjadi bentuk camelCase. Contohnya border-radius menjadi borderRadius, font-family menjadi fontFamily, font-size menjadi fontSize, dan seterusnya.
+
+
+
+
+Menambahkan Elemen HTML ke DOM
+    Melalui DOM, kita sudah belajar bagaimana cara membuat konten HTML dan memanipulasi konten HTML sehingga dapat "berubah bentuk". Namun, bagaimana jika kita ingin menambahkan elemen HTML yang benar-benar baru? Pada materi ini kita akan mempelajarinya melalui 2 method yakni appendChild() dan insertBefore().
+
+    Seperti biasanya, kita akan membuat sebuah berkas HTML terlebih dahulu untuk alat praktek kita.
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Memasak Air</title>
+            </head>
+            <body>
+                <p id="name">Langkah-langkah memasak air</p>
+                <ol id="daftar">
+                    <li id="awal">Masukkan air ke dalam wadah.</li>
+                    <li id="akhir">Matikan kompor.</li>
+                </ol>
+                <hr size="2" width="95%" color="black">
+            </body>
+        </html>
+
+    Yang akan memiliki tampilan sederhana sedemikian rupa.
+
+    Oke, kita sudah siap, method pertama yang akan kita pelajari lebih dahulu adalah appendChild().
+
+
+
+    Menambahkan elemen dengan appendChild()
+        Sesuai dengan penjelasan di atas, method inilah yang akan kita jelajahi terlebih dahulu. Apa fungsi dari method appendChild? Fungsinya adalah menambahkan sebuah elemen HTML pada bagian paling akhir dari sebuah elemen yang kita gunakan untuk memanggil method ini. Jika Anda belum begitu paham maksudnya, yuk kita praktikkan.
+
+        Pada berkas HTML di atas, kita ingin menambahkan langkah baru pada akhir daftar yakni sebuah pesan berisi "Selamat menikmati!". Rasanya kurang lengkap jika sebuah daftar langkah-langkah membuat makanan/minuman tidak diakhiri dengan pesan tersebut.
+
+        Sebelum kita memanggil elemen daftar, bagaimana jika kita membuat sebuah elemen baru terlebih dahulu dengan method createElement() dari objek document. Elemen yang ingin kita buat adalah elemen dengan tag <li> karena ingin memasukkan sebuah item ke dalam ordered list.
+
+            const newElement = document.createElement("li");
+
+        Berikutnya, kita masukkan pesan "Selamat menikmati!" ke dalam elemen <li> tersebut melalui atribut innerText, karena kita hanya ingin memasukkan teks saja tanpa tambahan tag lainnya.
+
+            newElement.innerText = "Selamat menikmati!";
+
+        Langkah ketiga adalah mendapatkan elemen parent dari semua elemen <li> yakni elemen <ol> dengan id "daftar" sesuai dengan berkas HTML di atas.
+
+            const daftar = document.getElementById("daftar");
+
+        Jika kita lihat pada console browser, kode JavaScript akan terlihat seperti di bawah ini:
+
+        Oke, sejauh ini belum ada perubahan sama sekali di layout HMTL kita. Tenang saja, semua itu akan berubah ketika menggunakan method appendChild() pada variabel daftar.
+
+            daftar.appendChild(newElement);
+
+        Selama kita bisa mengambil elemen HTML yang ingin ditambahkan elemen pada bagian akhir, maka mudah untuk menambahkannya menggunakan method appendChild(). 
+
+        Selanjutnya kita akan beralih ke method berikutnya, yaitu insertBefore(). Bagaimanakah cara penerapannya? Simak pembahasannya di bawah ini.
+
+        
+
+    Menambahkan elemen dengan insertBefore()
+        Tidak seperti method sebelumnya, method insertBefore() memberikan kemampuan untuk memasukkan elemen sebelum elemen HTML tertentu selama elemen parent-nya masih bisa diakses, sama seperti method appendChild().
+
+        Berkas HTML yang telah kita modifikasi sebelumnya menggunakan method appendChild() memiliki tampilan berikut.
+
+        Sebentar, pada langkah ke-2 tulisannya "Matikan kompor". Sejak kapan kita menghidupkan kompornya? Tampaknya kita harus menambahkan langkah yang berisi pesan "Hidupkan kompor".
+
+        Untuk menambahkan elemen baru pada awal daftar, kita buat elemen terbaru tersebut melalui method createElement(). Elemen yang ingin kita buat adalah elemen dengan tag <li> karena ingin tetap memasukkan sebuah item ke dalam ordered list.
+
+            const elementAwal = document.createElement("li");
+
+        Berikutnya, tuliskan pesan "Hidupkan kompor." ke dalam elemen <li> melalui atribut innerText karena kita hanya ingin memasukkan teks saja tanpa tambahan tag lainnya.
+
+            elementAwal.innerText = "Hidupkan kompor.";
+
+        Langkah ketiga adalah mendapatkan elemen parent dari semua elemen <li> yakni elemen <ol> dengan id "daftar" sesuai dengan berkas HTML di atas. Namun, karena sebelumnya kita sudah menginisialisasi variabel daftar pada praktik method appendChild(), maka tidak perlu menginisialisasikannya kembali.
+
+        Pada elemen <ol> di berkas HTML, kita melihat bahwa item paling awal memiliki id dengan nilai "awal". Untuk memasukkan elementAwal pada awal daftar, maka kita perlu mengakses item dengan id "awal".
+
+            const itemAwal = document.getElementById("awal");
+
+        Langkah terakhir adalah memanggil method insertBefore pada variabel daftar. Method tersebut akan dipanggil melalui elemen HTML parent yang ingin kita modifikasi child-nya. Parameter pertama pada method tersebut diisi dengan elemen baru yang ingin ditambah berdasarkan elemen yang sudah ditentukan di parameter kedua.
+
+            daftar.insertBefore(elementAwal, itemAwal);
+
+        Setelah menjalankan semua kode di atas, kita tinggal menjalankan method insertBefore pada variabel daftar. Sehingga, tampilan HTML akan berubah sesuai dengan keinginan kita.
+
+        Sekarang kita sudah dibekali dengan ilmu untuk membuat, mengubah, dan menambahkan elemen HTML. Pada materi berikutnya, kita akan mempelajari event yang membuat halaman web dapat melakukan hal-hal keren ketika berinteraksi dengan salah satu elemen HTML. Sudah siap? Yuk, lanjut!
