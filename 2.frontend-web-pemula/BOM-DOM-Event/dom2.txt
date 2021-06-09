@@ -63,3 +63,60 @@ Mengubah Konten HTML - Menyiapkan Konten
                 </div>
             </body>
         </html>
+
+
+
+Memanipulasi Atribut Melalui setAttribute()
+    Melalui method setAttribute() dari sebuah elemen yang berhasil didapatkan, maka kita bisa menggunakan JavaScript melalui sintaks berikut:
+
+        <element>.setAttribute("<nama_atribut>", "<nilai_atribut_baru>")
+
+    Misalnya ambil contoh pada kode halaman web yang kita buat pada awal sub-modul ini:
+
+    Tampaknya ada berapa kejanggalan yang bisa kita perbaiki supaya tampilan halamannya lebih keren, yakni:
+
+    Ukuran gambar yang terlalu kecil, sehingga kita akan mengubah dimensinya.
+    Tombol ke-4 dengan caption "Play (Coming Soon)" yang semestinya tidak bisa ditekan.
+    Baiklah, sepertinya kita bisa mengubah atribut-atribut dari elemen-elemen tersebut. Mari kita mulai dengan mengubah dimensi pada gambar terlebih dahulu.
+
+    Kita ingin memperbesar gambar di atas dengan mengubah nilai dari atribut width dan height milik elemen dengan id "gambar". Apa langkah pertama kita? Benar, kita harus mengakses elemennya terlebih dahulu dengan method getElementById() dan menyimpannya pada sebuah variabel agar lebih efisien.
+
+        const gambar = document.getElementById("gambar");
+
+    Mantap, kita sudah bisa mengakses elemen gambar yang memiliki id dengan nilai "gambar" tersebut dan menyimpannya pada variabel gambar. Sekarang mari kita ubah dimensinya melalui atribut width dan height-nya dengan nilai masing-masing "300" dan "215".
+
+    Mantap! Sekarang tampilan gambar terlihat lebih enak dipandang mata! Akhirnya tugas kita yang pertama telah berhasil. Berikutnya adalah mengubah tombol yang memiliki caption "Play (Coming Soon)" yang termasuk dalam class button.
+
+    Kali ini, kita tidak bisa mengakses tombol Play Coming Soon melalui method getElementById(), karena tombol tersebut tidak memiliki id unik. Lalu bagaimana kita menyelesaikan masalah ini? Tenang, masih ada satu method yang bisa kita gunakan. Masih ingat dengan method querySelectorAll() yang kita pelajari pada materi "Mencari DOM (Mendapatkan DOM)"? Kita bisa menggunakan method tersebut untuk mendapatkan semua button yang berada dalam class "button" dengan sintaks berikut:
+
+        const buttons = document.querySelectorAll(".button");
+
+    Waduh, tampaknya kita belum mendapatkan elemen tombol yang kita inginkan karena kita hanya mendapatkan daftar dari semua tombol yang berada dalam class button dalam bentuk HTMLCollection. Bagaimana kita bisa melanjutkan tugas kita? Coba ingat-ingat kembali pada materi "Mencari DOM (Mendapatkan DOM)". Bukankah HTMLCollection bisa kita akses elemen-elemennya seperti layaknya sebuah array? Nah, kuncinya adalah mengambil tombol "Play (Coming Soon)" melalui indexing!
+
+    Karena tombol yang kita tuju adalah tombol ke-4 (pada array buttons terletak pada indeks ke-3), cara mengaksesnya adalah dengan sintaks berikut:
+
+        const playButton = buttons[3];
+
+    Mantap! Kita selangkah lebih dekat untuk mendapatkan solusinya. Eits, tunggu dulu, coba perhatikan elemen yang disimpan pada variabel playButton:
+
+    Kita baru hanya mendapatkan elemen dengan tag <div> dan kita hanya ingin mengakses elemen button di dalam tag tersebut. Lantas bagaimana caranya? Kita bisa menggunakan atribut childNodes yang akan mengembalikan semua elemen yang terdapat di dalam tag <div> dalam bentuk HTMLCollection. Karena pada contoh di atas hanya terdapat satu elemen saja, maka kita bisa gunakan indeks 0 pada atribut childNodes tersebut:
+
+        const playButtonElement = playButton.childNodes[0];
+
+    Akhirnya kita bisa menggunakan method setAttribute() pada variabel playButtonElement yang menyimpan elemen button. Sekarang kita tinggal menjalankan kode berikut:
+
+        playButtonElement.setAttribute("disabled", "disabled");
+
+    Sim salabim! Tombol dengan caption "Play (Coming Soon)" sudah tidak bisa ditekan lagi, sesuai dengan saran perbaikan kita di awal.
+
+
+    JavaScript Automatic Type Conversion pada setAttribute()
+        Jika kita perhatikan pada contoh mengubah atribut "width" maupun "height", parameter kedua menggunakan string yang berisi angka. Namun, apakah Anda mengetahui bahwa kita juga bisa memasukkan tipe data Number daripada string? Jika nilai dari sebuah atribut hanya terdiri dari angka saja (contohnya nilai dari width dan height di atas), maka kode:
+
+            gambar.setAttribute("width", "300");
+            
+        Memiliki fungsi yang sama seperti:
+
+            gambar.setAttribute("width", 300);
+
+        Mengapa hal ini diperbolehkan? Semua ini memungkinkan karena JavaScript memiliki fitur yang bernama automatic type conversion yang mengkonversi sebuah nilai jika dibutuhkan.
