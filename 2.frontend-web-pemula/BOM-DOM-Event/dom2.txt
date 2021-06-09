@@ -114,9 +114,174 @@ Memanipulasi Atribut Melalui setAttribute()
         Jika kita perhatikan pada contoh mengubah atribut "width" maupun "height", parameter kedua menggunakan string yang berisi angka. Namun, apakah Anda mengetahui bahwa kita juga bisa memasukkan tipe data Number daripada string? Jika nilai dari sebuah atribut hanya terdiri dari angka saja (contohnya nilai dari width dan height di atas), maka kode:
 
             gambar.setAttribute("width", "300");
-            
+
         Memiliki fungsi yang sama seperti:
 
             gambar.setAttribute("width", 300);
 
         Mengapa hal ini diperbolehkan? Semua ini memungkinkan karena JavaScript memiliki fitur yang bernama automatic type conversion yang mengkonversi sebuah nilai jika dibutuhkan.
+
+
+
+
+Memanipulasi Konten Melalui innerText, innerHTML, dan style.property
+    JavaScript mampu mengubah atribut dari sebuah elemen. Namun, ada satu kemampuan JavaScript yang tidak kalah berguna, yakni memanipulasi isi elemen itu sendiri. Jika ingin memanipulasi konten melalui atribut-atribut tersebut, sebaiknya kita bedakan terlebih dahulu antara innerText dengan innerHTML.
+
+    Pada materi kali ini kita akan menggunakan berkas HTML yang sebelumnya sudah diubah dengan setAttribute() dengan beberapa penambahan konten sebagai berikut:
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Welcome to Cube World!</title>
+                <style>
+                    button {
+                        width: 200px;
+                        font-size: 15px;
+                        margin: 8px;
+                        padding: 3px;
+                    }
+        
+                    main{
+                        margin: 2px;
+                    }
+        
+                </style>
+            </head>
+            <body>
+                <div id="main" align="center">
+                    <h2>Its Cube Time!</h2>
+                    <img id="gambar" src="https://d17ivq9b7rppb3.cloudfront.net/original/commons/homepage-dicoding-challenge-illustration.png" alt="Its a rubiks cube!" width="300" height="215">
+                    <p id="caption"><b>Sudah siap untuk memecahkan teka-teki permainan tersebut?<b></p>
+                    <div class="button-group"></div>
+                        <div class="button"><button>Sejarah</button></div>
+                        <div class="button"><button>Permainan</button></div>
+                        <div class="button"><button><i>Fun Fact</i></button></div>
+                        <div class="button"><button disabled="disabled">Play (Coming Soon)</button></div>
+                        <div class="button"><button>Exit</button></div>
+                    </div>
+                </div>
+                <hr size="2" width="95%" color="black"> 
+                <div id="links">
+                    <p>Situs lainnya yang tidak kalah menarik:</p>
+                    <ul>
+                    <li><a href="http://www.dicoding.com" id="dicodingLink">Dicoding</a></li>
+                    <li><a href="http://www.google.com" id="googleLink">Google</a></li>
+                    </ul>
+                </div>
+            </body>
+        </html>
+
+
+    Perbedaan innerText dengan innerHTML
+        Coba perhatikan isi dari berkas HTML di atas, pada bagian bawah terdapat sebuah konten dengan tag <div> dengan id "links" yang berisi pranala-pranala eksternal. Kita akan coba melihat perbedaan ketika mengambil elemen dengan id "links" lalu mengakses atribut innerHTML vs. innerText. Pertama kita akan mengakses elemen yang dimaksud di atas dengan sintaks method getElementById() terlebih dahulu:
+
+            const links = document.getElementById("links");
+
+        Kemudian jika kita panggil atribut innerHTML, maka berikut tampilan output-nya:
+
+        Sedangkan jika kita panggil atribut innerText, maka hasilnya berbeda tetapi ada sedikit kemiripan:
+
+        Apakah Anda melihat kemiripannya? Ya, pada kedua atribut teks di dalam elemen yang kita cari. Lalu apa perbedaannya? Perbedaannya adalah innerHTML mengambil semua konten dalam sebuah elemen, termasuk tag-tag HTML yang ada, sedangkan innerText, hanya mengambil teks tetapi tidak mengambil tag-tag HTML yang ada. Oke deh, sekarang saatnya kita mulai memanipulasi konten HTML!
+
+
+    Manipulasi konten dengan innerText
+        Hmmm setelah kita telaah, ternyata nama-nama pranala di atas kurang menarik, bagaimana jika kita ubah teks yang ditampilkan tanpa menambahkan tag-tag baru? Jika kita hanya ingin mengubah teksnya saja. maka gunakan assignment terhadap innerText.
+
+        Misalnya pada halaman web di atas kita ingin mengubah teks "Dicoding" menjadi "Belajar Programming di Dicoding". Maka kita bisa memanggil elemen tersebut terlebih dahulu, lalu memasukkan string "Belajar Programming di Dicoding" melalui pemanggilan atribut innerText sebagai berikut:
+
+        Sekarang kita akan coba praktekkan manipulasi konten dengan innerText, jangan lupa untuk menyiapkan berkas HTML di atas ya.
+
+        Pertama kita lihat dulu tampilan berkas HTML di atas. Hasilnya akan seperti berikut:
+
+        Ada beberapa konten tambahan yakni daftar pranala eksternal di bagian bawah halaman web di mana satu akan membawa kita ke homepage Dicoding dan satunya ke Google. Di sini kita akan mengubah konten HTML pada tulisan pranala Dicoding dan Google sehingga tulisan yang muncul akan miring alias italic dengan cara menambahkan tag <i> di antara teksnya.
+
+        Pertama, kita harus mengambil elemen berkas HTML-nya terlebih dahulu. Pada pranala Dicoding, id-nya adalah "dicodingLink", sedangkan pada Google, id-nya adalah "googleLink". Namun, pada praktik kali ini kita hanya mencoba mengubah isi pada pranala Dicoding dahulu.
+
+            const dicoding = document.getElementById("dicodingLink");
+
+            dicoding.innerText = "Belajar Programming di Dicoding";
+
+        Keren, bukan? Tampilan tulisannya sudah bisa berubah. Silakan Anda terapkan hal di atas untuk pranala Google, di mana pesan pada pranalanya diubah menjadi "Mencari sesuatu di Google". Ingat, nilai id pada pranala Google adalah "googleLink".
+
+
+    Manipulasi konten dengan innerHTML
+        Melalui innerHTML, kita sudah mengetahui bahwa atribut ini mengembalikan konten sebuah elemen bersama dengan tag-nya jika ada. Apakah Anda bisa menebak apa kegunaan fungsionalitas ini? Kuncinya terletak pada kata tag. Sudah tahu? Betul, melalui assignment ke atribut innerHTML ini, kita bisa memasukkan tag HTML tambahan ke sebuah elemen.
+
+        Sekarang kita akan mempraktikkan manipulasi konten dengan innerHTML, jangan lupa untuk menyiapkan berkas HTML berikut untuk proses praktik.
+
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <title>Welcome to Cube World!</title>
+                    <style>
+                        button {
+                            width: 200px;
+                            font-size: 15px;
+                            margin: 8px;
+                            padding: 3px;
+                        }
+            
+                        main{
+                            margin: 2px;
+                        }
+            
+                    </style>
+                </head>
+                <body>
+                    <div id="main" align="center">
+                        <h2>Its Cube Time!</h2>
+                        <img id="gambar" src="https://d17ivq9b7rppb3.cloudfront.net/original/commons/homepage-dicoding-challenge-illustration.png" alt="Its a rubiks cube!" width="300" height="215">
+                        <p id="caption"><b>Sudah siap untuk memecahkan teka-teki permainan tersebut?<b></p>
+                        <div class="button-group"></div>
+                            <div class="button"><button>Sejarah</button></div>
+                            <div class="button"><button>Permainan</button></div>
+                            <div class="button"><button><i>Fun Fact</i></button></div>
+                            <div class="button"><button disabled="disabled">Play (Coming Soon)</button></div>
+                            <div class="button"><button>Exit</button></div>
+                        </div>
+                    </div>
+                    <hr size="2" width="95%" color="black"> 
+                    <div id="links">
+                        <p>Situs lainnya yang tidak kalah menarik:</p>
+                        <ul>
+                        <li><a href="http://www.dicoding.com" id="dicodingLink">Dicoding</a></li>
+                        <li><a href="http://www.google.com" id="googleLink">Google</a></li>
+                        </ul>
+                    </div>
+                </body>
+            </html>
+
+        Pertama kita lihat dulu tampilan berkas HTML di atas. Hasilnya akan seperti berikut:
+
+        Ada beberapa konten tambahan yakni daftar pranala eksternal di bagian bawah halaman web. Masing-masing akan membawa kita ke homepage Dicoding dan Google. Di sini kita akan coba ubah konten HTML pada tulisan pranala Dicoding dan Google sehingga tulisan yang muncul akan miring alias italic. Caranya, tambahkan tag <i> di antara teksnya.
+
+        Karena kita sebelumnya sudah menyimpan elemen dengan id yang bernilai "dicodingLink" yang disimpan pada variabel "dicoding", maka kita tinggal memanggil atribut innerHTML pada variabel tersebut.
+
+            dicoding.innerHTML = "<i>Belajar Programming di Dicoding</i>";
+
+        Kemudian lihat bahwa sekarang pranala yang mengandung tulisan "Belajar Programming di Dicoding" akan miring alias italic.
+
+        Jelas fungsionalitasnya lebih banyak ketimbang innerText, karena pada innerHTML tag tambahan apapun yang kita tulis akan diproses sebagai tag HTML dan bukan hanya sekadar teks. Coba Anda menulis sintaks "<i>Belajar Programming di Dicoding</i>" menggunakan innerText dan lihat perbedaannya. Kemudian coba lakukan hal yang sama pada pranala Google sehingga tampilannya menjadi berikut:
+
+        Perlu diingat bahwa jika kita hanya ingin menambahkan tag baru tanpa mengubah tag-tag yang sudah ada, maka tag yang lama harus ditulis ulang, karena jika tidak maka akan terhapuskan.
+
+
+
+        Manipulasi style konten dengan style.property
+            Sejauh ini kita sudah bisa memanipulasi atribut dari sebuah tag dengan method setAttribute, mengubah isi teks dalam sebuah elemen dengan cara melakukan assignment pada atribut innerText, dan akhirnya menambahkan tag tambahan pada sebuah elemen melalui assignment pada atribut innerHTML. Sebelum menyelesaikan materi ini, kita akan belajar mengubah styling sebuah elemen. Setelah melalui modifikasi yang cukup banyak, akhirnya halaman web kita memiliki tampilan sebagai berikut:
+
+            Lalu, bagaimana caranya jika kita ingin membuat tombol-tombol kita memiliki pojok-pojok yang jelas? Kita dapat mengubah styling pada tombol-tombol tersebut menggunakan sintaks style.property. Pada kasus ini, kita ingin menambahkan style berupa border-radius dengan nilai "4px" dari semua button di atas.
+
+            Langkah pertama adalah mendapatkan semua elemen button terlebih dahulu. Awalnya kita dapat menggunakan method querySelectorAll(). Bagaimana jika kita bereksperimen dan menggunakan method lain? 
+
+            Kali ini, mari kita coba gunakan method getElementsByClassName(). Layaknya mendapatkan elemen dokumen pada umumnya, kita awali dengan mendapatkan semua elemen yang berada dalam class button.
+
+                const buttons = document.getElementsByClassName("button")
+
+            Nah, karena kita tidak menggunakan method query, kita bisa langsung saja mengetik nama class yang kita cari seperti di atas. Setelah mendapatkan semua elemen, kita looping terhadap setiap elemen pada variabel buttons yang merupakan HTMLCollection. Kita bisa mengakses elemen button melalui atribut childNodes pada indeks ke-0 (karena atribut childNodes mengembalikan HTMLCollection).
+
+            Karena kita bisa mengakses elemen button melalui atribut childNodes, maka aplikasikan sintaks "styles.property" pada masing-masing elemen dengan sintaks berikut di dalam proses looping:
+
+                button.childNodes[0].style.borderRadius = "4px"
+
+            Lho? Styling yang kita ingin ubah namanya "border-radius" kenapa malah menjadi "borderRadius"? Singkatnya, nama properti dari objek DOM mengikuti standar penamaan variabel khusus. Penamaannya tidak boleh mengandung tanda "-". Sehingga, nama properti CSS yang memiliki tanda "-" diubah menjadi bentuk camelCase. Contohnya border-radius menjadi borderRadius, font-family menjadi fontFamily, font-size menjadi fontSize, dan seterusnya.
