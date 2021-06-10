@@ -79,3 +79,48 @@ Macam-Macam Event
         onmouseover >> Event ini akan terjadi cursor kita berada di atas sebuah elemen tertentu.
 
     Sekian macam-macam event yang umum. Terdapat beberapa event yang akan kita gunakan pada bagian praktik materi event sehingga tidak perlu dihafalkan semuanya sekaligus. Melalui praktik nanti, diharapkan Anda dapat menghafalnya perlahan.
+
+
+
+
+Menambahkan Event Handler - Menyiapkan Halaman Website
+    Cukup banyak event yang bisa kita gunakan untuk menambah aspek interaktif dalam halaman web. Walau sangat banyak, kita hanya akan mempraktekkan 2 event saja, yakni event onclick dan onload.
+
+    Sebelum melanjutkan materi, kita harus menyiapkan sebuah berkas HTML dengan konten berikut. Untuk mempermudah proses praktek, mari kita beri nama berkas HTML tersebut dengan “event.html”.
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Event World</title>
+                <style>
+                    .contents{
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        border: 1px solid black;
+                        border-width:2px;
+                        padding : 15px;
+                    }
+        
+                    #generateButton{
+                        margin-top : 5px;
+                        margin-bottom: 15px;;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="contents" align="center" hidden>
+                    <button id="incrementButton">Tekan Aku :)</button>
+                    <h3>Kamu sudah menekan tombol di atas sebanyak <span id="count">0</span></h3>
+                </div>
+            
+                <script>
+                    // kita akan praktek di sini
+                </script>
+            </body>
+        </html>
+
+    Tampilannya berupa halaman web yang hampa akan konten. Mengapa demikian? Tenang, browser Anda tidak rusak. Tampilannya memang kosong karena class milik <div> memiliki atribut bernama hidden. Kita akan menambahkan event handler, yang merupakan kode JavaScript yang akan dijalankan ketika sebuah event tertentu terjadi yakni event onload dan onclick. Ketika kita sudah mencapai tahap akhir dari praktek di bawah, siap-siap takjub terhadap halaman web yang berperilaku seperti ini:
+
+    Pada materi ini, akan ada perbedaan pada aspek praktik. Jika sebelumnya kita menulis kode JavaScript menggunakan console browser, sekarang kita akan sepenuhnya menggunakan text editor. Maka keluarkan text editor favorit Anda!
