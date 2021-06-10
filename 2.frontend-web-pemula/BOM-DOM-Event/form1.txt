@@ -30,3 +30,133 @@ Form Event
     Saat selesai mengisi form pada sebuah halaman web, umumnya Anda akan mengarahkan cursor untuk submit semua data yang sudah terisi, bukan? Biasanya tombol tersebut memiliki caption seperti “Submit”, “Save”, atau kata-kata yang tidak jauh dari keduanya. Tombol tersebut biasanya berfungsi untuk mengirim semua data yang ada pada form kepada proses lain, misalnya seperti mengirim data tersebut ke server untuk memperbarui data profil Anda.
 
     Tapi tahukah Anda bahwa tombol tersebut unik? Unik dalam arti tombol pada form tidak dibuat melalui tag <button> yang selama ini kita gunakan, melainkan sebuah tag khusus yakni <input> yang memiliki atribut type bernilai “submit”. Mungkin Anda berpikir elemen <input> yang berupa tombol Submit diberikan event listener, tetapi justru elemen <form> yang diberikan event listener untuk event onSubmit atau ‘submit’ (jika menggunakan method addEventListener).
+
+
+Event onSubmit
+    Baik, cukup dengan teori, bagaimana jika lanjut melalui praktik saja? Pertama mari kita buat sebuah berkas HTML.
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Form World</title>
+                <style>
+                    .contents{
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        border: 1px solid black;
+                        border-width:2px;
+                        padding : 15px;
+                    }
+                    .form-element{
+                        margin: 8px;
+                        align-items: left;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="contents">
+                    <h2 align="center"> Isi data diri</h2>
+                    <div class="formContent">
+                        <form id="formDataDiri">
+                            <div class="form-element">
+                                <label for="nama">Nama:</label><br>
+                                <input type="text" id="nama" name="nama" placeholder="Nama Anda" required><br>
+                            </div>
+                            <div class="form-element">
+                                <label for="domisili">Domisili:</label><br>
+                                <input type="text" id="domisili" name="domisili" placeholder="Domisili Anda" required><br>
+                            </div>
+                            <div class="form-element">
+                                <input type="submit" value="Submit Data">
+                            </div>
+                        </form>
+                    </div>
+                    <h3 id="messageAfterSubmit"></h3>
+                </div>
+                <script>
+                    // masukkan kodemu di sini
+                </script>
+            </body>
+        </html>
+
+    Maka tampilan web kita akan berbentuk seperti ini:
+
+    Kita akan menambahkan sebuah fitur unik, yakni munculnya sebuah kalimat di bawah tombol button. Sudah siap?
+
+    Kita hanya perlu menambahkan event listener pada elemen form dengan menambahkan kode JavaScript pada bagian <script>.
+
+        const submitAction = document.getElementById("formDataDiri");
+        submitAction.addEventListener("submit", function(){
+            const inputNama = document.getElementById("nama").value;
+            const inputDomisili = document.getElementById("domisili").value;
+            const hiddenMessage = "Halo "+inputNama+" bagaimana cuacanya di "+inputDomisili+"?";
+            document.getElementById("messageAfterSubmit").innerText = hiddenMessage;
+            event.preventDefault();
+        });
+
+    Kode di atas akan mengambil nilai yang sudah di-input oleh user melalui atribut value milik masing-masing elemen input pada form. Lalu, input akan dimasukkan ke sebuah string dengan sebuah format khusus yang akan ditampilkan ke layar.
+
+    Ada sebuah kode baru yang belum pernah kita bahas yakni “event.preventDefault()”. Apa fungsi kode tersebut? Ketika kita melakukan proses submit pada form, halaman web akan melakukan proses refresh. Nah, kode “event.preventDefault()” akan mencegah proses refresh tersebut.
+
+    Sebelum kita jalankan, pastikan halaman web memiliki berkas HTML yang isinya sebagai berikut:
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Form World</title>
+                <style>
+                    .contents{
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        border: 1px solid black;
+                        border-width:2px;
+                        padding : 15px;
+                    }
+                    .form-element{
+                        margin: 8px;
+                        align-items: left;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="contents">
+                    <h2 align="center"> Isi data diri</h2>
+                    <div class="formContent">
+                        <form id="formDataDiri">
+                            <div class="form-element">
+                                <label for="nama">Nama:</label><br>
+                                <input id="nama" type="text" name="nama" placeholder="Nama Anda" required><br>
+                            </div>
+                            <div class="form-element">
+                                <label for="domisili">Domisili:</label><br>
+                                <input id="domisili" type="text" name="domisili" placeholder="Domisili Anda" required><br>
+                            </div>
+                            <div class="form-element">
+                                <input id="submitButton" type="submit" value="Submit Data">
+                            </div>
+                        </form>
+                    </div>
+                    <h3 id="messageAfterSubmit"></h3>
+                </div>
+                <script>
+                    const submitAction = document.getElementById("formDataDiri");
+                    submitAction.addEventListener("submit", function(){
+                        const inputNama = document.getElementById("nama").value;
+                        const inputDomisili = document.getElementById("domisili").value;
+                        const hiddenMessage = “Halo “+inputNama+” bagaimana cuacanya di “+inputDomisili+”?”;
+                        document.getElementById("messageAfterSubmit").innerText = hiddenMessage;
+                        event.preventDefault();
+                    });
+                </script>
+            </body>
+        </html>
+
+    Jika kita menginput nama dan domisili lalu menekan tombol “Submit Data”, akan muncul sebuah teks berupa kalimat sapaan seperti di bawah ini.
+
+    Melalui form ini, Anda bisa meminta user memasukkan nilai apa pun yang dibutuhkan dan memprosesnya dalam kode JavaScript untuk menghasilkan fungsionalitas yang lebih beragam berdasarkan input dari user.
+
+    Berikutnya kita akan menjelajah event milik atribut input seperti onInput, onChange, onCopy, onPaste, onFocus, dan onBlur.
