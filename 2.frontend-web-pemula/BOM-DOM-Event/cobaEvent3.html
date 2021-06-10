@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coba Event 2</title>
+    <style>
+        .content {
+            border: 1px solid black;
+            padding: 15px;
+            border-width: 2px;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        #generateButton {
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content" align="center">
+        <button id="incrementButton">Tekan Aku!</button>
+        <h3>Kamu sudah menekan tombol sebanyak <span id="count">0</span></h3>
+    </div>
+
+    <script>
+        function increment() {
+            document.getElementById("count").innerText++;
+
+            if( document.getElementById("count").innerText == 7 ) {
+                const ha4 = document.createElement("h4");
+                ha4.innerText = "Selamat anda mendapatkan pesan tersembunyi...";
+                const gambar = document.createElement("img");
+                gambar.setAttribute("src", "https://i.ibb.co/0V49VRZ/catto.jpg");
+                const kontens = document.querySelector(".content");
+                kontens.appendChild(ha4);
+                kontens.appendChild(gambar);
+            }
+        }
+
+
+        function welcome() {
+            alert("sim salabim muncullah element HTML!");
+            let konten = document.querySelector('.content');
+            konten.removeAttribute('hidden');
+        }
+    </script>
+</body>
+</html>
