@@ -109,3 +109,191 @@ Menambahkan Event Handler - Menerapkan event handler dengan addEventListener()
         </script>
 
     Selain mampu menambahkan event listener yang banyak dalam satu event, kita juga akan mengetahui penerapan method addEventListener() lebih tepat untuk skenario-skenario tertentu ketimbang menggunakan event handler yang dicontohkan di atas. Method addEventListener() juga mendukung fitur “event bubbling dan capturing” yang memiliki materinya sendiri nanti.
+
+
+
+
+Menambahkan Custom Event
+    Apa yang dimaksud dengan Custom Event? Custom Event pada materi ini merujuk kepada penggunaan class Event() untuk membuat event dengan nama yang sudah kita tentukan sendiri. Misal, sebelumnya kita telah menggunakan nama-nama event yang sudah “dikenal” oleh JavaScript yakni seperti “click” dan “load’. Apakah mungkin jika membuat sebuah event dengan nama “eventBuatanKita”’ ? Jawabannya, sangat mungkin! Kita lihat sintaks dari awal pembuatan event sampai memanggilnya melalui addEventListener:
+
+        // membuat custom event
+        Const eventBuatan = new Event("eventBuatanKita");
+        
+        // meletakkannya pada sebuah method addEventListener()
+        element.addEventListener("eventBuatanKita"); 
+
+    Kemungkinan Anda bertanya-tanya, “Kenapa kita harus mempelajari custom event?” Karena tidak seperti event yang biasanya “dikenali” oleh method addEventListener’, custom event memungkinkan kita untuk menjalankan sebuah event handler setelah sebuah event handler lain selesai dipanggil.
+
+    Daripada kita berlama-lama, mari kita langsung praktikkan. Pertama buatlah sebuah berkas html dengan isi sebagai berikut:
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Event World</title>
+                <style>
+                    .buttons{
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        border: 1px solid black;
+                        border-width:2px;
+                        padding : 15px;
+                    }
+                    .button{
+                        margin : 8px;
+                        height : 40px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="buttons" align="center">
+                    <h3 id="caption">Silakan tekan salah satu tombol di bawah...</h3>
+                    <button class="button" id="tombol">Tombol Custom Event</button>
+                </div>
+                
+                <script>
+                    // tulis kode kamu di sini
+                </script>
+            </body>
+        </html>
+
+    Tulisan yang telah dicetak tebal merupakan letak penulisan kode kita nantinya. Simpan berkas tersebut dengan nama “custom-event.html”. Kode tersebut akan kita gunakan pada praktik kali ini.
+
+    Pada awal isi dari tag <script>, inisialisasi sebuah custom event yang bernama “changeCaption” dan simpan pada variabel yang memiliki nama yang sama seperti berikut:
+
+        const changeCaption = new Event("changeCaption");
+
+    Kemudian tambahkan sebuah event listener untuk custom event dan event listener pada button melalui method addEventListener() ketika tombol tersebut ditekan.
+
+        window.addEventListener('load', function (){
+            const tombol = document.getElementById("tombol");
+            tombol.addEventListener("changeCaption", customEventHandler);
+            tombol.addEventListener("click", function(){
+                });
+        });
+
+    Pada tahap terakhir kita akan menulis sebuah fungsi bernama customEventHandler yang dijalankan ketika event changeCaption terjadi.
+
+        function customEventHandler(ev){
+            console.log("Event "+ev.type+" telah dijalankan");
+            const caption = document.getElementById("caption");
+            caption.innerText = "Anda telah membangkitkan custom event";
+        }
+        
+    Fungsi dari customEventHandler memiliki 1 parameter yang bernama “ev”. Apa itu “ev”? Parameter “ev” akan secara otomatis diisi dengan atribut serta method dari sebuah event (penamaan “ev” di atas tidak mutlak, sehingga kita diperbolehkan mengubah namanya menjadi “event”). Semua ini akan dilakukan secara otomatis oleh JavaScript.
+
+    Sehingga, tampilan kode di dalam tag <script> akan seperti ini.
+
+        <script>
+        const changeCaption = new Event("changeCaption");
+        
+        window.addEventListener('load', function (){
+            const tombol = document.getElementById("tombol");
+            tombol.addEventListener("changeCaption", customEventHandler);
+            tombol.addEventListener("click", function(){
+                tombol.dispatchEvent(changeCaption);
+            });
+        });
+        
+        function customEventHandler(ev){
+            console.log("Event "+ev.type+" telah dijalankan");
+            const caption = document.getElementById("caption");
+            caption.innerText = "Anda telah membangkitkan custom event";
+        }
+        </script>
+
+    Tampilan web ketika dijalankan akan terlihat seperti di bawah ini:
+
+    Sederhana, bukan? Walaupun kita sudah menerapkan custom event, mengapa tidak menghasilkan perubahan apa pun ketika tombol ditekan? Jawabannya adalah kita belum membuat fungsi untuk eventHandler pada event “click” pada tombol tersebut. Mari lengkapi kode kita pada materi berikutnya!
+
+
+    Best practice untuk custom event
+        Ketika Anda mempelajari adanya sebuah fitur yang dinamakan custome event. Mungkin saja kita secara bebas membuat event di manapun dengan nama yang sudah kita tentukan secara sembarangan! Sebelum Anda melakukan hal tersebut, di sini kita akan membahas mengapa hal seperti itu tidak bagus untuk dijadikan kebiasaan. Hal tersebut akan berpotensi menyebabkan bug dan penyelesaiannya akan semakin sulit seiring semakin kompleksnya program kita.
+
+        Untuk mencatat custom event apa saja yang telah dibuat, sebaiknya buatlah sebuah variabel konstanta yang menyimpan semua nama custom event. Hal tersebut dilakukan supaya tidak ada kejadian yang tidak diinginkan. Kejadiannya yang dimaksud seperti overwrite custom event dan memberitahu ke sesama programmer tentang adanya daftar custom event yang sudah dibuat dan disetujui bersama.
+
+
+
+
+Membangkitkan Custom Event
+    Selamat datang ke bagian di mana kita akan membangkitkan custom event yang sudah dibuat pada materi sebelumnya. Dalam praktek materi ini, kita tidak perlu menambahkan banyak kode, melainkan hanya sebuah fungsi yang berisi proses dispatch atau pemanggilan custom event handler. Sebelum lanjut, pastikan Anda membuka berkas HTML custom-event.html yang sudah dibuat sebelumnya. Pastikan kembali isinya sama seperti berikut:
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Event World</title>
+            <style>
+            .buttons {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border: 1px solid black;
+                border-width: 2px;
+                padding: 15px;
+            }
+        
+            .button {
+                margin: 8px;
+                height: 40px;
+            }
+            </style>
+        </head>
+        <body>
+            <div class="buttons" align="center">
+            <h3 id="caption">Silakan tekan salah satu tombol di bawah...</h3>
+            <button class="button" id="tombol">Tombol Custom Event</button>
+            </div>
+        
+            <script>
+            const changeCaption = new Event("changeCaption");
+        
+            window.addEventListener("load", function () {
+                const tombol = document.getElementById("tombol");
+                tombol.addEventListener("changeCaption", customEventHandler);
+                tombol.addEventListener("click", function () {});
+            });
+        
+            function customEventHandler(ev) {
+                console.log("Event " + ev.type + " telah dijalankan");
+                const caption = document.getElementById("caption");
+                caption.innerText = "Anda telah membangkitkan custom event";
+            }
+            </script>
+        </body>
+        </html>
+
+    Sudah sama? Yuk kita tambahkan fungsi dari event handler “click” bernama onclickEventHandler pada bagian akhir tag <script>. Penulisan fungsi tersebut adalah sebagai berikut:
+
+        tombol.addEventListener("click", function(){
+            tombol.dispatchEvent(changeCaption);
+        });
+
+    Sehingga isi dari kode JavaScript secara keseluruhan menjadi seperti berikut:
+
+        <script>
+            const changeCaption = new Event("changeCaption");
+        
+            window.addEventListener('load', function (){
+                const tombol = document.getElementById("tombol");
+                tombol.addEventListener("changeCaption", customEventHandler);
+                tombol.addEventListener("click", function(){
+                    tombol.dispatchEvent(changeCaption);
+                });
+            });
+        
+            function customEventHandler(ev){
+                console.log("Event "+ev.type+" telah dijalankan");
+                const caption = document.getElementById("caption");
+                caption.innerText = "Anda telah membangkitkan custom event";
+            }
+        </script>
+
+    Simpan berkas HTML dan buka kembali. Ketika kita menekan tombol yang tersedia, maka tulisan yang berada di atas tombol akan berubah. Selain itu, console.log juga dijalankan dan muncul log pada console browser.
+
+    Sama halnya dengan event listener pada umumnya, jika tidak menampilkan event melalui elemen lain yang tidak sama dengan elemen yang memiliki event listener, maka customEventHandler pada kode di atas tidak akan berjalan. Misalnya jika kita memanggil fungsi event handler melalui elemen lain, event handler tidak akan memproses event-nya.
+
+    Tidak jauh berbeda dengan menerapkan event yang sudah “dikenal” oleh JavaScript seperti “click” dan “load”, bukan?
+
+    Melalui event, ada fenomena yang harus kita pelajari yang disebut “bubbling” dan “capturing”. Jika tidak diantisipasi, besar kemungkinan terjadi bug pada berkas HTML yang memiliki nested elements alias elemen yang berada di dalam elemen.

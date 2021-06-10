@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coba Event 4</title>
+    <style>
+        .buttons {
+            border: 1px solid black;
+            padding: 15px;
+            border-width: 2px;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .button {
+            margin-top: 8px;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons" align="center">
+        <h3 class="caption">Silahkan tekan salah satu tombol dibawah...</h3>
+        <button id="tombol" class="button">Tombol Custom Event</button>
+    </div>
+
+    <script>
+        const changeCaption = new Event("changeCaption");
+        
+        window.addEventListener('load', function() {
+            const tombol = document.getElementById('tombol');
+            tombol.addEventListener('changeCaption', eventCustom);
+            tombol.addEventListener('click', function() {
+                tombol.dispatchEvent(changeCaption);
+            });
+        });
+
+        function eventCustom(event) {
+            console.log("event "+event.type+" telah dijalankan");
+            const ha3 = document.querySelector('.caption');
+            ha3.innerText = "Anda telah meng-klik tombol Event!";
+        }
+
+    </script>
+</body>
+</html>
