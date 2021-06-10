@@ -165,3 +165,68 @@ Menambahkan Event Handler - Membuat event handler onload
     Coba buka kembali berkas HTML tersebut setelah di-save, maka akan muncul pesan di dalam dialog box alert yakni “sim salabim muncullah elemen-elemen HTML” pada berkas HTML di atas!
 
     Ajaib! Semua elemen HTML seketika muncul. Langkah selanjutnya adalah menambahkan event handler untuk event onclick pada tombol yang memiliki tulisan “Tekan Aku :)”. Karena jika saat ini kita tekan tombolnya, masih belum ada perubahan pada halaman web seperti yang diperlihatkan di awal materi ini.
+
+
+
+
+Menambahkan Event Handler - Membuat event handler onclick
+    Semenjak adanya implementasi event handler onload, semua elemen HTML kita sudah bisa terlihat. Walau begitu, mengapa ketika menekan tombol “Tekan Aku :)” tidak terjadi apa-apa? Pada praktik inilah kita akan mengubah tulisan di bawah tombol untuk menghitung berapa kali user menekan tombol tersebut. Selain itu juga memberikan kejutan lucu ketika sudah menekan tombol sebanyak 7 kali. Penasaran? Mari kita langsung ngoding!
+
+    Buka berkas HTML dan tambahkan fungsi bernama increment yang akan menampilkan jumlah berapa kali user menekan tombol melalui event onclick. Fungsi tersebut diletakkan di antara tag <script> pada baris paling awal.
+
+        function increment(){
+            document.getElementById("count").innerText++;
+        }
+
+    Pada kode di atas, kita akan menambahkan text melalui proses operator increment (++) pada elemen yang memiliki id “count” yang awalnya memiliki teks “0”. Jangan lupa untuk menambahkan event handler pada event onclick pada elemen button.
+
+        document.getElementById("incrementButton").onclick = increment;
+
+    Keren nih. Sekarang setiap kali tombol ditekan, teks angka “0” akan terus bertambah.
+
+    Setelah fungsi tombol sudah berjalan sesuai keinginan kita, sekarang saatnya menambahkan fitur kejutan rahasia ketika tombol ditekan sebanyak 7 kali. Mari modifikasi fungsi increment() menjadi sebagai berikut.
+
+        function increment(){
+            document.getElementById("count").innerText++;
+        
+            if (document.getElementById("count").innerText == 7){
+                const hiddenMessage = document.createElement("h4");
+                hiddenMessage.innerText = "Selamat! Anda menemukan hadiah tersembunyi..."
+                const image = document.createElement("img");
+                image.setAttribute("src", "https://i.ibb.co/0V49VRZ/catto.jpg");
+                const contents = document.querySelector(".contents");
+                contents.appendChild(hiddenMessage).appendChild(image);
+            }
+        }
+
+    Tambahan kode di atas akan mengecek apakah jumlah tekanan pada tombol sudah sama dengan 7. Jika iya, event handler tersebut akan menambahkan dua elemen baru, yakni elemen hiddenMessage yang berisi pesan tersembunyi dan elemen image yang berisi gambar rahasia.
+
+    Dengan begitu, isi dari tag <script> di atas akan memiliki bentuk akhir sebagai berikut:
+
+        <script>
+            function increment(){
+                document.getElementById("count").innerText++;
+            
+                if (document.getElementById("count").innerText == 7){
+                    const hiddenMessage = document.createElement("h4");
+                    hiddenMessage.innerText = "Selamat! Anda menemukan hadiah tersembunyi..."
+                    const image = document.createElement("img");
+                    image.setAttribute("src", "https://i.ibb.co/0V49VRZ/catto.jpg");
+                    const contents = document.querySelector(".contents");
+                    contents.appendChild(hiddenMessage).appendChild(image);
+                }
+            }
+        
+            function welcome(){
+                alert("Sim salabim muncullah elemen-elemen HTML!")
+                const contents = document.querySelector(".contents");
+                contents.removeAttribute("hidden");
+            }
+        
+            document.getElementById("incrementButton").onclick = increment;
+            document.body.onload = welcome;
+        </script>
+        
+    Sehingga, halaman web kita akan memiliki semua fungsionalitas seperti yang diperlihatkan di awal.
+
+    Halaman web kita sudah menjadi sangat interaktif dan menarik hanya melalui beberapa kode JavaScript saja. Cobalah bereksperimen dengan menambahkan beberapa event pada elemen-elemen baru serta event handler-nya juga.

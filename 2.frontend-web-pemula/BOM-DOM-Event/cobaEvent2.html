@@ -28,11 +28,27 @@
     </div>
 
     <script>
+        function increment() {
+            document.getElementById("count").innerText++;
+
+            if( document.getElementById("count").innerText == 7 ) {
+                const ha4 = document.createElement("h4");
+                ha4.innerText = "Selamat anda mendapatkan pesan tersembunyi...";
+                const gambar = document.createElement("img");
+                gambar.setAttribute("src", "https://i.ibb.co/0V49VRZ/catto.jpg");
+                const kontens = document.querySelector(".content");
+                kontens.appendChild(ha4);
+                kontens.appendChild(gambar);
+            }
+        }
+
+
         function welcome() {
             alert("sim salabim muncullah element HTML!");
             let konten = document.querySelector('.content');
             konten.removeAttribute('hidden');
         }
+        document.getElementById("incrementButton").onclick = increment;
         document.body.onload = welcome;
     </script>
 </body>
