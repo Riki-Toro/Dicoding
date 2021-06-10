@@ -1,0 +1,32 @@
+Pengenalan ke Form
+    Sejauh ini kita sudah mempelajari bagaimana cara menambahkan aspek interaktif dari halaman web, terutama mengubah layout-nya. Sebelum kita menyelesaikan modul ini, ada satu jenis elemen HTML yang sangat sering digunakan untuk mengumpulkan banyak input dari user sekaligus. Kita sudah pernah menyebutnya pada materi-materi sebelumnya tetapi hanya sekadar menyebutnya. Ia adalah Form.
+
+    Form umumnya digunakan untuk menangkap input dari user dalam jumlah banyak sekaligus. Bisa ditebak dari namanya pasti bentuk form akan mirip seperti formulir.
+
+    Lengkap, bukan? Ada field yang bisa diisi dan ada juga tombol bernama "Submit Data" ketika kita sudah selesai mengisi data pada form. Sama halnya dengan elemen HTML pada umumnya, terdapat beberapa event yang dihasilkan oleh form yang akan kita terapkan pada praktik. Untuk penjabarannya, perhatikan tabel di bawah ini:
+
+        onsubmit >> Event ini akan terjadi ketika kita menekan tombol submit milik sebuah form
+
+        oninput >> Event ini akan terjadi jika kita memberikan input melalui field.
+
+        onchange >> Event ini akan terjadi jika kita sudah selesai memberikan input melalui field. Bisa juga diaplikasikan ke elemen select (dropdown menu).
+
+        oncopy >> Event ini akan terjadi jika kita menyalin (copy) isi dari sebuah elemen.
+
+        onpaste >> Event ini akan terjadi jika kita menempel (paste) isi dari hasil salin (copy) pada sebuah teks.
+
+        onfocus >> Event ini akan terjadi jika sebuah elemen pada form dipilih untuk dilakukan proses input.
+
+        onblur >> Event ini akan terjadi jika sebuah elemen pada form tidak diplih lagi untuk dilakukan proses input.
+
+    Sekali lagi, Anda tidak perlu menghafal semua event di atas secara detail. Karena kita akan membahasnya secara rinci serta mempraktikkannya pada materi berikutnya yakni “Input Event”. Sudah siap menerapkan form pada halaman web Anda? Yuk, kita lanjut. 
+
+    Semangat!
+
+
+
+
+Form Event
+    Saat selesai mengisi form pada sebuah halaman web, umumnya Anda akan mengarahkan cursor untuk submit semua data yang sudah terisi, bukan? Biasanya tombol tersebut memiliki caption seperti “Submit”, “Save”, atau kata-kata yang tidak jauh dari keduanya. Tombol tersebut biasanya berfungsi untuk mengirim semua data yang ada pada form kepada proses lain, misalnya seperti mengirim data tersebut ke server untuk memperbarui data profil Anda.
+
+    Tapi tahukah Anda bahwa tombol tersebut unik? Unik dalam arti tombol pada form tidak dibuat melalui tag <button> yang selama ini kita gunakan, melainkan sebuah tag khusus yakni <input> yang memiliki atribut type bernilai “submit”. Mungkin Anda berpikir elemen <input> yang berupa tombol Submit diberikan event listener, tetapi justru elemen <form> yang diberikan event listener untuk event onSubmit atau ‘submit’ (jika menggunakan method addEventListener).
