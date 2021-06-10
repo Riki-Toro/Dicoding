@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coba event capturing</title>
+    <style>
+        div {
+            border: 2px solid black;
+            width: 60%;
+            margin: 10px auto;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body align="center">
+    <div id="langit"> LANGIT
+        <div id="luar"> LUAR
+            <div id="tengah"> TENGAH
+                <div id="dalam"> DALAM
+                    <div id="dasar"> DASAR
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const divs = document.getElementsByTagName('div');
+        for( let di of divs ) {
+            di.addEventListener('click', function() {
+                alert('element ' + di.getAttribute('id').toUpperCase());
+            }, true);
+        }
+    </script>
+</body>
+</html>

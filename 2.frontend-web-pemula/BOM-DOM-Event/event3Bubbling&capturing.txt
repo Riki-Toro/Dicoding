@@ -40,3 +40,57 @@ Event Bubbling dan Capturing
         Kenapa berperilaku demikian? Perhatikan kembali setiap tag <div> pada berkas HTML, pasti semua memiliki event handler untuk event onclick. Sehingga, sesuai dengan penjelasan bubbling, jika kita menekan elemen paling dalam, maka semua event handler akan dijalankan dimulai dari elemen pertama yang di-klik lalu kemudian parent-nya dan seterusnya.
 
         Sekarang coba tekan daerah elemen yang terdapat tulisan “TENGAH”, maka event handler yang dijalankan hanyalah milik elemen tersebut serta parent-parentnya dan tidak termasuk child-nya. Alur tersebut sama seperti prinsip gelembung udara udara yang hanya bergerak ke atas dan tidak ke bawah.
+
+
+
+
+    Capturing
+        Setelah membahas bubbling, mari kita bahas fenomena berikutnya yakni capturing. Capturing merupakan kebalikan dari bubbling yang akan men-trigger event handler dari parent ke child.
+
+        Mari kita buat sebuah berkas HTML baru bernama capturing.html.
+
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <title>Capturing World</title>
+                    <style>
+                    body * {
+                        margin: 8px;
+                        padding: 5px;
+                        border: 1px solid black;
+                        border-width:2px;
+                        width: 60%;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div align="center" id="langit">LANGIT
+                        <div align="center" id="luar">LUAR
+                            <div align="center" id="tengah">TENGAH
+                                <div align="center" id="dalam">DALAM</div>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <script>
+                        // tulis kode Anda di sini
+                    </script>
+                </body>
+            </html>
+
+        Sekarang tambahkan kode berikut pada bagian script.
+
+            const divs = document.getElementsByTagName("div");
+            for(let el of divs){
+                el.addEventListener("click", function(){
+                    alert("ELEMEN "+el.getAttribute("id").toUpperCase());
+                }, true)
+            }
+
+        Kode di atas akan menambahkan event listener melalui addEventListener terhadap semua elemen div pada berkas HTML. Isi dari event handler adalah nama id elemen tersebut diubah semua ke huruf besar. Fungsionalitas sama persis dengan cara yang kita terapkan pada bubbling.html, hanya saja kita menggunakan method addEventListener ketimbang inline.
+
+        Kenapa kita menggunakan addEventListener? Karena melalui addEventListener, kita bisa memberikan satu parameter khusus bernilai boolean ke parameter ke-3 seperti yang ditunjukkan kode yang dicetak tebal di atas.
+
+        Sekarang mari kita buka kembali berkas HTML pada browser.
+
+        Perhatikan ketika kita klik sebuah elemen, maka dialog box alert yang muncul dimulai dari elemen paling luar dan berhenti di elemen yang kita tekan. Persis dengan kebalikan dari bubbling, bukan?
