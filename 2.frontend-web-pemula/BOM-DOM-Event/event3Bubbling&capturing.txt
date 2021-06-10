@@ -1,0 +1,42 @@
+Event Bubbling dan Capturing
+    Di mana ada event, maka kemungkinan ada bubbling dan capturing. Pada kesempatan kali ini, kita akan membahas mengenai apa itu bubbling dan capturing serta mempraktikkannya. Event bubbling maupun capturing termasuk dalam event propagation. Untuk mengetahui lebih lanjut, mari kita bahas event Bubbling dan Capturing pada uraian di bawah ini:
+
+
+    Bubbling
+        Apakah Anda pernah melihat gelembung udara muncul dari dasar minuman bersoda ketika dituang ke sebuah gelas? Pasti gelembung udara tersebut akan bergerak perlahan menuju ke permukaan, bukan? Ingat baik-baik analogi ini bahwa gelembung udara akan selalu naik ya.
+
+        Sama halnya dengan gelembung udara, fenomena bubbling adalah ketika sebuah event terjadi pada sebuah elemen, maka event handler milik elemen tersebut akan dijalankan terlebih dahulu yang diikuti event handler elemen parent-nya, dan seterusnya sampai elemen paling atas. Sama seperti fenomena gelembung udara pada minuman bersoda, bukan?
+
+        Bagaimana contoh riilnya? Mari kita buat sebuah berkas HTML sederhana seperti berikut:
+
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <title>Bubbling World</title>
+                    <style>
+                    body * {
+                        margin: 8px;
+                        padding: 5px;
+                        border: 1px solid black;
+                        border-width:2px;
+                        width: 60%;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div onclick="alert('ELEMEN LANGIT')" align="center">LANGIT
+                        <div onclick="alert('ELEMEN LUAR')" align="center">LUAR
+                            <div onclick="alert('ELEMEN TENGAH')" align="center">TENGAH
+                                <div onclick="alert('ELEMEN DALAM')" align="center">DALAM
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </body>
+            </html>
+
+        Klik pada tag div dengan nilai innerText bernilai “DALAM” lalu perhatikan apa yang terjadi.
+
+        Kenapa berperilaku demikian? Perhatikan kembali setiap tag <div> pada berkas HTML, pasti semua memiliki event handler untuk event onclick. Sehingga, sesuai dengan penjelasan bubbling, jika kita menekan elemen paling dalam, maka semua event handler akan dijalankan dimulai dari elemen pertama yang di-klik lalu kemudian parent-nya dan seterusnya.
+
+        Sekarang coba tekan daerah elemen yang terdapat tulisan “TENGAH”, maka event handler yang dijalankan hanyalah milik elemen tersebut serta parent-parentnya dan tidak termasuk child-nya. Alur tersebut sama seperti prinsip gelembung udara udara yang hanya bergerak ke atas dan tidak ke bawah.
