@@ -124,3 +124,44 @@ Menambahkan Event Handler - Menyiapkan Halaman Website
     Tampilannya berupa halaman web yang hampa akan konten. Mengapa demikian? Tenang, browser Anda tidak rusak. Tampilannya memang kosong karena class milik <div> memiliki atribut bernama hidden. Kita akan menambahkan event handler, yang merupakan kode JavaScript yang akan dijalankan ketika sebuah event tertentu terjadi yakni event onload dan onclick. Ketika kita sudah mencapai tahap akhir dari praktek di bawah, siap-siap takjub terhadap halaman web yang berperilaku seperti ini:
 
     Pada materi ini, akan ada perbedaan pada aspek praktik. Jika sebelumnya kita menulis kode JavaScript menggunakan console browser, sekarang kita akan sepenuhnya menggunakan text editor. Maka keluarkan text editor favorit Anda!
+
+
+
+
+Menambahkan Event Handler - Membuat event handler onload
+    Oke deh, tugas pertama kita adalah memunculkan semua konten HTML setelah semua baris pada berkas HTML diproses oleh browser di mana event onload akan terjadi. Pada bagian tag <script>, kita akan menulis kode JavaScript yang akan dijalankan ketika event onload terjadi pada elemen body. Kode JavaScript tersebut disebut sebagai event handler dari event onload.
+
+    Bagaimana membuat sebuah event handler untuk elemen tertentu? Tenang, kita akan membahas satu per satu mulai dari membuat sebuah fungsi event handler, sampai “mengaitkan” fungsi tersebut supaya berjalan ketika event onload terjadi pada elemen body dari berkas HTML.
+
+    Cobalah buka berkas HTML dan tambahkan fungsi bernama welcome yang akan menampilkan semua elemen HTML ketika elemen body selesai diproses oleh browser lalu menjalankan event onload. Fungsi tersebut diletakkan di antara tag <script>.
+
+        function welcome(){
+            alert("Sim salabim muncullah elemen-elemen HTML!")
+            const contents = document.querySelector(".contents");
+            contents.removeAttribute("hidden");
+        }
+
+    Pada kode di atas, kita akan memunculkan sebuah dialog box alert. Fungsi dari dialog box adalah memberitahu user bahwa elemen HTML yang sebelumnya bersembunyi akan ditampilkan. Caranya adalah dengan menghilangkan atribut hidden dari elemen div yang memiliki class “contents”. Untuk menghilangkan atribut hidden, gunakan method removeAttribute dari elemen yang kita tuju.
+
+    Mendekati akhir dari penutup tag <script>, kita perlu menambah kode event handler untuk event onload dari elemen body. Pada umumnya, menambahkan sebuah event handler pada sebuah event yang berasal dari sebuah elemen HTML tertentu akan mengikuti sintaks berikut:
+
+        elemen.<nama_event> = <fungsi_event_handler>;
+
+    Pada kasus menulis event handler onload di sini, maka kode yang ditulis di antara tag <script> adalah:
+
+        document.body.onload = welcome;
+
+    Pastikan bahwa kode di antara tag <script> berbentuk seperti ini:
+
+        <script>
+            function welcome(){
+                    alert("Sim salabim muncullah elemen-elemen HTML!")
+                        const contents = document.querySelector(".contents");
+                        contents.removeAttribute("hidden");
+            }
+            document.body.onload = welcome;
+        </script>
+
+    Coba buka kembali berkas HTML tersebut setelah di-save, maka akan muncul pesan di dalam dialog box alert yakni “sim salabim muncullah elemen-elemen HTML” pada berkas HTML di atas!
+
+    Ajaib! Semua elemen HTML seketika muncul. Langkah selanjutnya adalah menambahkan event handler untuk event onclick pada tombol yang memiliki tulisan “Tekan Aku :)”. Karena jika saat ini kita tekan tombolnya, masih belum ada perubahan pada halaman web seperti yang diperlihatkan di awal materi ini.

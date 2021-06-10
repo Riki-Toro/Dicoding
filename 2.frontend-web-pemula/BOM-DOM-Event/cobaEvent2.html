@@ -28,7 +28,12 @@
     </div>
 
     <script>
-        
+        function welcome() {
+            alert("sim salabim muncullah element HTML!");
+            let konten = document.querySelector('.content');
+            konten.removeAttribute('hidden');
+        }
+        document.body.onload = welcome;
     </script>
 </body>
 </html>
