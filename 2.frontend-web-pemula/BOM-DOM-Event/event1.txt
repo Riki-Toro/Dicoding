@@ -226,7 +226,100 @@ Menambahkan Event Handler - Membuat event handler onclick
             document.getElementById("incrementButton").onclick = increment;
             document.body.onload = welcome;
         </script>
-        
+
     Sehingga, halaman web kita akan memiliki semua fungsionalitas seperti yang diperlihatkan di awal.
 
     Halaman web kita sudah menjadi sangat interaktif dan menarik hanya melalui beberapa kode JavaScript saja. Cobalah bereksperimen dengan menambahkan beberapa event pada elemen-elemen baru serta event handler-nya juga.
+
+
+
+
+Menambahkan Event Handler - Menerapkan event handler inline
+    Mungkin Anda sudah sangat familiar dengan istilah inline. Tahukah Anda bahwa kita bisa menerapkan event handler di dalam tag HTML dan tidak perlu menerapkan sintaks event handler dalam tag <script>?
+
+    Coba berikan tanda komentar terlebih dahulu pada kode event handler di dalam berkas HTML yang baru kita selesaikan.
+
+        <script>
+            function increment(){
+                document.getElementById("count").innerText++;
+            
+                if (document.getElementById("count").innerText == 7){
+                    const hiddenMessage = document.createElement("h4");
+                    hiddenMessage.innerText = "Selamat! Anda menemukan hadiah tersembunyi..."
+                    const image = document.createElement("img");
+                    image.setAttribute("src", "https://i.ibb.co/0V49VRZ/catto.jpg");
+                    const contents = document.querySelector(".contents");
+                    contents.appendChild(hiddenMessage).appendChild(image);
+                }
+            }
+        
+            function welcome(){
+                alert("Sim salabim muncullah elemen-elemen HTML!")
+                const contents = document.querySelector(".contents");
+                contents.removeAttribute("hidden");
+            }
+        
+            // document.getElementById("incrementButton").onclick = increment;
+            // document.body.onload = welcome;
+        </script>
+
+    Jika event handler kedua telah di-komen, maka halaman web telah kehilangan semua fitur yang telah kita implementasikan sebelumnya. Tenang, semua fiturnya akan kita kembalikan melalui inline event handler, yakni menulis event handler di dalam bagian HTML. 
+
+    Tambahkan event handler pada tag <body> dan <button> sebagai berikut (perhatikan tulisan yang sudah di-bold):
+
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Event World</title>
+                <style>
+                    .contents{
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        border: 1px solid black;
+                        border-width:2px;
+                        padding : 15px;
+                    }
+        
+                    #generateButton{
+                        margin-top : 5px;
+                        margin-bottom: 15px;;
+                    }
+                </style>
+            </head>
+            <body onload="welcome()">
+                <div class="contents" align="center" hidden>
+                    <button id="incrementButton" onclick="increment()">Tekan Aku :)</button>
+                    <h3>Kamu sudah menekan tombol di atas sebanyak <span id="count">0</span></h3>
+                </div>
+            
+                <script>
+                    function increment(){
+                        document.getElementById("count").innerText++;
+                        
+                        if (document.getElementById("count").innerText == 7){
+                            const hiddenMessage = document.createElement("h4");
+                            hiddenMessage.innerText = "Selamat! Anda menemukan hadiah tersembunyi..."
+                            const image = document.createElement("img");
+                            image.setAttribute("src", "https://i.ibb.co/0V49VRZ/catto.jpg");
+                            const contents = document.querySelector(".contents");
+                            contents.appendChild(hiddenMessage).appendChild(image);
+                        }
+                    }
+        
+                    function welcome(){
+                        alert("Sim salabim muncullah elemen-elemen HTML!")
+                        const contents = document.querySelector(".contents");
+                        contents.removeAttribute("hidden");
+                    }
+        
+                    // document.getElementById("incrementButton").onclick = increment;
+                    // document.body.onload = welcome;
+                </script>
+            </body>
+        </html>
+        
+    Simpan semua perubahan pada berkas event.html, dan buka kembali. Tada! Semua fungsionalitas dari halaman web kita kembali seperti semula.
+
+    Sampai di sini kita sudah mengetahui bagaimana menerapkan event handler untuk elemen-elemen HTML. Namun, ada satu lagi trik untuk menerapkan hal yang serupa dengan event handler yakni melalui method addEventListener() milik sebuah elemen HTML. Penasaran? Yuk, kita lanjut ke materi berikutnya.
