@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Input</title>
+</head>
+<body>
+    <div class="contents">
+        <h2 align="center"><b>Input Event Form</b></h2>
+        <div class="formContent">
+            <div id="formDataDiri" autocomplete="off">
+                <div class="formElement" id="fieldName">
+                    <label for="nama">Nama Panggilan:</label><br>
+                    <input type="text" id="inputNamaPanggilan" name="nama" placeholder="Nama Panggilan Anda" maxlength="15"><br>
+                    <label id="notifikasiSisaKarakter">Sisa Karakter: <span id="sisaKarakter"></span></label>
+                </div>
+                <div class="formElement" id="fieldCopy">
+                    <label for="copy"><i>Copy</i> tulisan ini:</label><br>
+                    <input type="text" id="inputCopy" name="copy" value="Hello World!" disabled>
+                </div>
+                <div class="formElement" id="fieldPaste">
+                    <label for="paste"><i>Paste</i> tulisan di sini:</label><br>
+                    <input type="text" id="inputPaste" name="paste" placeholder="Paste sesuatu di sini">
+                </div>
+                <div class="formElement" id="fieldCaptcha">
+                    <label for="captcha">tulis <i>Captcha</i> berikut:</label><br>
+                    <img src="https://i.ibb.co/yy59QPB/Captcha.png" alt="captcha"><br>
+                    <input type="text" id="inputCaptcha" name="captcha" placeholder="Tulis captcha di sini"><br>
+                    <p>Tekan enter pada keyboard jika sudah selesai menulis <i>Captcha</i></p>
+                </div>
+                <div class="formElement" align="center">
+                    <input type="submit" id="submitButton" value="Submit Data" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
