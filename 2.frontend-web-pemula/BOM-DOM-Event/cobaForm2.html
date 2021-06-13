@@ -28,7 +28,7 @@
             <div id="formDataDiri" autocomplete="off">
                 <div class="formElement" id="fieldName">
                     <label for="nama">Nama Panggilan:</label><br>
-                    <input type="text" id="inputNamaPanggilan" name="nama" placeholder="Nama Panggilan Anda" maxlength="15"><br>
+                    <input type="text" id="inputNamaPanggilan" name="nama" placeholder="Nama Panggilan Anda" maxlength="15" autocomplete="off"><br>
                     <label id="notifikasiSisaKarakter">Sisa Karakter: <span id="sisaKarakter"></span></label>
                 </div>
                 <div class="formElement" id="fieldCopy">
@@ -53,12 +53,15 @@
     </div>
 
     <script>
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const inputMax = document.getElementById('inputNamaPanggilan');
-        //     document.getElementById('sisaKarakter').innerText = inputMax;
-        // });
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputMax = document.getElementById('inputNamaPanggilan').maxLength;
+            document.getElementById('sisaKarakter').innerText = inputMax;
 
-        
+            // event onFocus
+            document.getElementById('notifikasiSisaKarakter').style.visibility = 'hidden';
+        });
+
+
         // event onInput
         document.getElementById('inputNamaPanggilan').addEventListener('input', function() {
             const jumlahDiketik = document.getElementById('inputNamaPanggilan').value.length;
@@ -75,6 +78,11 @@
             } else {
                 document.getElementById('sisaKarakter').style.color = 'black';
             }
+        });
+
+        // event onFocus
+        document.getElementById('inputNamaPanggilan').addEventListener('focus', function() {
+            document.getElementById('notifikasiSisaKarakter').style.visibility = null;
         });
     </script>
 </body>
