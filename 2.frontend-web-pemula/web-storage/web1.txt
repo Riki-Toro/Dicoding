@@ -130,3 +130,7 @@ Local Storage
         </html>
 
     Pada gif di atas kita bisa mengetahui bahwa data yang disimpan pada local storage akan bertahan walaupun jendela browser atau tab browser ditutup. Untuk menghapus datanya, tekan tombol "Hapus Storage" di mana tombol tersebut akan memanggil method localStorage.removeItem().
+
+
+
+
