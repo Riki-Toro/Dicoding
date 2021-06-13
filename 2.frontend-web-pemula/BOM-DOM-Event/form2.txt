@@ -182,3 +182,139 @@ Event onBlur
     Kode yang ditambahkan tersebut hanyalah melakukan kebalikan dari event handler untuk event onFocus yang kita terapkan sebelumnya. Kode tersebut akan “menyembunyikan” kembali pesan notifikasi jumlah sisa karakter yang diperbolehkan. Proses tersebut terjadi ketika kita klik elemen lain alias elemen <input> yang membuat nama panggilan sudah tidak menjadi fokus utama lagi.
 
     Akhirnya bagian form yang meminta nama panggilan, sudah memiliki fungsionalitas lengkap yang kita harapkan melalui penerapan event handler dan event listener untuk semua event yang sudah ditentukan. Berikutnya, kita akan menerapkan fitur pada bagian form lain yakni bagian captcha terlebih dahulu. Apa yang ingin kita tambahkan? Simak di materi berikutnya ya!
+
+
+
+
+Event onChange
+    Event onChange memiliki perilaku yang sama dengan onInput, yakni akan terjadi jika terdeteksi adanya perubahan nilai yang dimasukkan. Perbedaannya terletak pada “kapan” event ini terjadi.
+
+    Pada onInput, event akan terjadi setiap kali nilai yang diinput mengalami perubahan (contohnya penambahan atau pengurangan karakter). Sedangkan pada onChange, event akan terjadi setelah elemen tersebut tidak menjadi fokus lagi alias kita tidak berinteraksi dengannya lagi baru diperiksa apakah ada perubahan atau tidak. Perbedaan keduanya akan tampak saat kita mempraktikkannya.
+
+    Fitur yang ingin kita tambahkan adalah jika kita menulis captcha dengan benar, tombol “Submit Data” bisa ditekan. Bagaimana cara menambahkan event handler onChange pada elemen <input> untuk captcha? Simak uraiannya di bawah ini:
+
+    Tambahkan kode yang bercetak tebal berikut pada elemen <script> seperti di bawah ini:
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function (){
+                const inputMaxLengthOnLoad = document.getElementById("inputNamaPanggilan").maxLength;
+                document.getElementById("sisaKarakter").innerText = inputMaxLengthOnLoad;
+                document.getElementById("notifikasiSisaKarakter").style.visibility = "hidden";
+            });
+        
+            document.getElementById("inputNamaPanggilan").addEventListener("input", function(){
+                const jumlahKarakterDiketik = document.getElementById("inputNamaPanggilan").value.length;
+                const jumlahKarakterMaksimal = document.getElementById("inputNamaPanggilan").maxLength;
+                console.log(jumlahKarakterDiketik, jumlahKarakterMaksimal);
+                const sisaKarakterUpdate = jumlahKarakterMaksimal - jumlahKarakterDiketik;
+                document.getElementById("sisaKarakter").innerText = sisaKarakterUpdate;
+                if (sisaKarakterUpdate == 0 ){
+                    document.getElementById("sisaKarakter").innerText = "batas maksimal tercapai!";
+                } else if(sisaKarakterUpdate <= 5){
+                    document.getElementById("notifikasiSisaKarakter").style.color = "red";
+                } else{
+                    document.getElementById("notifikasiSisaKarakter").style.color = "black";
+                }
+            });
+        
+            document.getElementById("inputNamaPanggilan").addEventListener("focus", function(){
+                document.getElementById("notifikasiSisaKarakter").style.visibility = null;
+            });
+
+            document.getElementById('inputNamaPanggilan').addEventListener('blur', function() {
+                document.getElementById('notifikasiSisaKarakter').style.visibility = 'hidden';
+            });
+
+            document.getElementById("inputCaptcha").addEventListener("change", function(){
+                const inputCaptcha = document.getElementById("inputCaptcha").value;
+                const submitButtonStatus = document.getElementById("submitButton");
+                if (inputCaptcha == "PRNU"){
+                    submitButtonStatus.removeAttribute("disabled");
+                }
+            });
+        </script>
+
+    Kode di atas akan memeriksa apakah kita memasukkan tulisan yang sesuai dengan captcha-nya. Jika sesuai, tombol “Submit Data” bisa ditekan. Namun, perlu diperhatikan bahwa melalui event onChange, kita harus lebih dulu “mengalihkan” fokus ke elemen lain atau bisa juga dicapai dengan hanya menekan tombol “Enter” pada keyboard. Sehingga, walaupun penulisan kita sudah sesuai dengan yang ada di captcha, event onChange tidak akan terjadi sampai kita menekan tombol “Enter” atau “mengalihkan” fokus ke elemen lain.
+
+    Dari preview di atas kita bisa tahu walaupun sudah menulis konten yang benar sesuai dengan captcha, tombol tidak kunjung bisa ditekan sebelum “mengalihkan” fokus ke elemen lain. Coba ganti tulisan input menjadi bentuk yang salah, maka tombol akan tampak seperti bisa ditekan meskipun tulisan captcha kita salah. 
+
+    Walaupun begitu, tombol masih bisa ditekan ketika input tidak sesuai captcha selama kita langsung menekan tombolnya. Untuk memperbaiki kesalahan, tambahkan kode berikut di akhir elemen <script>:
+
+        document.getElementById("formDataDiri").addEventListener("submit", function(){
+            const inputCaptcha = document.getElementById("inputCaptcha").value;
+            if (inputCaptcha == "PRNU"){
+                event.preventDefault();
+                alert("Selamat! Captcha Anda lolos :D");
+            } else{
+                alert("Captcha Anda belum tepat :(")
+                submitButtonStatus.addAttribute("disabled", true);
+            }
+        });
+
+    Silakan jalankan dan masukkan captcha kembali. Sekarang kita sudah tidak bisa men-submit data ketika captcha yang dimasukkan salah. Bug berhasil dihilangkan!
+
+
+
+Event onCopy
+    Event onCopy tergolong dalam kelompok clipboard events. Event ini terjadi jika kita melakukan operasi pada clipboard seperti copy, cut, dan paste. Kita hanya akan membahas dua saja yakni event onCopy yakni operasi copy dan event onPaste yakni operasi paste. Pertama kita akan menggunakan onCopy terlebih dahulu.
+
+    Pada berkas HTML di atas, kita sudah memiliki bagian form yang dihiasi dengan kata kunci “copy”. Tugas kita kali ini adalah menambahkan event listener untuk event onCopy. Sedangkan fungsi event handler-nya hanyalah memunculkan sebuah dialog box alert yang berisi pesan “Anda telah men-copy sesuatu...”.
+
+    Untuk menambah fitur tersebut, maka kita hanya perlu menambahkan kode yang dicetak tebal berikut ke dalam elemen <script>:
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function (){
+                const inputMaxLengthOnLoad = document.getElementById("inputNamaPanggilan").maxLength;
+                document.getElementById("sisaKarakter").innerText = inputMaxLengthOnLoad;
+                document.getElementById("notifikasiSisaKarakter").style.visibility = "hidden";
+            });
+        
+            document.getElementById("inputNamaPanggilan").addEventListener("input", function(){
+                const jumlahKarakterDiketik = document.getElementById("inputNamaPanggilan").value.length;
+                const jumlahKarakterMaksimal = document.getElementById("inputNamaPanggilan").maxLength;
+                console.log(jumlahKarakterDiketik, jumlahKarakterMaksimal);
+                const sisaKarakterUpdate = jumlahKarakterMaksimal - jumlahKarakterDiketik;
+                document.getElementById("sisaKarakter").innerText = sisaKarakterUpdate;
+                if (sisaKarakterUpdate == 0 ){
+                    document.getElementById("sisaKarakter").innerText = "batas maksimal tercapai!";
+                } else if(sisaKarakterUpdate <= 5){
+                    document.getElementById("notifikasiSisaKarakter").style.color = "red";
+                } else{
+                    document.getElementById("notifikasiSisaKarakter").style.color = "black";
+                }
+            });
+        
+            document.getElementById("inputNamaPanggilan").addEventListener("focus", function(){
+                document.getElementById("notifikasiSisaKarakter").style.visibility = null;
+            });
+        
+        
+            document.getElementById("inputNamaPanggilan").addEventListener("blur", function(){
+                document.getElementById("notifikasiSisaKarakter").style.visibility = "hidden";
+            });
+        
+            document.getElementById("inputCaptcha").addEventListener("change", function(){
+                const inputCaptcha = document.getElementById("inputCaptcha").value;
+                const submitButtonStatus = document.getElementById("submitButton");
+                if (inputCaptcha == "PRNU"){
+                    submitButtonStatus.removeAttribute("disabled");
+                }
+            });
+        
+            document.getElementById("formDataDiri").addEventListener("submit", function(){
+                const inputCaptcha = document.getElementById("inputCaptcha").value;
+                if (inputCaptcha == "PRNU"){
+                    event.preventDefault();
+                    alert("Selamat! Captcha Anda lolos :D");
+                }else{
+                    alert("Captcha Anda belum tepat :(")
+                    submitButtonStatus.addAttribute("disabled", true);
+                }
+            });
+        
+            document.getElementById("inputCopy").addEventListener("copy", function(){
+                alert("Anda telah men-copy sesuatu...");
+            });
+        </script>
+
+    Melalui kode di atas, kita telah membuat berkas HTML yang memunculkan alert dialog box ketika menyalin tulisan dari elemen <input> tersebut. Tampilan ketika dijalankan seperti berikut:
