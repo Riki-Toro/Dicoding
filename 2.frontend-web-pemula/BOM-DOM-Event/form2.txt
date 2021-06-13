@@ -384,3 +384,9 @@ Event onPaste
                 alert("Anda telah mem-paste sebuah teks...");
             });
         </script>
+
+
+
+
+Input Event - Hasil Akhir
+    Selamat! Setelah melalui modifikasi yang cukup banyak pada elemen <script>, kini semua fungsionalitas yang kita inginkan sudah “tertanam” pada halaman web. Anda dipersilakan untuk menjalankan kembali halaman web dan menguji semua fungsionalitasnya sekaligus.
