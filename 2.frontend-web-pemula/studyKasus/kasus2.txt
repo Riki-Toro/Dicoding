@@ -154,3 +154,134 @@ Menampilkan Item Todo dan Menandai Todo Selesai
     Fungsi di atas akan memanggil fungsi createButton() dengan parameter kelas “check-button” dan fungsi untuk menandai todo sebagai todo yang sudah selesai.
 
     Hore! Todo yang belum selesai kini bisa ditandai sebagai todo yang telah selesai.
+
+
+
+
+Menampilkan Item Todo yang Selesai dan Menghapus Todo
+    Oke, kini kita sudah masuk ke bagian terakhir yaitu Menampilkan Item Todo yang Selesai dan Menghapus Todo. 
+
+    Pertama kita akan membuat tampilan untuk menampung todo yang telah diselesaikan terlebih dahulu. Silakan tambahkan kode berikut pada berkas html.
+
+        <div class="wrapper">
+        ....
+        
+        <div class="container">
+            <h2 class="container-header">Yang sudah dilakukan</h2>
+            <div class="list-item" id="completed-todos">
+                
+            </div>
+        </div>
+        </div>
+
+    Lalu, buka lagi websitenya dan pastikan tampilannya menjadi seperti ini:
+
+    Selanjutnya tambahkan kode berikut pada fungsi addTaskToCompleted(), kode ini berfungsi untuk menampilkan todo yang sudah ditandai sebagai todo yang telah selesai.
+
+        function addTaskToCompleted(taskElement) {
+            const taskTitle = taskElement.querySelector(".inner > h2").innerText;
+            const taskTimestamp = taskElement.querySelector(".inner > p").innerText;
+        
+            const newTodo = makeTodo(taskTitle, taskTimestamp);
+            const listCompleted = document.getElementById(COMPLETED_LIST_TODO_ID);
+            listCompleted.append(newTodo);
+            taskElement.remove();
+        }
+
+    Penjelasan dari kode di atas adalah pertama kita ambil value title dan timestamp yang sudah ada pada parameter. Lalu, buat item todo menggunakan fungsi makeTodo(). Setelah itu kita masukkan element todo yang sudah dibuat ke dalam container yang menampung todo yang sudah selesai. 
+
+    Namun, todo yang sudah dilakukan tersebut masih belum bisa dihapus. Kita akan lanjutkan untuk membuat fungsinya kali ini. Pertama kita buat fungsi removeTaskFromCompleted() dengan parameter element yang berfungsi untuk menghapus elemen todo yang sudah selesai.
+
+        function removeTaskFromCompleted(taskElement) {
+            taskElement.remove();
+        }
+        
+    Setelah itu kita buat fungsi baru yang bertujuan untuk membuat button hapus todo seperti berikut:
+
+        function createTrashButton() {
+            return createButton("trash-button", function(event){
+                removeTaskFromCompleted(event.target.parentElement);
+            });
+        }
+
+    Pada fungsi di atas kita membuat sebuah button dengan class “trash-button” dan listener yang akan memanggil fungsi untuk menghapus todo yang telah diselesaikan.
+
+    Sebelum memanggil fungsi untuk membuat tombol hapus, kita perlu membedakan terlebih dahulu todo mana yang sudah selesai atau belum dengan cara menambah parameter pada fungsi makeTodo(), sehingga fungsi makeTodo() menjadi seperti berikut:
+
+    function makeTodo(data, timestamp, isCompleted) {...}
+    Lalu, pada fungsi addTaskToCompleted(), masukkan value true ke paramter isCompleted.
+
+        function addTaskToCompleted(taskElement) {
+            ...
+            const newTodo = makeTodo(taskTitle, taskTimestamp, true);
+            ...
+        }
+
+    Setelah itu kita masukkan value false ke parameter isCompleted pada fungsi undoTaskFromCompleted(), seperti ini:
+
+        function undoTaskFromCompleted(taskElement){
+            ...
+            const newTodo = makeTodo(taskTitle, taskTimestamp, false);
+            ...
+        
+        }
+
+    Jika parameter isCompleted sudah dimasukkan, kini kita dapat membedakan mana todo yang sudah selesai atau belum.
+
+    Kemudian kita kembali ke pembuatan button hapus. Silakan tambahkan if statement pada fungsi makeTodo() seperti berikut:
+
+        function makeTodo(data, timestamp, isCompleted) {
+            ...
+            if(isCompleted){
+                container.append(createTrashButton());
+            } else {
+                container.append(createCheckButton());
+            }
+            ...
+        }
+
+    Apabila isCompleted bernilai true, tombol hapus yang akan di-render. Sebaliknya jika isCompleted bernilai false, tombol checklist yang akan di-render. Sekarang todo yang sudah selesai dapat dihapus seperti berikut.
+
+    Namun, tombol hapus di atas masih terlihat belum rapi dan posisinya belum sesuai. Tenang kita akan memperbaiki tombol tersebut saat kita membuat tombol undo.
+
+    Oke mari kita lanjutkan ke langkah terakhir. 
+
+    Kita akan membuat fungsi untuk mengembalikan todo yang sudah selesai ke todo yang belum selesai. Silakan buat fungsi baru dengan nama undoTaskFromCompleted() seperti berikut:
+
+        function undoTaskFromCompleted(taskElement){
+            const listUncompleted = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
+            const taskTitle = taskElement.querySelector(".inner > h2").innerText;
+            const taskTimestamp = taskElement.querySelector(".inner > p").innerText;
+        
+            const newTodo = makeTodo(taskTitle, taskTimestamp, false);
+        
+            listUncompleted.append(newTodo);
+            taskElement.remove();
+        }
+
+    Jika dilihat kode tersebut hampir sama dengan kode pada fungsi addTaskToCompleted(), hanya saja logikanya yang dibalik.
+
+    Setelah itu kita buat fungsi untuk membuat button undo. Caranya, buat fungsi baru dengan nama createUndoButton() dan isi dengan kode seperti berikut:
+
+        function createUndoButton() {
+            return createButton("undo-button", function(event){
+                undoTaskFromCompleted(event.target.parentElement);
+            });
+        }
+
+    Kode ini menjalankan fungsi create button dengan class “undo-button” dan listener untuk menjalankan fungsi undo todo yang sudah selesai.
+
+    Setelah itu kita panggil fungsi createUndoButton() pada fungsi makeTodo() seperti berikut:
+
+        function makeTodo(data, timestamp, isCompleted) {
+            ....
+            if(isCompleted){
+                container.append(
+                    createUndoButton(),
+                    createTrashButton()
+                );
+            }
+        ....
+        }
+        
+    Sekarang tombol undo bisa digunakan dan tata letak dari tombol hapus letaknya menjadi lebih sesuai rapi.
