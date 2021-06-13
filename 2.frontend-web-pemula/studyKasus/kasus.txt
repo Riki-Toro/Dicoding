@@ -16,3 +16,64 @@ Membuat Aplikasi Todo Apps
 
 
 
+
+Mengunduh Starter Project, Membuat Berkas JavaScript, dan Menampilkan Todo pada Console
+    Pada langkah ini Anda perlu mengunduh starter project pada link berikut: Proyek Todo Apps - Starter Project
+
+    Untuk mempermudah proses pengunduhan, Anda bisa mengunduh versi zip-nya. Caranya, klik tombol Code kemudian Download Zip, untuk lebih jelasnya perhatikan gambar berikut ini.
+
+    Setelah proses unduh selesai, silakan ekstrak berkas ZIP dan jalankan website yang berada di starter project yang sudah diunduh tadi. Pastikan tampilan website sudah sesuai seperti gambar berikut.
+
+    Fitur yang akan kita buat sekarang adalah menampilkan todo yang telah di-submit ke dalam console browser.
+
+    Pertama Anda harus membuat sebuah file JavaScript, silakan buat folder dengan nama js lalu buat file javascript dengan nama script.js seperti berikut. 
+
+    File ini bertujuan untuk mencegah tombol submit pada html dijalankan secara default dan pada file ini kita akan menambahkan kode untuk memanggil fungsi yang bertujuan untuk menampilkan todo.
+
+    Lalu tambahkan kode berikut pada script.js.
+
+        document.addEventListener("DOMContentLoaded", function () {
+        
+            const submitForm = document.getElementById("form");
+        
+            submitForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+                addTodo();
+            });
+        });
+
+    Kode document.addEventListener("DOMContentLoaded", function () .. )  berfungsi sebagai listener yang akan menjalankan kode di dalamnya jika DOM sudah di-load dengan baik.
+
+    Lalu kode document.getElementById("form"); berfungsi untuk mengambil element dengan id “form” yang berada pada file html. Setelah didapatkan, element tersebut kita masukkan ke dalam variable submitForm.
+
+    Lalu variable submitForm kita berikan listener ketika tombol submit diklik. Ketika tombol submit diklik maka kode event.preventDefault(); akan dijalankan. Kode ini berfungsi untuk mencegah behaviour asli agar tidak dijalankan. Karena secara default jika tombol submit diklik maka browser akan mengirimkan data ke url yang tertera pada properti action dan browser akan di-refresh.
+
+    Lalu kode pemanggilan fungsi addTodo(); bertujuan untuk menjalankan kode yang akan menambahkan todo ke dalam todo list, namun saat ini kita akan tidak akan menambahkan todo ke dalam todo list, kita hanya akan menampilkannya pada console di browser. Kode untuk menambahkan todo ke todo list akan kita buat nanti.
+
+    Setelah semua kode di atas dimasukkan, sekarang kita buat file baru pada folder js dengan nama dom.js. Seperti berikut:
+
+    Pada file ini kita akan menuliskan kode untuk memanipulasi DOM menggunakan JavaScript.
+
+    Oke, pertama kita buat sebuah fungsi untuk menampilkan todo pada console browser. Tambahkan kode berikut pada file dom.js.
+
+        function addTodo() {
+            const textTodo = document.getElementById("title").value;
+            const timestamp = document.getElementById("date").value;
+            console.log("todo" + textTodo);
+            console.log("timestamp" + timestamp);
+        }
+
+    Kode document.getElementById("title").value berfungsi untuk mengambil elemen pada html, dalam kasus ini kita mengambil element <input> dengan id title. Setelah element didapatkan, lalu value di dalam form tersebut akan kita ambil dan dimasukkan ke dalam variable textTodo . Logika yang sama juga terjadi pada variable timestamp.
+
+    Setelah textTodo dan timestamp di dapatkan kita akan menampilkannya pada console browser dengan menggunakan kode console.log().
+
+    Lalu setelah itu jangan lupa untuk memasukkan file JavaScript yang telah kita buat tadi ke dalam file html seperti ini.
+
+            …
+            <script src="js/dom.js" type="text/javascript"></script>
+            <script src="js/script.js" type="text/javascript"></script>
+        </body>
+
+    Jika semua kode di atas sudah ditulis silakan jalankan lagi project Anda dan hasilnya akan seperti ini.
+
+    Kita bisa melihat bahwa todo yang telah di-submit akan muncul di console browser. Selanjutnya kita akan memindahkan todo yang tampil di console ke halaman website.
