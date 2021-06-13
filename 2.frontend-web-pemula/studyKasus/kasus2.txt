@@ -1,0 +1,156 @@
+Menampilkan Item Todo dan Menandai Todo Selesai
+    Pertama kita akan membuat beberapa container dan beberapa dummy item statis sebagai contoh untuk item todo pada bagian “Hal yang harus dilakukan”. Sekarang tambahkan kode berikut pada berkas html sebagai container untuk menampung todo yang belum selesai.
+
+        <div class="container">
+            <h2 class="container-header">Yang harus dilakukan</h2>
+            <div class="list-item" id="todos">
+            
+            </div>
+        </div>
+
+    Tampilan website akan muncul sebuah container kosong yang berjudul ‘Hal yang harus dilakukan’ seperti di bawah ini:
+
+    Setelah itu kita akan membuat item untuk mengisi container tersebut. Pertama buat sebuah fungsi bernama makeTodo() seperti berikut.
+
+        function makeTodo() {
+        
+            const textTitle = document.createElement("h2");
+            textTitle.innerText = "Tugas Android";
+        
+            const textTimestamp = document.createElement("p");
+            textTimestamp.innerText = "2021-05-01";
+        
+            const textContainer = document.createElement("div");
+            textContainer.classList.add("inner")
+            textContainer.append(textTitle, textTimestamp);
+        
+            const container = document.createElement("div");
+            container.classList.add("item", "shadow")
+            container.append(textContainer);
+        
+            return container;
+        }
+
+    Kode document.createElement() berfungsi untuk membuat element html, contohnya pada kode document.createElement("h2");  yang akan membuat sebuah elemen <h2>.
+
+    Lalu setelah elemen <h2> dibuat, masukkan text “Tugas Android” pada elemen tersebut. Setelah elemen dibuat dan dimasukkan text. Kita masukkan elemen tadi ke dalam variable textTitle. Sehingga, jika textTitle ditampilkan pada console, akan muncul text berikut <h2>Tugas Android<h2>.
+
+    Setelah elemen untuk judul dibuat, lanjutkan dengan membuat elemen untuk timestamp menggunakan tag <p> dan masukkan elemen tersebut ke dalam variable textTimestamp .
+
+    Setelah itu buat container pembungkus untuk membungkus textTitle dan textTimestamp dengan tag <div>. Lalu, tambahkan class “inner” pada tag div menggunakan fungsi classList.add(). Setelahnya masukkan pembungkus ini ke dalam variable textContainer.
+
+    Lalu gunakan fungsi append() untuk memasukkan textTitle dan textTimestamp ke dalam textContainer. Sehingga, jika variable textContiner ditampilkan pada console, hasilnya akan seperti ini:
+
+        <div class="inner">
+            <h2>Tugas Android</h2>
+            <p>2021-05-01</p>
+        </div>
+
+    Setelah itu kita buat container utama dengan menggunakan tag <div> lalu tambahkan class “item” dan “shadow”. Kemudian masukkan container ini ke dalam variable container. Selanjutnya masukkan textContainer ke dalam container utama. Sehingga, jika ditampilkan pada console maka hasilnya akan seperti ini:
+
+        <div class="item shadow">
+            <div class="inner">
+                <h2>Tugas Android</h2>
+                <p>2021-05-01</p>
+            </div>
+        </div>
+
+    Lalu kita gunakan return statement untuk mengembalikan nilai variabel container yang telah dibuat tadi.
+
+    Sekarang kita buat variabel global yang bersifat constant untuk menampung id elemen Todo yang belum selesai. Tambahkan kode berikut di paling atas.
+
+        const UNCOMPLETED_LIST_TODO_ID = "todos";
+
+    Sekarang kita akan memanggil fungsi makeTodo() pada fungsi addTodo(). Tambahkan kode berikut pada fungsi addTodo().
+
+        const UNCOMPLETED_LIST_TODO_ID = "todos";
+        
+        function addTodo()
+            const uncompletedTODOList = document.getElementById(UNCOMPLETED_LIST_TODO_ID );
+        
+            const textTodo = document.getElementById("title").value;
+            const timestamp = document.getElementById("date").value;
+            console.log("todo" + textTodo);
+            console.log("timestamp" + timestamp);
+        
+            for (let i = 0; i < 10; i++) {
+                const todo = makeTodo();
+                uncompletedTODOList.append(todo);
+            }
+        }
+
+    Penjelasan dari kode di atas adalah, pertama kita mengambil elemen container untuk menampung todo yang belum selesai. Setelah itu dilakukan pengulangan 10x untuk membuat todo dan memasukkannya ke dalam container. Maka hasilnya seperti ini:
+
+    Todo yang muncul pada halaman web masih belum sesuai dengan todo yang dimasukkan tadi. Sekarang kita akan membuat item todo menjadi dinamis sesuai apa yang kita masukkan. Tambahkan kode berikut pada fungsi makeTodo().
+
+        function makeTodo(data, timestamp) {
+            const textTitle = document.createElement("h2");
+            textTitle.innerText = data;
+        
+            const textTimestamp = document.createElement("p");
+            textTimestamp.innerText = timestamp;
+        
+            ...
+        }
+
+    Tambahkan dua parameter pada fungsi makeTodo(), yang pertama data dan yang kedua timestamp. Lalu parameter tersebut kita gunakan untuk mengisi value dari variable textTitle dan textTimestamp.
+
+    Setelah itu panggil fungsi makeTodo() dengan parameter yang diambil dari variable textTodo dan textTimestamp. Sekarang Anda bisa menghapus kode perulangan dan console.log() pada fungsi addTodo(), sehingga fungsi addTodo() menjadi seperti ini:
+
+        function addTodo() {
+            const uncompletedTODOList = document.getElementById(UNCOMPLETED_LIST_TODO_ID );
+            const textTodo = document.getElementById("title").value;
+            const timestamp = document.getElementById("date").value;
+        
+            const todo = makeTodo(textTodo, timestamp);
+            uncompletedTODOList.append(todo);
+        }
+
+    Jika kode yang Anda buat sudah sesuai, seharusnya todo yang muncul sudah sesuai dengan todo yang dimasukkan seperti tampilan ini.
+
+    Selanjutnya kita akan membuat sebuah tombol untuk menandai bahwa todo sudah selesai dilakukan. Pertama, silakan buat fungsi createButton() seperti berikut:
+
+        function createButton(buttonTypeClass , eventListener) {
+            const button = document.createElement("button");
+            button.classList.add(buttonTypeClass);
+            button.addEventListener("click", function (event) {
+                eventListener(event);
+            });
+            return button;
+        }
+
+    Kode ini berfungsi sebagai dasar pembuatan elemen button, sehingga semua jenis button yang kita gunakan pada aplikasi ini akan dibuat melalui fungsi createButton().
+
+    Penjelasan dari kode tersebut adalah, kita membuat sebuah elemen button dengan class yang didapat dari parameter buttonTypeClass. Lalu button tersebut diberi listener ketika diklik. Ketika button tersebut diklik maka fungsi pada parameter eventListener akan dijalankan.
+
+    Setelah itu buat kode baru yang berfungsi untuk menandai todo sebagai todo yang sudah selesai. Pertama buat sebuah variabel konstan yang bersifat global untuk menampung id dari elemen container todo yang sudah selesai.
+
+        const COMPLETED_LIST_TODO_ID = "completed-todos"; 
+
+    Selanjutnya buat fungsi baru dengan nama addTaskToCompleted() dengan parameter taskElement. Seperti berikut:
+
+        function addTaskToCompleted(taskElement) {
+            taskElement.remove();
+        } 
+
+    Sebenarnya fungsi ini bukan untuk memindahkan todo, melainkan untuk menghapus todo yang belum selesai. Pada step selanjutnya kita akan membuat fungsi baru untuk membuat todo yang sudah diselesaikan.
+
+    Oke, kita lanjutkan ke pembuatan button tandai todo sebagai selesai. Setelah fungsi addTaskToCompleted() dibuat, langkah selanjutnya adalah membuat sebuah fungsi untuk membuat elemen button yang dapat menjalankan addtaskToComplete(). Silakan masukkan kode berikut:
+
+        function createCheckButton() {
+            return createButton("check-button", function(event){
+                addTaskToCompleted(event.target.parentElement);
+            });
+        }
+
+    Setelah fungsi untuk membuat check button dibuat, kita harus memanggilnya pada fungsi makeTodo(). seperti berikut:
+
+        function makeTodo() {
+            ....
+            container.append(createCheckButton());
+            return container;
+        }
+        
+    Fungsi di atas akan memanggil fungsi createButton() dengan parameter kelas “check-button” dan fungsi untuk menandai todo sebagai todo yang sudah selesai.
+
+    Hore! Todo yang belum selesai kini bisa ditandai sebagai todo yang telah selesai.
