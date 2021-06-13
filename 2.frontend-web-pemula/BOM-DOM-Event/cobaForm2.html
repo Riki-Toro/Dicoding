@@ -51,5 +51,31 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const inputMax = document.getElementById('inputNamaPanggilan');
+        //     document.getElementById('sisaKarakter').innerText = inputMax;
+        // });
+
+        
+        // event onInput
+        document.getElementById('inputNamaPanggilan').addEventListener('input', function() {
+            const jumlahDiketik = document.getElementById('inputNamaPanggilan').value.length;
+            const maxKetik = document.getElementById('inputNamaPanggilan').maxLength;
+            console.log(jumlahDiketik, maxKetik);
+            const updateJumlah = maxKetik-jumlahDiketik;
+            document.getElementById('sisaKarakter').innerText = updateJumlah;
+
+            if( updateJumlah == 0 ) {
+                document.getElementById('sisaKarakter').innerText = "batas karakter sudah tercapai!";
+                document.getElementById('sisaKarakter').style.color = 'red';
+            } else if( updateJumlah <= 5 ) {
+                document.getElementById('sisaKarakter').style.color = 'red';
+            } else {
+                document.getElementById('sisaKarakter').style.color = 'black';
+            }
+        });
+    </script>
 </body>
 </html>
