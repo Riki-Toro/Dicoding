@@ -1,0 +1,33 @@
+Pengenalan Web Storage
+    Selamat datang di modul Web Storage! Pada modul sebelumnya kita telah mempelajari, menggunakan, serta mengimplementasikan object browser model, document object model, dan event. Melalui ketiga hal tersebut, kita bisa membuat tampilan halaman web menjadi lebih dinamis mengikuti interaksi dari user. Walau begitu, bagaimana jika kita ingin menyimpan data, seperti input dari user yang dapat diakses oleh kode JavaScript ketika diperlukan?
+
+    Jika ingin menerapkan fitur penyimpanan data, kebanyakan dari kita langsung tertuju pada satu istilah bernama database. Untungnya, kita tidak perlu membuat database sendiri, melainkan sudah didukung oleh browser untuk menyimpan data di "lokasi" khusus yang merupakan fitur bawaan dari browser. Fitur bawaan yang dimaksud adalah web storage.
+
+    Kita akan menyelami fungsi web storage lebih dalam serta mengimplementasikannya pada sebuah halaman web. Sehingga, di akhir modul ini diharapkan Anda dapat:
+
+        Mengetahui apa itu web storage.
+        Mengetahui fungsi dari web storage.
+        Mengetahui macam-macam web storage, yakni local storage, dan session storage serta cara penggunaannya.
+        Mengetahui bagaimana menambahkan, memodifikasi, dan menghapus data ke web storage.
+        Mengetahui cara menyimpan data dengan struktur kompleks ke dalam web storage, seperti JSON.
+
+    Supaya proses belajar menjadi lebih interaktif, apabila Anda memiliki pertanyaan perihal materi disajikan, jangan segan untuk bertanya via forum diskusi. Mentor kami akan sigap menjawab pertanyaan. Anda juga dipersilakan untuk membantu menjawab pertanyaan yang diajukan oleh peserta belajar lainnya.
+
+
+
+
+Pengertian dan Fungsi Web Storage
+    Apa itu web storage? Web storage adalah salah satu Web API (perantara agar kode JavaScript bisa "berkomunikasi" dengan browser) yang dapat menyimpan data secara lokal pada sisi client (disimpan secara lokal pada perangkat kita). Berbeda dengan objek atau array, data yang disimpan pada objek atau array JavaScript bersifat sementara. Ia akan hilang jika terjadi reload atau pergantian URL pada browser. Sedangkan data yang disimpan pada Web Storage akan bertahan lebih lama karena data tersimpan dalam storage browser.
+
+    Data yang tersimpan dalam web storage tersedia berdasarkan domain. Artinya, data pada suatu domain web hanya dapat diakses oleh domain itu sendiri. Web storage dapat menampung sebesar 10MB untuk satu domain.
+
+    Pada umumnya, kita menganggap jika mengakses sebuah halaman web, data yang dibutuhkan akan dikirim dari database milik server web yang kita akses.
+
+    Tetapi tahukah Anda, bahwa tidak semua data harus diambil terus menerus dari database ketika kita mengakses halaman web tersebut? Jika proses pengambilan data dilakukan terus menerus dari database setiap kali mengakses halaman web, apakah justru malah tidak efisien?
+
+    Karena kita mengunduh data yang sama berulang kali? Di sinilah web storage memiliki kelebihan. Mari simak beberapa contoh kasus di mana web storage lebih cocok digunakan:
+
+        Menyimpan data dalam bentuk string yang dihasilkan oleh sebuah halaman web agar bisa diakses secara offline.
+        Menyimpan pengaturan preferensi pribadi untuk sebuah halaman web contohnya seperti tata letak dan tema warna halaman web.
+        
+    Bayangkan jika pada skenario-skenario di atas tidak menggunakan web storage. Kita perlu mengunduh secara terus menerus untuk data yang cenderung sama. Boros sekali, bukan? Belum lagi pengaruhnya terhadap lamanya waktu yang dibutuhkan untuk menampilkan web. Terdapat 2 jenis web storage yang tersedia yang akan kita bahas berikutnya!
