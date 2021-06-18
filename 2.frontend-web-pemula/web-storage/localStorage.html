@@ -30,6 +30,12 @@
             const tambahButton = document.querySelector('#tambah');
             const hapusButton = document.querySelector('#hapus');
             const count = document.querySelector('#nilai');
+
+            // memberikan nilai item local storage
+            count.innerText = localStorage.getItem(localStorageKey);
+
+            // update nilai dari item storage jika tombol ditekan
+            
         }
     </script>
 </body>
