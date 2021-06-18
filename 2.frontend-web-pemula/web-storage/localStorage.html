@@ -41,6 +41,14 @@
                 localStorage.setItem(localStorageKey, cc);
                 count.innerText = localStorage.getItem(localStorageKey);
             });
+
+            // memberikan nilai 0 ketika local storage di-reset atau dihapus
+            hapusButton.addEventListener('click', function() {
+                localStorage.removeItem(localStorageKey);
+                count.innerText = 0;
+            });
+        } else {
+            alert('Browser yang Anda gunakan tidak mendukung Web Storage!');
         }
     </script>
 </body>
