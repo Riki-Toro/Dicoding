@@ -21,6 +21,13 @@
         const localStorageKey = "PRESS_FREQUENCY";
 
         // pengecekan apakah data localStorage dengan key count sudah tersedia atau belum
+        if( typeof(Storage) !== "undefined" ) {
+            if( localStorage.getItem(localStorageKey) === null ) {
+                // jika item pada local storage belum ada
+                // maka akan diberi nilai awal 0
+                localStorage.setItem(localStorageKey, 0);
+            }
+        }
     </script>
 </body>
 </html>
