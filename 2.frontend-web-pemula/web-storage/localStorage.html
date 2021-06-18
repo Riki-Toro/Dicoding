@@ -35,7 +35,12 @@
             count.innerText = localStorage.getItem(localStorageKey);
 
             // update nilai dari item storage jika tombol ditekan
-            
+            tambahButton.addEventListener('click', function() {
+                let cc = localStorage.getItem(localStorageKey);
+                cc++;
+                localStorage.setItem(localStorageKey, cc);
+                count.innerText = localStorage.getItem(localStorageKey);
+            });
         }
     </script>
 </body>
