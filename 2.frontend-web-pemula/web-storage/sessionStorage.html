@@ -31,13 +31,30 @@
         if( typeof(Storage) !== "undefined" ) {
 
             if( sessionStorage.getItem(sessionKey) !== null ) {
-
+                // jika belum ada maka set atau buat sessionKey dengan nilai 0
                 sessionStorage.setItem(sessionKey, 0);
             }
 
             const tambah = document.querySelector('#tambah');
             const hapus = document.querySelector('#hapus');
             const nilai = document.querySelector('#nilai');
+
+            // memberikan nilai pada session storage
+            nilai.innerText = sessionStorage.getItem(sessionKey);
+
+            // update atau tambahkan nilai jika tombol tambah ditekan
+            tambah.addEventListener('click', function() {
+                let count = sessionStorage.getItem(sessionKey);
+                count++;
+                sessionStorage.setItem(sessionKey, count)
+                nilai.innerText = sessionStorage.getItem(sessionKey);
+            });
+
+            // hapus session storage dengan klik tombol hapus
+            hapus.addEventListener('click', function() {
+                sessionStorage.removeItem(sessionKey);
+                nilai.innerText = 0;
+            });
 
         } else {
             alert("Browser Anda tidak mendukung Web Storage!");
