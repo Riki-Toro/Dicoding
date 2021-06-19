@@ -6,7 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-
+        .contents {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -70%);
+            border: 2px solid black;
+            padding: 15px;
+        }
     </style>
 </head>
 <body>
@@ -18,7 +25,7 @@
     </div>
 
     <script>
-        const localStorageKey = "PRESS_FREQUENCY";
+        const localStorageKey = "RIKI_STORAGE";
 
         // pengecekan apakah data localStorage dengan key count sudah tersedia atau belum
         if( typeof(Storage) !== "undefined" ) {
