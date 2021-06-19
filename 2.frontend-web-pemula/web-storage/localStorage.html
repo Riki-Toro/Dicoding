@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Local Storage</title>
     <style>
         .contents {
             position: fixed;
@@ -18,6 +18,7 @@
 </head>
 <body>
     <div class="contents" align="center">
+        <h1>Local Storage</h1>
         <button id="tambah">Tambah Nilai</button>
         <button id="hapus">Hapus Nilai</button>
         <p>Kamu sudah menekan tombol ini sebanyak: </p>
@@ -25,7 +26,7 @@
     </div>
 
     <script>
-        const localStorageKey = "RIKI_STORAGE";
+        const localStorageKey = "PRESS_FREQUENCY_LOCALSTORAGE";
 
         // pengecekan apakah data localStorage dengan key count sudah tersedia atau belum
         if( typeof(Storage) !== "undefined" ) {

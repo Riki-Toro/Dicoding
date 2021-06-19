@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Storage</title>
+    <style>
+        .contents {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -70%);
+            border: 2px solid black;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contents" align="center">
+        <h1>Session Storage</h1>
+        <button id="tambah">Tambah Nilai</button>
+        <button id="hapus">Hapus Nilai</button>
+        <p>Kamu sudah menekan tombol ini sebanyak</p>
+        <span id="nilai">0</span>
+    </div>
+
+    <script>
+        const sessionKey = "PRESS_FREQUENCY_SESSIONSTORAGE";
+
+        if( typeof(Storage) !== "undefined" ) {
+
+            if( sessionStorage.getItem(sessionKey) !== null ) {
+
+                sessionStorage.setItem(sessionKey, 0);
+            }
+
+            const tambah = document.querySelector('#tambah');
+            const hapus = document.querySelector('#hapus');
+            const nilai = document.querySelector('#nilai');
+
+        } else {
+            alert("Browser Anda tidak mendukung Web Storage!");
+        }
+    </script>
+
+</body>
+</html>
