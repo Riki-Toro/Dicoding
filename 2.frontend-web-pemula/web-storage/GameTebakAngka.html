@@ -84,7 +84,7 @@
                 </div>
                 <div class="local-stat-item">
                     <h3>Jumlah tebakan yang salah sekali main:</h3>
-                    <h3 id="local-maximum-attemp"></h3>
+                    <h3 id="local-maximum-attemp-field"></h3>
                 </div>
                 <button class="button" id="destroy-data-button">Hapus Semua data</button>
             </div>
@@ -144,6 +144,28 @@
 
 
     <script>
+
+        // inisialiasi variabel untuk menampung elemen dokumen
+        // local
+        const localTotalVictoryField = document.getElementById('local-total-victory-field');
+        const localMaximumAttempField = document.getElementById('local-maximum-attemp-field');
+        const destroyDataButton = document.getElementById('destroy-data-button');
+        // gameboard
+        const playButton = document.getElementById('play-button');
+        const beforeGameDisplay = document.getElementById('before-game-display');
+        const duringGameDisplay = document.getElementById('during-game-display');
+        const afterGameDisplay = document.getElementById('after-game-display');
+        const answerButton1 = document.getElementById('answer-1-button');
+        const answerButton2 = document.getElementById('answer-2-button');
+        const answerButton3 = document.getElementById('answer-3-button');
+        const sessionUserAnswerField = document.getElementById('session-user-answer-field');
+        const sessionUserWrongAnswerField = document.getElementById('session-user-wrong-answer-field');
+        const sessionTrueAnswerField = document.getElementById('session-true-answer-field');
+        // session
+        const sessionUserAttempsAmountField = document.getElementById('session-user-attemps-amount-field');
+        
+
+        // inisialisasi fungsi untuk menghasilkan jawaban permainan
 
     </script>
 
