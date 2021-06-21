@@ -166,6 +166,24 @@
         
 
         // inisialisasi fungsi untuk menghasilkan jawaban permainan
+        function getAnswer() {
+            let answer = "123".split(""); // split() digunakan untuk membagi string menjadi array substring dan mengembalikan array baru tanpa mengubah string asli.
+            for(let i = 0; i < answer.length; i++) {
+                let j = Math.floor(Math.random() * (i + 1));
+                // membuat variabel j = mendapatkan angka acak * (i tambah 1) >> math.floor()
+                // Math.floor() untuk mengembalikan nilai menjadi bilangan bulat dari yang terbesar kurang dari atau sama dengan
+                //Math.random() untuk mendapatkan angka secara acak pada setiap program dijalankan.
+
+                let tmp = answer[i];
+                answer[i] = answer[j];
+                answer[j] = tmp;
+            }
+            return answer.join(""); // join() untuk menggabungkan seluruh array menjadi sebuah string. Maksud dari menjadi sebuah string adalah, karena array akan disatukan dengan separator (karakter penghubung).
+        }
+
+        // inisialiasi key untuk session storage
+
+        // inisialisasi key untuk local storage
 
     </script>
 
