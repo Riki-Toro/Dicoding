@@ -5,11 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Tebak Angka</title>
+    <style>
+        hr {
+            height: 2px;
+            color: black;
+            width: 95%;
+            background-color: black;
+        }
+
+
+        .contents {
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+        .child-content {
+            border: 2px solid black;
+            padding-bottom: 2%;
+            margin-bottom: 1%;
+        }
+        .button {
+            padding-left: 1%;
+            padding-right: 1%;
+            font-size: 140%;
+        }
+
+
+        #total-stats {
+            float: right;
+            width: 40%;
+            height: 50%;
+        }
+        #gameboard {
+            float: left;
+            width: 55%;
+            height: 40%;
+        }
+        #session-stats {
+            float: left;
+            width: 55%;
+            margin-top: 1%;
+        }
+        #instructions {
+            float: right;
+            width: 40%;
+            margin-top: 1%;
+        }
+    </style>
 </head>
 <body align="center">
     
     <h1>Permainan Tebak Angka '123'</h1>
-    <div class="content">
+    <div class="contents">
 
         <!-- local stats -->
         <div class="child-content" id="total-stats">
