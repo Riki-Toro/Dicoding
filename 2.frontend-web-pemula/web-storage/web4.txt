@@ -1,0 +1,12 @@
+Implementasi Web Storage - Memodifikasi Item Storage
+    Pada materi "Menambahkan Item Storage", kita sudah menggunakan method setItem() untuk membuat sebuah item storage pada session storage maupun local storage ketika item storage dengan key yang digunakan belum ada.
+
+    Namun, jika item storage tersebut sudah ada, kita bisa gunakan method setItem() untuk memodifikasi nilai yang terdapat pada item storage tersebut sesuai dengan nilai key-nya.
+
+    Untuk mengakses item pada session storage maupun local storage, kita bisa menggunakan method setItem() dari masing-masing jenis storage:
+
+        // untuk session storage
+        sessionStorage.setItem(<namaKey>,<nilaiBaru>);
+        
+        // untuk local storage
+        localStorage.setItem(<namaKey>,<nilaiBaru>);
