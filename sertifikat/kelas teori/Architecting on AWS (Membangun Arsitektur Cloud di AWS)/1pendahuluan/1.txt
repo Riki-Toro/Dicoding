@@ -1,0 +1,40 @@
+Pengantar ke Architecting on AWS
+    Halo, pecinta AWS! Dengan mengikuti kelas ini, Anda berarti sudah paham atau bahkan menguasai dasar-dasar AWS Cloud.
+
+    Dari nama kelasnya, tentu sudah jelas bahwa kelas ini akan membahas cara membangun arsitektur di AWS. Itu berarti, diharapkan Anda sudah pernah berinteraksi dengan layanan-layanan cloud, men-deploy aplikasi sederhana, atau sekadar meng-hosting website statis.
+
+    Di kelas ini juga akan sedikit bersinggungan dengan istilah-istilah pada pengembangan software. Maka dari itu, pahamilah terlebih dahulu materi tentang SDLC alias Software Development Life Cycle. 
+
+    Tentu bagi Anda yang sudah pernah mengembangkan produk dalam suatu tim/perusahaan tak akan kaget mendengar kata itu. SDLC adalah sebuah proses yang dapat membantu dalam mengembangkan perangkat lunak yang berkualitas, teruji, hemat waktu, hemat biaya, dan juga sesuai dengan apa yang pelanggan harapkan. SDLC terdiri dari 7 fase, yaitu:
+
+        Planning (Perencanaan) 
+        Requirement Analysis (Analisis kebutuhan) 
+        Design & Prototyping (Perancangan dan Pembuatan Prototipe) 
+        Development (Pengembangan) 
+        Testing (Pengujian) 
+        Deployment (Penggelaran) 
+        Maintenance (Pemeliharaan)
+
+    Oke, sekarang Anda sudah paham dengan SDLC. Pertanyaannya, saat mengembangkan sebuah aplikasi, apakah Anda memperhatikan beberapa hal seperti scaling, cost optimization, atau bahkan serverless? Atau jangan-jangan, Anda mengembangkannya dengan arsitektur yang asal-asalan tanpa memedulikan hal-hal tersebut?
+
+    Nah, maka dari itu, ikuti setiap materi di kelas ini agar Anda dapat menguasai dan paham cara membangun arsitektur yang andal, aman, dan optimal, baik untuk arsitektur yang sederhana maupun berskala besar. 
+
+    Di sinilah kita berada. Selamat datang di modul pengantar dari kelas Architecting on AWS. Di modul ini kita akan berdiskusi mengenai hal-hal berikut:
+
+        Apa itu AWS?
+        AWS Well-Architected Framework
+        Prinsip desain umum untuk cloud
+        Desain arsitektur berskala besar
+
+    Penasaran seperti apa pembahasannya? Mari kita mulai!
+
+    Skenario
+        Sebelum masuk ke pembahasan, mari kita buat suatu skenario yang kontinu pada kelas ini. Katakanlah Anda dan beberapa kawan memiliki rencana besar untuk memulai startup. Startup ini nantinya akan bergerak di bidang penjualan kopi dan akan menjadi yang terbaik di dunia.
+
+        Rencananya, Anda dan tim akan gencar melakukan promosi, ekspansi, dan lain sebagainya agar startup ini berkembang. Anda pun sepakat bahwa untuk mewujudkannya pasti diperlukan sistem IT yang fleksibel, agile, dan mampu berkembang mengikuti perjalanan bisnis yang tentunya akan naik-turun seperti roller coaster.
+
+        Anda dan tim setuju bahwa menjalankan bisnis secara offline saat ini tidaklah cukup. Selain offline, perlu ada peranan IT yang mendukung bisnis agar dapat lebih berkembang pesat. Namun, sistem IT seperti apa yang cocok untuk start-up ya?
+
+        Jawabannya adalah dengan menggunakan cloud. Dengan begitu, disepakati juga bahwa sebaiknya Anda dan tim perlu memiliki dasar pemahaman yang baik mengenai cloud dengan mengikuti kelas Architecting on AWS. 
+
+        Nah, kalau begitu, tunggu apa lagi? Simak pembahasan lebih lanjut di modul berikutnya!
