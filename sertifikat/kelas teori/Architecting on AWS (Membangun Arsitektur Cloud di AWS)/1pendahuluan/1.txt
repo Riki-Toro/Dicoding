@@ -38,3 +38,17 @@ Pengantar ke Architecting on AWS
         Jawabannya adalah dengan menggunakan cloud. Dengan begitu, disepakati juga bahwa sebaiknya Anda dan tim perlu memiliki dasar pemahaman yang baik mengenai cloud dengan mengikuti kelas Architecting on AWS. 
 
         Nah, kalau begitu, tunggu apa lagi? Simak pembahasan lebih lanjut di modul berikutnya!
+
+
+
+
+Pengenalan AWS
+    Sebelum membahas lebih jauh mengenai arsitektur cloud lebih dalam, mari kita berkenalan dulu dengan AWS.
+
+    AWS atau Amazon Web Services lahir dari pengalaman Amazon.com dalam membuat e-commerce. Amazon didirikan oleh Jeff Bezos di Bellevue, Amerika Serikat pada tahun 1994. Dalam perkembangannya, sekitar tahun 2000, Amazon.com mulai mengalami kesulitan dalam hal keandalan sistem (highly available) dan skalabilitas.
+
+    Dari sisi tool e-commerce, bisa dibilang mirip benang kusut. Aplikasi dan arsitektur dibangun tanpa perencanaan yang baik. Untuk membangun database, perlu waktu hampir 3 bulan lamanya. Bahkan, setiap tim membangun sendiri sumber dayanya tanpa berdiskusi terlebih dahulu dengan tim lain untuk kemungkinan penggunaan ulang. 
+
+    Nah, berkaca dari keadaan yang semrawut serta pengalaman yang menyakitkan tersebut, Amazon.com akhirnya berhasil diredefinisi ulang oleh tim internal perusahaan dengan sistem yang lebih reliable, scalable, dan highly available. 
+
+    Dari pengalaman membangun ulang tersebut, akhirnya pada tahun 2006 Amazon.com bangkit dan menjual layanan-layanannya secara terpisah sebagai Amazon Web Services.
