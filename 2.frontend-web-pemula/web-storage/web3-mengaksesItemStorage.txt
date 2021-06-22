@@ -1,0 +1,50 @@
+Implementasi Web Storage - Mengakses Item Storage
+    Untuk mengakses item pada session storage maupun local storage, kita bisa menggunakan method getItem() dari masing-masing jenis storage:
+
+        // untuk session storage
+        sessionStorage.getItem(<namaKey>);
+        
+        // untuk local storage
+        localStorage.getItem(<namaKey>);
+
+    Kita akan menggunakan method tersebut untuk mengakses item storage yang sudah dibuat pada materi sebelumnya dan menampilkannya di halaman web.
+
+    Jika dilihat dari tampilan halaman web permainan tebak angka saat ini, di sana tidak ada nilai awal dari stats pada Game Session Stats dan Local Stats di lokasi yang ditandai dengan tanda tanya (?) merah seperti di bawah ini.
+
+    Dalam fungsi addEventListener milik objek window untuk event "load" yang sudah dibuat sebelumnya, kita bisa menambahkan beberapa baris kode di bagian akhir fungsi seperti berikut:
+
+        UserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+        localTotalVictoryField.innerText = localStorage.getItem(localTotalVictoryKey);
+        localMaximumAttempField.innerText = localStorage.getItem(localMaximumAttempsKey);
+        
+    Kode di atas akan menampilkan nilai yang tersimpan pada item session storage untuk elemen stats pada Game Session Stats dan item local storage untuk elemen stats pada Local Stats. Sehingga, stats akan menampilkan nilai yang tersimpan pada masing-masing item storage ketika halaman web ditampilkan.
+
+    Sekarang fungsi addEventListener milik objek window untuk event "load" memiliki isi sebagai berikut:
+
+        window.addEventListener("load", function(){
+            if (typeof(Storage) !== "undefined") {
+                // (MATERI 1)
+                // inisialisasi semua item web storage yang kita akan gunakan jika belum ada
+                if (sessionStorage.getItem(sessionAnswerKey) === null){
+                    sessionStorage.setItem(sessionAnswerKey, "");
+                }if (sessionStorage.getItem(sessionUserAttempsKey) === null){
+                    sessionStorage.setItem(sessionUserAttempsKey, 0);
+                }if (localStorage.getItem(localTotalVictoryKey) === null){
+                    localStorage.setItem(localTotalVictoryKey, 0);
+                }if (localStorage.getItem(localMaximumAttempsKey) === null){
+                    localStorage.setItem(localMaximumAttempsKey, 0)
+                }
+            }else{
+                alert("Browser yang Anda gunakan tidak mendukung Web Storage")
+            }
+            //inisialisasi semua nilai field pada dokumen yang menggunakan nilai dari web storage
+            sessionUserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+            localTotalVictoryField.innerText = localStorage.getItem(localTotalVictoryKey);
+            localMaximumAttempField.innerText = localStorage.getItem(localMaximumAttempsKey);
+        });
+
+    Dengan penambahan kode tersebut, ketika kita membuka halaman web, nilai stats yang ditampilkan akan selalu muncul.
+    
+    Dapat dilihat nilai elemen dari "Jumlah tebakan salah", "Jumlah kombinasi yang berhasil di tebak", dan "Jumlah tebakan salah terbanyak sekali main" memiliki nilai awal "0". Nilai "0" tersebut sudah sesuai dengan nilai yang kita masukkan ke masing-masing item storage telah dibuat pada materi sebelumnya.
+
+    Sejauh ini kita sudah berhasil menambahkan beserta mengakses data yang tersimpan dalam item storage. Namun, bagaimana jika sebuah event terjadi ketika nilai data pada sebuah item storage harus diganti? Hal tersebut akan kita pelajari di materi berikutnya tentang cara mengakses sebuah item storage dan mengubah nilai-nya.
