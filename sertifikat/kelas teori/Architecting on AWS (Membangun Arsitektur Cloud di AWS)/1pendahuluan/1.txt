@@ -52,3 +52,52 @@ Pengenalan AWS
     Nah, berkaca dari keadaan yang semrawut serta pengalaman yang menyakitkan tersebut, Amazon.com akhirnya berhasil diredefinisi ulang oleh tim internal perusahaan dengan sistem yang lebih reliable, scalable, dan highly available. 
 
     Dari pengalaman membangun ulang tersebut, akhirnya pada tahun 2006 Amazon.com bangkit dan menjual layanan-layanannya secara terpisah sebagai Amazon Web Services.
+
+
+
+
+AWS Well-Architected Framework
+    Seperti yang telah diuraikan pada awal modul, kita harus membangun arsitektur yang andal, aman, dan optimal. Begitu juga saat membangun arsitektur untuk startup warung kopi kita. Kita memerlukan suatu acuan atau best practice (praktik terbaik) sebagai referensi dan pembanding untuk arsitektur yang kita bangun. 
+
+    Tanpa adanya best practice tersebut, mungkin saat membuat dan menjalankan aplikasi di cloud, Anda sering bertanya-tanya, “Apakah yang saya lakukan ini sudah benar?”
+
+    Nah, untuk menjawab pertanyaan ini, AWS telah membuat Well-Architected Framework, yaitu sebuah dokumen hidup (living document) yang pertama kali dikeluarkan pada tahun 2015. Pada saat modul pengantar ini dibuat, AWS Well-Architected Framework yang terbaru rilis pada bulan Juli 2020.
+
+    Catat! Karena teknologi selalu berkembang, AWS Well-Architected Framework juga akan terus diperbaharui. Maka dari itu, ada baiknya Anda senantiasa memeriksa dokumen terbaru di laman web AWS, terutama jika ada pembuatan aplikasi yang membutuhkan fitur baru dari AWS.
+
+    AWS Well-Architected Framework awalnya dibuat dalam bentuk whitepaper, yakni buku panduan yang dapat diakses secara online. Tetapi seiring dengan perkembangannya, AWS Well-Architected Framework juga diperkaya dengan hands-on labs dan juga AWS Well-Architected Tools. Kita akan belajar lebih jauh mengenai hal-hal tersebut dalam modul ini.
+
+    AWS Well-Architected Framework memiliki lima pilar utama yang dijadikan sebagai fondasi dasar dalam membangun cloud. Selain itu, AWS Well-Architected Framework juga memiliki beberapa prinsip desain umum untuk Cloud, mari kita bahas terlebih dahulu prinsip-prinsip tersebut.
+
+
+        Prinsip Desain Umum untuk Cloud
+            AWS Well-Architected Framework menyarankan prinsip-prinsip di bawah ini untuk memfasilitasi desain yang baik untuk cloud:
+
+        Berhenti memperkirakan kebutuhan kapasitas
+            Cloud Computing menerapkan prinsip skalabilitas, yakni kita tidak perlu lagi mengestimasi atau memperkirakan kebutuhan kapasitas.
+
+            Jadi, pada saat membuat desain untuk cloud--terutama AWS--kita bisa mulai dengan kapasitas seminim mungkin, lalu menambah ataupun mengurangi kapasitas sesuai kebutuhan.
+
+
+        Tes sistem pada spesifikasi yang sama dengan production
+            Di cloud, kita bisa membuat lingkungan testing pada spesifikasi yang sama dengan production. Setelah testing selesai, Anda bisa menonaktifkan atau bahkan menghapus lingkungan testing tersebut.
+
+
+        Gunakan automasi untuk memudahkan dalam berinovasi
+            Dengan automasi, kita dapat membuat dan mereplikasi sistem dengan biaya murah dan waktu yang cepat. Selain itu, kita bisa mencatat perubahan yang ada, mengaudit dampaknya, dan mengembalikan kondisi sistem ke parameter sebelumnya jika diperlukan. Sehingga dalam melakukan inovasi akan lebih cepat mudah dan murah.
+
+
+        Arsitektur yang memungkinkan perubahan secara evolusioner
+            Cloud memungkinkan kita untuk melakukan automasi dan testing sesuai keperluan. Hal ini sangat membantu dalam meminimalisir risiko akibat perubahan dari sisi desain. Seiring dengan perkembangan dan perubahan bisnis perusahaan, IT juga sebaiknya memiliki kemampuan untuk mengakomodasi perubahan tersebut.
+
+            Bahkan, cloud juga memungkinkan sistem kita untuk berkembang dan mengadopsi hal-hal baru yang inovatif dan dapat memberikan kontribusi nyata terhadap perkembangan bisnis.
+
+
+        Gunakan data sebagai dasar dari arsitektur aplikasi
+            Cloud memungkinkan kita untuk mengumpulkan data yang menunjukkan bagaimana dampak dari perubahan terhadap arsitektur aplikasi yang kita buat. Artinya, saat ingin membuat perbaikan, kita dapat membuat keputusan berdasarkan fakta.
+
+            Karena infrastruktur dari aplikasi kita berbentuk code, maka kita dapat membuat perubahan dari sisi arsitektur dan infrastruktur secara berkala dengan lebih mudah daripada on-premise.
+
+
+        Tes arsitektur secara berkala
+            Tes arsitektur dan sistem Anda secara berkala dengan melakukan simulasi terhadap hal-hal yang mungkin terjadi di production. Ini bertujuan untuk membantu Anda dalam mengidentifikasi kelemahan yang dapat diperbaiki serta menghindari hal-hal yang tidak diinginkan terjadi pada perusahaan Anda.
