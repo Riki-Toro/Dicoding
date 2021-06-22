@@ -1,0 +1,44 @@
+Lima Pilar AWS Well-Architected Framework
+    Tahukah Anda? Membuat sistem aplikasi sebenarnya hampir mirip dengan membangun sebuah gedung. Jika fondasi tidak dibangun dengan baik dan kuat, maka integritas struktur gedung akan terganggu. Bila itu terjadi, seiring berjalannya waktu besar kemungkinan gedung akan runtuh.
+
+    Sistem atau aplikasi pun demikian. Jika aplikasi yang Anda desain di AWS mengabaikan kelima pilar dari AWS Well-Architected Framework, besar kemungkinan aplikasi Anda akan sulit memenuhi tuntutan atau kebutuhan pengguna yang terus berkembang. 
+
+    AWS Well-Architected Framework saat ini dibangun di atas 5 pilar seperti pada gambar di bawah ini. Kita akan bahas lebih lanjut mengenai kelima pilar di atas pada materi selanjutnya. Keep the spirit up!
+
+
+    Operational Excellence
+        Pilar ini membahas tentang kemampuan untuk mengoperasikan dan memonitor sistem demi memberikan nilai tambah bagi perusahaan serta menyempurnakan proses dan prosedur secara terus-menerus. 
+
+        Operational Excellence dilakukan sejak awal dan dilanjutkan secara terus-menerus sesuai perkembangan bisnis yang juga dinamis. Hal ini terutama ditunjukkan pada tiga hal di bawah ini, yaitu:
+
+            Menyelaraskan proses operasi dengan tujuan bisnis.
+            Membuat perubahan yang teratur, kecil, dan bertahap.
+            Belajar dari kejadian dan kegagalan operasional.
+
+        Berikut penjelasan detail dari prinsip pada pilar Operational Excellence:
+
+            Gunakan kode untuk menjalankan operasi
+                Di cloud, Anda bisa menerapkan disiplin teknik yang sama--yakni menggunakan code--dalam menjalankan operasinya. Anda dapat menentukan dan memperbaharui seluruh workload (beban kerja) infrastruktur maupun aplikasi melalui kode.
+
+                Dengan menggunakan kode dalam menjalankan operasi, Anda dapat mengautomasi operasi untuk dieksekusi berdasarkan sebuah event (peristiwa). Hal ini tentu akan meminimalisir terjadinya human error [1].
+
+
+            Buatlah pembaruan yang sering, kecil, dan dapat diubah
+                Rancanglah workload (beban kerja) yang dapat menerima pembaruan komponen secara teratur. Lakukan pembaruan sedikit demi sedikit dan pastikan pembaruannya dapat dibatalkan jika gagal (tanpa mengganggu jalannya operasional jika dimungkinkan).
+
+
+            Sering-seringlah memperbarui prosedur operasi
+                Lakukan pembaruan pada prosedur operasi seiring dengan mengembangkan beban kerja Anda. Luangkan waktu untuk meninjau dan memvalidasi bahwa semua prosedur sudah efektif serta dipahami dan digunakan oleh tim terkait.
+
+
+            Mengantisipasi kegagalan
+                Lakukan latihan “pra-mortem” untuk mengidentifikasi potensi sumber kegagalan sehingga dapat disingkirkan atau dikurangi.
+
+                Uji skenario kegagalan Anda dan validasikan dampaknya. Lalu, ujilah response procedure (prosedur tanggapan) Anda untuk memastikan apakah sistem berjalan efektif? Apakah tim Anda terbiasa dengan pelaksanaannya? Selain itu, siapkan juga Game Day untuk menguji beban kerja dan respons tim terhadap simulasi event.
+
+
+            Belajar dari semua kegagalan operasional
+                Tingkatkan sistem Anda melalui pembelajaran yang dipetik dari semua kejadian dan kegagalan operasional. Bagikan apa yang dipelajari di tim Anda ke seluruh organisasi.
+
+
+        Jadi, pilar Operational Excellence ini memberikan prinsip desain, praktik terbaik, dan kumpulan pertanyaan terkait desain. Untuk petunjuk implementasi secara lebih mendetail, Anda bisa menemukannya di whitepaper untuk pilar Operational Excellence di tautan berikut ini Operational Excellence Pillar - AWS Well-Architected Framework.
