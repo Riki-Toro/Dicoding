@@ -1,0 +1,17 @@
+Pengantar ke Arsitektur Tersederhana
+    Ingat skenario startup kita di modul sebelumnya? Startup Anda baru saja resmi berdiri. Mungkin, sekarang Anda sudah tak sabar untuk mulai berlari, bukan? Tenang, kita akan mulai dengan layanan AWS yang paling mendasar yaitu storage alias penyimpanan.
+
+    Katakanlah Anda baru saja memulai perjalanan cloud dan membutuhkan cara termudah untuk mendistribusikan, menyimpan, dan menganalisis data secara reliabel di AWS. Misalnya, untuk menyimpan riwayat transaksi, data pelanggan, stok biji kopi, dan lain sebagainya. Atau mungkin, Anda membutuhkan layanan yang secara ajaib bisa meng-hosting website statis untuk startup warung kopi Anda.
+
+    Nah, untuk menjawab kebutuhan tersebut, Anda perlu fokus, tekun, dan menghayati modul ini dengan baik. Sepanjang modul, kita akan membahas hal-hal berikut:
+
+        1. Masalah apa yang dapat diatasi oleh Amazon S3?
+        2. Cara menyimpan konten secara efisien.
+        3. Masalah apa yang dapat diatasi oleh Amazon Glacier?
+        4. Cara memilih Region.
+
+    Masih ingat gambar arsitektur di modul sebelumnya? Itu adalah arsitektur bersakala besar. Tenang, untuk mewujudkan arsitektur seperti itu, kita akan mulai dari yang sederhana.
+
+    Pada modul kali ini, kita akan fokus pada bagian kecil dahulu (sisi kiri bawah), dari gambar arsitektur berikut.
+
+    Perhatikan gambar di atas. Di modul ini kita akan fokus belajar tentang layanan S3 untuk menyimpan static assets (aset statis) dan melakukan konfigurasi agar pelanggan bisa mengakses aset di S3 bucket tersebut. Tenang, jangan dulu khawatir tentang layanan-layanan yang lain, kita akan mempelajarinya di modul-modul berikutnya.
