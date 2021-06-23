@@ -17,3 +17,22 @@ AWS Well-Architected Tools
             melihat hasil tinjauan dalam satu dashboard.
 
     Anda dapat menggunakan AWS WA Tool untuk mendokumentasikan dan mengukur beban kerja Anda menggunakan praktik terbaik dari AWS Well-Architected Framework. Praktik terbaik ini dikembangkan oleh AWS Solutions Architects berdasarkan pengalaman mereka selama bertahun-tahun membangun solusi di berbagai bisnis. Framework alias kerangka kerja ini memberikan pendekatan yang konsisten untuk mengukur arsitektur dan memberikan panduan untuk menerapkan desain yang sesuai dengan kebutuhan Anda dari waktu ke waktu.
+
+
+
+
+AWS Well-Architected Labs
+    AWS Well-Architected Framework telah dikembangkan untuk membantu Anda dalam membangun infrastruktur yang paling aman, berkinerja tinggi, tangguh, dan efisien. Nah, Anda bisa mempraktikkan AWS Well-Architected Framework dengan lab/praktikum dan skenario sesuai dunia nyata untuk beban kerja yang Anda miliki.
+
+    AWS Well-Architected Labs adalah repositori berisi dokumentasi dan kode dalam format lab praktis untuk membantu Anda mempelajari, mengukur, dan membangun solusi menggunakan praktik terbaik arsitektur. Laboratorium dikategorikan ke dalam level, di mana 100 adalah pengantar, 200/300 adalah menengah, dan 400 adalah lanjutan.
+
+    Prasyarat Penggunaan
+        Untuk mengakses AWS Well-Architected Lab, Anda harus memiliki akun AWS. Untuk menggunakannya, Anda disarankan untuk memiliki akun yang terpisah dari akun AWS yang digunakan di lingkungan Production. 
+
+        AWS Well Architected Labs saat ini bisa diakses di tautan https://www.wellarchitectedlabs.com/
+
+        AWS Well-Architected Labs dikelompokkan berdasarkan pilar AWS Well-Architected Framework. Jika kita buka masing-masing tautan, maka akan terlihat konten spesifik terhadap pilar yang bersangkutan. Pada ilustrasi di atas terlihat konten dari lab untuk pilar Cost Optimization. 
+
+    Oke, itulah materi pembahasan kita terkait AWS Well-Architected. Dengan mempelajarinya, semoga Anda paham dan menguasai bagaimana membangun arsitektur di AWS agar andal, aman, dan optimal.
+
+    Selanjutnya, mari kita bahas materi yang tak kalah penting, yakni AWS Global Infrastructure alias Infrastruktur Global AWS yang juga akan membantu Anda dalam membangun arsitektur di AWS. Let’s Go!
