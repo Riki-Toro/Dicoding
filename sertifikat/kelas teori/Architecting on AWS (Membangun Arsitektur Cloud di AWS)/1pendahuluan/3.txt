@@ -36,3 +36,46 @@ AWS Well-Architected Labs
     Oke, itulah materi pembahasan kita terkait AWS Well-Architected. Dengan mempelajarinya, semoga Anda paham dan menguasai bagaimana membangun arsitektur di AWS agar andal, aman, dan optimal.
 
     Selanjutnya, mari kita bahas materi yang tak kalah penting, yakni AWS Global Infrastructure alias Infrastruktur Global AWS yang juga akan membantu Anda dalam membangun arsitektur di AWS. Let’s Go!
+
+
+
+
+AWS Global Infrastructure
+    Sebagai penyedia layanan cloud publik berskala global, Amazon Web Services memiliki infrastruktur jaringan dan data center yang tersebar di berbagai lokasi untuk memberikan pengalaman terbaik bagi pengguna. Infrastruktur di AWS dibagi menjadi Regions, Availability Zones, Edge Locations, dan Regional Edge Caches. Mari kita jabarkan!
+
+
+        Regions
+            Regions adalah kumpulan dari beberapa Availability Zones (AZ) yang terletak berdekatan di sebuah area geografis. Di setiap region, terdapat minimal 2 AZ yang saling terkoneksi dengan jaringan berlatensi rendah.
+
+            Kita dapat memilih region di mana kita akan meletakkan aplikasi dan data sesuai dengan target pengguna. Ini akan mengurangi waktu respons ketika pengguna menggunakan aplikasi kita. Atau, kita juga dapat meletakkan aplikasi di beberapa region sekaligus untuk meningkatkan availability dari aplikasi kita jika sewaktu-waktu terdapat masalah di salah satu region, misalnya bencana alam. 
+
+            Keuntungan lain dari penggunaan region adalah mempermudah kita untuk memenuhi syarat regulasi atau hukum terkait lokasi data yang disimpan.
+
+            Hingga saat ini ada 19 region AWS yang tersebar di seluruh dunia, yaitu North Virginia, Ohio, North California, Oregon, Central Canada, Sao Paulo, Frankfurt, Ireland, London, Paris, Mumbai, Seoul, Singapore, Sydney, Tokyo, Beijing, Ningxia, GovCloud US-East, dan GovCloud US-West.
+
+            Ketahuilah! Tidak semua region menawarkan layanan yang sama. Ada beberapa layanan yang tersedia di region tertentu, namun tak tersedia di region lainnya. Daftar lengkapnya dapat Anda lihat di situs AWS regional product services.
+
+
+        Availability Zones (AZs)
+            Seperti yang dijelaskan sebelumnya, di dalam satu region minimal terdapat 2 Availability Zones (AZ). Sederhananya, AZ adalah data center secara fisik yang AWS gunakan untuk menjalankan berbagai layanan yang dipakai oleh pelanggan, seperti komputasi, penyimpanan, ataupun database. 
+
+            Setiap AZ berjalan secara independen dan memiliki jaringan listrik serta internet yang berbeda dan saling terkoneksi dengan jaringan internet berkecepatan tinggi. Jika salah satu AZ mengalami kerusakan, AZ lainnya tak akan terpengaruh.
+
+            Saat modul ini ditulis, terdapat 57 AZ yang tersebar di berbagai region yang telah disebutkan sebelumnya.
+
+
+
+        Edge Locations
+            Edge locations adalah data center yang dioperasikan oleh AWS dan tersebar di seluruh dunia. Jumlahnya lebih banyak dari semua Availability Zones yang ada. Edge locations tidak dimaksudkan untuk meletakkan aplikasi atau melakukan komputasi, melainkan digunakan oleh beberapa layanan AWS seperti Amazon CloudFront. 
+
+            CloudFront adalah layanan Content Delivery Network (CDN) dari AWS. CloudFront bertugas untuk menyimpan data sementara (cache) di Edge Locations sehingga dapat mengurangi latensi ketika pengguna melakukan request dari lokasi yang jauh dari tempat di mana file berada.
+
+            Untuk mempermudah pembahasan, mari kita buat perumpamaan. Misalnya, seorang pelanggan mempunyai sebuah file yang disimpan di region Europe-London, kemudian seorang pengguna dari Indonesia mengunduh file tersebut untuk pertama kali. 
+
+            Pengguna itu akan mengunduh file tersebut langsung dari London. Kemudian file akan disimpan di Edge location terdekat dari lokasi pengguna secara otomatis. Dalam contoh ini, Edge Location terdekat dari Indonesia adalah Singapura. 
+
+            Setelahnya, jika pengguna tersebut atau lainnya mengunduh file itu kembali, mereka akan mendapatkan file yang telah tersimpan di Edge Location sehingga tak perlu lagi mengambilnya di server London. Alhasil, waktu yang diperlukan akan lebih cepat.
+
+
+        Regional Edge Caches
+            Selain Edge Locations, AWS juga memiliki Regional Edge Caches. Lokasi Regional Edge Caches terletak di antara server asal data dan Edge Locations. Fungsinya, sebagai perantara sehingga ketika cache yang berada di Edge Locations sudah dihapus, file tidak perlu diambil lagi dari server asal, melainkan dari Regional Edge Caches yang lokasinya lebih dekat. Pada akhirnya, ini juga mengurangi waktu yang dibutuhkan untuk mengunduh file tersebut.
