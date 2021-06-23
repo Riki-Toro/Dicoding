@@ -79,3 +79,12 @@ AWS Global Infrastructure
 
         Regional Edge Caches
             Selain Edge Locations, AWS juga memiliki Regional Edge Caches. Lokasi Regional Edge Caches terletak di antara server asal data dan Edge Locations. Fungsinya, sebagai perantara sehingga ketika cache yang berada di Edge Locations sudah dihapus, file tidak perlu diambil lagi dari server asal, melainkan dari Regional Edge Caches yang lokasinya lebih dekat. Pada akhirnya, ini juga mengurangi waktu yang dibutuhkan untuk mengunduh file tersebut.
+
+
+
+
+Arsitektur Berskala Besar
+    Modul ini merupakan perkenalan dari apa yang akan kita pelajari dalam kelas ini. Di modul-modul mendatang kita akan mempelajari lebih jauh mengenai arsitektur di AWS dengan mempelajari satu per satu (termasuk hands-on lab alias latihan), fitur-fitur dan layanan AWS agar infrastruktur dan arsitektur IT startup Anda dapat memberikan keandalan, keamanan dan biaya yang optimal (cost optimized) walaupun arsitekturnya berskala besar seperti pada gambar di bawah ini.
+
+    Anda disarankan untuk memiliki akun AWS sebagai persiapan mempelajari modul-modul selanjutnya. Jangan khawatir, langkah-langkah membuat akun dan juga hands-on lab dari kelas ini akan dipelajari di modul kedua. Tetap semangat ya!
+    
