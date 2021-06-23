@@ -1,0 +1,19 @@
+AWS Well-Architected Tools
+    Seperti yang sudah dijelaskan sebelumnya, AWS Well-Architected Framework semula dibuat dalam bentuk whitepaper. Namun sekarang, tersedia juga dalam bentuk AWS Well-Architected Tools sehingga akan lebih mudah mengimplementasikan lima pilar tersebut ke arsitektur Anda.
+
+    AWS Well-Architected Tool (AWS WA Tool) menyediakan proses untuk mengukur apakah arsitektur Anda sudah menggunakan praktik terbaik AWS. AWS WA Tool akan membantu di sepanjang life cycle (siklus hidup) produk Anda dengan:
+
+        1. Membantu mendokumentasikan keputusan yang Anda buat.
+        2. Memberikan rekomendasi untuk meningkatkan beban kerja Anda berdasarkan praktik terbaik.
+        3. Memandu dalam membuat beban kerja Anda lebih andal, aman, efisien, dan hemat biaya.
+
+    Berikut adalah langkah-langkah umum dalam menggunakan AWS WA Tools:
+
+        1. Identifikasi beban kerja yang akan didokumentasikan. Kemudian, jawablah serangkaian pertanyaan tentang arsitektur Anda (contoh pertanyaannya bisa Anda lihat pada gambar di atas).
+        2. Tinjau jawaban Anda terhadap 5 pilar yang ditetapkan oleh AWS Well-Architected Framework, yakni Operational excellence, Security, Reliability, Performance efficiency, dan Cost optimization.
+        3. Hasilnya adalah Anda bisa 
+            mendapatkan video dan dokumentasi; 
+            membuat laporan yang merangkum tinjauan beban kerja Anda; dan
+            melihat hasil tinjauan dalam satu dashboard.
+
+    Anda dapat menggunakan AWS WA Tool untuk mendokumentasikan dan mengukur beban kerja Anda menggunakan praktik terbaik dari AWS Well-Architected Framework. Praktik terbaik ini dikembangkan oleh AWS Solutions Architects berdasarkan pengalaman mereka selama bertahun-tahun membangun solusi di berbagai bisnis. Framework alias kerangka kerja ini memberikan pendekatan yang konsisten untuk mengukur arsitektur dan memberikan panduan untuk menerapkan desain yang sesuai dengan kebutuhan Anda dari waktu ke waktu.
