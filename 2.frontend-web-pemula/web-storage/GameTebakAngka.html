@@ -247,7 +247,33 @@
             }
         });
         
+        function checkAnswer(userGuess) {
+            const answer = sessionStorage.getItem(sessionAnswerKey);
+            if( userGuess == answer ) {
+                duringGameDisplay.setAttribute("hidden", true);
+                afterGameDisplay.removeAttribute("hidden");
+                sessionTrueAnswerField.innerText = answer;
+                updateScore();
+            } else {
+                const previousAttempAmount = parseInt(sessionStorage.getItem(sessionUserAttempKey));
+                sessionStorage.setItem(sessionUserAttempKey, previousAttempAmount + 1);
+                sessionUserAttempsAmountField.innerText = sessionStorage.getItem(sessionUserAttempKey);
+                sessionUserAnswerField.innerText = "";
+                sessionUserWrongAnswerField.innerText = userGuess;
+            }
+        }
 
+        function updateScore() {
+            const sessionAttempsValue = parseInt(sessionStorage.getItem(sessionUserAttempKey));
+            const localAttempsValue = parseInt(localStorage.getItem(localMaximumAttempsKey));
+            if( sessionAttempsValue > localAttempsValue ) {
+                localStorage.setItem(localMaximumAttempsKey, sessionAttempsValue);
+                localMaximumAttempField.innerText = sessionAttempsValue;
+            }
+            const previousTotalVictoryAmount = parseInt(localStorage.getItem(localTotalVictoryKey));
+            localStorage.setItem(localTotalVictoryKey, previousTotalVictoryAmount + 1);
+            localTotalVictoryField.innerText = localStorage.getItem(localTotalVictoryKey);
+        }
 
     </script>
 

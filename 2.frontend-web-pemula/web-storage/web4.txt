@@ -91,3 +91,28 @@ Implementasi Web Storage - Memodifikasi Item Storage
     Elemen ini sebenarnya mengandung 3 layout berbeda, di mana hanya 1 saja yang ditampilkan berdasarkan skenario tertentu. Layout-layout disembunyikan melalui atribut hidden. Jika ingin dimunculkan, atribut tersebut perlu dihilangkan dengan method removeAttribute(), sementara layout sebelumnya disembunyikan dengan method setAttribute(). Sehingga, jika tombol "Bermain" ditekan, maka layout pada elemen "Game Board" akan berubah.
 
     Setelah layout dari elemen "Game Board" berubah, muncul layout baru di mana salah satu konten paling mencolok adalah 3 tombol masing-masing berisi angka "1", "2", dan "3". Masing-masing tombol tersebut akan kita berikan sebuah event listener untuk event "click".
+
+        answerButton1.addEventListener("click", function(){
+            sessionUserAnswerField.innerText += "1";
+            if (sessionUserAnswerField.innerText.length == 3){
+                checkAnswer(sessionUserAnswerField.innerText);
+            }
+        });
+        
+        answerButton2.addEventListener("click", function(){
+            sessionUserAnswerField.innerText += "2";
+            if (sessionUserAnswerField.innerText.length == 3){
+                checkAnswer(sessionUserAnswerField.innerText);
+            }
+        });
+        
+        answerButton3.addEventListener("click", function(){
+            sessionUserAnswerField.innerText += "3";
+            if (sessionUserAnswerField.innerText.length == 3){
+                checkAnswer(sessionUserAnswerField.innerText);
+            }
+        });
+            
+    Setiap event listener dari ketiga tombol tersebut kurang lebih memiliki fungsionalitas yang sama, yakni menambahkan angka ke dalam kombinasi tebakan user berdasarkan tombol yang ditekan.
+
+    Pada setiap event listener tombol-tombol di atas, kita bisa melihat bahwa jika input tebakan dari user sudah sepanjangan 3 karakter, sebuah fungsi yang bernama checkAnswer() akan dipanggil. Karakter tebakan dari user akan dimasukkan ke fungsi tersebut sebagai parameter.
