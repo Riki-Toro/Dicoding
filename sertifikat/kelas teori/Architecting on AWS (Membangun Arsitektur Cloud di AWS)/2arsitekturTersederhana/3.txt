@@ -158,3 +158,112 @@ Hands-on Lab: Membuat Akun AWS
     Silakan klik Complete your AWS registration, lalu ikutilah langkah yang muncul pada layar Anda. Jika langkah registrasi akun Anda sudah lengkap, tetapi masih tidak bisa mengakses layanan AWS, tunggulah hingga maksimal 24 jam, lalu coba kembali.
 
     Masih belum bisa? Hubungilah customer service Bank Anda dan tanyakan apakah kartu kredit/debit Anda dapat melakukan transaksi internasional atau tidak.
+
+
+
+
+
+Hands-on Lab: Hosting Website Statis
+    Di awal modul ini kita diberi tahu bahwa salah satu kasus penggunaan Amazon S3 adalah meng-hosting website statis. Nah, sekarang waktunya untuk mengimplementasikan apa yang sudah kita pelajari.
+
+    Agar semakin mudah memahami materi, mari kita kaitkan latihan ini dengan skenario startup warung kopi kita.
+
+    Katakanlah startup Anda ingin membuat sistem pemesanan kopi yang kompleks dan inovatif agar bisa melayani semua pelanggan dengan baik. Tetapi, tentu mewujudkannya akan membutuhkan waktu yang lama.
+
+    Maka dari itu, Anda terlebih dahulu ingin meng-hosting website statis yang memiliki ketersediaan tinggi di AWS. Website sederhana tersebut berisi ucapan selamat datang dan informasi bahwa sistem ini akan segera hadir.
+
+    Oke, setelah mengetahui latar belakangnya, lalu apa saja langkah-langkahnya? Baiklah, mari kita uraikan:
+
+        Pertama, kita akan membuat S3 bucket.
+        Lalu, deploy website kita.
+        Terakhir, membuat website tersebut dapat diakses secara publik.
+
+    Bagaimana? Sudah siap mempraktikkannya? Let’s go!
+
+        1. Pertama, unduhlah file website yang akan kita gunakan nanti dari tautan ini.
+        2. Pastikan Anda sudah berada di AWS Management Console dan masuk ke menu Amazon S3 dengan cara mengetikkan “Amazon S3” di kotak pencarian.
+        20210413152909bf486df12df6b73f17ec5bfb1b0ff4a6.jpeg
+
+        3. Di sini (di dalam Amazon S3 dashboard console), kita akan membuat S3 bucket terlebih dahulu. Silakan klik tombol Create bucket.
+        202104131531191d48058255cb18cef029ba872ad56453.jpeg
+
+        4. Selanjutnya, beri nama untuk S3 bucket Anda. Ingat! Nama bucket S3 haruslah unik. Jadi, silakan isi sesuai format berikut: my-public-website-XXXX (ganti XXXX dengan digit angka yang Anda inginkan). Pada bagian AWS Region, pilihlah Region Singapore, yang mana merupakan Region terdekat dari lokasi kita.
+        202104131531317d6c9dc752ead495e0d9e47ed7e52646.jpeg
+
+        5. Langkah selanjutnya, hapus centang pada Block all public access agar bucket ini mengizinkan akses publik. Kemudian, centang pada bagian bawah untuk menyatakan Anda sadar membuka akses publik untuk kepentingan hosting website statis.
+        20210413153144245657173eb8be749c24a62d9eaa845a.jpeg
+
+        6. Konfigurasi kita sudah selesai untuk tahap ini. Silakan scroll ke bagian halaman yang paling bawah dan klik Create bucket.
+        20210413153332859024e882c654a7b9b7cda2922a6596.jpeg
+
+        7. Sekarang, S3 bucket Anda sudah siap digunakan. Silakan klik pada nama S3 bucket untuk masuk ke dalamnya.
+        202104131609019009b57a30ddc1c21c72f0bdc0a57e45.jpeg
+
+        8. Untuk mengunggah file, klik pada tombol Upload.
+        20210413160914b85d42055de220008f306dc15caf76d3.jpeg
+
+        9. Anda akan diarahkan ke halaman Upload file.
+        20210413160925df5294c4a6d444a4593958889e4e2ede.jpeg
+
+        10. Silakan unzip/extract file yang telah Anda unduh sebelumnya pada langkah ke-1, lalu drag and dropfile file di dalamnya ke S3 bucket. 
+        202104131629335fbee2431c70aa415855b07cc78ed052.jpeg
+
+        11. Jika sudah, tampilan halaman akan berubah menjadi seperti ini.
+        2021041316305310f07e74008d7e9897313994028d9f12.jpeg
+
+        12. Oke, silakan scroll halaman ke paling bawah dan klik Upload.
+        202104131632298ea8f6c236f13c5fc3f9fa30b780f7b8.jpeg
+
+        13. Selamat! Anda telah berhasil mengunggah file yang dibutuhkan. Selanjutnya, mari kita aktifkan fitur static website hosting. Yuk klik tombol Exit terlebih dahulu!
+        20210413163527b47a8dbb72fd4875625e06cf57527cd4.jpeg
+
+        14. Setelah menekan tombol Exit, Anda akan diarahkan ke halaman S3 bucket. Silakan masuk ke tab Properties dan gulir halaman ke paling bawah sampai Anda menemukan bagian Static website hosting.
+        20210413163559d28688cfacc993f14350b3de52fe1142.jpeg
+
+        15. Klik tombol Edit pada bagian Static website hosting.
+        202104131636390620fa34a42fb59c5b50bc4cf2ef0b7c.jpeg
+
+        16. Klik Enable untuk mengaktifkan fitur. Pastikan juga pada bagian Hosting type yang dipilih adalah Host a static website. Terakhir, untuk bagian Index document, Anda bisa isikan dengan index.html. Jika sudah, silakan gulir halaman ke paling bawah dan klik Save changes.
+        20210413163852b6d2fb1351f84cdd2d7d2fd96766e938.jpeg
+
+        17. Anda akan diarahkan ke halaman S3 bucket di tab Properties. Lanjut, scroll halaman ke paling bawah hingga menemukan tautan website statis Anda. Coba klik link URL yang tersedia untuk membuka halaman website Anda.
+        2021041316434286188f9d40a320ca8dda221620cd3a49.jpeg
+
+        18. Waduh, kenapa bisa seperti ini ya? Tahukah Anda apa penyebabnya? Tenang, ini karena kita belum mengatur bucket policy.
+        20210413164316bdc7b17f5f1301a3d5f17da9181c063f.jpeg
+
+        19. Pada S3 bucket, silakan masuk ke tab Permissions.
+        202104131642579c8ee9653d908b36d9b8524e2b29627b.jpeg
+
+        20. Gulir halaman sampai ke bagian Bucket policy, lalu klik Edit.
+        20210413164414a21868a789a73bedb1cdd9287cbf8fa1.jpeg
+
+        21. Silakan salin kode di bawah ini dan tempel di bucket policy Anda. Perhatikan! Ubah bagian Bucket-ARN sesuai dengan ARN yang ada di bucket Anda. Jika Anda merasa kesulitan, silakan cek langkah selanjutnya!
+
+            {
+            "Version": "2012-10-17",
+            "Statement": [
+                    {
+                        "Sid": "PublicReadGetObject",
+                        "Effect": "Allow",
+                        "Principal": "*",
+                        "Action": "s3:GetObject",
+                        "Resource": "Bucket-ARN/*"
+                    }
+            ]
+            }
+
+        Saran: Gunakanlah teks editor dalam melakukan copy-paste bucket policy untuk mencegah terjadinya eror.
+
+        22. Bucket ARN Anda tertera di bagian atas teks editor. Hasilnya akan seperti gambar di bawah. Jika sudah, klik Save changes.
+        20210413164810df2232f14876cdbe3538951d30aaf35b.jpeg
+
+        23. Silakan kembali ke tab browser yang tadi Anda coba untuk membuka alamat URL website pada langkah ke-17, kemudian lakukan refresh. Boom!
+        20210413164843421d34f5f7da841bddf7e4f151fca56d.jpeg
+
+    Selamat! Dengan menyelesaikan latihan ini, Anda sudah berhasil melakukan hosting website statis di AWS menggunakan layanan Amazon S3. Mudah, bukan? 
+
+    Kalau begitu, mari kita lanjut ke modul berikutnya untuk memasuki materi yang lebih menantang! Ready, Set, Go!
+
+    Catatan: Menurut halaman AWS Free Tier, Anda dapat menyimpan 5 GB gratis selama 12 bulan di Amazon S3. Namun, karena di latihan berikutnya kita tak akan lagi menggunakan Amazon S3 dan juga menghindari penagihan di masa mendatang, silakan hapus S3 bucket yang telah Anda buat beserta isinya.
+    
