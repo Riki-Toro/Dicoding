@@ -40,3 +40,23 @@ Perbandingan Amazon S3 dan Glacier
 
 
 
+Amazon S3 Analytics dan Insights
+    Fitur ini akan mengamati pola akses data yang jarang diakses pada penyimpanan STANDARD untuk dipindahkan ke kelas penyimpanan STANDARD_IA atau Infrequent Access. Mari kita pelajari kelas penyimpanan ini lebih lanjut.
+
+    Seiring pertumbuhan storage, Anda akan membutuhkan kemampuan untuk menganalisis apa saja data yang disimpan di storage tersebut. Amazon S3 menawarkan sejumlah fitur untuk membantu Anda lebih memahami, menganalisis, dan mengoptimalkan penyimpanan dalam skala besar. Mari kita bahas!
+
+
+    Storage Class Analysis
+        Dengan menggunakan Amazon S3 analytics storage class analysis, Anda dapat menganalisis pola akses penyimpanan guna memutuskan kapan akan mentransisikan data yang tepat ke kelas penyimpanan yang sesuai. Fitur ini mengamati pola akses data yang jarang diakses pada penyimpanan STANDARD untuk dipindahkan ke kelas penyimpanan STANDARD_IA.
+
+        PENTING! Storage class analysis tidak memberikan rekomendasi untuk transisi ke kelas penyimpanan ONEZONE_IA atau S3 Glacier.
+
+
+    S3 Storage Lens
+        Amazon S3 Storage Lens memberikan satu tampilan penggunaan dan aktivitas penyimpanan objek di seluruh Amazon S3 Anda. Ini mencakup opsi lihat perincian untuk menghasilkan insights di tingkat Organization, Accounts, Region, Bucket, atau bahkan tingkat prefix.
+
+        Storage lens menggabungkan penggunaan dan metrik aktivitas Anda serta menampilkan informasi di dashboard interaktif di Amazon S3 console atau melalui ekspor data metrik yang dapat diunduh dalam format CSV atau Parquet.
+
+        Anda dapat menggunakan dashboard untuk memvisualisasikan insight dan trend, memberikan rekomendasi pengoptimalan biaya penyimpanan, serta menerapkan praktik terbaik perlindungan data. Anda dapat menggunakan Storage Lens melalui AWS Management Console, AWS CLI, AWS SDK, atau REST API.
+
+    Tahukah Anda? Data yang Anda simpan juga akan berhubungan erat dengan lokasi di mana ia ditempatkan. Nah, bagaimana cara memilih Region yang tepat untuk menyimpan data kita? Simak di materi berikutnya!
