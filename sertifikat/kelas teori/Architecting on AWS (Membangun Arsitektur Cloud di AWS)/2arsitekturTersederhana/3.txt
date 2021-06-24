@@ -1,0 +1,42 @@
+Perbandingan Amazon S3 dan Glacier
+    Sebelumnya, kita sudah belajar mengenai Amazon S3 dan Glacier. Mungkin Anda akan merasa bingung harus memilih layanan mana. Tentunya, setiap layanan penyimpanan memiliki kasus penggunaan yang berbeda, tergantung pada kebutuhan. Maka dari itu, mari kita bandingkan kedua layanan tersebut dengan meninjau dari storage class-nya.
+
+    Berikut adalah kelas penyimpanan dari Amazon S3:
+
+        Amazon S3 Standard (untuk penggunaan umum)
+            Jika Anda memiliki kebutuhan akan ketersediaan yang lebih tinggi, maka gunakanlah cross-region replication (replikasi antar region).
+
+        Amazon S3 Standard - Infrequent Access (untuk data yang jarang diakses)
+            Kelas penyimpanan ini menawarkan semua manfaat Amazon S3, termasuk daya tahan, ketersediaan, dan keamanannya. Kelas ini hanya berjalan pada model biaya yang berbeda untuk memberikan solusi penyimpanan data yang jarang diakses, seperti gambar digital lawas atau file log yang sudah berumur lama.
+
+            Beberapa poin lainnya adalah:
+                Biaya lebih rendah per GB yang disimpan.
+                Biaya tinggi untuk setiap permintaan PUT, COPY, POST, atau GET ditambah dengan biaya untuk pengambilan data (Data retrievals fee).
+                Penyimpanan minimal 30 hari.
+        
+        Amazon S3 Reduced Redundancy Storage (untuk mengurangi redundansi)
+            Menyimpan objek di beberapa perangkat di berbagai fasilitas.
+            Menyimpan data yang tidak penting dan dapat direproduksi ulang pada tingkat redundansi yang lebih rendah.
+
+        Amazon S3 One Zone-IA (untuk data yang lebih jarang diakses, tetapi membutuhkan akses cepat saat diperlukan)
+            Tidak seperti kelas penyimpanan S3 lainnya yang menyimpan data di minimal 3 Availability Zone (AZ), S3 One Zone-IA menyimpan data dalam satu AZ dan biayanya 20% lebih murah dari S3 Standard-IA.
+
+            Oleh karena itu, kelas penyimpanan ini sangat ideal untuk pelanggan yang menginginkan opsi biaya lebih rendah untuk data yang jarang diakses tetapi tidak memerlukan ketersediaan dan ketahanan seperti yang dimiliki kelas S3 Standard atau IA - Standar S3.
+
+        S3 Glacier Deep Archive
+            S3 Glacier Deep Archive ini merupakan tingkat penyimpanan termurah yang tersedia bagi pengguna dengan tetap mempertahankan daya tahan dan retensi data jangka panjang.
+
+            Jenis penyimpanan ini ideal untuk pelanggan yang perlu membuat arsip, salinan data tahan lama yang jarang atau tidak perlu diakses. Opsi Ini juga memungkinkan pelanggan untuk menghilangkan kebutuhan akan on-premises tape libraries (perpustakaan pita lokal). Data yang tersimpan pada kelas penyimpanan ini dapat diambil dalam waktu 12 jam.
+
+        Amazon S3 Intelligent Tiering
+            Ini adalah kelas penyimpanan untuk Amazon Simple Storage Service (Amazon S3) yang mengoptimalkan biaya penyimpanan dengan memindahkan objek secara otomatis di antara dua tingkat akses penyimpanan saat pola akses berubah.
+
+            Amazon S3 Intelligent Tiering merupakan pilihan yang ideal jika Anda mengakses data yang disimpan selama lebih dari sebulan dan memiliki pola akses yang tidak terprediksi atau berubah-ubah. Misalnya, Anda mungkin memiliki aplikasi dan data lake yang baru diluncurkan, di mana pola akses dapat bervariasi di berbagai sub-kumpulan penyimpanan.
+
+            Selain itu, Amazon S3 Intelligent Tiering juga menawarkan latensi milidetik dan SLA ketersediaan 99% terlepas dari objek tingkat S3 mana yang disimpan. Karena Amazon S3 Intelligent Tiering mengotomatiskan pengoptimalan biaya penyimpanan, Anda tidak perlu menganalisis atau mengaudit pola akses penyimpanan secara manual untuk menghemat pada penyimpanan yang jarang diakses.
+
+    Oke, itulah pembahasan kita mengenai Amazon S3 dan Glacier. Intinya, AWS memiliki layanan yang lengkap terkait storage alias penyimpanan. Setiap layanan memiliki kasus penggunaan yang berbeda sesuai kebutuhan pelanggan. Jadi, pilihlah layanan penyimpanan yang paling sesuai dengan kebutuhan Anda.
+
+
+
+
