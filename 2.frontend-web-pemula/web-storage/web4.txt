@@ -116,3 +116,209 @@ Implementasi Web Storage - Memodifikasi Item Storage
     Setiap event listener dari ketiga tombol tersebut kurang lebih memiliki fungsionalitas yang sama, yakni menambahkan angka ke dalam kombinasi tebakan user berdasarkan tombol yang ditekan.
 
     Pada setiap event listener tombol-tombol di atas, kita bisa melihat bahwa jika input tebakan dari user sudah sepanjangan 3 karakter, sebuah fungsi yang bernama checkAnswer() akan dipanggil. Karakter tebakan dari user akan dimasukkan ke fungsi tersebut sebagai parameter.
+
+    Berikutnya kita akan membahas penerapan dari fungsi checkAnswer() untuk memeriksa apakah tebakan user sudah benar atau belum. Kode fungsi tersebut akan dibuat sebagai berikut:
+
+        function checkAnswer(userGuess){
+            const answer = sessionStorage.getItem(sessionAnswerKey);
+            if (userGuess==answer){
+                duringGameDisplay.setAttribute("hidden", true);
+                afterGameDisplay.removeAttribute("hidden");
+                sessionTrueAnswerField.innerText = answer;
+                updateScore();
+            }else{
+                const previousAttempAmount = parseInt(sessionStorage.getItem(sessionUserAttempsKey));
+                sessionStorage.setItem(sessionUserAttempsKey, previousAttempAmount+1);
+                sessionUserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+                sessionUserAnswerField.innerText = "";
+                sessionUserWrongAnswerField.innerText = userGuess;
+            }
+        }
+
+    Fungsi checkAnswer akan menjalankan kode yang berbeda berdasarkan kondisi apakah user berhasil menebak angka yang tepat sesuai di session storage sebelumnya.
+
+    Jika user salah menebak, stats pada Game Session Stats akan menghitung jumlah masukan tebakan yang salah. Kemudian halaman web akan menampilkan informasi tebakan kita salah.
+
+    Namun, jika tebakan user sudah sama dengan jawaban yang dihasilkan pada sistem yang tersimpan pada session storage, tampilan elemen Game Board akan berubah. Tampilan elemen gameboard akan memberitahu user bahwa ia telah menebak dengan tepat. Selain itu, stats pada local stats akan juga ikut diperbarui.
+
+    Keren, bukan? Dengan memanfaatkan local storage dan session storage, kita bisa menyimpan progress selama memainkan permainan tebak angka! Tunggu sebentar, perhatikan kode yang dijalankan ketika user menebak dengan tepat. Terdapat pemanggilan fungsi yang bernama updateScore() seperti kode yang tercetak tebak di bawah ini:
+
+        function checkAnswer(userGuess){
+            const answer = sessionStorage.getItem(sessionAnswerKey);
+            if (userGuess==answer){
+                duringGameDisplay.setAttribute("hidden", true);
+                afterGameDisplay.removeAttribute("hidden");
+                sessionTrueAnswerField.innerText = answer;
+                updateScore();
+            }else{
+                const previousAttempAmount = parseInt(sessionStorage.getItem(sessionUserAttempsKey));
+                sessionStorage.setItem(sessionUserAttempsKey, previousAttempAmount+1);
+                sessionUserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+                sessionUserAnswerField.innerText = "";
+                sessionUserWrongAnswerField.innerText = userGuess;
+            }
+        }
+
+    Fungsi updateScore() berguna untuk memperbarui stats user pada elemen Local Stats. Isi dari updateScore sebagai berikut:
+
+        function updateScore(){
+            const sessionAttempsValue = parseInt(sessionStorage.getItem(sessionUserAttempsKey));
+            const localAttempsValue = parseInt(localStorage.getItem(localMaximumAttempsKey));
+            if (sessionAttempsValue > localAttempsValue){
+                    localStorage.setItem(localMaximumAttempsKey, sessionAttempsValue);
+                    localMaximumAttempField.innerText = sessionAttempsValue;
+                }
+            const previousTotalVictoryAmount = parseInt(localStorage.getItem(localTotalVictoryKey));
+            localStorage.setItem(localTotalVictoryKey, previousTotalVictoryAmount+1);
+            localTotalVictoryField.innerText = localStorage.getItem(localTotalVictoryKey);
+        }
+        
+    Ketika user berhasil menebak angka, dua stats akan diperbarui, yakni "Jumlah kombinasi yang berhasil di tebak" dan "Jumlah tebakan salah terbanyak sekali main".
+
+    Jika dalam sebuah permainan jumlah tebakan salah kita lebih banyak dari "Jumlah tebakan salah terbanyak sekali main", maka stats "Jumlah tebakan salah terbanyak sekali main" akan diperbarui. Stats untuk "Jumlah kombinasi yang berhasil di tebak" juga akan bertambah.
+
+    Kalau kita telaah kode di dalam fungsi updateScore(), hasil dari pengambilan data dari session storage dan local storage akan dimasukkan ke fungsi parseInt() terlebih dahulu sebelum dimasukkan ke sebuah variabel.
+
+    Mengapa hasil pengambilan data dari session storage dan local storage harus terlebih dahulu dimasukkan ke fungsi parseInt()? Alasannya adalah kita ingin melakukan operasi matematis pada datanya. Sama halnya seperti "Jumlah kombinasi yang berhasil di tebak" ingin kita tambah 1 ketika user berhasil menebak kombinasi angka yang tepat.
+
+    Nah, walau data yang disimpan pada local storage dan session storage berupa angka, tetapi ketika diambil tipe datanya akan dianggap sebagai string.
+
+    Jika kita ubah ke dalam bentuk Number terlebih dahulu, kode akan melakukan operasional matematika pada string dan memunculkan perilaku yang tidak terduga. Coba hilangkan fungsi parseInt-nya dan jalankan kembali permainan tebak angka. Perhatikan bugs yang akan muncul ketika berhasil menebak sebuah angka.
+
+    Sebelum menutup materi kali ini, masih tersisa beberapa baris kode lagi sebagai berikut:
+
+        window.addEventListener("beforeunload", function(){
+            sessionUserAnswerField.innerText = "";
+            sessionUserWrongAnswerField.innerText = "";
+            sessionStorage.setItem(sessionUserAttempsKey, 0);
+            sessionUserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+        });
+
+    Dengan menambahkan event listener untuk event "beforeunload", browser kita akan menghapus dan mengonfigurasi semua nilai dari item-item session storage kembali ke nilai awal. Sehingga, jika user melakukan proses refresh/reload halaman, permainan yang belum selesai akan dihapus. Jika user ingin bermain lagi, ia harus menekan tombol "Bermain".
+
+    Keren ya, permainan tebak angka kita hampir memiliki semua fungsionalitas. Sehingga, isi elemen <script> pada berkas HTML menjadi sebagai berikut:
+
+        <script>
+        //inisialiasi variabel untuk menampung elemen dokumen
+        const localTotalVictoryField = document.getElementById("local-total-victory-field");
+        const localMaximumAttempField = document.getElementById("local-maximum-attemp-field");
+        const destroyDataButton = document.getElementById("destroy-data-button");
+        const playButton = document.getElementById("play-button");
+        const beforeGameDisplay = document.getElementById("before-game-display");
+        const duringGameDisplay = document.getElementById("during-game-display");
+        const afterGameDisplay = document.getElementById("after-game-display");
+        const answerButton1 = document.getElementById("answer-1-button");
+        const answerButton2 = document.getElementById("answer-2-button");
+        const answerButton3 = document.getElementById("answer-3-button");
+        const sessionUserAnswerField = document.getElementById("session-user-answer-field");
+        const sessionUserWrongAnswerField = document.getElementById("session-user-wrong-answer-field");
+        const sessionTrueAnswerField = document.getElementById("session-true-answer-field");
+        const sessionUserAttempsField = document.getElementById("session-user-attemps-amount-field");
+        
+        //inisialisasi fungsi untuk menghasilkan jawaban permainan
+        function getAnswer() {
+            let answer = "123".split("");
+            for(let i = 0; i < answer.length; i++) {
+                let j = Math.floor(Math.random() * (i + 1));
+                let tmp = answer[i];
+                answer[i] = answer[j];
+                answer[j] = tmp;
+            }
+            return answer.join("");
+        }
+        
+        //inisialiasi key untuk session storage
+        const sessionAnswerKey = "SESSION_ANSWER";
+        const sessionUserAttempsKey = "SESSION_USER_ATTEMPS";
+        
+        //inisialisasi key untuk local storage
+        const localTotalVictoryKey = "LOCAL_TOTAL_VICTORIES_PLAYED";
+        const localMaximumAttempsKey = "LOCAL_MAXIMUM_ATTEMPTS";
+        
+        window.addEventListener("load", function(){
+            if (typeof(Storage) !== "undefined") {
+                // (MATERI 1)
+                // inisiliasi semua item web storage yang kita akan gunakan jika belum ada
+                if (sessionStorage.getItem(sessionAnswerKey) === null){
+                    sessionStorage.setItem(sessionAnswerKey, "");
+                }if (sessionStorage.getItem(sessionUserAttempsKey) === null){
+                    sessionStorage.setItem(sessionUserAttempsKey, 0);
+                }if (localStorage.getItem(localTotalVictoryKey) === null){
+                    localStorage.setItem(localTotalVictoryKey, 0);
+                }if (localStorage.getItem(localMaximumAttempsKey) === null){
+                    localStorage.setItem(localMaximumAttempsKey, 0)
+                }
+            }else{
+                alert("Browser yang Anda gunakan tidak mendukung Web Storage")
+            }
+            // inisialiasi semua nilai field pada dokumen yang menggunakan nilai dari web storage
+            sessionUserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+            localTotalVictoryField.innerText = localStorage.getItem(localTotalVictoryKey);
+            localMaximumAttempField.innerText = localStorage.getItem(localMaximumAttempsKey);
+        });
+        
+        // (MATERI 3)
+        playButton.addEventListener("click", function(){
+            sessionStorage.setItem(sessionAnswerKey, getAnswer());
+            beforeGameDisplay.setAttribute("hidden", true);
+            duringGameDisplay.removeAttribute("hidden");
+        });
+        
+        answerButton1.addEventListener("click", function(){
+            sessionUserAnswerField.innerText += "1";
+            if (sessionUserAnswerField.innerText.length == 3){
+                checkAnswer(sessionUserAnswerField.innerText);
+            }
+        });
+        
+        answerButton2.addEventListener("click", function(){
+            sessionUserAnswerField.innerText += "2";
+            if (sessionUserAnswerField.innerText.length == 3){
+                checkAnswer(sessionUserAnswerField.innerText);
+            }
+        });
+        
+        answerButton3.addEventListener("click", function(){
+            sessionUserAnswerField.innerText += "3";
+            if (sessionUserAnswerField.innerText.length == 3){
+                checkAnswer(sessionUserAnswerField.innerText);
+            }
+        });
+        
+        function checkAnswer(userGuess){
+            const answer = sessionStorage.getItem(sessionAnswerKey);
+            if (userGuess==answer){
+                duringGameDisplay.setAttribute("hidden", true);
+                afterGameDisplay.removeAttribute("hidden");
+                sessionTrueAnswerField.innerText = answer;
+                updateScore();
+            }else{
+                const previousAttempAmount = parseInt(sessionStorage.getItem(sessionUserAttempsKey));
+                sessionStorage.setItem(sessionUserAttempsKey, previousAttempAmount+1);
+                sessionUserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+                sessionUserAnswerField.innerText = "";
+                sessionUserWrongAnswerField.innerText = userGuess;
+            }
+        }
+        
+        function updateScore(){
+            const sessionAttempsValue = parseInt(sessionStorage.getItem(sessionUserAttempsKey));
+            const localAttempsValue = parseInt(localStorage.getItem(localMaximumAttempsKey));
+            if (sessionAttempsValue > localAttempsValue){
+                    localStorage.setItem(localMaximumAttempsKey, sessionAttempsValue);
+                    localMaximumAttempField.innerText = sessionAttempsValue;
+                }
+            const previousTotalVictoryAmount = parseInt(localStorage.getItem(localTotalVictoryKey));
+            localStorage.setItem(localTotalVictoryKey, previousTotalVictoryAmount+1);
+            localTotalVictoryField.innerText = localStorage.getItem(localTotalVictoryKey);
+        }
+        
+        window.addEventListener("beforeunload", function(){
+            sessionUserAnswerField.innerText = "";
+            sessionUserWrongAnswerField.innerText = "";
+            sessionStorage.setItem(sessionUserAttempsKey, 0);
+            sessionUserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+        });
+        </script>
+        
+    Masih ada satu elemen yang belum kita tambahkan event listener berupa tombol yang memiliki tulisan "Hapus semua data". Fungsi tombol tersebut adalah menghapus semua item storage pada session storage maupun local storage. Proses menghapus item storage akan kita bahas pada materi berikutnya. Semangat ya karena permainan tebak angka kita hampir selesai.
