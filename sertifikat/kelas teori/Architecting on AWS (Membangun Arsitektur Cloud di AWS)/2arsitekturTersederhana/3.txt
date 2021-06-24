@@ -60,3 +60,30 @@ Amazon S3 Analytics dan Insights
         Anda dapat menggunakan dashboard untuk memvisualisasikan insight dan trend, memberikan rekomendasi pengoptimalan biaya penyimpanan, serta menerapkan praktik terbaik perlindungan data. Anda dapat menggunakan Storage Lens melalui AWS Management Console, AWS CLI, AWS SDK, atau REST API.
 
     Tahukah Anda? Data yang Anda simpan juga akan berhubungan erat dengan lokasi di mana ia ditempatkan. Nah, bagaimana cara memilih Region yang tepat untuk menyimpan data kita? Simak di materi berikutnya!
+
+
+
+
+Memilih AWS Regions untuk Arsitektur Anda
+    Data kita harus tunduk pada hukum negara dan wilayah tempat ia disimpan. Selain itu, beberapa undang-undang menetapkan bahwa jika Anda menjalankan bisnis di yurisdiksinya, Anda tidak dapat menyimpan data tersebut di tempat lain.
+
+    Demikian pula, standar kepatuhan (seperti United States’ Health Insurance Portability and Accountability Act atau HIPAA) memiliki pedoman ketat tentang bagaimana dan di mana data dapat disimpan. Selain itu, AWS juga membuka wilayah netral karbon pertamanya pada tahun 2011 dan sekarang telah menawarkan lima wilayah netral karbon yang terpisah.
+
+    Pertimbangkan semua hal ini saat mengevaluasi lokasi untuk menempatkan lingkungan Anda.
+
+    Selain memikirkan soal compliance, kita juga harus menimbang hal-hal berikut ini:
+
+        Kedekatan Lokasi Pengguna dengan Data
+            Perbedaan kecil dalam latensi dapat memengaruhi pengalaman pelanggan. Maka dari itu, pilihlah region yang paling dekat dengan pengguna Anda.
+
+        Ketersediaan Fitur dan Layanan
+            Beberapa layanan masih belum tersedia di semua region.
+            Dapat menggunakan beberapa layanan lintas region, tetapi dengan peningkatan latensi.
+            Layanan diperluas ke wilayah baru secara teratur.
+
+        Keefektifan Biaya
+            Biaya bervariasi menurut region.
+            Beberapa layanan seperti Amazon S3 memiliki biaya untuk mentransfer data keluar.
+            Pertimbangkan efektivitas biaya untuk mereplikasi seluruh lingkungan di region lain.
+        
+    Wow, cukup banyak hal yang kita pelajari mengenai Storage di AWS. Sebagai penutup modul ini, kita akan mulai mempraktikkan Hands-on Lab pertama dari kelas ini.
