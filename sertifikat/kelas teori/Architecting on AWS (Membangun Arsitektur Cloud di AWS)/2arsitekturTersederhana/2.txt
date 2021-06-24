@@ -74,3 +74,28 @@ Memindahkan Data ke Amazon S3
 
         Unggah objek besar
             Dengan API multipart upload, Anda dapat mengunggah objek besar, bahkan hingga 5 TB.
+
+
+
+
+Amazon S3 Glacier
+    Seiring berkembangnya startup warung kopi Anda, katakanlah telah berjalan beberapa tahun dan kian sukses, tentu Anda akan mempunyai banyak sekali data yang harus disimpan sebagai arsip. Tak hanya masalah besarnya penyimpanan, melainkan regulasi, compliance, dan keamanan pun harus Anda penuhi.
+
+    Perkenalkan, Amazon S3 Glacier. Layanan ini adalah pilihan penyimpanan yang tepat jika faktor penentu Anda adalah biaya yang rendah, data dengan pattern yang jarang diakses, dan tak masalah jika latensi pengambilan data memerlukan waktu beberapa jam. Jika aplikasi Anda membutuhkan akses yang cepat atau sering ke data Anda, pertimbangkanlah untuk menggunakan Amazon S3 saja.
+
+    Dengan Amazon S3 Glacier, Anda dapat melakukan pengarsipan data. Itu berarti, meskipun Anda dapat menyimpan data dengan biaya yang sangat rendah (bahkan dibandingkan dengan Amazon S3), Anda tidak dapat mengambil data dengan segera di saat itu juga. Data yang disimpan di Amazon S3 Glacier membutuhkan waktu beberapa jam untuk diambil, itulah mengapa layanan ini sangat ideal untuk pengarsipan.
+
+    Anda memiliki 3 opsi untuk mengambil data dengan waktu akses dan biaya yang berbeda-beda:
+
+        Pengambilan dipercepat (expedited) biasanya tersedia dalam 1 - 5 menit.
+        Pengambilan standar (standard) biasanya tersedia dalam 3 - 5 jam.
+        Pengambilan massal (bulk) biasanya tersedia dalam 5 - 12 jam.
+
+    Berikut adalah beberapa detail tambahan terkait Amazon S3 Glacier:
+
+        Amazon Glacier adalah layanan pengarsipan data yang dirancang untuk keamanan, daya tahan, dan biaya yang sangat rendah.
+        Didesain untuk ketahanan objek 99.999999999%.
+        Mendukung enkripsi SSL/TLS data in transit.
+        Fitur Vault Lock memberikan kontrol compliance melalui lockable policy (kebijakan yang dapat dikunci untuk mencegah perubahan di masa depan).
+        Desain yang sangat murah dan ideal untuk pengarsipan jangka panjang.
+        
