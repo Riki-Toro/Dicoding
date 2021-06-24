@@ -87,3 +87,74 @@ Memilih AWS Regions untuk Arsitektur Anda
             Pertimbangkan efektivitas biaya untuk mereplikasi seluruh lingkungan di region lain.
         
     Wow, cukup banyak hal yang kita pelajari mengenai Storage di AWS. Sebagai penutup modul ini, kita akan mulai mempraktikkan Hands-on Lab pertama dari kelas ini.
+
+
+
+
+Hands-on Lab: Membuat Akun AWS
+    Selamat datang di modul latihan pertama kita pada kelas ini. Tenang, kita tak akan langsung membuat arsitektur yang kompleks kok.
+
+    Untuk bisa menggunakan layanan AWS, Anda wajib mempunyai akun AWS terlebih dahulu. Jika Anda belum memilikinya, jangan khawatir ya. Di latihan pertama ini Anda akan belajar bagaimana cara membuatnya.
+
+    Untuk mendaftar di AWS, Anda membutuhkan kartu debit/kredit yang valid dan menyiapkan saldo 1 dollar di kartu tersebut. Biaya ini berfungsi untuk verifikasi kartu saja dan nantinya akan dikembalikan lagi dalam waktu beberapa hari.
+
+    Setelah memahami tujuan latihan ini, sekarang mari kita uraikan tahapan-tahapan yang akan dipraktikkan. Berikut tahapannya:
+
+        Masuk ke halaman awal Amazon Web Services.
+        Isi data pribadi Anda.
+        Masukkan informasi kartu debit/kredit Anda.
+        Pilih paket dukungan yang Anda inginkan.
+        Akun Anda selesai dibuat.
+
+    Bagaimana, sudah siap? Mari kita mempelajari AWS Cloud lebih dalam dengan membuat akun AWS. Berikut caranya:
+
+        1. Buka browser dan kunjungi tautan berikut https://aws.amazon.com/.
+        2. Klik tombol Create an AWS Account yang ada di pojok kanan atas halaman.
+        3. Anda akan diarahkan ke halaman pendaftaran akun. Silakan isi email, password, dan nama akun AWS Anda. Jika selesai, klik tombol Continue.
+        20210413121442f198f17d2082560fddcad97ba232dc39.jpeg
+
+        4. Kita masuk ke halaman selanjutnya. Pada bagian How do you plan to use AWS? Pilih Personal. Lalu, isikan data pribadi Anda dengan lengkap dan klik Continue.
+        202104211513541aa0532a17d95731d76112d58a846d74.png
+
+        5. Di halaman ini Anda harus mengisi informasi pembayaran melalui kartu debit/kredit. Anda juga bisa menggunakan virtual credit card yang disediakan beberapa bank di Indonesia. Jika sudah, maka Anda bisa langsung klik Verify and Continue.
+        20210413121632de093d7c130c3220451abe791b50ef1a.jpeg
+
+        6. Selanjutnya, Anda akan diarahkan ke halaman konfirmasi. Silakan masukkan nomor telepon dan isi Security check sesuai pada layar Anda masing-masing, lalu klik Send SMS. (Jika gagal, cek solusinya pada akhir latihan).
+        202104131308048fb9a4773b3493d6b0e40f795d92807a.jpeg
+
+        7. Masukkan kode verifikasi yang dikirim Amazon ke Smartphone Anda. Lalu, klik Continue.
+        2021041313084846bb116b9831d29e19f884a990761139.jpeg
+
+        8. Di halaman ini ada beberapa pilihan paket dukungan. Basic Support, Developer Support, dan Business Support. Silakan pilih yang Basic Support, kemudian klik Complete sign up.
+        202104131309155a4a833286baaf9fe86aaf641892b40a.jpeg
+
+        9. Selamat! Anda sudah berhasil membuat akun AWS. Jika Anda ingin, silakan eksplorasi berbagai layanan AWS dengan klik Go to the AWS Management Console.
+        202104131309419b99c1b6b090e803f3589288af557ba8.jpeg 
+
+    Dengan membuat akun AWS, sekarang Anda bisa menggunakan banyak layanan dan membuat sumber daya yang Anda inginkan secara langsung.
+
+    Solusi jika pembayaran gagalJika Anda mengalami hal seperti ini:
+    20210413121403cde13c7bbeac3f8e62b05f5d2b0d5bc0.jpeg
+
+    Itu menandakan adanya masalah pada informasi pembayaran Anda. Bisa jadi karena saldo pada kartu debit/kredit Anda kurang dari 1 dolar atau informasi kartu yang tidak sesuai/kurang lengkap.
+
+        1. Silakan klik sign in to your account.
+
+        2. Selanjutnya, klik Edit.
+        20210413145604b64cd469d4674ac00bdb312b692fa5f8.jpeg
+
+        3. Centang Use contact address. Pastikan semua informasi tersebut lengkap dan sesuai. Jika sudah, klik tombol Update.
+        20210413152228483c9648ee307aadf6b095c48ea133b2.jpeg
+
+        4. Lanjut, klik tombol Make Payment yang ada di kanan atas.
+        202104131524356d032eb1c5353998a793ece95bd25d29.jpeg
+
+    Nah, jika semuanya telah dilakukan, AWS akan mencoba kembali untuk menarik 1 dolar dari kartu debit/kredit Anda. Jika berhasil, silakan kembali ke langkah 6 untuk lanjut membuat akun AWS.
+
+    Jika masih gagal, cobalah masuk kembali ke halaman informasi kartu dan klik tombol Verify yang terletak sesuai tanda panah di bawah. Jika sudah terverifikasi, silakan kembali ke langkah 6.2021041312140362c37bb441cb88f9ba6e26b62352a365.jpeg
+
+    Jika metode pembayaran Anda telah terverifikasi dan saldo sudah terpotong namun masih belum bisa mengakses layanan AWS, seperti gambar berikut:2021041312140372a10d4a66bdb02172f5c3bf7d761abf.jpeg
+
+    Silakan klik Complete your AWS registration, lalu ikutilah langkah yang muncul pada layar Anda. Jika langkah registrasi akun Anda sudah lengkap, tetapi masih tidak bisa mengakses layanan AWS, tunggulah hingga maksimal 24 jam, lalu coba kembali.
+
+    Masih belum bisa? Hubungilah customer service Bank Anda dan tanyakan apakah kartu kredit/debit Anda dapat melakukan transaksi internasional atau tidak.
