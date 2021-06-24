@@ -10,3 +10,84 @@ Implementasi Web Storage - Memodifikasi Item Storage
         
         // untuk local storage
         localStorage.setItem(<namaKey>,<nilaiBaru>);
+
+    Kemudian kita akan menambahkan kode-kode berikut di bagian akhir isi dari elemen <script>:
+
+        playButton.addEventListener("click", function(){
+            sessionStorage.setItem(sessionAnswerKey, getAnswer());
+            sessionStorage.setItem(sessionUserIsPlayingKey, true);
+            beforeGameDisplay.setAttribute("hidden", true);
+            duringGameDisplay.removeAttribute("hidden");
+        });
+        
+        answerButton1.addEventListener("click", function(){
+            sessionUserAnswerField.innerText += "1";
+            if (sessionUserAnswerField.innerText.length == 3){
+                checkAnswer(sessionUserAnswerField.innerText);
+            }
+        });
+        
+        answerButton2.addEventListener("click", function(){
+            sessionUserAnswerField.innerText += "2";
+            if (sessionUserAnswerField.innerText.length == 3){
+                checkAnswer(sessionUserAnswerField.innerText);
+            }
+        });
+        
+        answerButton3.addEventListener("click", function(){
+            sessionUserAnswerField.innerText += "3";
+            if (sessionUserAnswerField.innerText.length == 3){
+                checkAnswer(sessionUserAnswerField.innerText);
+            }
+        });
+        
+        function checkAnswer(userGuess){
+            const answer = sessionStorage.getItem(sessionAnswerKey);
+            if (userGuess==answer){
+                duringGameDisplay.setAttribute("hidden", true);
+                afterGameDisplay.removeAttribute("hidden");
+                sessionTrueAnswerField.innerText = answer;
+                updateScore();
+            }else{
+                const previousAttempAmount = parseInt(sessionStorage.getItem(sessionUserAttempsKey));
+                sessionStorage.setItem(sessionUserAttempsKey, previousAttempAmount+1);
+                sessionUserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+                sessionUserAnswerField.innerText = "";
+                sessionUserWrongAnswerField.innerText = userGuess;
+            }
+        }
+        
+        function updateScore(){
+            const sessionAttempsValue = parseInt(sessionStorage.getItem(sessionUserAttempsKey));
+            const localAttempsValue = parseInt(localStorage.getItem(localMaximumAttempsKey));
+            if (sessionAttempsValue > localAttempsValue){
+                    localStorage.setItem(localMaximumAttempsKey, sessionAttempsValue);
+                    localMaximumAttempField.innerText = sessionAttempsValue;
+                }
+            const previousTotalVictoryAmount = parseInt(localStorage.getItem(localTotalVictoryKey));
+            localStorage.setItem(localTotalVictoryKey, previousTotalVictoryAmount+1);
+            localTotalVictoryField.innerText = localStorage.getItem(localTotalVictoryKey);
+        }
+        
+        window.addEventListener("beforeunload", function(){
+            sessionUserAnswerField.innerText = "";
+            sessionUserWrongAnswerField.innerText = "";
+            sessionStorage.setItem(sessionUserAttempsKey, 0);
+            sessionUserAttempsField.innerText = sessionStorage.getItem(sessionUserAttempsKey);
+        });
+
+    Tenang, walau kelihatan banyak, kita akan membahas fungsi dan masing-masing method addEventListener di atas satu per satu.
+
+    Kita mulai dari penambahan event listener pada variabel playButton yakni variabel yang memiliki referensi ke tombol yang bertuliskan "Bermain".
+
+        playButton.addEventListener("click", function(){
+            sessionStorage.setItem(sessionAnswerKey, getAnswer());
+            beforeGameDisplay.setAttribute("hidden", true);
+            duringGameDisplay.removeAttribute("hidden");
+        });
+
+    Tombol ini memiliki dua fungsionalitas yakni menghasilkan angka yang harus ditebak melalui fungsi getAnswer() dan menyimpannya pada session storage dengan key sessionAnswerKey. Fungsionalitas kedua adalah mengubah layout pada kumpulan elemen "Game Board".
+
+    Elemen ini sebenarnya mengandung 3 layout berbeda, di mana hanya 1 saja yang ditampilkan berdasarkan skenario tertentu. Layout-layout disembunyikan melalui atribut hidden. Jika ingin dimunculkan, atribut tersebut perlu dihilangkan dengan method removeAttribute(), sementara layout sebelumnya disembunyikan dengan method setAttribute(). Sehingga, jika tombol "Bermain" ditekan, maka layout pada elemen "Game Board" akan berubah.
+
+    Setelah layout dari elemen "Game Board" berubah, muncul layout baru di mana salah satu konten paling mencolok adalah 3 tombol masing-masing berisi angka "1", "2", dan "3". Masing-masing tombol tersebut akan kita berikan sebuah event listener untuk event "click".
