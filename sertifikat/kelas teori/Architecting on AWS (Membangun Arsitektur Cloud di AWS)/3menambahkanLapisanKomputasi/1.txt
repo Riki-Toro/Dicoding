@@ -49,4 +49,70 @@ Amazon EC2
         Virtual Private Cloud (VPC) : Jaringan virtual yang digunakan untuk mengisolasi rangkaian sistem kita di AWS Cloud agar hanya dapat diakses oleh pihak-pihak tertentu.
 
     Bagaimana, sudah paham? Intinya, Amazon EC2 adalah layanan server di AWS Cloud. Poin-poin yang dijabarkan di atas semuanya berkaitan dengan Amazon EC2. Tak perlu khawatir, setiap poin akan kita bahas secara mendalam dan terpisah di modul yang akan datang.
+
+
+
+
+Jenis Harga EC2 Instance
+    Setelah belajar mengenai pengertian dan juga fitur-fitur dari Amazon EC2, sekarang mari kita berbincang terkait jenis harga atau pricing plan dari EC2 instance.
+
+    Oke, kembali ke skenario startup warung kopi kita. Saat nanti rilis, kita tidak tahu kapan waktu pengunjung akan ramai atau sepi. Tapi, jangan khawatir soal itu. Pada materi sebelumnya kita telah belajar kan bahwa Amazon EC2 mampu untuk melakukan scaling (menyesuaikan kapasitas) sesuai permintaan yang ada.
+
+    Namun, jika kita berbicara tentang scaling, pasti akan erat hubungannya dengan harga alias pricing. Jadi, mari kita bahas apa saja jenis-jenis harga pada Amazon EC2 yang dapat Anda pilih sesuai dengan kebutuhan.
+
+    EC2 merupakan salah satu layanan yang di-cover pada AWS Free Tier, pelanggan AWS yang baru mendaftar dapat segera memulai dengan t2.micro instance, S3 bucket, dan banyak penawaran layanan AWS lainnya yang dapat digunakan secara gratis hingga satu tahun yang dihitung sejak akun dibuat.
+
+    Dari AWS Free Tier, mari kita beranjak masuk ke materi berbagai jenis harga yang ditawarkan Amazon EC2. Silakan amati gambar berikut:
+
+    Dapat Anda lihat pada gambar di atas bahwa Amazon EC2 menawarkan 4 jenis harga, antara lain:
+
+        On-Demand Instances
+            Ada banyak keuntungan saat Anda menggunakan On-Demand Instances, yakni:
+                Anda membayar untuk penggunaan kapasitas komputasi per detik (Amazon Linux dan Ubuntu) atau per jam (semua OS lainnya).
+                Tanpa komitmen jangka panjang.
+                Tanpa pembayaran di muka.
+                Anda dapat meningkatkan atau mengurangi kapasitas komputasi Anda sesuai kebutuhan.
+
+        Reserved Instances
+            Reserved Instances (RI) bisa sangat membantu mengurangi biaya penggunaan dalam arsitektur Anda. Jika Anda dapat mengetahui tingkat penggunaan dasar untuk EC2 instance Anda, RI dapat memberikan diskon yang signifikan.
+
+                Anda dapat menyiapkan RI dengan berbagai cara:
+                    Standard RI : Memberikan diskon yang signifikan (hingga 75% dari harga On-Demand) dan digunakan untuk penggunaan dengan kapasitas yang sudah stabil dan tidak berubah-ubah (steady-state usage).
+                    Convertible RI : Memberikan diskon (hingga 54% dari harga On-Demand) di mana penggunaannya masih dapat mengubah atribut RI selama perubahan tersebut menghasilkan RI dengan biaya yang sama atau lebih besar.
+                    Scheduled RI : RI ini dimaksudkan untuk digunakan dalam jadwal dan jangka waktu yang Anda inginkan. Dengan begitu, opsi ini dapat memungkinkan Anda untuk menyesuaikan dengan kebutuhan kapasitas dalam waktu tertentu.
+
+                    Jangka waktu: AWS menawarkan Standard RI untuk jangka waktu 1 atau 3 tahun. Alternatif lainnya, beberapa vendor di Marketplace Reserved Instance juga menawarkan RI dengan jangka waktu yang lebih pendek. Selain itu, AWS menawarkan Convertible RI untuk jangka waktu 1 atau 3 tahun.
+
+                    Opsi pembayaran: Anda kemudian dapat memilih di antara tiga opsi pembayaran (All Upfront, Partial Upfront, dan No Upfront). Dan apabila Anda memilih opsi pembayaran Partial Upfront atau No Upfront, sisa saldo akan jatuh tempo setiap bulan selama jangka waktu tersebut.
+
+    Savings Plans
+        Savings Plans adalah model harga yang fleksibel yang menawarkan penghematan hingga 72% pada penggunaan komputasi AWS Anda. Terdapat dua jenis Savings Plans:
+        
+        Compute Savings Plans
+            Compute Savings Plans memberikan fleksibilitas paling besar dan membantu mengurangi biaya Anda hingga 66% (seperti Convertible RI). Paket tersebut secara otomatis berlaku untuk semua EC2 instance apa pun terlepas dari Region, instance family, sistem operasi, atau tenancy. Bahkan, termasuk yang merupakan bagian dari klaster EMR, ECS, maupun EKS, atau yang diluncurkan oleh Fargate.
+
+            Misalnya, dengan Compute Savings Plans, Anda dapat beralih dari C4 ke C5 instance, memindahkan beban kerja dari Dublin ke London, atau bermigrasi dari EC2 ke Fargate. Bahkan, Anda bisa mendapatkan keuntungan dari harga Savings Plans selama penggunaan tanpa harus melakukan apa pun.
+
+        EC2 Instance Savings Plans
+            EC2 Instance Savings Plans berlaku untuk instance family tertentu dalam suatu Region (misal, penggunaan M5 di N.Virginia) dan dapat memberikan diskon terbesar (hingga 72%, seperti RI Standard).
+
+            Sama seperti RI, Savings Plans juga mencakup penggunaan perubahan ukuran instance yang berbeda dari tipe instance yang sama (seperti c5.4xlarge atau c5.large) di seluruh Region. Bahkan, Anda dapat beralih dari Windows ke Linux sambil terus menggunakannya tanpa harus melakukan perubahan apa pun pada Savings Plans Anda.
+
+        Spot Instances
+            AWS telah membangun kapasitas komputasi untuk volume penggunaan tertinggi dari On-Demand. Nah, ada saatnya AWS memiliki kapasitas yang tidak terpakai yang dapat digunakan para pelanggan dengan diskon hingga 90% yang dapat digunakan berdasarkan permintaan sebagai Spot Instances.
+
+            Anda tidak perlu menawar (bid) untuk mendapatkan Spot Instances. Anda cukup membayar penggunaan per jam untuk instance yang diluncurkan.
+
+            Anda dapat melakukan request (permintaan) untuk kapasitas Spot Instances seperti halnya mengajukan request kapasitas On-Demand. Sehingga, Anda tak perlu lagi menghabiskan waktu untuk menganalisis harga pasar atau menetapkan harga penawaran tertinggi (spot instances tidak lagi menggunakan aturan bidding untuk pengajuan penggunaannya).
+
+            Namun, terkadang AWS perlu mengklaim kembali kapasitas Spot Instances yang Anda gunakan untuk melayani pelanggan On-Demand. Dalam situasi ini, AWS akan mengeluarkan pemberitahuan dalam waktu 2 menit sebelum pemberhentian layanan, dengan tujuan untuk memungkinkan pengguna mengambil tindakan sebelum terjadinya interupsi. Pemberitahuan tersebut akan dikirimkan melalui instance metadata dan juga dalam Cloudwatch Events.
+
+            Untuk menggunakan Spot Instances, beban kerja Anda harus memiliki keleluasaan terhadap tipe instance, lokasi (Region dan/atau AZ, dan waktu penggunaan (di luar jam sibuk).
+
+    Kasus penggunaan yang populer untuk Spot Instances adalah untuk kebutuhan container (ECS / EKS / Kubernetes), pemrosesan big data (EMR - Hadoop), dan HPC (high performance computing alias komputasi berkinerja tinggi).
+    Penggunaan Amazon EC2 untuk instance berbasis Amazon Linux dan Ubuntu yang diluncurkan dalam bentuk On-Demand, Reserved, dan Spot akan dihitung dalam hitungan per detik, dengan minimal penggunaan selama 60 detik. Sedangkan untuk semua sistem operasi lain akan ditagihkan dalam kelipatan satu jam. Dan tidak ada perbedaan sama sekali antara Reserved Instance dan On-Demand Instance dari sisi kemampuan maupun fitur.
+
+    Oke, itulah pembahasan kita terkait harga untuk EC2 instance. Dengan mempelajarinya, semoga Anda bisa semakin mantap dalam memilih jenis pricing yang tepat sesuai kebutuhan.
+
+    Namun, muncullah suatu pertanyaan, “Bagaimana jika semua opsi tersebut masih belum pas dengan kebutuhan kita?” Simak jawabannya di modul selanjutnya ya!
     
