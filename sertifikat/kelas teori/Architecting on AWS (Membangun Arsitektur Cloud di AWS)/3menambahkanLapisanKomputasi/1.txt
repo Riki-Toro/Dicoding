@@ -1,0 +1,52 @@
+Pengantar ke Menambahkan Lapisan Komputasi
+    Mari kembali ke skenario startup warung kopi yang saat ini sudah mulai berkembang. Kita telah melakukan promosi dengan gencar sehingga banyak orang yang mengunjungi website warung kopi. Dari perorangan hingga perusahaan besar sudah tahu bahwa produk dari startup kita--yakni warung kopi terbaik di dunia--akan segera rilis. Selamat untuk itu!
+
+    Tapi, tunggu. Pada modul sebelumnya kita hanya belajar cara meng-hosting website statis, apakah itu cukup? Hmm, jika sekedar menaruh informasi bahwa warung kopi kita akan rilis, mungkin cukup. Namun sayangnya, sekarang kebutuhan kita lebih dari itu.
+
+    Begini kebutuhannya. Dalam waktu dekat, kita akan merilis sebuah website penjualan kopi secara online, mari kita singkat sebagai “Warung Kopi”. Website ini tentu saja membutuhkan server yang dipakai untuk men-deploy aplikasi yang lebih canggih dan storage untuk menyimpan berbagai data, baik informasi pengguna, riwayat transaksi, hingga stok biji kopi.
+
+    Nah melihat kebutuhan tersebut, kita tidak bisa hanya mengandalkan website statis. Maka solusinya, kita memerlukan website yang dinamis.
+
+    Untuk itulah di modul ini kita akan belajar berbagai hal mengenai layanan komputasi di AWS, antara lain:
+
+        Server
+            Kita akan bahas banyak hal terkait layanan server di AWS, dari Amazon Elastic Compute Cloud (Amazon EC2), Amazon Machine Images, hingga EC2 Image Builder.
+
+        Storage
+            Kita akan mengulas beberapa materi tentang storage di AWS, seperti Amazon Elastic Block Store (Amazon EBS), Amazon Elastic File System (Amazon EFS), dan Amazon FSx.
+        Nah, sebelum masuk ke pembahasan, mari kita amati gambar di bawah yang mengilustrasikan perkembangan arsitektur yang sesuai dengan perjalanan kita di kelas ini.
+
+    Gambar di atas menjelaskan perkembangan arsitektur yang telah kita lalui. Pada modul sebelumnya, arsitektur yang kita miliki hanyalah berupa S3 bucket untuk meng-hosting website statis. Nah di modul ini, arsitektur yang kita miliki akan semakin berkembang karena adanya penambahan layanan, seperti Amazon EC2 instance, Amazon EFS Mount Target, dan Amazon EFS.
+
+    Tenang, jangan dulu pusing. Mari kita bahas secara mendalam di modul ini!
+
+
+
+
+Amazon EC2
+    Pada awal modul, telah dijelaskan bahwa startup warung kopi kita membutuhkan layanan server untuk dapat men-deploy aplikasi yang lebih canggih sebelum akhirnya rilis dan dapat dinikmati oleh pelanggan.
+
+    Nah, AWS memberikan solusi untuk kebutuhan ini. Perkenalkan, Amazon EC2 alias Amazon Elastic Compute Cloud. Sederhananya, Amazon EC2 itu sama seperti server lokal tradisional, bedanya ia tersedia di cloud.
+
+    Amazon EC2 dapat mendukung berbagai beban kerja, seperti web hosting, aplikasi, database, layanan autentikasi, dan hal lain yang dapat dilakukan server pada umumnya.
+
+    Amazon EC2 menyediakan kapasitas komputasi yang dapat melakukan scaling (penyesuaian kapasitas) di AWS Cloud. Dengan menggunakan Amazon EC2, Anda dapat menghilangkan kebutuhan berinvestasi di awal untuk perangkat keras. Dengan begitu, Anda dapat mengembangkan dan men-deploy aplikasi lebih cepat.
+
+    Anda juga dapat menggunakan Amazon EC2 untuk meluncurkan server virtual dengan jumlah sesuai kebutuhan, mengkonfigurasi keamanan dan jaringan, serta mengelola penyimpanan. Bahkan, Amazon EC2 memudahkan Anda untuk mengatur kebutuhan server sesuai dengan permintaan yang ada.
+
+    Oke, sekarang mari kita telaah apa saja fitur dari Amazon EC2. Berikut adalah poin-poinnya:
+
+        Instance : Virtual computing environments.
+        Amazon Machine Image (AMI) : Preconfigured template untuk instance, yakni informasi mengenai paket yang akan dikemas untuk kebutuhan server Anda (termasuk sistem operasi dan aplikasi yang diperlukan).
+        Instance type (tipe instance) : Berbagai macam konfigurasi CPU, memori, penyimpanan, dan kapasitas jaringan untuk instance.
+        Key pairs : Secure login information untuk instance (AWS menyimpan public key, sementara user menyimpan private key).
+        Instance store volume : Penyimpanan sementara yang akan terhapus apabila instance dihentikan atau diakhiri.
+        Amazon EBS volume : Volume penyimpanan yang persisten untuk data Anda dengan menggunakan layanan Amazon EBS.
+        Regions dan Availability Zone : Beberapa lokasi fisik untuk resource (sumber daya) Anda, seperti instance dan Amazon EBS volume.
+        Security groups : Berfungsi sebagai firewall untuk menspesifikasi protocol, port, dan IP address sumber yang ingin menjangkau instance Anda.
+        Elastic IP addresses : IPv4 statis yang didesain untuk dynamic cloud computing.
+        Tags : Metadata yang dapat Anda buat dan tetapkan untuk Amazon EC2 resource.
+        Virtual Private Cloud (VPC) : Jaringan virtual yang digunakan untuk mengisolasi rangkaian sistem kita di AWS Cloud agar hanya dapat diakses oleh pihak-pihak tertentu.
+
+    Bagaimana, sudah paham? Intinya, Amazon EC2 adalah layanan server di AWS Cloud. Poin-poin yang dijabarkan di atas semuanya berkaitan dengan Amazon EC2. Tak perlu khawatir, setiap poin akan kita bahas secara mendalam dan terpisah di modul yang akan datang.
+    
