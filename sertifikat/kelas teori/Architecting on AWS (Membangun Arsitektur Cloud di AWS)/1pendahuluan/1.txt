@@ -101,3 +101,4 @@ AWS Well-Architected Framework
 
         Tes arsitektur secara berkala
             Tes arsitektur dan sistem Anda secara berkala dengan melakukan simulasi terhadap hal-hal yang mungkin terjadi di production. Ini bertujuan untuk membantu Anda dalam mengidentifikasi kelemahan yang dapat diperbaiki serta menghindari hal-hal yang tidak diinginkan terjadi pada perusahaan Anda.
+            
