@@ -93,9 +93,9 @@ Amazon S3 Glacier
 
     Berikut adalah beberapa detail tambahan terkait Amazon S3 Glacier:
 
-        Amazon Glacier adalah layanan pengarsipan data yang dirancang untuk keamanan, daya tahan, dan biaya yang sangat rendah.
-        Didesain untuk ketahanan objek 99.999999999%.
-        Mendukung enkripsi SSL/TLS data in transit.
-        Fitur Vault Lock memberikan kontrol compliance melalui lockable policy (kebijakan yang dapat dikunci untuk mencegah perubahan di masa depan).
-        Desain yang sangat murah dan ideal untuk pengarsipan jangka panjang.
+        1. Amazon Glacier adalah layanan pengarsipan data yang dirancang untuk keamanan, daya tahan, dan biaya yang sangat rendah.
+        2. Didesain untuk ketahanan objek 99.999999999%.
+        3. Mendukung enkripsi SSL/TLS data in transit.
+        4. Fitur Vault Lock memberikan kontrol compliance melalui lockable policy (kebijakan yang dapat dikunci untuk mencegah perubahan di masa depan).
+        5. Desain yang sangat murah dan ideal untuk pengarsipan jangka panjang.
         
