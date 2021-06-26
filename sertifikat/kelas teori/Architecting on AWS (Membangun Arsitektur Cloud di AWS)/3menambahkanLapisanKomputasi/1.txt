@@ -36,17 +36,17 @@ Amazon EC2
 
     Oke, sekarang mari kita telaah apa saja fitur dari Amazon EC2. Berikut adalah poin-poinnya:
 
-        Instance : Virtual computing environments.
-        Amazon Machine Image (AMI) : Preconfigured template untuk instance, yakni informasi mengenai paket yang akan dikemas untuk kebutuhan server Anda (termasuk sistem operasi dan aplikasi yang diperlukan).
-        Instance type (tipe instance) : Berbagai macam konfigurasi CPU, memori, penyimpanan, dan kapasitas jaringan untuk instance.
-        Key pairs : Secure login information untuk instance (AWS menyimpan public key, sementara user menyimpan private key).
-        Instance store volume : Penyimpanan sementara yang akan terhapus apabila instance dihentikan atau diakhiri.
-        Amazon EBS volume : Volume penyimpanan yang persisten untuk data Anda dengan menggunakan layanan Amazon EBS.
-        Regions dan Availability Zone : Beberapa lokasi fisik untuk resource (sumber daya) Anda, seperti instance dan Amazon EBS volume.
-        Security groups : Berfungsi sebagai firewall untuk menspesifikasi protocol, port, dan IP address sumber yang ingin menjangkau instance Anda.
-        Elastic IP addresses : IPv4 statis yang didesain untuk dynamic cloud computing.
-        Tags : Metadata yang dapat Anda buat dan tetapkan untuk Amazon EC2 resource.
-        Virtual Private Cloud (VPC) : Jaringan virtual yang digunakan untuk mengisolasi rangkaian sistem kita di AWS Cloud agar hanya dapat diakses oleh pihak-pihak tertentu.
+        1. Instance : Virtual computing environments.
+        2. Amazon Machine Image (AMI) : Preconfigured template untuk instance, yakni informasi mengenai paket yang akan dikemas untuk kebutuhan server Anda (termasuk sistem operasi dan aplikasi yang diperlukan).
+        3. Instance type (tipe instance) : Berbagai macam konfigurasi CPU, memori, penyimpanan, dan kapasitas jaringan untuk instance.
+        4. Key pairs : Secure login information untuk instance (AWS menyimpan public key, sementara user menyimpan private key).
+        5. Instance store volume : Penyimpanan sementara yang akan terhapus apabila instance dihentikan atau diakhiri.
+        6. Amazon EBS volume : Volume penyimpanan yang persisten untuk data Anda dengan menggunakan layanan Amazon EBS.
+        7. Regions dan Availability Zone : Beberapa lokasi fisik untuk resource (sumber daya) Anda, seperti instance dan Amazon EBS volume.
+        8. Security groups : Berfungsi sebagai firewall untuk menspesifikasi protocol, port, dan IP address sumber yang ingin menjangkau instance Anda.
+        9. Elastic IP addresses : IPv4 statis yang didesain untuk dynamic cloud computing.
+        10. Tags : Metadata yang dapat Anda buat dan tetapkan untuk Amazon EC2 resource.
+        11. Virtual Private Cloud (VPC) : Jaringan virtual yang digunakan untuk mengisolasi rangkaian sistem kita di AWS Cloud agar hanya dapat diakses oleh pihak-pihak tertentu.
 
     Bagaimana, sudah paham? Intinya, Amazon EC2 adalah layanan server di AWS Cloud. Poin-poin yang dijabarkan di atas semuanya berkaitan dengan Amazon EC2. Tak perlu khawatir, setiap poin akan kita bahas secara mendalam dan terpisah di modul yang akan datang.
 
