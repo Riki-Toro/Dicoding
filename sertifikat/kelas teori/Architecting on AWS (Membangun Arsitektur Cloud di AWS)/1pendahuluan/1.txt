@@ -73,32 +73,32 @@ AWS Well-Architected Framework
         Prinsip Desain Umum untuk Cloud
             AWS Well-Architected Framework menyarankan prinsip-prinsip di bawah ini untuk memfasilitasi desain yang baik untuk cloud:
 
-        Berhenti memperkirakan kebutuhan kapasitas
-            Cloud Computing menerapkan prinsip skalabilitas, yakni kita tidak perlu lagi mengestimasi atau memperkirakan kebutuhan kapasitas.
+            Berhenti memperkirakan kebutuhan kapasitas
+                Cloud Computing menerapkan prinsip skalabilitas, yakni kita tidak perlu lagi mengestimasi atau memperkirakan kebutuhan kapasitas.
 
-            Jadi, pada saat membuat desain untuk cloud--terutama AWS--kita bisa mulai dengan kapasitas seminim mungkin, lalu menambah ataupun mengurangi kapasitas sesuai kebutuhan.
-
-
-        Tes sistem pada spesifikasi yang sama dengan production
-            Di cloud, kita bisa membuat lingkungan testing pada spesifikasi yang sama dengan production. Setelah testing selesai, Anda bisa menonaktifkan atau bahkan menghapus lingkungan testing tersebut.
+                Jadi, pada saat membuat desain untuk cloud--terutama AWS--kita bisa mulai dengan kapasitas seminim mungkin, lalu menambah ataupun mengurangi kapasitas sesuai kebutuhan.
 
 
-        Gunakan automasi untuk memudahkan dalam berinovasi
-            Dengan automasi, kita dapat membuat dan mereplikasi sistem dengan biaya murah dan waktu yang cepat. Selain itu, kita bisa mencatat perubahan yang ada, mengaudit dampaknya, dan mengembalikan kondisi sistem ke parameter sebelumnya jika diperlukan. Sehingga dalam melakukan inovasi akan lebih cepat mudah dan murah.
+            Tes sistem pada spesifikasi yang sama dengan production
+                Di cloud, kita bisa membuat lingkungan testing pada spesifikasi yang sama dengan production. Setelah testing selesai, Anda bisa menonaktifkan atau bahkan menghapus lingkungan testing tersebut.
 
 
-        Arsitektur yang memungkinkan perubahan secara evolusioner
-            Cloud memungkinkan kita untuk melakukan automasi dan testing sesuai keperluan. Hal ini sangat membantu dalam meminimalisir risiko akibat perubahan dari sisi desain. Seiring dengan perkembangan dan perubahan bisnis perusahaan, IT juga sebaiknya memiliki kemampuan untuk mengakomodasi perubahan tersebut.
-
-            Bahkan, cloud juga memungkinkan sistem kita untuk berkembang dan mengadopsi hal-hal baru yang inovatif dan dapat memberikan kontribusi nyata terhadap perkembangan bisnis.
+            Gunakan automasi untuk memudahkan dalam berinovasi
+                Dengan automasi, kita dapat membuat dan mereplikasi sistem dengan biaya murah dan waktu yang cepat. Selain itu, kita bisa mencatat perubahan yang ada, mengaudit dampaknya, dan mengembalikan kondisi sistem ke parameter sebelumnya jika diperlukan. Sehingga dalam melakukan inovasi akan lebih cepat mudah dan murah.
 
 
-        Gunakan data sebagai dasar dari arsitektur aplikasi
-            Cloud memungkinkan kita untuk mengumpulkan data yang menunjukkan bagaimana dampak dari perubahan terhadap arsitektur aplikasi yang kita buat. Artinya, saat ingin membuat perbaikan, kita dapat membuat keputusan berdasarkan fakta.
+            Arsitektur yang memungkinkan perubahan secara evolusioner
+                Cloud memungkinkan kita untuk melakukan automasi dan testing sesuai keperluan. Hal ini sangat membantu dalam meminimalisir risiko akibat perubahan dari sisi desain. Seiring dengan perkembangan dan perubahan bisnis perusahaan, IT juga sebaiknya memiliki kemampuan untuk mengakomodasi perubahan tersebut.
 
-            Karena infrastruktur dari aplikasi kita berbentuk code, maka kita dapat membuat perubahan dari sisi arsitektur dan infrastruktur secara berkala dengan lebih mudah daripada on-premise.
+                Bahkan, cloud juga memungkinkan sistem kita untuk berkembang dan mengadopsi hal-hal baru yang inovatif dan dapat memberikan kontribusi nyata terhadap perkembangan bisnis.
 
 
-        Tes arsitektur secara berkala
-            Tes arsitektur dan sistem Anda secara berkala dengan melakukan simulasi terhadap hal-hal yang mungkin terjadi di production. Ini bertujuan untuk membantu Anda dalam mengidentifikasi kelemahan yang dapat diperbaiki serta menghindari hal-hal yang tidak diinginkan terjadi pada perusahaan Anda.
-            
+            Gunakan data sebagai dasar dari arsitektur aplikasi
+                Cloud memungkinkan kita untuk mengumpulkan data yang menunjukkan bagaimana dampak dari perubahan terhadap arsitektur aplikasi yang kita buat. Artinya, saat ingin membuat perbaikan, kita dapat membuat keputusan berdasarkan fakta.
+
+                Karena infrastruktur dari aplikasi kita berbentuk code, maka kita dapat membuat perubahan dari sisi arsitektur dan infrastruktur secara berkala dengan lebih mudah daripada on-premise.
+
+
+            Tes arsitektur secara berkala
+                Tes arsitektur dan sistem Anda secara berkala dengan melakukan simulasi terhadap hal-hal yang mungkin terjadi di production. Ini bertujuan untuk membantu Anda dalam mengidentifikasi kelemahan yang dapat diperbaiki serta menghindari hal-hal yang tidak diinginkan terjadi pada perusahaan Anda.
+                
