@@ -1,0 +1,14 @@
+EC2 Image Builder
+    EC2 Image Builder memudahkan Anda untuk membuat, menguji, dan menerapkan server image dan container image untuk digunakan di AWS atau on-premise.
+
+    Sebelumnya, menjaga image agar tetap up-to-date adalah proses yang memakan waktu dan rawan untuk terjadi kesalahan. Nah, maka dari itu, hadirlah EC2 Image Builder yang dapat memberikan solusi.
+
+    EC2 Image Builder secara signifikan mengurangi upaya Anda untuk selalu memperbarui dan mengamankan image dengan menyediakan antarmuka yang sederhana, automasi, dan memiliki pengaturan keamanan yang disediakan AWS.
+
+    Anda dapat menggunakan EC2 Image Builder dengan berbagai metode: AWS Management Console, AWS CLI, atau API.
+
+    Tahukah Anda? Tidak ada biaya yang dibutuhkan saat menggunakan EC2 Image Builder untuk membuat container image atau AMI Anda sendiri. Namun, harga standar akan berlaku untuk layanan lain yang terlibat digunakan dalam proses tersebut.
+
+    Oke, kita telah sampai di akhir dari bagian pembahasan server. Seperti pada skenario awal, selain server, kita juga memerlukan storage yang berguna untuk menyimpan berbagai data, seperti informasi pengguna, riwayat transaksi, bahkan stok biji kopi.
+
+    Oleh karenanya, yuk kita bahas layanan storage yang tersedia di AWS secara mendetail di modul berikutnya. Keep the spirit up!
