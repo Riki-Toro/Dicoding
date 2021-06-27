@@ -1,0 +1,54 @@
+EC2 Dedicated Instance & Host
+    Mari kita lanjutkan pertanyaan yang belum terjawab pada modul sebelumnya, “Bagaimana jika semua opsi tersebut masih belum pas dengan kebutuhan kita?”
+
+    Mari kita tarik kembali skenario startup warung kopi ke materi ini. Katakanlah investor yang mendanai startup Anda memiliki keinginan tertentu yang harus dipenuhi, yakni aplikasi yang Anda kembangkan harus berada hanya di satu server fisik dan tidak berbagi dengan pelanggan AWS lain. Atau, misalnya Anda membeli software khusus yang menggunakan lisensi berbasis perangkat keras, seperti lisensi yang dihitung per socket CPU.
+
+    Nah, jika Anda memiliki kebutuhan seperti itu, AWS dapat memberikan solusi dengan menghadirkan EC2 Dedicated Host.
+
+    Untuk mempermudah penjelasan, mari kita bahas dari teknologi yang dipakai oleh Amazon EC2 terlebih dahulu.
+
+    Ketahuilah! Amazon EC2 menggunakan teknologi yang umumnya dikenal sebagai virtualization (virtualisasi) untuk menjalankan beberapa sistem operasi pada satu mesin fisik. Virtualisasi memastikan setiap guest OS menerima bagian yang adil dari waktu CPU, memori, dan bandwidth I/O ke disk lokal dan ke jaringan menggunakan sistem operasi host. Terkadang, virtualization juga dikenal sebagai hypervisor.
+
+    Hypervisor mengisolasi sistem operasi pelanggan dari yang satu dengan lainnya sehingga satu pelanggan tidak dapat memodifikasi atau mengganggu pelanggan yang lain pada mesin yang sama. Saat ini, AWS menggunakan versi Xen hypervisor yang sangat disesuaikan (highly customized). Ketahuilah, AWS adalah partisipan aktif dalam komunitas Xen dan akan terus aktif untuk mengikuti semua perkembangan terbaru.
+
+    Meskipun isolasi logis ini berfungsi dengan sangat baik untuk sebagian besar kasus penggunaan EC2, beberapa pelanggan AWS memiliki peraturan atau batasan yang mewajibkan keperluan isolasi fisik. Dan layanan baru akhirnya diperkenalkan pada tahun 2011 untuk menangani kebutuhan ini, yaitu EC2 Dedicated Instance dan Dedicated Host.
+
+        EC2 Dedicated Instance
+            Dedicated Instance adalah Amazon EC2 instance yang berjalan di VPC pada perangkat keras yang didedikasikan untuk satu pelanggan. Dedicated Instance diisolasi secara fisik pada tingkat perangkat keras host dengan instance milik akun AWS lainnya. 
+
+            Harga untuk Dedicated Instance memiliki dua komponen:
+
+                Biaya penggunaan per jam.
+                Biaya khusus per region (biaya ditagihkan sekali per jam terlepas dari berapa banyak Dedicated Instance yang Anda jalankan).
+
+            Ingat! Dengan menggunakan Dedicated Instance, bukan berarti mesin virtual EC2 kita akan berada di perangkat keras server yang sama setiap waktu. Selain itu, Dedicated Instance memiliki biaya yang lebih mahal daripada instance biasa.
+
+        EC2 Dedicated Host
+            Dedicated Host (Host Khusus) adalah server EC2 fisik dengan kapasitas instance yang sepenuhnya didedikasikan untuk Anda. Dengan Dedicated Host, Anda dapat menggunakan lisensi perangkat lunak yang memenuhi syarat dari vendor seperti Microsoft dan Oracle di Amazon EC2.
+
+            Ini membuat Anda bisa mendapatkan fleksibilitas dan efektivitas biaya dengan menggunakan lisensi yang Anda punya, tetapi juga dengan ketahanan, kemudahan, dan elastisitas AWS. Dengan begitu, Dedicated Host dapat membantu Anda memenuhi persyaratan compliance dari vendor atau regulator tertentu.
+
+            Dedicated Host juga dapat digunakan jika aplikasi Anda membutuhkan latensi minimal di antara setiap instance. Selain itu, Dedicated Host juga dapat memberi Anda visibilitas dan kontrol tambahan atas bagaimana instance ditempatkan di server fisik. Bahkan, Anda bisa secara konsisten meluncurkan instance ke server fisik yang sama dari waktu ke waktu.
+
+            Dedicated Host dapat dibeli On-Demand (setiap jam). Tetapi, Anda juga dapat melakukan reservasi yang mana akan memberikan diskon hingga 70% dibandingkan dengan harga On-Demand.
+
+            Setelah mengenal apa itu Dedicated Host, mari kita menilik manfaat dari Dedicated Host, antara lain:
+
+                Menghemat uang untuk biaya lisensi: Dedicated Host memungkinkan Anda untuk menghemat uang dengan menggunakan lisensi perangkat lunak per socket atau per core untuk Anda pribadi di Amazon EC2.
+                Membantu memenuhi persyaratan compliance dan regulasi: Dedicated Host memungkinkan Anda menempatkan instance di VPC pada server fisik tertentu. Ini memungkinkan Anda untuk meluncurkan instance menggunakan konfigurasi yang dapat membantu menangani compliance perusahaan dan persyaratan regulasi.
+
+            Tabel berikut memberikan ulasan singkat mengenai perbedaan instance EC2.
+
+            Default
+                Tidak
+                Berbagi pakai dengan pengguna lain.
+
+            Dedicated Instance
+                Yes
+                Berjalan di perangkat keras server yang tidak dapat ditentukan.
+
+            Dedicated Host
+                Yes
+                Berjalan di perangkat keras server yang Anda tentukan, ini dapat memberikan kendali yang lebih besar.
+
+    Nah, sampailah kita di akhir pembahasan terkait Dedicated Instance dan Dedicated Host. Dengan ini, Anda diharapkan sudah bisa memutuskan apakah beban kerja Anda memerlukan opsi Dedicated atau tidak.
