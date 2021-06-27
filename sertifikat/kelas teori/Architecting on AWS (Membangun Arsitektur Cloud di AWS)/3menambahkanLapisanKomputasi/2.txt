@@ -52,3 +52,24 @@ EC2 Dedicated Instance & Host
                 Berjalan di perangkat keras server yang Anda tentukan, ini dapat memberikan kendali yang lebih besar.
 
     Nah, sampailah kita di akhir pembahasan terkait Dedicated Instance dan Dedicated Host. Dengan ini, Anda diharapkan sudah bisa memutuskan apakah beban kerja Anda memerlukan opsi Dedicated atau tidak.
+
+
+
+
+Pertimbangan Arsitektural
+    Sebelum masuk ke pembahasan, mari kita ingat sejenak materi terkait Amazon EC2. EC2 instance adalah sebuah server virtual di AWS. Oleh karena itu, kita tak bisa memakainya secara sembarangan, melainkan kita harus menyesuaikannya dengan beban kerja sesuai kebutuhan.
+
+    Misalnya, apabila Anda memiliki kebutuhan untuk menjalankan komputasi yang memiliki latensi serendah mungkin. Solusinya, bangunlah arsitektur berjenis Cluster Placement Groups. Masih ada beberapa opsi arsitektur lainnya yang dapat Anda pertimbangkan sesuai kebutuhan, silakan pahami uraian berikut:
+
+    Pertimbangan Arsitektural 1: Apakah lapisan komputasi Anda memerlukan latensi terendah dan throughput setinggi mungkin?
+
+        Jika jawabannya iya, maka pertimbangkanlah untuk menggunakan arsitektur Cluster Placement Groups.
+        2021042916065338dd602f1f7eeb709f000c54f3e541d8.pngCluster Placement Groups adalah pengelompokan logis dari instance dalam satu Availability Zone. Pengelompokan ini memberikan latensi terendah dan kinerja jaringan packet-per-second tertinggi.Contoh dari penggunaan arsitektur jenis ini adalah aplikasi yang menggunakan High Performance Computing.
+
+    Pertimbangan Arsitektural 2: Apakah Anda memiliki aplikasi yang punya beberapa critical instance dan harus ditempatkan terpisah dari instance lainnya? Pertimbangkanlah untuk menggunakan arsitektur Spread Placement Groups jika kasus Anda serupa dengan pertanyaan tersebut.
+
+        Spread Placement Groups adalah pengelompokan instance yang sengaja ditempatkan pada perangkat keras yang berbeda. Dengan begitu, pengelompokan ini mengurangi risiko kegagalan secara simultan yang dapat terjadi jika instance berbagi perangkat keras yang mendasarinya.Jenis dari pengelompokkan ini juga dapat menjangkau beberapa Availability Zone, hingga maksimum tujuh instance untuk setiap Availability Zone per grup.Salah satu contoh yang menggunakan arsitektur jenis ini adalah front-end server yang memiliki high availability (ketersediaan tinggi) yang lebih baik.
+
+    Pertimbangan Arsitektural 3: Apakah Anda memiliki beban kerja yang terdistribusi dan tereplikasi secara masif, misalnya aplikasi big data seperti HDFS, HBase, dan Cassandra yang dijalankan di EC2? Gunakanlah arsitektur Partition Placement Groups jika beban kerja Anda sesuai dengan poin ke-3 ini.
+
+        Partition Placement Groups menempatkan EC2 instance di seluruh logical partition dan memastikan bahwa instance di partisi yang berbeda tidak berbagi perangkat keras yang sama, sehingga dampak kegagalan perangkat keras akan terjadi hanya ke satu partisi saja. Selain itu, partition placement groups menawarkan visibilitas ke dalam partisi dan memungkinkan topology aware applications (aplikasi yang sadar topologi) yang menggunakan informasi ini untuk membuat keputusan replikasi data yang cerdas, meningkatkan ketersediaan, dan ketahanan data.
