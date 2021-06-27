@@ -58,3 +58,43 @@ Amazon EFS
     Ketahuilah! Sistem file Amazon EFS dapat diakses secara bersamaan dari Amazon EC2 instance di Amazon VPC, sehingga aplikasi yang berskala lebih dari satu koneksi dapat mengakses sistem file.
 
     Amazon EC2 instance yang berjalan di beberapa Availability Zone di dalam region yang sama dapat mengakses sistem file, sehingga banyak pengguna dapat mengakses dan berbagi sumber data yang sama.
+
+
+
+
+Amazon FSx
+    Modul ini masih berhubungan dengan materi sebelumnya, yakni file system. Bedanya, di sini kita akan membahas tentang layanan file system pihak ketiga dengan kompatibilitas dan rangkaian fitur yang native (asli) untuk beban kerja seperti penyimpanan berbasis Microsoft Windows, komputasi berkinerja tinggi, hingga machine learning.
+
+    Amazon FSx memberi Anda dua sistem file yang dapat dipilih: Amazon FSx for Windows File Server (untuk aplikasi berbasis Windows) dan Amazon FSx for Lustre (untuk beban kerja komputasi yang intensif).
+
+        Amazon FSx for Windows File Server 
+            Opsi ini dirancang untuk aplikasi perusahaan dan merupakan layanan fully managed (terkelola sepenuhnya) yang didukung oleh sistem file windows asli. Ini adalah aplikasi perusahaan yang dapat dengan mudah dilakukan lift and shift alias pemindahan ke Amazon Web Services.
+
+            Amazon FSx for Windows File Server dibangun pada penyimpanan SSD. Ia ideal untuk mendukung beban kerja Windows yang membutuhkan penyimpanan bersama seperti CRM, ERP, aplikasi .NET, dan direktori home pengguna.
+
+            Ribuan instance komputasi dapat mengakses satu sistem file Amazon FSx pada waktu bersamaan, yang mana juga dapat menyediakan akses dari on-premise melalui AWS Direct Connect atau AWS VPN. Bahkan, ia juga memungkinkan akses dari beberapa VPC, akun, dan region menggunakan VPC Peering atau AWS Transit Gateway.
+
+            Amazon FSx for Windows File Server menyediakan sistem penyimpanan file bersama untuk Amazon EC2 instance dengan sistem operasi Windows dengan tingkat throughput yang tinggi dan latensi yang rendah.
+
+            Amazon FSx untuk Windows File Server mendukung:
+                Protokol SMB
+                Windows NTFS
+                Integrasi Active Directory (AD)
+                Distributed File System (DFS) alias Sistem File Terdistribusi
+
+            Amazon FSx for Windows File Server juga dapat dipasang pada Amazon EC2 instance Linux. Untuk informasi detailnya, silakan lihat Using Microsoft Windows File Shares.
+
+
+        Amazon FSx untuk Lustre
+            Amazon FSx for Lustre menyediakan sistem file serupa yang dikelola sepenuhnya dan dioptimalkan untuk High Performance Computing (HPC) alias komputasi berkinerja tinggi, machine learning, dan alur kerja pemrosesan media.
+
+            Satu sistem file Amazon FSx for Lustre dapat memproses kumpulan data yang masif dengan ratusan gigabyte (GB) per detik throughput pada latensi sub-milidetik.
+
+            Amazon FSx for Lustre dapat diintegrasikan dengan Amazon S3 sehingga Anda dapat menggabungkan kumpulan data jangka panjang dengan sistem file berperforma tinggi. Data dapat disalin secara otomatis ke dan dari Amazon S3 dari sistem file Amazon FSx for Lustre Anda.
+
+            Amazon FSx untuk Lustre telah POSIX-compliant, sehingga Anda dapat menggunakan aplikasi berbasis Linux tanpa harus melakukan perubahan apa pun.
+
+            FSx for Lustre menyediakan antarmuka sistem file yang native dan berfungsi seperti halnya sistem file apa pun dengan OS Linux. Ini juga memberikan konsistensi read-after-write dan mendukung file-locking (penguncian file). Anda juga dapat mengontrol akses ke sistem file FSx for Lustre dengan permission dari POSIX dan Amazon Virtual Private Cloud (VPC). Bahkan, Amazon FSx for Lustre juga dapat dipasang ke Amazon EC2 instance.
+
+    Nah, kita sudah lihat kan opsi untuk Amazon FSx. Kedua penawaran tersebut mendukung koneksi dengan beban kerja on-premise menggunakan AWS Direct Connect atau koneksi VPN. Dengan kedua penawaran tersebut, Anda hanya membayar sumber daya yang digunakan.
+    
