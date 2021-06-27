@@ -38,3 +38,23 @@ Amazon EBS
     Volume yang mendukung SSD, optimal untuk beban kerja transaksional yang melibatkan operasi read (baca) / write (tulis) yang sering dengan ukuran I/O (input/output) yang kecil, di mana atribut kinerja yang dominan adalah IOPS.
 
     Volume yang mendukung HDD, optimal untuk beban kerja streaming yang besar di mana throughput (diukur dalam MiB / detik) adalah ukuran kinerja yang lebih baik daripada IOPS.
+
+
+
+
+Amazon EFS
+    Amazon EFS atau Amazon Elastic File System adalah layanan file system yang terkelola. Eits, tahan dulu! Sebelum membahasnya lebih lanjut, mari kita tilik tentang apa itu file system terlebih dahulu.
+
+    Sederhananya, file system adalah proses mengelola bagaimana dan di mana data pada suatu disk/drive disimpan dan diakses. Umumnya, file system mengatur berbagai hal seperti manajemen penyimpanan, pemberian nama pada file, pengelompokan file ke dalam grup, pengaturan mengenai akses data, dan lainnya.
+
+    Oke, sekarang Anda sudah paham tentang file system. Mari kita masuk ke pembahasan Amazon EFS.
+
+    Amazon Elastic File System (Amazon EFS) menyediakan sistem file yang sederhana, dapat diskalakan, dan elastis untuk beban kerja berbasis Linux. Ia dapat digunakan dengan layanan AWS Cloud dan sumber daya on-premise.
+
+    Anda dapat mengakses sistem file di seluruh Availability Zone, AWS Regions, dan VPC sambil berbagi file antara ribuan EC2 instance dan server on-premise melalui AWS Direct Connect atau AWS VPN.
+
+    Anda dapat membuat sistem file, memasangnya pada Amazon EC2 instance, lalu melakukan proses read (baca) dan write (tulis) data ke dan dari sistem file. Anda juga dapat memasang sistem file Amazon EFS di VPC melalui protokol Network File System versi 4.0 dan 4.1 (NFSv4).
+
+    Ketahuilah! Sistem file Amazon EFS dapat diakses secara bersamaan dari Amazon EC2 instance di Amazon VPC, sehingga aplikasi yang berskala lebih dari satu koneksi dapat mengakses sistem file.
+
+    Amazon EC2 instance yang berjalan di beberapa Availability Zone di dalam region yang sama dapat mengakses sistem file, sehingga banyak pengguna dapat mengakses dan berbagi sumber data yang sama.
