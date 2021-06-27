@@ -12,3 +12,29 @@ EC2 Image Builder
     Oke, kita telah sampai di akhir dari bagian pembahasan server. Seperti pada skenario awal, selain server, kita juga memerlukan storage yang berguna untuk menyimpan berbagai data, seperti informasi pengguna, riwayat transaksi, bahkan stok biji kopi.
 
     Oleh karenanya, yuk kita bahas layanan storage yang tersedia di AWS secara mendetail di modul berikutnya. Keep the spirit up!
+
+
+
+
+Amazon EBS
+    Sampai di tahap ini, Anda sudah memahami seputar layanan server yang tersedia di AWS. Tentu itu akan membantu kita dalam men-deploy aplikasi menjadi lebih cepat tersedia dengan proses yang lebih baik sehingga website warung kopi pun dapat segera rilis.
+
+    Masih ada hal lain yang kita butuhkan sebelum merilis website tersebut, yakni layanan storage. Di modul ini, layanan storage yang akan kita kupas tuntas adalah Amazon EBS.
+
+    Sekarang mungkin Anda akan bertanya, “Bukankah salah satu fitur dari Amazon EC2 adalah memiliki instance store volume yang mana dapat digunakan untuk penyimpanan juga?”
+
+    Oke, mari kita bahas sejenak. Seperti yang telah dijelaskan sebelumnya, instance store volume itu memang dapat menyimpan data di EC2 instance. Namun, ia menyimpan data secara sementara sehingga jika Anda menghentikan instance, semua data di dalamnya akan terhapus.
+
+    Berbeda jika Anda menggunakan Amazon EBS volume. Ia dapat menyimpan data secara persisten sehingga walaupun Anda menghentikan instance, data di dalamnya akan tetap tersedia.
+
+    Amazon Elastic Block Store (Amazon EBS) menyediakan volume penyimpanan tingkat blok (block-level storage) untuk digunakan bersama EC2 instance. EBS volume yang dilampirkan ke sebuah instance adalah volume penyimpanan yang persisten dan independen dari masa pakai instance.
+
+    Anda dapat menggunakan Amazon EBS untuk data yang harus dapat diakses dengan cepat dan membutuhkan penyimpanan jangka panjang.
+
+    EBS volume sangat cocok digunakan sebagai penyimpanan utama untuk sistem file, database, atau apa pun yang Anda inginkan layaknya hard drive.
+
+    Selain itu, dengan EBS, Anda dapat secara dinamis mengubah konfigurasi volume yang dilampirkan ke sebuah instance. AWS juga menyediakan beragam jenis EBS volume yang berbeda dalam karakteristik kinerja dan harga sesuai kebutuhan aplikasi. Silakan amati gambar di bawah ini (klik gambar untuk visibilitas yang lebih jelas).
+
+    Volume yang mendukung SSD, optimal untuk beban kerja transaksional yang melibatkan operasi read (baca) / write (tulis) yang sering dengan ukuran I/O (input/output) yang kecil, di mana atribut kinerja yang dominan adalah IOPS.
+
+    Volume yang mendukung HDD, optimal untuk beban kerja streaming yang besar di mana throughput (diukur dalam MiB / detik) adalah ukuran kinerja yang lebih baik daripada IOPS.
