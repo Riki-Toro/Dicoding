@@ -73,3 +73,49 @@ Pertimbangan Arsitektural
     Pertimbangan Arsitektural 3: Apakah Anda memiliki beban kerja yang terdistribusi dan tereplikasi secara masif, misalnya aplikasi big data seperti HDFS, HBase, dan Cassandra yang dijalankan di EC2? Gunakanlah arsitektur Partition Placement Groups jika beban kerja Anda sesuai dengan poin ke-3 ini.
 
         Partition Placement Groups menempatkan EC2 instance di seluruh logical partition dan memastikan bahwa instance di partisi yang berbeda tidak berbagi perangkat keras yang sama, sehingga dampak kegagalan perangkat keras akan terjadi hanya ke satu partisi saja. Selain itu, partition placement groups menawarkan visibilitas ke dalam partisi dan memungkinkan topology aware applications (aplikasi yang sadar topologi) yang menggunakan informasi ini untuk membuat keputusan replikasi data yang cerdas, meningkatkan ketersediaan, dan ketahanan data.
+
+
+
+
+Amazon Machine Images
+    Amazon Machine Image (AMI) adalah sebuah virtual image yang digunakan untuk meluncurkan EC2 instance. Saat meluncurkan sebuah instance, Anda harus menentukan AMI terlebih dahulu, baik yang sudah disediakan AWS, yang Anda buat sendiri, atau melalui AWS Marketplace.
+
+    Image yang dimaksud adalah seperti template yang telah dikonfigurasi. Ia berisikan sistem operasi dan perangkat lunak yang dibutuhkan.
+
+    Dengan AMI, Anda bisa meluncurkan beberapa instance dengan konfigurasi yang identik hanya dari satu AMI saja. Namun jika Anda ingin meluncurkan instance dengan konfigurasi yang berbeda, maka Anda dapat menggunakan AMI yang berbeda.
+
+    Berikut adalah uraian dari beberapa hal yang termuat di sebuah AMI, antara lain:
+
+        Penggunaan satu atau beberapa Amazon Elastic Block Store (Amazon EBS).
+        Template untuk root volume dari sebuah instance (misalnya, sistem operasi, server aplikasi, dan aplikasi).
+        Launch permission, mengontrol akun AWS mana yang dapat menggunakan AMI Anda untuk meluncurkan instance.
+        Block device mapping (pemetaan perangkat blok), menentukan berapa volume yang akan dilampirkan ke instance saat diluncurkan.
+
+    Saat membuat, membangun, menyimpan, dan mendistribusikan AMI yang Anda buat sendiri atau container image, Anda akan dikenakan biaya tergantung pada konfigurasinya. Berikut adalah contoh daftar penggunaannya:
+
+        Meluncurkan Amazon EC2 instance.
+        Menyimpan log di Amazon S3.
+        Melakukan validasi image dengan Amazon Inspector.
+        Menyimpan Amazon EBS Snapshot untuk AMI Anda.
+        Menyimpan container image di Amazon ECR.
+        Mengunggah (pushing) dan mengunduh (pulling) container image ke dalam dan ke luar Amazon ECR.
+        Mengaktifkan Systems Manager Advanced Tier dan menjalankan Amazon EC2 instance dengan aktivasi on-premise akan dikenai biaya melalui Systems Manager.
+
+    Oke, setelah belajar mengenai apa saja yang dapat menimbulkan biaya pada AMI, sekarang mari kita tinjau hal-hal yang AMI bisa lakukan untuk membantu Anda, di antaranya:
+
+        Repeatability
+            Menggunakan AMI dapat membantu memecahkan banyak masalah, yang pertama adalah repeatability alias kemampuan untuk melakukan pengulangan. Maksudnya, instances yang akan dihasilkan dari AMI yang sama akan menjadi sebuah replika antara satu sama lain.
+
+            Maka dari itu, AMI bisa memudahkan Anda untuk membangun cluster dari instance serupa atau membuat ulang sebuah lingkungan komputasi.
+
+        Reusability
+            AMI mengemas konfigurasi lengkap dan konten dari EC2 instance sehingga dapat digunakan berulang kali, dengan efisiensi dan presisi.
+
+        Recoverability
+            AMI sangat ideal untuk mengganti mesin yang gagal dengan instance baru yang dibuat dari AMI yang sama.
+
+        Marketplace Solutions
+            Jika Anda mencari solusi perangkat lunak dari vendor tertentu, mungkin Anda akan dapat menemukan AMI di Marketplace yang dapat diluncurkan untuk menerapkan solusi yang diinginkan pada EC2 instance tersebut.
+
+        Backups
+            AMI menyediakan cara terbaik untuk melakukan backup terhadap konfigurasi EC2 instance secara lengkap yang dapat Anda gunakan untuk meluncurkan instance pengganti jika suatu saat terjadi kegagalan.
