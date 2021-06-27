@@ -98,16 +98,16 @@ Jenis Harga EC2 Instance
 
                 Sama seperti RI, Savings Plans juga mencakup penggunaan perubahan ukuran instance yang berbeda dari tipe instance yang sama (seperti c5.4xlarge atau c5.large) di seluruh Region. Bahkan, Anda dapat beralih dari Windows ke Linux sambil terus menggunakannya tanpa harus melakukan perubahan apa pun pada Savings Plans Anda.
 
-            Spot Instances
-                AWS telah membangun kapasitas komputasi untuk volume penggunaan tertinggi dari On-Demand. Nah, ada saatnya AWS memiliki kapasitas yang tidak terpakai yang dapat digunakan para pelanggan dengan diskon hingga 90% yang dapat digunakan berdasarkan permintaan sebagai Spot Instances.
+        Spot Instances
+            AWS telah membangun kapasitas komputasi untuk volume penggunaan tertinggi dari On-Demand. Nah, ada saatnya AWS memiliki kapasitas yang tidak terpakai yang dapat digunakan para pelanggan dengan diskon hingga 90% yang dapat digunakan berdasarkan permintaan sebagai Spot Instances.
 
-                Anda tidak perlu menawar (bid) untuk mendapatkan Spot Instances. Anda cukup membayar penggunaan per jam untuk instance yang diluncurkan.
+            Anda tidak perlu menawar (bid) untuk mendapatkan Spot Instances. Anda cukup membayar penggunaan per jam untuk instance yang diluncurkan.
 
-                Anda dapat melakukan request (permintaan) untuk kapasitas Spot Instances seperti halnya mengajukan request kapasitas On-Demand. Sehingga, Anda tak perlu lagi menghabiskan waktu untuk menganalisis harga pasar atau menetapkan harga penawaran tertinggi (spot instances tidak lagi menggunakan aturan bidding untuk pengajuan penggunaannya).
+            Anda dapat melakukan request (permintaan) untuk kapasitas Spot Instances seperti halnya mengajukan request kapasitas On-Demand. Sehingga, Anda tak perlu lagi menghabiskan waktu untuk menganalisis harga pasar atau menetapkan harga penawaran tertinggi (spot instances tidak lagi menggunakan aturan bidding untuk pengajuan penggunaannya).
 
-                Namun, terkadang AWS perlu mengklaim kembali kapasitas Spot Instances yang Anda gunakan untuk melayani pelanggan On-Demand. Dalam situasi ini, AWS akan mengeluarkan pemberitahuan dalam waktu 2 menit sebelum pemberhentian layanan, dengan tujuan untuk memungkinkan pengguna mengambil tindakan sebelum terjadinya interupsi. Pemberitahuan tersebut akan dikirimkan melalui instance metadata dan juga dalam Cloudwatch Events.
+            Namun, terkadang AWS perlu mengklaim kembali kapasitas Spot Instances yang Anda gunakan untuk melayani pelanggan On-Demand. Dalam situasi ini, AWS akan mengeluarkan pemberitahuan dalam waktu 2 menit sebelum pemberhentian layanan, dengan tujuan untuk memungkinkan pengguna mengambil tindakan sebelum terjadinya interupsi. Pemberitahuan tersebut akan dikirimkan melalui instance metadata dan juga dalam Cloudwatch Events.
 
-                Untuk menggunakan Spot Instances, beban kerja Anda harus memiliki keleluasaan terhadap tipe instance, lokasi (Region dan/atau AZ, dan waktu penggunaan (di luar jam sibuk).
+            Untuk menggunakan Spot Instances, beban kerja Anda harus memiliki keleluasaan terhadap tipe instance, lokasi (Region dan/atau AZ, dan waktu penggunaan (di luar jam sibuk).
 
     Kasus penggunaan yang populer untuk Spot Instances adalah untuk kebutuhan container (ECS / EKS / Kubernetes), pemrosesan big data (EMR - Hadoop), dan HPC (high performance computing alias komputasi berkinerja tinggi).
     Penggunaan Amazon EC2 untuk instance berbasis Amazon Linux dan Ubuntu yang diluncurkan dalam bentuk On-Demand, Reserved, dan Spot akan dihitung dalam hitungan per detik, dengan minimal penggunaan selama 60 detik. Sedangkan untuk semua sistem operasi lain akan ditagihkan dalam kelipatan satu jam. Dan tidak ada perbedaan sama sekali antara Reserved Instance dan On-Demand Instance dari sisi kemampuan maupun fitur.
