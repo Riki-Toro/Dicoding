@@ -1,0 +1,147 @@
+Hands-on Lab: Deploy Aplikasi Web di AWS - Membuat VPC
+    Di bagian pertama, kita akan membuat VPC yang berisi subnet publik dan privat, serta mengonfigurasi security group. Nah, sebelum membuat VPC, kita perlu memiliki Elastic IP address yang terasosiasi dengan NAT gateway terlebih dahulu. Mari kita mulai!
+
+        1. Silakan buka halaman utama Amazon EC2 dari AWS Management Console.
+        202104200913437272cbe8f6741d3ec11086b2f7671c5a.jpeg
+
+        2. Oiya jangan lupa, pastikan Region yang Anda pilih adalah yang terdekat, yakni Singapore (ap-southeast-1).
+        20210420091358ed99e9aba254096321a7630093eefab0.jpeg
+
+        3. Oke lanjut, pada panel navigasi sebelah kiri, klik Elastic IPs di bagian Network & Security.
+        202104200914306726f7a0eade7e6e787b7ae515050b60.jpeg
+
+        4. Lalu, klik tombol Allocate Elastic IP address.
+        202104200917245eb4b751833fefe8fe9bbc805111c373.jpeg
+
+        5. Pada bagian Public IPv4 address pool, pilih Amazon’s pool of IPv4 addresses dan klik Allocate.
+        20210420091806b62e1dae7aea33f0806463cd657f69cc.jpeg
+
+        6. Nah, kita sudah berhasil membuat Elastic IP address. Langkah selanjutnya adalah membuat VPC, silakan masuk ke VPC console dan pastikan Anda masih berada di Region Singapore ya.
+        2021042009190763136cf4b7b58f1f7f479834050fba7d.jpeg
+
+        7. Pada panel navigasi di sebelah kiri, pilih VPC Dashboard. Untuk mulai membuat VPC, klik tombol Launch VPC Wizard.
+        202104200919488cdb4efae71ecba6a80e3a8327d65353.jpeg
+
+        8. Pada halaman “Step 1: Select a VPC Configuration”, pilih VPC with Public and Private Subnets (opsi yang kedua), lalu klik tombol Select.
+        20210420092006210752cbcf14788fad4a30a055561687.jpeg
+
+        9. Pada halaman “Step 2: VPC with Public and Private Subnets”, silakan konfigurasikan nilai-nilai berikut:
+
+            IPv4 CIDR block             |       10.0.0.0/16
+            IPv6 CIDR block             |       No IPv6 CIDR Block
+            VPC name                    |       dicoding-tutorial-vpc
+            Public subnet's IPv4 CIDR   |       10.0.0.0/24
+            Availability Zone           |       ap-southeast-1a
+            Public subnet name          |       Dicoding Tutorial Public
+            Private subnet's IPv4 CIDR  |       10.0.1.0/24
+            Availability Zone           |       ap-southeast-1a
+            Private subnet name         |       Dicoding Tutorial Private 1
+            Elastic IP Allocation ID    |       Elastic IP address yang telah Anda buat sebelumnya untuk diasosiasikan dengan NAT gateway. Klik di dalam box dan pilih IP address yang ditampilkan.
+            Service endpoints           |       Lewati bagian ini
+            Enable DNS hostnames        |       Yes
+            Hardware tenancy            |       Default
+
+            Jika Anda bingung, amatilah gambar di bawah ini. Kemudian, silakan klik Create VPC.
+            20210420100002739ecb52a762c2dbf46a413a094d4d24.jpeg
+
+        10. Tunggu hingga proses loading selesai, mungkin memerlukan waktu hingga beberapa menit. Jika sudah selesai, klik OK. VPC Anda pun akan terlihat di daftar VPC.
+        2021042010000231cafad10f9af5009f022d29629fa9e3.jpeg
+
+        11. Sampai tahap ini, Anda sudah berhasil membuat Elastic IP address dan VPC dengan subnet publik dan privat. Mari kita lanjutkan ke tahap berikutnya, yaitu membuat subnet privat tambahan untuk DB subnet group kita nantinya.
+
+        12. Untuk membuat subnet privat tambahan ke VPC, silakan masuk ke menu Subnets dan klik Create subnet.
+        202104201001107c70ca974dca3e25fbfec87c53d7a629.jpeg
+
+        13. Pada halaman “Create subnet”, isikan seperti berikut:
+            VPC ID              |       vpc-identifier (dicoding-tutorial-VPC)
+            Subnet name         |       Dicoding Tutorial Private 2
+            Availability Zone   |       ap-southeast-1b
+            IPv4 CIDR block     |       10.0.2.0/24
+
+            Jika sudah, silakan klik Create subnet.
+
+        14. Untuk memastikan bahwa subnet privat tambahan tersebut menggunakan route table yang sama dengan subnet privat pertama, silakan klik lagi menu Subnets dan perhatikan pada dua baris subnet privat yang Anda miliki.
+        202104200926110eb76b44fb317a9e64366ce0d75aa5bb.jpeg
+
+        15. Scroll ke bagian kanan hingga Anda menemukan kolom Route table. Pastikan keduanya memiliki route table yang sama.
+        2021042009262848524f6dee6af12bac0c6a1eef24f682.jpeg
+
+        16. Oke, langkah selanjutnya adalah membuat security group untuk web server publik. Agar EC2 instance Anda dapat diakses publik, tambahkan inbound rules ke security group yang mengizinkan traffic dari internet.
+
+        17. Silakan masuk ke menu Security Groups yang ada di panel navigasi sebelah kiri. Lalu, klik tombol Create security group.
+        2021042009264846c457a627ec06725b36dceefda8f3f5.jpeg
+
+        18. Pada halaman “Create security group”, silakan isi sesuai nilai-nilai berikut:
+        Amati gambar berikut:
+
+            Security group name     |       dicoding-tutorial-securitygroup
+            Description             |       Dicoding Tutorial Security Group
+            VPC                     |       vpc-identifier (dicoding-tutorial-VPC)
+
+            2021042010061748e75ca71936f49217fd8b10b3e066cb.jpeg
+
+        19. Selanjutnya, konfigurasikan bagian Inbound rules. Silakan tambahkan rule dengan klik Add rule. Lalu, sesuaikan dengan nilai-nilai berikut:
+
+            Type        |       SSH
+            Source      |       0.0.0.0/0 (semua IP address)
+
+            Konfigurasi di atas mengizinkan akses SSH ke EC2 instance. Dengan begitu, Anda bisa terhubung ke EC2 instance dan menginstal web server.
+
+        20. Lanjut, klik lagi tombol Add rule untuk menambahkan rule kedua. Kemudian, sesuaikan dengan konfigurasi berikut:
+
+            Type        |       HTTP
+            Source      |       0.0.0.0/0 (semua IP address)
+
+            Konfigurasi di atas mengizinkan akses HTTP ke EC2 instance Anda dari semua IP address. Jika Anda kesulitan, silakan ikuti gambar berikut:
+            202104201011259973f9336d7979552405fdc3c06e08c2.jpeg
+        
+        21. Untuk membuat security group, silakan klik Create security group.
+        20210420093139fe78fc105b145146b8986fe54e114e04.jpeg
+
+        22. Sampai tahap ini, Anda sudah berhasil membuat security group untuk web server. Selanjutnya, untuk membuat DB instance Anda tetap privat, mari kita buat security group yang hanya akan menerima traffic dari web server saja. Silakan klik Security Groups pada menu atas.
+        202104200932297c5cff000247d9018c1c34489a3ca41e.jpeg
+
+        23. Kemudian, klik tombol Create security group.
+        20210420093247f137b813e0f460bf45d0192df52806f0.jpeg
+
+        24. Pada halaman “Create security group”, silakan sesuaikan dengan konfigurasi berikut:
+
+            Security group name     |       dicoding-tutorial-db-securitygroup
+            Description             |       Dicoding Tutorial DB Instance Security Group
+            VPC                     |       vpc-identifier (dicoding-tutorial-VPC)
+
+            202104201013455cc6a0f59b8f62eba44c49cd27d84ae3.jpeg
+
+        25. Selanjutnya, tambahkan inbound rules dengan klik Add rule. Lalu, sesuaikan seperti berikut:
+
+            Type	|   MySQL/Aurora
+            Source	|   dicoding-tutorial-securitygroup
+
+            20210420101616dc9c48d1a7f390006e368d550f734303.jpeg
+
+        26. Untuk mengakhiri, silakan klik tombol Create security group. Selamat! Anda telah sukses membuat security group untuk DB instance.
+        20210420093513e472682e009bafa6f46dd7ba39ab04e6.jpeg
+
+        27. Tahap selanjutnya, kita akan membuat DB subnet group. Group ini berisi subnet-subnet untuk penempatan DB instance Anda. DB subnet group memungkinkan Anda untuk meletakkannya di VPC tertentu saat membuat DB instance.
+
+        28. Oke, sekarang mari masuk ke Amazon RDS console (ketik “RDS” di bagian pencarian layanan pada bagian atas management console).
+        20210420093856bd5a7eca66ba8d89c75d840a7f8f1473.jpeg
+
+        29. Pada panel navigasi di sebelah kiri, silakan buka menu Subnet groups dan klik tombol Create DB Subnet Group.
+        20210420093927bae3ab2ad357a0aa53349ce7bf05d73c.jpeg
+
+        30. Di halaman “Create DB Subnet Group”, isikan nilai-nilai berikut pada bagian Subnet group details:
+
+            Name	    |   dicoding-tutorial-db-subnet-group
+            Description	|   Tutorial DB Subnet Group
+            VPC	        |   dicoding-tutorial-VPC (vpc-identifier)
+
+        31. Selanjutnya, pada bagian Add subnets, sesuaikan dengan konfigurasi berikut:
+
+            Availability Zones  |   ap-southeast-1a, ap-southeast-1b
+            Subnets             |   10.0.0.0/24, 10.0.1.0/24, dan 10.0.2.0/24
+            
+            Jika Anda kesulitan, silakan amati gambar di bawah ini, lalu klik Create.
+            202104201023377a64c54c8b23cdf16b7faa04ce41f3ac.jpeg
+
+        32. Hore! DB subnet group akan muncul di daftar subnet groups pada RDS console Anda.

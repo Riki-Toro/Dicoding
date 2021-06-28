@@ -65,7 +65,7 @@ Hands-on Lab: Deploy Aplikasi Web di AWS
         Men-deploy layanan AWS-Managed database dengan Amazon RDS.
         Men-deploy server aplikasi dengan Amazon EC2.
         Menguji aplikasi.
-        
+
     Sebelum meminta layanan database dan EC2 instance, Anda terlebih dahulu perlu membuat VPC, subnet, dan security group. Komponen-komponen tersebut diperlukan agar database dan EC2 instance Anda bisa terhubung dan saling berkomunikasi. 
 
     Oke, tak perlu menunggu lama lagi, mari kita meluncur ke langkah-langkahnya. Semangat!
