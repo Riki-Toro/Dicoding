@@ -1,0 +1,284 @@
+Hands-on Lab: Deploy Aplikasi Web di AWS - Membuat EC2 instance
+    Pada bagian ini, Anda akan membuat web server menggunakan Apache lalu mengoneksikannya dengan Amazon RDS DB instance yang telah dibuat di bagian sebelumnya. Bagian ini pun akan menjadi akhir dari latihan kita di modul ini. Mari kita mulai langkah-langkahnya:
+
+        1. Dari AWS Management Console, silakan masuk ke Amazon EC2 console. Ketik “EC2” di bagian atas pencarian layanan.
+        20210420105717e6f27c14c054f9d010ce04a41162591a.jpeg
+
+        2. Pada EC2 Dashboard, klik tombol Launch instance.
+        20210420105737a7661012107ba2e7eefc0c672d9c3b8f.jpeg
+        
+        3. Pilih Amazon Linux 2 AMI.
+        20210420105802133c193638bcd70fc8656f654e2d7753.jpeg
+
+        4. Pilih tipe instance t2.micro, lalu klik tombol Next: Configure Instance Details.
+        202104201100062f20bc3c15c002f60d417c46d483a693.jpeg
+
+        5. Pada halaman Configure Instance Details, sesuaikan dengan konfigurasi di bawah dan biarkan lainnya default.
+
+            Network                 |       vpc-identifier | dicoding-tutorial-VPC
+            Subnet                  |       subnet-identifier | Dicoding Tutorial Public
+            Auto-assign Public IP   |       Enable
+
+            Jika kesulitan, Anda bisa melihat gambar di bawah. Lalu, klik tombol Next: Add Storage untuk lanjut ke langkah berikutnya.
+            202104201101268200880a141c72820bf310c4bbdc0ebe.jpeg
+
+        6. Di halaman Add Storage, kita tak perlu mengubah apa pun. Jadi, biarkan saja default dan klik Next: Add Tags.
+        2021042011130879af6f4369ea2dbabf585da2c3ffd646.jpeg
+        
+        7. Kemudian, pada halaman Add Tags, klik tombol Add Tag untuk menambahkan tag dan isikan:
+
+            Key	    |   Name
+            Value	|   dicoding-tutorial-web-server
+
+            Silakan lihat gambar di bawah. Jika sudah, klik tombol Next: Configure Security Group.
+            20210420111555f2cc7ffa3e07f814b467443a1c751e06.jpeg
+
+        8. Di halaman Configure Security Group, pilih Select an existing security group. Lalu, pilih security group yang telah Anda buat untuk web server, yaitu dicoding-tutorial-securitygroup. Pastikan security group tersebut memiliki inbound rules untuk akses SSH dan HTTP.
+        20210420111722a0a9099cd1c777aa818792371a15418b.jpeg
+        
+        9. Silakan tinjau lagi konfigurasi EC2 instance Anda. Jika sudah sesuai, klik tombol Launch.
+        202104201117593312b02091fdf583a15e25e9bfefa443.jpeg
+
+        10. Setelah itu, pilih Create a new key pair dan isikan nama key pair Anda (misal dicoding-tutorial-key-pair). Lalu, unduh key pair tersebut dan simpanlah di folder Downloads di komputer Anda agar mempermudah pengaksesan pada step selanjutnya. Jika sudah, klik tombol Launch Instances.
+        2021042011190379c3a7272e7d766030910ab3c7fbb286.jpeg
+
+        11. Langkah selanjutnya, klik View Instances. Anda akan diarahkan ke halaman daftar instance.20210420105653be63e9b67dc21bd76e667918248c0513.jpeg
+
+        12. Tunggu sampai status instance Anda menjadi Running sebelum melanjutkan ke tahap berikutnya.
+        202104201120578cbcccfa1c153c2e4b4cad7e05d1c8d6.jpeg
+        
+        13. Oke, Anda sudah berhasil membuat EC2 instance. Sekarang, kita akan menginstal Apache web server dengan PHP pada instance tersebut. Let’s Go!
+
+        14. Mari kita terhubung terlebih dahulu ke EC2 instance. Silakan pilih instance Anda, lalu klik tombol Connect.
+        202104201122319e53adc9caede72d18f04b2e308b6599.jpeg
+
+        15. Lalu, masuk ke tab SSH client dan salinlah sintaks ssh sesuai yang ada pada layar Anda.
+        2021042011225936ca6c86fe9fbbea06b1f6022b27d59e.jpeg
+        Catatan: Anda juga bisa terhubung ke EC2 instance melalui EC2 Instance Connect. Buka tab EC2 Instance Connect -> Connect.
+
+        16. Kemudian, buka aplikasi command prompt/terminalpada komputer Anda. Silakan pindah ke folder Downloads di mana Anda menyimpan file key pair (di step 10), ketik perintah berikut:
+            cd Downloads
+
+        17. Lalu, tempelkan sintaks ssh yang telah Anda salin (untuk menempel sintaks, klik kanan pada command prompt).
+        2021042011250443e8538fdc772251fcd32f6a9ee1e102.jpeg
+
+        18. Jika Anda menggunakan Linux dan cara tersebut tidak bisa, silakan tulis sintaks chmod 400 namaFileAnda.pem terlebih dahulu, barulah tempelkan sintaks ssh.
+
+        19. Setelah itu, akan muncul konfirmasi “Are you sure you want to continue connecting (yes/no)?”, ketikkan saja yes dan Anda pun akan segera terhubung ke Amazon EC2 instance.
+        2021042011262497c48b21f00074b39b2426cd19247d48.jpeg
+
+        20. Untuk mendapatkan perbaikan bug dan pembaruan keamanan terbaru, lakukan update software pada EC2 instance Anda dengan mengetikkan sintaks:
+            sudo yum update -y
+
+        21. Setelah proses update selesai, silakan instal PHP, beberapa software package, dan dependencies secara bersamaan.
+            sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
+
+        22. Selanjutnya, mari kita instal Apache web server.
+            sudo yum install -y httpd
+
+        23. Mulai web server dengan sintaks berikut:
+            sudo systemctl start httpd
+
+        24. Oke, web server kita sekarang telah terinstal dan berjalan. Yuk kita tes!
+
+        25. Silakan kembali ke AWS Management Console, di halaman instance pada EC2 console, klik Instances pada menu atas.
+        20210420112911ec85881d6dabde7df6dd3f77fe1574b5.jpeg
+        
+        26. Pilih instance Anda dan salin public IPv4 DNS-nya. Lalu, tempelkan pada address bar di browser Anda.
+        20210420113000280ef4dd798b6555ab7c48c18abf11ad.jpeg
+
+        27. Ta-da! Halaman test page pun akan muncul.
+        20210420113108b6ad47288815c28c9a21abdc229ad45a.jpeg
+
+        28. Selanjutnya, kembali lagi ke terminal Anda (ssh connection yang sedang terhubung_ dan konfigurasikan web server agar tetap berjalan setiap system boot.
+            sudo systemctl enable httpd
+
+        29. Guna mengizinkan ec2-user mengelola file di direktori root default untuk Apache web server, Anda perlu memodifikasi ownership dan permission terhadap direktori /var/www. Pertama, tambahkan grup www ke EC2 instance dengan perintah berikut:
+            sudo groupadd www
+
+        30. Tambahkan pengguna ec2-user ke grup www.
+            sudo usermod -a -G www ec2-user
+
+        31. Oke, sekarang silakan logout untuk me-refresh konfigurasi Anda dengan perintah:
+            exit
+
+        32. Silakan login kembali dengan memasukkan sintaks ssh yang Anda miliki.
+        20210420113625d60790ca468891792f9db7f60a8b4010.jpeg
+
+        33. Lalu, periksa apakah grup www telah tersedia atau belum dengan sintaks groups. Output yang keluar akan seperti gambar berikut:
+        2021042011363743912b5f145948023ed4ec099599d4b7.jpeg
+
+        34. Ubahlah group ownership pada direktori /var/www and konten di dalamnya ke grup www.
+            sudo chgrp -R www /var/www
+
+        35. Kemudian, ubah permission /var/www dan subdirektorinya untuk menambahkan write permission pada grup sekaligus menyetel ID grup pada subdirektori yang dibuat di masa mendatang. Lalu, ubah permission secara berulang untuk file yang ada di /var/wwwdan subdirektorinya guna menambahkan write permission pada grup.
+            sudo chmod 2775 /var/www
+            find /var/www -type d -exec sudo chmod 2775 {} +
+            find /var/www -type f -exec sudo chmod 0664 {} +
+
+        36. Oke, kita telah selesai mengatur permission untuk Apache web server. Sekarang, mari kita hubungkan Apache web server ke DB instance. Pertama, beralihlah ke direktori /var/www dan buat subdirektori baru bernama inc.
+            cd /var/www
+            mkdir inc
+
+        37. Silakan masuk ke direktori inc, lalu buatlah file baru di dalamnya bernama dbinfo.inc. Selanjutnya, edit file dbinfo.inctersebut.
+            cd inc
+            >dbinfo.inc
+            nano dbinfo.inc
+
+        38. Silakan copy dan paste baris kode di bawah ini ke instance Anda. Jangan lupa, ubah db_instance_endpoint dan master password sesuai dengan yang Anda miliki. Jika sudah, silakan keluar dari file dbinfo.inc dengan cara CTRL + X, lalu tekan Y, kemudian Enter.
+            <?php
+
+            define('DB_SERVER', 'db_instance_endpoint');
+            define('DB_USERNAME', 'dicoding_user');
+            define('DB_PASSWORD', 'master password');
+            define('DB_DATABASE', 'sample');
+
+            ?>
+
+        39. Langkah selanjutnya, masuklah ke direktori /var/www/html.
+            cd /var/www/html
+
+        40. Buatlah file baru di dalam direktori html dengan nama SamplePage.php, lalu edit file tersebut.
+            >SamplePage.php
+            nano SamplePage.php
+
+        41. Kemudian, tambahkan baris kode di bawah ke file SamplePage.php (klik kanan untuk paste di command prompt).
+
+            <?php include "../inc/dbinfo.inc"; ?>
+            <html>
+            <body>
+            <h1>Sample page</h1>
+            <?php
+
+            /* Connect to MySQL and select the database. */
+            $connection = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD);
+
+            if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
+
+            $database = mysqli_select_db($connection, DB_DATABASE);
+
+            /* Ensure that the EMPLOYEES table exists. */
+            VerifyEmployeesTable($connection, DB_DATABASE);
+
+            /* If input fields are populated, add a row to the EMPLOYEES table. */
+            $employee_name = htmlentities($_POST['NAME']);
+            $employee_address = htmlentities($_POST['ADDRESS']);
+
+            if (strlen($employee_name) || strlen($employee_address)) {
+                AddEmployee($connection, $employee_name, $employee_address);
+            }
+            ?>
+
+            <!-- Input form -->
+            <form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
+            <table border="0">
+                <tr>
+                <td>NAME</td>
+                <td>ADDRESS</td>
+                </tr>
+                <tr>
+                <td>
+                    <input type="text" name="NAME" maxlength="45" size="30" />
+                </td>
+                <td>
+                    <input type="text" name="ADDRESS" maxlength="90" size="60" />
+                </td>
+                <td>
+                    <input type="submit" value="Add Data" />
+                </td>
+                </tr>
+            </table>
+            </form>
+
+            <!-- Display table data. -->
+            <table border="1" cellpadding="2" cellspacing="2">
+            <tr>
+                <td>ID</td>
+                <td>NAME</td>
+                <td>ADDRESS</td>
+            </tr>
+
+            <?php
+
+            $result = mysqli_query($connection, "SELECT * FROM EMPLOYEES");
+
+            while($query_data = mysqli_fetch_row($result)) {
+            echo "<tr>";
+            echo "<td>",$query_data[0], "</td>",
+                "<td>",$query_data[1], "</td>",
+                "<td>",$query_data[2], "</td>";
+            echo "</tr>";
+            }
+            ?>
+
+            </table>
+
+            <!-- Clean up. -->
+            <?php
+
+            mysqli_free_result($result);
+            mysqli_close($connection);
+
+            ?>
+
+            </body>
+            </html>
+
+
+            <?php
+
+            /* Add an employee to the table. */
+            function AddEmployee($connection, $name, $address) {
+            $n = mysqli_real_escape_string($connection, $name);
+            $a = mysqli_real_escape_string($connection, $address);
+
+            $query = "INSERT INTO EMPLOYEES (NAME, ADDRESS) VALUES ('$n', '$a');";
+
+            if(!mysqli_query($connection, $query)) echo("<p>Error adding employee data.</p>");
+            }
+
+            /* Check whether the table exists and, if not, create it. */
+            function VerifyEmployeesTable($connection, $dbName) {
+            if(!TableExists("EMPLOYEES", $connection, $dbName))
+            {
+                $query = "CREATE TABLE EMPLOYEES (
+                    ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+                    NAME VARCHAR(45),
+                    ADDRESS VARCHAR(90)
+                )";
+
+                if(!mysqli_query($connection, $query)) echo("<p>Error creating table.</p>");
+            }
+            }
+
+            /* Check for the existence of a table. */
+            function TableExists($tableName, $connection, $dbName) {
+            $t = mysqli_real_escape_string($connection, $tableName);
+            $d = mysqli_real_escape_string($connection, $dbName);
+
+            $checktable = mysqli_query($connection,
+                "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
+
+            if(mysqli_num_rows($checktable) > 0) return true;
+
+            return false;
+            }
+            ?>
+
+        42. Jika sudah, silakan simpan dan tutup file tersebut dengan cara CTRL + X, tekan Y, lalu Enter.
+
+
+        43. Huh, ayo sedikit lagi! Sekarang, kita masuk ke tahap pengujian. Silakan buka kembali Public IPv4 address dari EC2 instance Anda di browser. Namun, tambahkan http://Public-IPv4-DNS/SamplePage.php. Contoh: http://ec2-18-141-178-139.ap-southeast-1.compute.amazonaws.com/SamplePage.php (ini adalah URL contoh).
+
+    Silakan bereksplorasi dengan halaman tersebut. Anda bisa menambahkan data ke DB instance dengan memasukkan nilai nama dan alamat, lalu klik tombol Add Data. Data yang Anda tambahkan akan langsung terlihat pada halaman tersebut. Lihat gambar berikut:
+
+    20210420114827354b9608c599839b956f48e1567a7e11.jpeg
+
+    Catatan: Jika Anda telah selesai dengan pengujian web server dan database tersebut, silakan hapus semua komponen yang telah dibuat guna menghindari penagihan. Berikut adalah urutan penghapusannya:
+
+        1. Delete RDS database instance. 
+        2. Delete RDS database subnet groups (pastikan database instance telah terhapus).
+        3. Terminate EC2 instance.
+        4. Delete NAT gateway.
+        5. Release Elastic IP addresses.
+        6. Delete VPC.
