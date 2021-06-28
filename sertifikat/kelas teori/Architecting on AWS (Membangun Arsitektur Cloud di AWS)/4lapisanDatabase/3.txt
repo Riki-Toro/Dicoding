@@ -1,0 +1,43 @@
+AWS Database Migration Service (AWS DMS)
+    Saat bisnis telah berjalan dan berkembang, ada kalanya terjadi hal-hal yang tak bisa kita hindari, seperti migrasi database. Ini bisa terjadi karena berbagai faktor, misalnya kebutuhan yang kian berkembang. 
+
+    Tapi tenang saja, AWS telah menyediakan layanan yang memudahkan Anda untuk melakukan migrasi database. Penasaran seperti apa? Check it out!
+
+    AWS DMS adalah layanan migrasi database yang dapat digunakan untuk memindahkan database dari on-premise, Amazon EC2, ataupun Amazon RDS dengan database engine tertentu ke Amazon RDS yang sesuai pilihan kita. Pada dasarnya, ada dua jenis migrasi data yang dapat dilakukan, mari kita uraikan.
+
+
+    Migrasi Database Homogen
+        Pada migrasi database homogen, mesin database target dan database sumber harus sama atau kompatibel, misalnya seperti Oracle Database ke Amazon RDS for Oracle, MySQL ke Amazon Aurora, MySQL ke Amazon RDS for MySQL, atau Microsoft SQL Server ke Amazon RDS for SQL Server. 
+
+        Karena struktur skema, tipe data, dan kode antara database sumber dan database target itu kompatibel, maka migrasi jenis ini adalah proses satu langkah.
+
+
+    Migrasi Database Heterogen
+        Dalam migrasi database heterogen, database engine sumber dan database target berbeda, seperti dalam kasus migrasi Oracle ke Amazon Aurora, Oracle ke PostgreSQL, atau Microsoft SQL Server ke MySQL. 
+
+        Dalam kasus ini, struktur skema, jenis data, dan kode antara database sumber dan database target cukup berbeda sehingga memerlukan transformasi skema database. Hal itu membuat migrasi heterogen menjadi proses dua langkah.
+
+        Migrasi dua langkah ini dapat dijabarkan sebagai berikut:
+
+            Gunakan AWS SCT (AWS Schema Conversion Tool) untuk mengonversi skema database sumber (dari SQL Server) ke format yang kompatibel dengan database target (dalam contoh ilustrasi ini PostgreSQL).
+            Mereplikasi data antara sumber dan database target menggunakan AWS DMS.
+
+        Pada poin di atas disebutkan layanan AWS SCT, apa itu? Mari kita bahas! 
+
+        AWS SCT alias AWS Schema Conversion Tool adalah alat yang memungkinkan Anda untuk dapat mengonversi skema database yang ada dari satu database engine ke mesin database yang lain. Tabel di bawah menunjukkan konfigurasi migrasi atau konversi skema database yang didukung oleh AWS SCT.
+
+            Source Database     >>      Target Database
+
+                Microsoft SQL Server >> Amazon Aurora, MySQL, PostgreSQL
+
+                MySQL >> PostgreSQL
+
+                Oracle >> Amazon Aurora, MySQL, PostgreSQL
+
+                Oracle Data Warehouse >> Amazon Redshift
+
+                PostgreSQL >> Amazon Aurora, MySQL
+
+                Teradata >> Amazon Redshift
+
+    Oke. Jadi itulah pembahasan kita kali ini mengenai migrasi database di AWS. Memang, kebutuhan akan migrasi database bisa saja terjadi dan tak bisa kita hindari. Untungnya, AWS telah menyediakan layanan migrasi database sehingga memudahkan kita untuk melakukannya tanpa perlu repot dan mengeluarkan biaya yang mahal seperti di on-premise.
