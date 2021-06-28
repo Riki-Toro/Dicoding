@@ -41,3 +41,31 @@ AWS Database Migration Service (AWS DMS)
                 Teradata >> Amazon Redshift
 
     Oke. Jadi itulah pembahasan kita kali ini mengenai migrasi database di AWS. Memang, kebutuhan akan migrasi database bisa saja terjadi dan tak bisa kita hindari. Untungnya, AWS telah menyediakan layanan migrasi database sehingga memudahkan kita untuk melakukannya tanpa perlu repot dan mengeluarkan biaya yang mahal seperti di on-premise.
+
+
+
+
+Hands-on Lab: Deploy Aplikasi Web di AWS
+    Setelah mempelajari tentang komputasi dan database di AWS, mari kita akan praktikkan langsung pada latihan ini. Namun, sebelum memulai, yuk kita ingat kembali skenario startup warung kedai kopi kita.
+
+    Pada latihan sebelumnya, Anda telah berhasil meng-hosting web statis dan semuanya berjalan lancar. Seiring waktu berjalan, startup Anda akhirnya siap untuk meluncurkan produknya, yakni aplikasi web beserta database-nya.
+
+    Pertanyaannya, bagaimana cara mewujudkannya di AWS? Oh, tak perlu khawatir, pada latihan ini kita akan mempelajarinya. Teknologi yang akan kita gunakan antara lain: Amazon EC2, Amazon RDS, dan Security group.
+
+    Agar lebih mempermudah penjelasan, perhatikan gambar arsitektur berikut:
+
+    Seperti itulah gambaran arsitektur yang akan kita implementasikan pada latihan kali ini. Mari kita bedah:
+
+        EC2 instance berisi aplikasi web Anda akan ditempatkan di subnet publik sehingga bisa diakses oleh publik.
+        RDS instance yang berisi database Anda akan ditempat di subnet privat. Ia hanya bisa mengirim dan menerima data ke/dari EC2 instance.
+
+    Nah, setelah Anda mengetahui apa yang akan kita lakukan, mari lihat tahapan-tahapan yang akan kita lakukan berikut:
+
+        Membuat VPC yang berisi subnet publik dan privat.
+        Men-deploy layanan AWS-Managed database dengan Amazon RDS.
+        Men-deploy server aplikasi dengan Amazon EC2.
+        Menguji aplikasi.
+        
+    Sebelum meminta layanan database dan EC2 instance, Anda terlebih dahulu perlu membuat VPC, subnet, dan security group. Komponen-komponen tersebut diperlukan agar database dan EC2 instance Anda bisa terhubung dan saling berkomunikasi. 
+
+    Oke, tak perlu menunggu lama lagi, mari kita meluncur ke langkah-langkahnya. Semangat!
