@@ -46,3 +46,61 @@ Pertimbangan dalam Mendesain Database
 
 
 
+Database Relasional dan Nonrelasional
+    Berdasarkan skenario di awal, sepertinya warung kopi kita membutuhkan database relasional sebagai penyimpanannya. Di modul ini, kita akan berkenalan dengan layanan database relasional AWS, yakni Amazon Relational Database Service (Amazon RDS). 
+
+    Tetapi ketahuilah bahwa sebenarnya ada jenis database lain yang tersedia. Tentu, tidak ada salahnya untuk berkenalan dengannya.
+
+    Terdapat dua jenis database yang tersedia saat ini di AWS, yaitu relasional dan nonrelasional. Gambar berikut menunjukkan pembagian database beserta contohnya:
+
+    Baik database relasional maupun nonrelasional, keduanya memiliki kasus penggunaan yang berbeda sesuai kebutuhan Anda. Database relasional biasanya digunakan untuk OLTP (Online Transaction Processing) dan data warehouse (gudang data). Sedangkan untuk database nonrelasional, banyak dipakai untuk data visualization (graph); leaderboard dan shopping-cart data (key-value); customer dan order data (document).
+
+    Penasaran seperti apa perbedaan keduanya secara lebih mendalam? Simak di pembahasan selanjutnya!
+
+
+        Database Relasional
+            Database Relasional menyimpan data dalam baris dan kolom. Baris berisi semua informasi tentang satu entri, sedangkan kolom adalah atribut yang memisahkan titik data (data points). Skema database relasional bersifat fixed alias tetap, di mana kolom harus dikunci sebelum melakukan entri data. Untuk mengubah skema, misalnya menambahkan kolom baru, umumnya database harus dijadikan offline terlebih dahulu.
+
+            Ilustrasi di atas menunjukkan sebuah skema database relasional penjualan buku yang terdiri dari tiga tabel. Tiap tabel merepresentasikan datanya masing-masing, yaitu data buku, pengarang, dan penjualan. Perhatikan tanda panah di ketiga tabelnya, tanda ini menunjukkan relasi antar tabel di mana tiap tabel memiliki data yang sama yaitu author. 
+
+            Dengan skema dan relasi ini, kita bisa melakukan kueri untuk mendapatkan informasi tertentu, misalnya, “Berapa total penjualan (Revenue) untuk pengarang Wilson, Joe?”
+
+            Pengolahan data dalam database relasional dilakukan dengan menggunakan bahasa kueri yang disebut sebagai SQL (Structure Query Language). Oleh karena itu, umumnya database relasional juga dikenal sebagai server SQL.
+
+            Saat ini, pilihan untuk melakukan scaling (penyesuaian kapasitas) terhadap database relasional dapat dilakukan secara vertikal (vertical scaling) dengan meningkatkan daya perangkat keras, misalnya dengan menambahkan CPU ataupun memori. Amazon RDS mendukung horizontal scaling dengan menambahkan read replica, sehingga anda dapat mengalihkan misalnya beban pembuatan report ke read replica tersebut.
+
+            Database relasional adalah pilihan yang baik untuk memenuhi kondisi-kondisi sebagai berikut:
+
+                Anda memerlukan aturan skema yang ketat dan enforcement terhadap kualitas data.
+                Database Anda tidak membutuhkan kapasitas read (baca) / write (tulis) yang ekstrem.
+                Anda memiliki kumpulan data (dataset) relasional yang tidak memerlukan kinerja/performance database yang tinggi.
+
+            Nah, itulah sedikit gambaran tentang database relasional yang nantinya akan kita praktikkan ke dalam website warung kopi kita. Selanjutnya, mari kita bahas mengenai database nonrelasional. Tetap semangat!
+
+        Database Nonrelasional
+            Database Nonrelasional sering juga disebut NoSQL. Database NoSQL menyimpan data menggunakan salah satu dari banyak model penyimpanan, seperti pasangan nilai kunci (key-value), dokumen, dan grafik. 
+
+            Skema NoSQL bersifat dinamis. Baris tidak harus berisi data untuk setiap kolom. Data dalam database NoSQL diolah dengan berfokus pada kumpulan dokumen. Ilustrasi berikut menunjukkan cara untuk menyimpan data ke database NoSQL.
+
+            Database NoSQL dapat melakukan horizontal scaling, yang berarti bahwa ia dapat menangani peningkatan lalu lintas hanya dengan menambahkan jumlah server untuk melayani transaksi database. 
+
+            Database NoSQL memiliki kemampuan untuk menjadi lebih besar dan jauh lebih kuat dibandingkan database relasional. Ini menjadikannya pilihan yang lebih disukai untuk kumpulan data (dataset) yang besar atau terus berkembang.
+
+            Database nonrelasional bisa menjadi pilihan yang baik untuk memenuhi kebutuhan-kebutuhan berikut:
+
+                Anda membutuhkan database yang dapat melakukan horizontal scaling (penyesuaian kapasitas secara horizontal).
+                Data Anda tidak cocok dengan skema tradisional.
+                Kecepatan read/write melebihi kecepatan yang didukung secara ekonomis di SQL DB tradisional.
+
+            Tabel berikut menunjukkan perbedaan mendasar antara database relasional dan nonrelasional
+
+            Penyimpanan Data | Baris dan kolom | Key value, dokumen, dan graphs
+
+            Skema | Fixed | Dinamis
+
+            Pengolahan data | Menggunakan SQL | Berfokus pada kumpulan dokumen
+
+            Skalabilitas | Vertikal | Horizontal
+
+    Oke, kita telah tuntas membahas jenis-jenis database. Selanjutnya, mari kita bandingkan layanan database yang tersedia di AWS.
+    
