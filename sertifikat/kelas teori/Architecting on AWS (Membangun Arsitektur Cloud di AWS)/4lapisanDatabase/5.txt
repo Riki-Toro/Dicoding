@@ -1,0 +1,65 @@
+Hands-on Lab: Deploy Aplikasi Web di AWS - Membuat DB instance
+    Oke, bagian ini adalah lanjutan dari latihan latihan Membuat VPC. Sebelumnya, kita telah berhasil membuat VPC dengan subnet publik dan privat, subnet privat tambahan, security group untuk web server dan DB instance, dan DB subnet group.
+
+    Nah, di latihan bagian kedua ini, kita akan fokus untuk membuat DB instance menggunakan Amazon RDS bertipe MySQL. Penasaran? Yuk langsung kita praktikkan.
+
+        1. Silakan masuk ke halaman utama dari Amazon RDS.
+        20210420104253b57994c123e93b1c807370cfa4f6501d.jpeg
+        
+        2. Pastikan Anda masih berada di Region Singapore ya.
+        20210420104316ba8518c668e8aac06119ba59a8febd89.jpeg
+
+        3. Pada panel navigasi di sebelah kiri, silakan masuk ke menu Databases dan klik tombol Create database.
+        20210420104359a1a4ef9e19c1f8c1a757228be18f4ccd.jpeg
+        
+        4. Pada halaman Create database, pastikan Anda memilih konfigurasi di bawah ini:
+
+            Choose a database creation method   |   Standard create
+            Engine options                      |   MySQL
+            Version                             |   MySQL 5.7.16
+
+        5. Pada bagian Templates, pastikan Anda memilih Free tier. Lalu untuk bagian Settings, silakan ikuti konfigurasi berikut:
+
+            DB instance identifier  |   dicoding-tutorial-db-instance
+            Master username         |   dicoding_user
+            Auto generate a password|   Matikan opsi ini
+            Master password         |   Isikan password sesuai keinginan Anda
+            Confirm password        |   Ketik ulang password
+
+            Jika Anda tidak menemukan bagian pengisian username dan password, klik bilah Credentials Settings.
+            20210420104540c22b4286fffe3353e1fe08866d3f1231.jpeg
+
+
+        6. Selanjutnya, biarkan konfigurasi pada bagian DB instance size dan Storage sesuai default. Perhatikan gambar di bawah ini:
+        20210420104636df904ede800a19c52d7a4d1250d45df9.jpeg
+
+        7. Kita tak perlu mengubah apa pun pada bagian Availability & durability, silakan lanjut ke langkah berikutnya.
+
+        8. Di bagian Connectivity, silakan ikuti konfigurasi berikut:
+
+            Virtual private cloud (VPC)     |   dicoding-tutorial-VPC (vpc-identifier)
+            Subnet group                    |   dicoding-tutorial-db-subnet-group
+            Public access                   |   No
+            VPC security group              |   Choose existing 
+            Existing VPC security groups    |   dicoding-tutorial-db-securitygroup (Catat! Hapuslah security group yang lain, semisal default dengan klik tombol X)
+            Availability Zone               |   ap-southeast-1b
+            Database port                   |   3306
+
+            Jika Anda tidak menemukan letak Database port, silakan buka bilah Additional configuration tepat di bawah opsi Availability Zone.
+
+        9. Kita tak perlu mengubah apa pun pada bagian Database authentication.
+
+        10. Kemudian, klik tanda panah pada Additional configuration, lalu isikan “sample” pada bagian Initial database name. Biarkan pengaturan lainnya secara default.
+        20210420104937254e1e42831c8a61780625d8cd13f7ea.jpeg
+        
+        11. Scroll halaman ke paling bawah dan klik Create database untuk membuat RDS MySQL DB instance.
+        2021042010502913f41c15c429b262e73541f6ea111c17.jpeg
+
+        12. DB instance Anda akan terdaftar di halaman Databases dengan status Creating.
+        2021042010510817bc135356076f8af673a70dcd954932.jpeg
+
+        13. Tunggulah beberapa menit hingga status DB instance Anda berubah menjadi Available. Jika sudah, silakan klik nama DB instance untuk melihat detailnya. Pada bagian Connectivity & security, catat Endpoint dari DB instance karena Anda akan memerlukannya nanti.
+        2021042010533718a5e8ba55cc64570a01dff8c67a8d54.jpeg
+
+
+    Selamat! Anda telah berhasil membuat Amazon RDS DB instance dengan tipe MySQL. Tinggal satu tahap lagi yang perlu Anda lakukan, yakni membuat EC2 instance untuk web server. Mari kita selesaikan di bagian selanjutnya.
