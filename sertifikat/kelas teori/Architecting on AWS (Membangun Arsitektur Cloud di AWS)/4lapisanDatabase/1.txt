@@ -1,0 +1,22 @@
+Pengantar ke Menambahkan Lapisan Database
+    Pada modul sebelumnya, kita sudah belajar seputar layanan komputasi di AWS. Nah kali ini, kita akan membahas tentang layanan database. Mari kita kaitkan kembali dengan skenario startup warung kopi.
+
+    Setelah menambahkan lapisan komputasi, startup kita kian berkembang dan melayani banyak pelanggan. Ini bagus untuk bisnis! Tapi tunggu, seiring berkembangnya bisnis, startup kita juga memiliki kebutuhan yang semakin banyak. 
+
+    Sekarang, startup warung kopi ingin mengeluarkan program-program baru. Setelah diskusi internal ternyata tim marketing ingin meluncurkan program loyalty untuk pelanggan yang setia, dengan harapan dapat meningkatkan retensi pelanggan. 
+
+    Demi melancarkan program loyalty tersebut, tentunya dibutuhkan skema penyimpanan yang mencukupi. Misalnya, untuk menandakan seorang pelanggan menjadi ‘pelanggan setia’, sistem kita harus bisa menghitung dari catatan pembelian pelanggan tersebut berdasarkan 3-5 bulan ke belakang. 
+
+    Bayangkan, pasti akan sangat sulit jika kita harus menghitung data dengan menggunakan penyimpanan sederhana seperti text editor. Oleh karena itu, sistem kita membutuhkan database yang dapat mempermudah dalam perhitungan program loyalty tersebut.
+
+    Nah, di AWS tersedia layanan database yang highly available (sangat tersedia) dan scalable (mudah diskalakan). Layanan database ini akan dipisahkan dari bagian server aplikasi. Namun sebelum memulai pembahasan, mari kita tengok apa saja yang akan dipelajari di modul ini, antara lain:
+
+        Membandingkan jenis-jenis database.
+        Menjelaskan layanan terkelola (managed service) dan tidak terkelola (unmanaged service).
+        Menguraikan materi tentang layanan database relasional Amazon (Amazon RDS) dan Amazon DynamoDB.
+        Menguraikan layanan migrasi AWS.
+
+    Sebagai gambaran sebelum memulai modul, silakan amati gambar di bawah ini yang mengilustrasikan perkembangan arsitektur pada startup warung kopi kita.
+
+    Dari gambar di atas dapat disimpulkan bahwa di modul ini kita akan menambahkan layanan Amazon RDS. Jadi, mari awali langkah kita dengan membahas seputar hal-hal penting yang patut dipertimbangkan dalam mendesain database. Let’s Go!
+    
