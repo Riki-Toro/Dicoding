@@ -29,3 +29,62 @@ Layanan Database AWS
 
             Wow, menarik bukan? Dengan AWS Managed Service, tim kita terbebas dari tugas rutin (yang sekali lagi, tetap penting!) dan bisa berkonsentrasi mengoptimalkan kinerja aplikasi. Mari kita pelajari apa saja layanan AWS Managed Service yang tersedia untuk database di pembahasan selanjutnya!
             
+
+
+
+Opsi Database di AWS
+    Seperti yang telah kita pelajari sebelumnya, saat ini ada dua jenis database yang tersedia, yaitu database relasional dan nonrelasional. Gambar di bawah menunjukkan beberapa pilihan dari kedua jenis database tersebut yang tersedia di AWS. Harap diperhatikan bahwa ini hanya sebagian pilihan saja.
+
+    Di modul ini, kita hanya akan mempelajari dua saja, yakni Amazon RDS dan Amazon DynamoDB. Ayo kita mulai pembahasannya!
+
+
+        Amazon RDS
+            Amazon RDS atau Amazon Relational Database Service adalah layanan database relasional yang ditangani sepenuhnya (fully managed) oleh AWS. Di Amazon RDS, Anda bisa memilih beberapa tipe database engine, seperti Amazon Aurora, MySQL, MariaDB, PostgreSQL, Oracle, dan Microsoft SQL Server.
+
+            Dengan menggunakan Amazon RDS, Anda akan mendapatkan banyak keuntungan, di antaranya:
+
+                Layanan database relasional yang ditangani sepenuhnya (fully managed) oleh AWS. 
+                Pembuatan instance database baru dicapai dalam hitungan menit.
+                Proses peningkatan kapasitas hanya dengan beberapa klik.
+
+            Dari semua pilihan mesin dari Amazon RDS di atas, ada satu opsi yang unik. Apakah Anda bisa menebaknya? Cek jawabannya di modul berikutnya!
+
+
+        Amazon Aurora
+            Amazon Aurora adalah mesin database relasional terkelola sepenuhnya yang kompatibel dengan MySQL dan PostgreSQL. Layanan ini mengombinasikan kecepatan dan keandalan dari database komersial kelas atas dengan kemudahan dan efektivitas biaya dari database open-source. 
+
+            Tunggu sebentar, apa yang dimaksud dengan “kompatibel dengan MySQL dan PostgreSQL?” Maksudnya, sebagian besar kode, alat, serta aplikasi yang menggunakan database MySQL dan PostgreSQL dapat digunakan bersama Aurora dengan sedikit atau tanpa perubahan sama sekali. Menarik, kan?
+
+            Tak hanya itu, Amazon Aurora juga memiliki beberapa keuntungan, antara lain:
+
+                Throughput yang sangat cepat, bahkan hingga 5x dibandingkan dengan MySQL dan hingga 3x jika dikomparasi dengan PostgreSQL.
+                Replikasi data secara synchronous ke 6 storage nodes di tiga Availability Zone.
+                Hanya butuh sedikit perubahan pada aplikasi Anda.
+                Dukungan Aurora global database.
+
+
+        Database Nonrelasional (NoSQL) - Amazon DynamoDB
+            Kita telah mempelajari secara singkat apakah database NoSQL itu. Nah, di modul ini Anda akan berkenalan dengan Amazon DynamoDB. Ia adalah salah satu dari beberapa layanan database NoSQL yang tersedia di AWS. 
+
+            Oke, mari kita uraikan beberapa poin dari gambar di atas, antara lain:
+
+                Fully Managed (terkelola sepenuhnya)
+                    Dengan menggunakan layanan Amazon DynamoDB, tim kita bisa berfokus pada hal yang benar-benar memberikan nilai tambah, seperti mengoptimasi aplikasi.
+
+
+                Event-driven programming
+                    Saat menggunakan Amazon DynamoDB kita tidak perlu mengelola server. Dengannya, kita bisa menerapkan event-driven programming atau serverless computing.
+
+
+                Extreme Horizontal Scaling
+                    Amazon DynamoDB adalah database nonrelasional yang mendukung model data key-value (nilai-kunci) dan dokumen. Layanan ini bahkan mendukung tabel berukuran apa pun secara virtual dengan horizontal scaling (penyesuaian kapasitas secara horizontal).
+
+                    Hal tersebut memungkinkan DynamoDB untuk melakukan scaling lebih dari 10 triliun permintaan per hari dengan puncak lebih dari 20 juta permintaan per detik dengan penyimpanan pada tingkat petabyte.
+
+
+    Alright, tibalah kita di akhir materi tentang opsi Database di AWS. Intinya, baik relasional maupun nonrelasional, keduanya memiliki kasus penggunaan yang berbeda sesuai kebutuhan Anda. 
+
+    Gunakanlah Amazon Aurora sebagai pilihan untuk database relasional jika aplikasi Anda membutuhkan kecepatan dan keandalan dari layanan database kelas atas. Aurora tersedia secara global dengan biaya yang ekonomis dan ditangani sepenuhnya oleh AWS.
+
+    Sementara itu, gunakanlah Amazon DynamoDB sebagai pilihan untuk database NoSQL dengan kemampuan horizontal scaling yang luar biasa dan serverless programming (dikombinasikan dengan AWS Lambda). Layanan ini juga sepenuhnya ditangani oleh AWS.
+    
