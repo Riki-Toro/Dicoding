@@ -19,4 +19,30 @@ Pengantar ke Menambahkan Lapisan Database
     Sebagai gambaran sebelum memulai modul, silakan amati gambar di bawah ini yang mengilustrasikan perkembangan arsitektur pada startup warung kopi kita.
 
     Dari gambar di atas dapat disimpulkan bahwa di modul ini kita akan menambahkan layanan Amazon RDS. Jadi, mari awali langkah kita dengan membahas seputar hal-hal penting yang patut dipertimbangkan dalam mendesain database. Let’s Go!
-    
+
+
+
+
+Pertimbangan dalam Mendesain Database
+    Seperti yang diketahui bersama, kita tak bisa sembarangan membangun arsitektur, begitupun saat membuat database. Mengapa begitu? Ini karena nantinya database tidak akan berjalan optimal dan menyulitkan kita jika memiliki kebutuhan yang terus berkembang.
+
+    Maka dari itu, pertimbangkanlah beberapa hal saat mendesain layanan database untuk sistem kita, di antaranya:
+
+        Scalability
+            Dalam hal scalability (skalabilitas), kita perlu mempertimbangkan faktor-faktor seperti berapa besar transaksi data yang akan masuk dan keluar ke solusi database. Apakah solusi yang kita pilih dapat meningkat nanti sesuai dengan kebutuhan atau tidak.
+
+
+        Storage Requirements
+            Amazon RDS menyediakan tiga jenis storage, yaitu General Purpose SSD, Provisioned IOPS SSD, dan Magnetic. Gunakan jenis storage yang tepat dan sesuai dengan kebutuhan kita.
+
+
+        Object Size and Type
+            Kita patut mempertimbangkan struktur, jenis, dan juga ukuran objek data. Misalnya, apakah kita akan menyimpan tipe data seperti numerik, string, tanggal, gambar, dan lainnya.
+
+
+        Durability
+            Pertimbangan database ini melihat seberapa tinggikah tingkat ketahanan, ketersediaan, dan pemulihan database yang Anda butuhkan. Apakah ada aturan terkait database yang harus dipenuhi atau tidak.
+
+
+
+
