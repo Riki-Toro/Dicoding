@@ -1,0 +1,31 @@
+Layanan Database AWS
+    Pada dasarnya ada dua jenis layanan database yang tersedia di AWS yaitu Managed (terkelola) dan Unmanaged (tidak terkelola). Mari kita uraikan perbedaan keduanya.
+
+
+        AWS Unmanaged Service 
+            Diagram di bawah ini menunjukkan perbedaan antara meng-hosting database sendiri (on-premise) atau menjalankan database di atas layanan Amazon EC2.
+
+            Jika kita meng-hosting database secara on-premise, maka seluruh aktivitas fisik yang diperlukan sebelum server bisa diakses harus Anda lakukan sendiri, seperti masalah daya, jaringan, racking (penempatan), stacking (penyusunan), sampai instalasi OS. 
+
+            Bahkan setelah OS diinstal pun, Anda masih harus bertanggung jawab untuk aktivitas  tambahan, seperti patching OS hingga optimasi aplikasi. 
+
+            Ketahuilah! Empat kegiatan pertama (masalah daya sampai instalasi OS) adalah kegiatan fisik yang perlu dilakukan dan mungkin memerlukan rentang waktu yang lama dalam hitungan beberapa jam hingga hari.
+
+            Saat menggunakan layanan Unmanaged Service di AWS, itu berarti kita akan menggunakan VM untuk server database alias menggunakan Amazon EC2. Nah, empat kegiatan awal tadi sudah dikerjakan oleh tim data center AWS, sehingga yang perlu dilakukan adalah menyalakan VM tersebut, yang mana dapat diakses dalam hitungan menit. Selanjutnya, kita hanya perlu melakukan kegiatan tambahan dari patching OS hingga mengoptimasi aplikasi.
+
+
+        AWS Managed Service
+            Sebelumnya kita telah belajar tentang AWS Unmanaged Service yang mampu membebaskan kita dari tugas-tugas dasar (tetapi tetap penting!) seperti pemeliharaan perangkat keras server, perangkat jaringan, instalasi OS, dan sebagainya. Ini sangat membantu kita dalam mengirimkan aplikasi ke pelanggan (time to market) menjadi lebih cepat. Tetapi jangan lupa, selain aktivitas tersebut, kita masih harus mengerjakan hal-hal di bawah ini:
+
+                Instalasi aplikasi (dalam hal ini adalah database)
+                Patching
+                Backup dan restore
+                High Availability
+                Skalabilitas
+
+            Hal-hal di atas tetap harus Anda lakukan dan sangat memakan waktu. Nah, untungnya AWS telah memikirkan hal itu dan meluncurkan AWS-Managed Database Service. 
+
+            Dengan menggunakan layanan ini, AWS akan melakukan semua hal di atas sehingga kita dan tim akan lebih fokus serta hanya perlu melakukan sesuatu yang benar-benar memiliki nilai tambah, yaitu optimasi aplikasi (app optimization). Hal ini ditunjukkan pada gambar berikut:
+
+            Wow, menarik bukan? Dengan AWS Managed Service, tim kita terbebas dari tugas rutin (yang sekali lagi, tetap penting!) dan bisa berkonsentrasi mengoptimalkan kinerja aplikasi. Mari kita pelajari apa saja layanan AWS Managed Service yang tersedia untuk database di pembahasan selanjutnya!
+            
