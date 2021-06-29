@@ -1,0 +1,125 @@
+Hands-on Lab: Membuat Virtual Private Cloud - Membuat VPC A
+    Di bagian ini, kita akan melakukan beberapa tahapan. Mulai dari membuat VPC A, memasang Internet Gateway, membuat subnet publik dan privat, serta mengasosiasikan route table. Yuk kita langsung ikuti langkah-langkah berikut:
+
+        1. Langkah pertama, silakan buka AWS Management Console, lalu masuk ke halaman VPC (Virtual Private Cloud). Ketikkan VPC di kotak pencarian di samping Services.
+        20210420135051afefac42c9425ef3bcdf74e91af5f96f.jpeg
+
+        2. Pastikan Anda sedang berada di Region Singapore (lihat kanan atas). Masuklah ke menu Your VPCs pada navigasi sebelah kiri, kemudian klik tombol Create VPC.
+        202104201351506f19a665a11b7a2b8f7ce33aa51a9a78.jpeg
+
+        3. Isikan sesuai konfigurasi berikut:
+
+            Name tag	    |   VPC-A
+            IPv4 CIDR block |   10.100.0.0/16
+            
+            Jika sudah, lanjutkan dengan klik tombol Create VPC.
+            20210420135219c44bf2a1e5bd1955f963db9370e08812.jpeg 
+
+        4. Oke, kita telah membuat VPC A. Selanjutnya, mari kita buat Internet Gateway yang kemudian akan dipasang ke VPC A. Masih berada di VPC dashboard, silakan masuk ke menu Internet Gateways -> Create Internet Gateway.
+        202104201354026f874e5a8e200f5dbcb55c3fc626ef7a.jpeg
+
+        5. Isikan nama Internet Gateway Anda dengan VPC-A-IGW, lalu klik tombol Create internet gateway.
+        20210420135416189e388fbea68ea6a1aaba7f18a4e7aa.jpeg
+
+        6. Setelah Internet Gateway terbuat, masuklah kembali ke menu Internet Gateways pada navigasi sebelah kiri, centang kotak di samping nama VPC-A-IGW, klik tombol Action -> Attach to VPC.
+        20210420135431ab872f156ecd128ea0a645971c895147.jpeg
+
+        7. Pada bagian Available VPCs, pilihlah VPC-A, lalu klik tombol Attach internet gateway.
+        20210420135549988211c6fba2a61e29e2059fcc082e4a.jpeg
+
+        8. Oke, kita telah berhasil memasang Internet Gateway ke VPC A. Langkah selanjutnya adalah membuat subnet publik untuk VPC A. Yuk klik menu Subnets -> Create subnet.
+        20210420135614d087a5dd03c82637a1c3af3addbb1eac.jpeg
+
+        9. Di bagian VPC ID, klik drop down arrow dan pilihlah VPC-A.
+        20210420135641ffabd37d42142a3eec069f6645ee4ccb.jpeg
+
+        10. Kemudian pada bagian Subnet settings, silakan isi field yang diperlukan sesuai dengan konfigurasi berikut:
+
+            Subnet name	            |       VPC-A-Subnet-Public
+            Availability Zone	    |       No preference
+            IPv4 CIDR block	        |       10.100.0.0/24
+
+            Jika sudah, silakan lanjutkan dengan klik tombol Create subnet.
+            20210420135707dd3a6212dcc50241766a1d66835f975f.jpeg 
+
+        11. Setelah berhasil membuat subnet publik di VPC A, selanjutnya mari kita buat konfigurasi route table untuknya. Masuklah ke menu Route Tables -> Create route table.
+        20210420135857a25819a48ccfccc047efb5dcdad856be.jpeg
+
+        12. Pada halaman ini, silakan isikan dengan konfigurasi berikut:
+
+            Name tag	|   VPC-A-RT-Public
+            VPC	        |   VPC-A
+
+            Jangan lupa menambahkan tag agar mempermudah penamaan route table. Klik tombol Add Tag, lalu isilah sesuai dengan nilai-nilai berikut:
+
+            Key	        |       Name
+            Value	    |       VPC-A-RT-Public
+
+            Jika sudah, lanjutkan dengan klik tombol Create.
+            20210420140006fb15fe53e02521765a17ca88245e07c7.jpeg
+
+            Setelah kalimat “The following Route Table was created” muncul, klik tombol Close. Seketika Anda akan diarahkan ke halaman awal Route Table.
+
+        13. Route table yang telah kita buat hanya memiliki rute lokal CIDR VPC A, yaitu 10.100.0.0/16 (lihat gambar di bawah). Sementara itu, kita juga membutuhkan route yang menuju ke Internet Gateway agar subnet publik dapat berkomunikasi dengan internet. Jadi, mari tambahkan route baru dengan klik Route Table Anda (VPC-A-RT-Public), lalu pada bagian bawah klik tab Routes, dan klik tombol Edit Routes.
+        202104201402234eabe8245c9ed2a4184dd81855c58de4.jpeg
+
+        14. Untuk menambahkan route, klik tombol Add route. Lalu isilah konfigurasi berikut:
+
+            Destination	            |       0.0.0.0/0
+            Target	                |       Internet Gateway -> VPC-A-IGW
+
+            Jika sudah, silakan klik tombol Save routes. Saat muncul kalimat “Routes successfully edited”, lanjutkan dengan klik Close. Perhatikan, sekarang Anda akan memiliki route seperti berikut:
+            202104201404513a2ef2e57d7545a4ea882a9f780ae7bf.jpeg 
+
+        15. Selepas mengedit route, mari kita asosiasikan route table tersebut ke publik subnet yang telah dibuat. Caranya, masuklah ke tab Subnet Associations -> Edit subnet associations.
+        20210420140532892227bd03074c23c6a4ce7c20d5427e.jpeg
+
+        16. Di halaman ini, pilihlah subnet publik Anda, yakni VPC-A-Subnet-Public. Kemudian, klik tombol Save.
+        20210420140612ad359b5452f74cf8fb06b9763f1c94f9.jpeg
+
+        17. Oke, sampai tahap ini, kita telah berhasil membuat VPC A dan subnet publiknya. Langkah selanjutnya, yuk kita buat subnet privat. Silakan masuk kembali ke menu Subnets yang ada di navigasi kiri. Kemudian, klik tombol Create subnet.
+        20210420140624da17a4b7d57c370ac77fd312b4e324c4.jpeg
+
+        18. Nah, kita sudah berada di halaman Create subnet. Di bagian VPC, pilihlah VPC ID yang telah kita buat sebelumnya, yaitu VPC-A.
+        202104201407054ffed9aa570da2cdb0a6d883ef1fe356.jpeg
+
+        19. Gulirkan halaman ke bagian Subnet settings. Sesuai gambar arsitektur kita, silakan isi dengan konfigurasi berikut:
+
+            Subnet name	        |   VPC-A-Subnet-Private
+            Availability Zone	|   No preference
+            IPv4 CIDR block	    |   10.100.1.0/24
+
+            Jika sudah selesai, silakan klik tombol Create subnet.
+            2021042014081054603f237335fcb4df5629780eb92044.jpeg
+
+        20. Seusai membuat subnet privat, jangan lupa untuk mengedit route table-nya. Klik Route Tables -> Create route table.
+        202104201409274ca402fe2bd4ab9a1f414294b9ddbf73.jpeg
+
+        21. Di halaman ini, isikan dengan konfigurasi berikut:
+
+            Name tag	|   VPC-A-RT-Private
+            VPC	        |   VPC-A
+
+            Tambahkan juga tag agar memudahkan penamaan route table.
+
+            Key	    |   Name
+            Value	|   VPC-A-RT-Private
+
+            Jika sudah sesuai, silakan lanjutkan dengan klik tombol Create.
+            202104201410042d217118b0abcad6328602ae962e824b.jpeg
+            Setelah kalimat “The following Route Table was created” muncul, klik tombol Close. Seketika Anda akan diarahkan ke halaman awal Route Table.
+
+        22. Yes! Route table pun telah terbuat. Selanjutnya, mari kita asosiasikan route table tersebut ke subnet privat. Pilih VPC-A-RT-Private, lalu masuk ke tab Subnet Associations, dan klik tombol Edit subnet associations.
+        2021042014154405ef5233f3279d716a264e8ce390c953.jpeg
+
+        23. Karena kita ingin mengasosiasikan route table tadi ke subnet privat, pilihlah VPC-A-Subnet-Private, lalu klik tombol Save.
+        202104201416308835188e791b80538421eded93d7721f.jpeg
+
+    
+    Yeaah! Kita sudah berhasil membangun VPC A dan isinya. Yuk lihat kembali gambar arsitektur kita. 
+
+    20210421094601229fb643de3fba18e880b25ebfd837a8.png
+
+    Di bagian 1 ini, kita sudah menyelesaikan beberapa tahapan, mulai dari membuat VPC A, memasang Internet Gateway, membuat subnet publik dan privat, serta mengasosiasikan subnet tersebut ke route table masing-masing. 
+
+    Di bagian selanjutnya, kita akan meluncurkan EC2 instance di masing-masing subnet yang telah dibuat. Penasaran seperti apa? Let’s Go!
