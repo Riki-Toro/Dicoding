@@ -19,3 +19,27 @@ Konsep Jaringan di AWS
     Keempat subjek di atas akan dibahas menggunakan studi kasus startup. Kita juga akan menggunakan subjek-subjek tersebut untuk mengembangkan arsitekturnya. 
 
     Sesuai gambar arsitektur di atas, kita akan menambah beberapa komponen terhadap arsitektur startup warung kopi, yaitu VPC, Internet Gateway, NAT Gateway, dan lain-lain. Di akhir modul, Anda akan dapat memahami semua komponen dari diagram arsitektur di atas. Bahkan, Anda juga dapat membangun solusi arsitektur Anda sendiri yang besar dan andal.
+
+
+
+
+Amazon Virtual Private Cloud (VPC)
+    Pada modul sebelumnya, kita telah belajar tentang Amazon EC2, bahkan telah berlatih untuk meluncurkannya. Apakah Anda masih ingat? Saat meluncurkan sebuah EC2 instance, Anda wajib menentukan VPC mana yang akan menjadi tempat peluncuran instance.
+
+    Nah, di sinilah kita akan belajar tentang apa itu VPC. Amazon VPC memungkinkan Anda untuk membangun jaringan virtual di cloud AWS tanpa memerlukan VPN (Virtual Private Network), perangkat keras, ataupun data center fisik. 
+
+    Sesuai kebutuhan kita di awal modul, VPC ini bisa menjadi solusi. Anda dapat menentukan ruang jaringan Anda sendiri serta mengontrol bagaimana jaringan dan sumber daya Amazon EC2 terekspos ke Internet.
+
+    Bahkan, Anda juga dapat memanfaatkan opsi keamanan di Amazon VPC untuk memberikan akses yang lebih granular untuk paket yang akan masuk dan keluar dari Amazon EC2 instance di jaringan virtual Anda.
+
+    Amazon Virtual Private Cloud (VPC) merupakan sebuah konfigurasi di mana seakan-akan kita memiliki cloud sendiri di dalam AWS. 
+
+    Amazon VPC memiliki karakteristik sebagai berikut:
+
+        1. VPC adalah jaringan virtual yang didedikasikan khusus untuk kita (atau lebih spesifik lagi, untuk akun AWS kita). Tidak ada orang/akun lain yang akan memiliki akses ke VPC tersebut tanpa seizin dan konfigurasi dari kita.
+        2. VPC membutuhkan alamat IPv4. Secara paralel, kita juga bisa memberikan IPv6 jika diperlukan.
+        3. VPC memungkinkan kita untuk menentukan alamat IP CIDR (Classless Inter-Domain Routing) tertentu bagi masing-masing resources di dalamnya.
+        4. VPC memberikan aturan yang ketat untuk aliran data masuk dan keluar dari VPC.
+
+    Selain itu, penempatan landasan jaringan VPC akan berada di satu AWS Region. Di dalam VPC, Anda dapat meletakkan resources apa pun yang tersebar di beberapa Availability Zone di dalam satu Region.
+    
