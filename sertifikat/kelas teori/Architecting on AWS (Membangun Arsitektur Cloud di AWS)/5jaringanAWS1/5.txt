@@ -1,0 +1,71 @@
+Hands-on Lab: Membuat Virtual Private Cloud - Meluncurkan EC2 Instance di VPC A
+    Setelah pada bagian 1 membuat VPC A, sekarang mari kita coba untuk meluncurkan instance di masing-masing subnetnya. Yuk ikuti langkah-langkah berikut:
+
+        1. Masuklah ke halaman Amazon EC2 dari AWS Management Console dengan cara mengetikkan ec2 di kotak pencarian bagian atas..
+        20210420142037c9346abd9549070a1dd25ef5393e1cd4.jpeg
+
+        2. Pada halaman EC2 Dashboard, gulirlah ke bawah dan klik Launch instance.
+        202104201420538ac1d4e7e942139148e3fa78597c22a9.jpeg
+
+        3. Pilihlah Amazon Linux 2 AMI dengan klik tombol Select.
+        2021042014213042cc4db4fe6f04af625ccc5dfe9a7365.jpeg
+
+        4. Kemudian, pilih t2.micro, lalu klik tombol Next: Configure Instance Details.
+        202104201422069f745c24be4ec85fa75010a50c3678e2.jpeg
+
+        5. Nah, di halaman ini, ubahlah beberapa konfigurasi berikut:
+
+            Network                 |       VPC-A
+            Subnet                  |       VPC-A-Subnet-Public
+            Auto-assign Public IP   |       Enable
+
+            Perhatikan gambar di bawah ini, jika sudah silakan klik tombol Next: Add Storage.
+            20210420142408769b74d2da205818b9f2304e28ee926d.jpeg
+
+        6. Kita tidak akan mengubah apa pun di sini, jadi langsung saja klik Next: Add Tags.
+        202104201424482ea8f3c1067fe3e2f3efa0ec0ce61869.jpeg 
+
+        7. Tambahkan tag dengan klik tombol Add Tag, lalu sesuaikan seperti ini:
+
+            Key     |   Name
+            Value   |   VPC-A-EC2-Public
+            
+            Lalu, lanjutkan dengan klik tombol Next: Configure Security Group.
+            20210420142532b9c4b654f473dc75c8ca93d4ec6c1c59.jpeg
+
+        8. Ubahlah Security group name dan Description menjadi VPC-A-SG-Public dan biarkan yang lain sesuai default. Dengan konfigurasi ini kita mengizinkan akses SSH ke instance tersebut. Lanjut klik tombol Review and Launch.
+        202104201427142fa2c8fe1a3956476ca18206664127db.jpeg
+
+        9. Ini adalah halaman review sebelum instance Anda diluncurkan. Pastikan semua konfigurasinya sudah sesuai, lalu klik tombol Launch.
+        20210420142740d032dc57ecc7058043ac26164d8561da.jpeg
+
+        10. Agar bisa terhubung ke instance, Anda memerlukan key pair. Nah, silakan pilih Create a new key pair, berikan nama dicoding-demo, klik tombol Download Key Pair, dan simpanlah file tersebut di folder yang mudah diakses (taruh di folder Downloads agar mempermudah latihan kali ini).
+        2021042014280839d2facd8dafba670d3a85a0eb767a25.jpeg
+
+        11. Setelah itu, luncurkan instance Anda dengan klik tombol Launch Instances.
+        202104201429468e2ecacf96bcb4660069d55f264dda6a.jpeg
+
+        12. Horray! Instance Anda pun telah berhasil diluncurkan, silakan klik View Instances untuk melihatnya.
+        202104201430206cec40543ded4643d01e3afd865e3ed3.jpeg
+
+        13. Tunggu hingga status pada instance Anda berubah menjadi Running yang menandakan bahwa instance Anda telah berjalan dengan sempurna.
+        2021042014304742437b011235bec50043eb25371b62d7.jpeg
+
+        14. Oke, pada tahap ini kita sudah berhasil meluncurkan instance di subnet publik VPC A. Langkah selanjutnya, silakan luncurkan instance di subnet privat VPC A dengan konfigurasi berikut (biarkan yang lainnya default):
+
+                            Configure Instance Details
+            Network                     |           VPC-A
+            Subnet                      |           VPC-A-Subnet-Private
+            Auto-assign Public IP       |           Disable
+                                    Add Tags
+            Key                         |          Name
+            Value                       |          VPC-A-EC2-Private
+                            Configure Security Group
+            Security group name         |           VPC-A-SG-Private
+            Description                 |           VPC-A-SG-Private
+            Source (kolom source pada tipe SSH) |   10.100.0.0/24
+
+        15. Pada bagian key pair, pilih Choose an existing key pair, pastikan Select a key pair adalah dicoding-demo, centang pada kalimat “I acknowledge …”, lalu klik tombol Launch Instances.
+        2021042014354933c4e9a585aa53fe5a3661ac4199d41f.jpeg
+
+    Yuhuu! Kita sudah berhasil meluncurkan instance di setiap subnet VPC A, baik subnet publik maupun privat. Apa langkah selanjutnya? Simak di bagian selanjutnya!
