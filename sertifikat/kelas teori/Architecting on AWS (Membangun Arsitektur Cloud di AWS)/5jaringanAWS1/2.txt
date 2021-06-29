@@ -69,7 +69,7 @@ Subnets
 
 
 Gateways
-    Internet Gateway
+Internet Gateway
     Internet Gateway adalah komponen VPC yang dapat horizontal scaling, redundant, dan highly available. Ia memungkinkan kita untuk mengomunikasikan antara VPC dan internet. Internet Gateway adalah salah satu dari layanan Managed Services (layanan terkelola) dari AWS.
 
     Internet Gateway memiliki dua tujuan: 
