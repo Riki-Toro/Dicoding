@@ -33,4 +33,27 @@ Keamanan Jaringan
         2021060410531736a28adba4a4e02d176589da5a5f5719.png
 
         Coba kita pikirkan, rules mana yang memperbolehkan seluruh akses terbuka? Apa yang akan terjadi jika rules tersebut dihapus?
-        
+
+
+
+
+Hands-on Lab: Membuat Virtual Private Cloud
+    Pada latihan sebelumnya, Anda telah berhasil membangun arsitektur sederhana, yakni membuat EC2 instance dan RDS instance, lalu menempatkannya ke subnet yang sesuai. Sekarang, kita akan membuat jaringan privat menggunakan VPC berdasarkan skenario tertentu. 
+
+    Memang betul kita sudah belajar membuat VPC di latihan sebelumnya, tetapi itu menggunakan VPC wizard sehingga proses pembuatannya otomatis dengan konfigurasi yang sederhana.
+
+    Nah, karena sudah belajar mengenai jaringan di AWS, mari naikkan level skill kita dengan membuat VPC secara manual, lalu ciptakan koneksi di antara dua VPC dengan VPC peering. Menarik, bukan?
+
+    Tetapi sebelum itu, yuk kita kaitkan ke skenario startup warung kopi. Katakanlah Anda ingin memiliki arsitektur yang membagi lingkungan beban kerja antara Development dan Testing. 
+
+    Pada lingkungan Development terdapat 2 EC2 instance (1 terletak di subnet publik dan lainnya di subnet privat). Sedangkan pada lingkungan Testing, hanya ada 1 EC2 instance di subnet privat. Berikut adalah gambaran arsitekturnya: 
+
+    2021042015125740bc22c3504ec020f9dbc8df759933a8.png
+
+    Nah, dari skenario di atas menunjukkan bahwa kita memiliki kebutuhan yang unik. Maka dari itu, pada latihan kali ini kita akan melakukan tahapan-tahapan berikut:
+
+        Membuat dua VPC secara manual.
+        Membangun koneksi VPC peering untuk kedua VPC.
+        Menguji koneksi antara dua VPC tersebut.
+
+    Selama melakukan praktik, lihatlah gambar arsitektur di atas secara berulang agar Anda paham setiap langkah yang sedang dilakukan. Penasaran seperti apa langkah-langkahnya? Yuk kita mulai dari bagian ke 1.
