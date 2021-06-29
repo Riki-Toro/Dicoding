@@ -1,0 +1,21 @@
+Konsep Jaringan di AWS
+    Wow, startup warung kopi kita sudah mulai berkembang dan memiliki banyak pelanggan. Seiring dengan perkembangan bisnis, tuntutan terhadap keandalan dan fleksibilitas infrastruktur IT juga berubah. 
+
+    Sejauh ini kita telah membangun infrastruktur IT startup kita menggunakan layanan-layanan yang ditangani (managed) oleh AWS. Biarkan AWS menangani hal-hal dasar dari layanan IT. Dengan begitu, tim kita bisa berkonsentrasi ke hal-hal yang lebih membawa nilai tambah, misalnya mengoptimasi aplikasi.
+
+    Seiring dengan perkembangan bisnis, kita mungkin ingin mendapatkan kontrol lebih dalam (seperti akses jaringan, keamanan, dan pengelompokan sumber daya) terhadap infrastruktur, tetapi tetap dengan kemudahan yang ditawarkan oleh cloud. Apakah itu mungkin? 
+
+    Misalnya, Anda ingin server aplikasi yang menjalankan website warung kopi dapat diakses oleh publik, sementara database yang menyimpan data pelanggan terlindungi dengan aman, tidak dapat diakses oleh publik, dan hanya bisa diakses oleh alamat IP tertentu. 
+
+    Kembali ke pertanyaan, apakah itu mungkin dilakukan? Jika kita menggunakan AWS, jawabannya adalah ya. Menarik, bukan?
+
+    Nah, untuk memenuhi kebutuhan arsitektur di atas, pada modul ini kita akan mempelajari hal-hal berikut:
+
+        Amazon Virtual Private Cloud (VPC)
+        Subnets
+        Gateways
+        Keamanan Jaringan
+
+    Keempat subjek di atas akan dibahas menggunakan studi kasus startup. Kita juga akan menggunakan subjek-subjek tersebut untuk mengembangkan arsitekturnya. 
+
+    Sesuai gambar arsitektur di atas, kita akan menambah beberapa komponen terhadap arsitektur startup warung kopi, yaitu VPC, Internet Gateway, NAT Gateway, dan lain-lain. Di akhir modul, Anda akan dapat memahami semua komponen dari diagram arsitektur di atas. Bahkan, Anda juga dapat membangun solusi arsitektur Anda sendiri yang besar dan andal.
