@@ -1,0 +1,188 @@
+Hands-on Lab: Membuat Virtual Private Cloud - Membuat VPC B, Meluncurkan EC2 Instance, dan Membangun VPC Peering
+    Sebelum memulai, mari lihat kembali gambar arsitektur untuk mengetahui progres yang telah kita lakukan.
+
+    20210421094917e3823dabb58e9811a8860afd7f637a2a.png
+
+    Tahukah Anda apa langkah selanjutnya? Yup! Kita belum membuat VPC B, subnet privatnya, dan meluncurkan instance di subnet tersebut. Langkah-langkah pembuatannya hampir serupa seperti pada bagian latihan sebelumnya, hanya saja di sini kita tidak akan memasang Internet Gateway ke VPC B. Mengapa begitu?
+
+    Itu karena memang kita tak ingin instance di dalamnya dapat diakses oleh siapa pun dari internet. Kebutuhan kita adalah instance di VPC B hanya bisa diakses oleh instance di subnet privat VPC A sesuai pada gambar arsitektur. Oke, tak perlu menunggu lama lagi, yuk langsung mulai saja.
+
+        1. Silakan buat VPC dengan konfigurasi berikut (biarkan yang lain default):
+
+            Name tag	    |   VPC-B
+            IPv4 CIDR block	|   10.200.0.0/16
+
+        2. Selanjutnya, silakan buat subnet dengan konfigurasi berikut (biarkan yang lain default):
+
+            VPC ID	        |   VPC-B
+            Subnet name	    |   VPC-B-Subnet-Private
+            IPv4 CIDR block	|   10.200.1.0/24
+
+        3. Kemudian, buatkan route table untuk subnet tersebut sesuai dengan nilai-nilai pada tabel di bawah ini:
+
+            Name tag	|   VPC-B-RT-Private
+            VPC	        |   VPC-B
+            Key (Tag)	|   Name
+            Value (Tag)	|   VPC-B-RT-Private
+
+        4. Selepas itu, editlah subnet associations-nya agar route table yang kita buat barusan terpasang ke VPC-B-Subnet-Private.
+
+        5. Oke, kita sudah berhasil membuat VPC, subnet privat, serta mengedit route table-nya. Selanjutnya, yuk kita luncurkan instance di subnet tersebut.
+
+                    Configure Instance Details
+            Network             |       VPC-B
+            Subnet              |       VPC-B-Subnet-Private
+            Auto-assign Public IP|      Disable
+
+                            Add Tags
+            Key                 |       Name
+            Value               |       VPC-B-EC2-Private
+
+                    Configure Security Group
+            Security group name |       VPC-B-SG-Private
+            Description         |       VPC-B-SG-Private
+            Source (kolom source pada tipe SSH)|    10.100.1.0/24
+
+            Oke, kita berhenti sejenak di bagian security group ini. Sesuai pada gambar arsitektur, kita ingin instance di subnet privat VPC A dapat melakukan SSH atau Ping ke instance di subnet privat VPC B. Maka dari itu, silakan tambahkan rule dengan Type adalah All ICMP - IPv4 dan Source-nya 10.100.1.0/24. Jika Anda merasa kesulitan, silakan amati gambar berikut:
+            20210420144946beb4c9ab5aaff3d84ba1d4a02d5ec7bc.jpeg 
+
+        6. Oh iya, untuk key pair, pilihlah yang sama seperti sebelumnya, yakni dicoding-demo. Silakan luncurkan instance Anda. Sekarang, kita telah memiliki 3 instance di masing-masing subnet yang berbeda.
+        20210420145221d17394155572b4e89c850f6cf7640d75.jpeg
+
+        7. Sekarang, mari lakukan SSH terhadap instance dengan nama VPC-A-EC2-Public. Tentu Anda sudah tahu caranya, bukan? Kita telah mempraktikkannya di latihan sebelumnya.
+        20210420145242c68aa1a6100841f03dc7081b9124c1ca.jpeg
+
+        8. Dari instance VPC-A-EC2-Public, silakan coba untuk melakukan SSH ke instance VPC-A-EC2-Private. Caranya, salinlah Private IPv4 addresses untuk instance VPC-A-EC2-Private, lalu ketikkan sintaks berikut di Command Prompt/Terminal:
+            ssh ec2-user@privateIP
+
+        Jika Anda merasa kesulitan, silakan lihat gambar di bawah ini.
+        (Cara melihat Private IPv4 addresses)
+        202104201454100e38273b68a2c10a176e092c9c451ceb.jpeg
+
+        (Cara melakukan SSH di dalam instance)
+        20210420145424d7ca0bcbd7918d25f72dc936699e05b9.jpeg
+
+        9. Waduh! Jika Anda lihat gambar di atas, kita mengalami eror sehingga tidak bisa melakukan SSH ke instance VPC-A-EC2-Private. Eror tersebut bisa terjadi karena tidak adanya file key pair di instance VPC-A-EC2-Public saat ini. Jadi, mari kita buat.
+
+        10. Silakan buka file key pair Anda (dicoding-demo.pem) yang tadi disimpan di folder Downloads dengan aplikasi notepad, lalu salin semua isinya.
+        20210420145520114b107ced02480751b6c1640b304987.jpeg
+
+        11. Kembali ke Command Prompt/Terminal. Buatlah sebuah file bernama dicoding-demo.pem dengan sintaks berikut:
+            nano dicoding-demo.pem
+
+        12. Kemudian paste (klik kanan) teks yang tadi Anda salin. Simpanlah file tersebut dengan cara CTRL + X -> Y -> Enter.
+        202104201456371adb7dac30bf77814c81a369489d7f62.jpeg
+
+        13. Selanjutnya, ketikkan sintaks di bawah ini untuk mengubah permission pada file dicoding-demo.pem.
+            chmod 400 dicoding-demo.pem
+
+        14. Oke, cobalah lakukan SSH lagi ke instance VPC-A-EC2-Private dengan sintaks:
+            ssh -i dicoding-demo.pem ec2-user@privateIP
+
+        Amati gambar berikut:
+        20210420150521995da0b2f9a97cba9234e912eef46e26.jpeg
+
+        15. Mantap! Kita sudah berhasil terhubung ke instance VPC-A-EC2-Private. Sekarang, yuk kita coba lakukan SSH dan Ping ke instance VPC-B-EC2-Private dari VPC-A-EC2-Private.
+
+        16. Pertama, salinlah Private IPv4 Private addresses dari instance VPC-B-EC2-Private.
+        20210420150627033466c3d5127153ffd660650f27abc6.jpeg
+
+        17. Lalu, kembali ke Command Prompt/Terminal dan ketikkan sintaks:
+            ssh ec2-user@privateIP dan ping privateIP
+
+        Lihat gambar berikut:
+        20210420151134f80cbb0ebfe9b358ab71d56ee5207404.jpeg
+
+        18. Tenang! Anda memang tak akan bisa melakukan SSH maupun Ping ke instance VPC-B-EC2-Private karena kita belum melakukan VPC Peering. Jadi, mari kita buat!
+
+        19. Bukalah halaman layanan VPC, masuk ke menu Peering Connections pada navigasi sebelah kiri, dan klik tombol Create Peering Connection.
+        2021042015123680e297a35e7335f5644b45f87330e825.jpeg 
+
+        20. Pada bagian Peering connection name tag, isilah VPC-A-VPC-B-Peering. Kemudian untuk VPC (Requester), pilihlah VPC-A.
+        20210420151336b7e0537ac3239f4381540bf8691659d0.jpeg
+
+        21. Nah di sini, biarkan bagian Account dan Region sesuai default. Lalu untuk VPC (Accepter), pilihlah VPC-B. Jika sudah, silakan gulir ke halaman paling bawah dan klik tombol Create Peering Connection. Saat muncul halaman yang menyatakan bahwa VPC Peering kita sukses, klik OK.
+        20210420151406a54956b646a04f7bc4f7de9100e9e0de.jpeg
+
+        22. Koneksi VPC Peering Anda akan berstatus Pending Acceptance. Jadi, mari kita terima permintaan tersebut. Pilih koneksi VPC Peering Anda, klik tombol Actions -> Accept Request -> Yes, Accept -> Close. Status koneksi VPC Peering Anda pun akan berubah menjadi Active.
+        2021042015145050b0a2e6a066ee83d7d013a426829f21.jpeg
+
+        23. Oke, koneksi VPC Peering telah kita buat. Selanjutnya, agar instance VPC-A-EC2-Private dan VPC-B-EC2-Private bisa berkomunikasi, kita juga harus mengubah route table keduanya. Yuk kita eksekusi!
+
+        24. Masih di halaman VPC, bukalah menu Route Tables, pilih VPC-A-RT-Private, lalu masuk ke tab Routes, dan klik tombol Edit routes.
+        20210420151739f2a0324f7951b766cd0162dd25551363.jpeg 
+
+        25. Silakan tambahkan route dengan klik Add route, lalu isikan konfigurasi berikut:
+
+            Destination	|   10.200.1.0/24
+            Target	    |   Peering Connection -> VPC-A-VPC-B-Peering
+
+            Amati gambar di bawah ini, jika sudah silakan klik tombol Save routes. Ketika muncul halaman yang mengatakan “Routes successfully edited”, klik Close.
+            20210420151806008f55769761accb09e3d8cb3adad777.jpeg
+
+        26. Jangan lupa, ubah juga route table untuk VPC-B-RT-Private. Silakan pilih VPC-B-RT-Private, buka tab Routes, klik tombol Edit routes.
+        202104201520087957616887340a79556d6d7673276949.jpeg
+
+        27. Tambahkan route dengan klik Add route, lalu isi sesuai konfigurasi berikut:
+
+            Destination	|   10.100.1.0/24
+            Target	    |   Peering Connection -> VPC-A-VPC-B-Peering
+
+            Amati gambar di bawah ini, jika sudah silakan klik tombol Save routes. Ketika muncul halaman yang mengatakan “Routes successfully edited”, klik Close.
+            202104201546400aaa0475842ed814860040bc8e8e8427.jpeg
+
+        28. Oke, mari kita kembali ke Command Prompt/Terminal. Silakan lakukan ping ke Private IP Addresses dari VPC-B-EC2-Private dengan sintaks:
+            ping privateIP
+
+        202104201548507623d0f0c89a3a4f730dae5c4c48b392.jpeg
+
+        29. Yuhuuu!Kita sudah berhasil melakukan ping ke instance VPC-B-EC2-Private. Sekarang, yuk kita coba lakukan SSH dengan sintaks berikut:
+            ssh ec2-user@privateIP
+
+        Lihat gambar di bawah ini.
+        202104201549366c76a67c99b1a25be02f18bd568622bf.jpeg
+
+        30. Waduh, masih gagal ternyata! Tahukah Anda kenapa ini bisa terjadi? Yup, sama seperti kasus sebelumnya yaitu tidak ada file key pair di instance VPC-A-EC2-Private saat ini. Mari kita buat!
+
+        31. Silakan salin kembali isi dari file dicoding-demo.pemAnda. Kemudian, buatlah sebuah file dicoding-demo.pem di VPC-A-EC2-Private dengan sintaks:
+            nano dicoding-demo.pem
+
+        32. Kemudian paste (klik kanan) teks yang tadi Anda salin. Simpanlah file tersebut dengan cara CTRL + X -> Y -> Enter.
+
+        33. Selanjutnya, ketikkan sintaks di bawah ini untuk mengubah permission pada file dicoding-demo.pem.
+            chmod 400 dicoding-demo.pem
+
+        34. Oke, cobalah lakukan SSH lagi ke instance VPC-B-EC2-Private dengan sintaks:
+            ssh -i dicoding-demo.pem ec2-user@privateIP
+
+        Lihat gambar berikut:
+        20210420155325ed0f9470c2bd69383a4f34d9112880e3.jpeg
+
+        35. Yeaah! Sekarang kita sudah berhasil melakukan SSH dan sekarang kita sudah berada di instance VPC-B-EC2-Private. Sesuai pada gambar arsitektur, VPC-A-EC2-Private dan VPC-B-EC2-Private harus bisa saling berkomunikasi. Jadi, mari kita tes dengan lakukan ping ke instance VPC-A-EC2-Private, ketikkan sintaks berikut:
+            ping privateIP
+
+        Simak gambar berikut:
+        202104201554235ef6b5c134d993121704ebbd9c810fb3.jpeg
+
+        36. Hmm! Sepertinya masih gagal. Tenang! Ini bisa kita selesaikan dengan mengubah konfigurasi dari security group dari instance VPC-A-EC2-Private. Silakan pilih VPC-A-EC2-Private, masuklah ke tab Security, dan klik nama VPC-A-SG-Private.
+        202104201555021a17767d11b5cafa8dc7fd425c2ea944.jpeg
+
+        202104201555115944008c3d05161e9517b0791fe777d2.jpeg
+
+        37. Kemudian, klik tombol Edit inbound rules.
+        20210420155545e71f76cb99e96e1b8e3f4328b98f476f.jpeg
+
+        38. Tambahkan rule dengan klik tombol Add rule, lalu sesuaikan dengan konfigurasi berikut:
+
+            Type	|   All ICMP - IPv4
+            Source	|   10.200.1.0/24
+            
+            Silakan amati gambar di bawah ini. Jika sudah, silakan gulir halaman ke paling bawah dan klik tombol Save rules.
+            202104201556504c593e5e44ce33dbb44da26ffadcf69e.jpeg
+
+        39. Kembali ke Command Prompt/Terminal. Lakukan ping kembali ke  VPC-A-EC2-Private. Ta-da!
+        20210420155716a66484bf84174d0a5e7c85ba48225410.jpeg
+
+    Yeah! Kita telah menyelesaikan semua tahapan dan merealisasikan skenario dari gambar arsitektur. Kita sudah membuat VPC A dan B, Subnet untuk setiap VPC, mengonfigurasi security group dan route table, memasang internet gateway, membuat koneksi dengan VPC Peering, dan mengujinya langsung dengan melakukan SSH dan Ping. Mantap!
+
+    Catatan: Hapus semua resource yang telah Anda buat, termasuk EC2, VPC, Subnet, VPC Peering, dll. Ini semua harus Anda lakukan untuk menghindari segala biaya meskipun akun Anda adalah Free Tier.
