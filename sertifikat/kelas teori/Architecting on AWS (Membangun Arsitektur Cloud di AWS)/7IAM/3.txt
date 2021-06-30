@@ -1,0 +1,99 @@
+Amazon Cognito
+    20210604125415514206e01be9fd2e4fc09b04b898e789.png
+
+    Amazon Cognito adalah layanan terkelola sepenuhnya yang menyediakan autentikasi, otorisasi, dan manajemen user untuk aplikasi web dan seluler. Pengguna dapat masuk langsung dengan username dan password atau melalui pihak ketiga seperti Facebook, Amazon, atau Google.
+
+    Dua komponen utama Amazon Cognito adalah User Pool dan Identity Pool.
+
+    User Pool adalah direktori user yang menyediakan opsi sign up (pendaftaran) dan sign in (masuk) untuk pengguna aplikasi Anda. Selain itu, User Pool juga memberikan beberapa fitur lain, di antaranya:
+
+    Web UI built-in yang dapat dikustomisasi untuk sign in user.
+    Social Sign-in dengan Facebook, Google, Amazon, dll.
+    Manajemen direktori dan profil user.
+    Fitur keamanan seperti MFA (multi-factor authentication) hingga verifikasi melalui telepon dan email.
+    Workflow dan migrasi user melalui Lambda Trigger.
+    Sementara itu, Identity Pool memungkinkan kita untuk memberi user akses ke layanan AWS lainnya. Dengannya, user dapat memperoleh kredensial sementara untuk mengakses layanan atau sumber daya AWS melalui Amazon API Gateway. Untuk menyimpan informasi profil user, Identity Pool harus diintegrasikan dengan User Pool.
+
+    Walaupun begitu, Identity Pool dan User Pool dapat digunakan secara terpisah maupun bersama-sama.
+
+
+    Contoh Aplikasi AWS Cognito
+        Di sini kita akan melihat skenario sederhana dari penggunaan AWS Cognito. Dalam skenario ini, tujuannya adalah untuk mengautentikasi user dan memberikan akses user tersebut ke layanan AWS lain.
+
+        20210604125444e6f94494187d90d435a60a4032fcb0db.png
+
+        Pada langkah pertama, user dari aplikasi melakukan sign in melalui user pool. Setelah berhasil mengautentikasi, user akan menerima token user pool.
+
+        Selanjutnya, aplikasi akan menukar token user pool untuk kredensial AWS melalui identity pool. Terakhir, user aplikasi menggunakan kredensial AWS tersebut untuk mengakses layanan AWS lainnya.
+
+
+
+
+
+AWS Account Organization
+    Dua pola arsitektur utama yang direkomendasikan oleh AWS adalah multi-VPC (dalam satu akun AWS) dan multi-akun.
+
+    Dalam sistem multi-akun, setiap akun memiliki satu VPC di dalamnya. Dalam praktiknya, organisasi (besar dan kecil) membuat banyak akun. Mereka perlu mengelola, memelihara, dan mengauditnya.
+
+    202106041325187c9e74b8330027481a4509c613cd72b9.png
+    
+    Banyak pelanggan AWS membuat beberapa akun untuk organisasi mereka, seperti akun individu untuk berbagai unit bisnis atau akun terpisah untuk sumber daya pada lingkungan development, testing, dan production.
+
+    Menggunakan akun AWS terpisah (biasanya dengan consolidated billing alias penagihan gabungan) untuk sumber daya development dan production memungkinkan kita untuk dengan rapi memisahkan berbagai jenis sumber daya dan juga memberikan beberapa manfaat keamanan.
+
+    Tabel di bawah ini menunjukkan strategi pemilihan arsitektur akun AWS. Kita dapat merancang strategi akun AWS untuk memaksimalkan keamanan dan mengikuti persyaratan bisnis dan tata kelola.
+
+        Manajemen keamanan terpusat                                     |           Satu akun AWS
+        Pemisahan lingkungan development, testing, dan production       |           Tiga akun AWS
+        Banyak department dengan otonomi terpisah                       |           Banyak akun AWS
+        Manajemen keamanan terpusat dengan proyek terpisah yang otonom  |           Banyak akun AWS
+
+    Jika kita lebih suka manajemen keamanan informasi terpusat dengan biaya minimum, kita dapat memilih satu akun AWS. Alternatifnya, jika bisnis kita mempertahankan lingkungan terpisah untuk production, development, dan testing, maka kita dapat mengonfigurasi tiga akun AWS—satu untuk setiap lingkungan. Selain itu, jika kita memiliki beberapa departemen yang otonom, kita juga dapat membuat akun AWS terpisah untuk setiap bagian otonom organisasi.
+
+    Saat kita menggunakan banyak akun, strategi yang lebih efisien adalah membuat satu akun AWS untuk sumber daya yang umumnya dapat digunakan bersama-sama (seperti layanan DNS, Active Directory, dan CMS) serta akun terpisah untuk proyek/departemen yang otonom. Ini memungkinkan kita untuk menetapkan permission dan policy di bawah setiap departemen atau akun proyek dan memberikan akses ke sumber daya di seluruh akun.
+
+    Karena sebuah akun AWS sejatinya adalah entitas terpisah, bagaimana kita bisa menyatukan manajemen dan pengelolaannya? Jawabannya, kita bisa menggunakan AWS Organizations. Berikut adalah arsitektur akun yang menggunakan AWS Organizations.
+
+    20210604130723e82242bf302ad17068a30ea05be87ef8.png
+
+
+    AWS Organizations
+        AWS Organizations adalah layanan manajemen akun yang memungkinkan Anda untuk menggabungkan beberapa akun AWS ke dalam sebuah organisasi yang Anda buat dan kelola secara terpusat. 
+
+        AWS Organizations mencakup manajemen akun dan kemampuan consolidated billing (penagihan gabungan) yang memungkinkan Anda memenuhi kebutuhan anggaran, keamanan, dan compliance (kepatuhan) bisnis dengan lebih baik. Sebagai administrator, Anda dapat membuat akun di organisasi dan mengundang akun yang ada untuk bergabung dengan organisasi tersebut.
+
+        Berikut adalah beberapa kegunaan AWS Organizations, antara lain:
+
+            Group-based account management
+                Dengan menggunakan AWS Organizations, Anda dapat membuat grup untuk akun AWS. Bahkan, Anda bisa membuat grup terpisah yang dapat digunakan dengan sumber daya pada lingkungan development dan production, lalu menerapkan policy yang berbeda untuk setiap grupnya.
+
+            Policy-based access to AWS services
+                Dengan AWS Organizations, Anda dapat membuat Service Control Policies (SCP) yang secara terpusat mengontrol penggunaan layanan AWS di beberapa akun.
+
+                Misalnya, Jika Anda ingin membatasi akses ke AWS Direct Connect, SCP harus mengizinkan akses sebelum IAM Policy berfungsi. Anda dapat menerapkan policy ke sekelompok akun atau semua akun di organisasi Anda.
+
+            Automated account creation and management
+                Gunakan AWS Organizations API untuk mengotomatiskan pembuatan dan pengelolaan akun AWS baru.
+
+            Consolidated billing
+                AWS Organizations memungkinkan Anda mengatur satu metode pembayaran untuk semua akun AWS di organisasi melalui consolidated billing. Dengannya, Anda juga dapat memanfaatkan keuntungan harga dari penggunaan agregat seperti diskon volume untuk Amazon EC2 dan Amazon S3.
+
+            API-based
+                Dengan AWS Organizations, Anda dapat menggunakan SCP untuk mengelola penggunaan layanan AWS di tingkat API. Misalnya, Anda bisa menerapkan policy ke grup akun untuk hanya mengizinkan IAM User di akun tersebut guna membaca data dari Amazon S3 bucket.
+
+        Berikut adalah struktur dari AWS Organizations:
+
+        2021042115492325d98a441f2d2772844b88f459dab66e.png
+
+        Berdasarkan gambar di atas, mari kita bedah apa saja struktur dari AWS Organizations.
+
+            Root
+                Tingkat teratas di AWS Organizations. Jika kita mengaplikasikan policy di level Root, maka ini akan berdampak ke seluruh OU (Organizational Unit) atau akun AWS di organisasi.
+
+            OU
+                Tingkat di bawah Root. Saat Anda meng-attach (melampirkan) policy ke salah satu node dalam hierarki, policy tersebut mengalir ke bawah dan memengaruhi semua cabang (OU) dan daun (akun) di bawahnya. Sebuah OU hanya dapat memiliki satu parent dan setiap akun hanya bisa menjadi anggota dari satu OU.
+
+            Policy
+                Policy yang menentukan layanan dan tindakan apa yang dapat digunakan oleh user dan role di akun, dipengaruhi oleh SCP. SCP mirip dengan IAM policy, bedanya, SCP menentukan permission untuk level organisasi, OU, atau akun.
+
+                Saat melampirkan SCP ke root dari organisasi atau OU Anda, SCP akan membatasi apa saja yang bisa dilakukan untuk entitas di akun anggota.
