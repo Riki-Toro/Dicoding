@@ -1,0 +1,83 @@
+Pengantar ke AWS Identity and Access Management (IAM)
+    Startup warung kopi kita kian bertumbuh. Sekarang, kita sudah bisa mulai menambah beberapa karyawan baru agar bisnis semakin berkembang dan terkelola dengan baik. 
+
+    Wow, sepertinya baru kemarin CTO (Chief Technology Officer) kita berkeluh, “Semua tugas saya yang kerjakan.” Sekarang dia harus memikirkan bagaimana membagi pekerjaannya ke para karyawan baru tersebut. CTO harus memberikan akses layanan AWS secara terbatas kepada karyawan baru sesuai perannya masing-masing guna tetap melindungi dan mengontrol lingkungan AWS startup warung kopi.
+
+    Hal ini sangat umum terjadi di dunia startup. Di modul ini kita akan melihat bagaimana masalah tersebut dapat terpecahkan dengan bantuan AWS Identity and Access Management (IAM).
+
+    Untuk memenuhi kebutuhan arsitektur di atas, pada modul kali ini kita akan mempelajari hal-hal berikut:
+
+        IAM Users, Groups, dan Roles.
+        Federated Identity Management.
+        Amazon Cognito.
+        AWS Organizations.
+
+    Tak hanya itu, kita juga akan membahas situasi-situasi yang umum terjadi dalam hal pengaturan akses, misalnya:
+
+        Beberapa pengguna memerlukan akses ke AWS Management Console, sementara yang lain hanya perlu menggunakan AWS Command Line Interface (AWS CLI).
+        Lingkungan yang berbeda (Dev/Test/Production) memiliki kumpulan persyaratan akses yang berbeda.
+        Autentikasi on-premise dikelola dengan federasi menggunakan SSO (Single Sign On).
+        Tim operasi keamanan perlu memiliki visibilitas tentang siapa yang menyentuh data di AWS Cloud.
+        Auditor eksternal membutuhkan akses ke log dan tidak perlu akses lain.
+        Aplikasi seluler perlu mengautentikasi ribuan pengguna.
+
+    Biasanya, pada setiap modul akan tampil sebuah gambar arsitektur. Namun, untuk modul kali ini kita tak akan melihatnya karena tidak ada perubahan/penambahan komponen.
+
+    Sudah tak sabar ingin memulai? Mari kita meluncur ke pembahasannya!
+
+
+
+
+
+IAM Users dan Groups
+AWS Root Account
+    Saat pertama kali membuat akun AWS, kita memulai interaksi pada AWS platform dengan akun root user. User/pengguna ini memiliki akses lengkap ke semua layanan dan sumber daya AWS di dalam akun AWS, seperti informasi tagihan, data pribadi, bahkan seluruh arsitektur dan komponennya. Identitas ini disebut juga sebagai AWS account root user. Ia dapat diakses dengan melakukan sign in menggunakan alamat email dan password yang Anda punya saat membuat akun AWS.
+
+    Ingatlah! AWS account root user itu memiliki akses yang mutlak dan tidak dapat dibatasi. Maka dari itu, AWS sangat merekomendasikan agar kita tidak menggunakan kredensial akun root untuk interaksi sehari-hari dengan AWS. 
+
+    Akun IAM dapat dikelola dan diaudit dengan relatif mudah. Jika akun IAM (dibahas nanti) membutuhkan lebih banyak privilege/hak istimewa, mereka dapat ditambahkan sesuai kebutuhan. Begitu pula, jika privilege perlu dihapus atau dicabut, hal itu dapat dilakukan bahkan dengan dampak yang minimal terhadap lingkungan AWS kita.
+
+    20210428121803feb5d0bd0d718dfaa826d7e4fc0c5a93.png
+
+    Gunakanlah akun root untuk membuat user/pengguna tambahan (IAM user) dan tetapkan permission untuk pengguna tersebut dengan mengikuti prinsip hak istimewa terendah (least privilege principle). 
+
+    Jika Anda telah mengamankan kredensial akun root, Anda bisa meminta semua orang di tim Anda untuk menggunakan IAM user saat mengakses AWS.
+
+
+        IAM Users
+            Akun IAM User bukanlah akun terpisah, melainkan principal dalam akun AWS kita. Setiap IAM User dapat memiliki password-nya sendiri untuk mengakses AWS Management console. Kita juga dapat membuat access key (kunci akses) individu untuk setiap user sehingga mereka dapat membuat permintaan secara terprogram untuk bekerja dengan sumber daya di akun AWS kita. 
+
+            Karena AWS IAM dapat memberikan akses secara granular, ia bisa memungkinkan Anda untuk memiliki akses ke console tanpa memiliki akses ke CLI. Begitu juga sebaliknya, AWS IAM memungkinkan Anda untuk memiliki akses ke CLI tanpa memiliki akses ke console. Menarik, bukan?
+
+            Tahukah Anda? IAM User yang baru dibuat tidak memiliki kredensial default untuk mengautentikasi dirinya sendiri dan mengakses sumber daya AWS. Jadi, kita harus menetapkan kredensial keamanan terlebih dahulu kepada IAM User untuk autentikasi, kemudian melampirkan permission yang memberi mereka otorisasi untuk melakukan tindakan atau mengakses sumber daya apa pun di AWS. Kredensial yang kita buat untuk user adalah apa yang akan mereka gunakan untuk mengidentifikasi dirinya sendiri secara unik ke AWS.
+
+
+        IAM IdP
+            IAM IdP (Identity Provider) dapat digunakan sebagai pengganti IAM User di akun AWS Anda. Dengan IdP, kita dapat mengelola identitas pengguna kita yang berada di luar AWS (seperti Amazon.com, Google, dan Facebook) serta memberikan permission kepada identitas pengguna eksternal tersebut untuk menggunakan sumber daya AWS di akun Anda.
+
+            Secure API Access with Amazon Cognito Federated Identities, Amazon Cognito  User Pools, and Amazon API Gateway | AWS Compute Blog
+
+            Gambar di atas menunjukkan bahwa dengan menggunakan AWS IdP kita bisa memakai identitas yang sudah ada, misalnya akun google, facebook, atau twitter.
+
+
+        IAM Groups
+            IAM Group adalah kumpulan IAM User. Ia memungkinkan kita menentukan permission untuk beberapa pengguna, sehingga dapat mempermudah pengelolaan permission untuk pengguna tersebut. 
+
+            Misalnya, kita dapat memiliki group yang disebut Admin dan memberi group tersebut tipe permission yang biasanya diperlukan oleh administrator. Setiap pengguna di group Admin tersebut secara otomatis akan memiliki permission yang sama seperti yang ditetapkan ke group.
+
+            Jika user baru bergabung dengan organisasi kita dan membutuhkan hak administrator, kita dapat menetapkan permission yang sesuai dengan menambahkan user baru ke grup itu. Demikian pula, jika seseorang berganti pekerjaan di organisasi Anda, daripada mengedit permission user tersebut, kita dapat menghapusnya dari grup lama dan menambahkannya ke grup baru yang sesuai.
+
+            Berikut adalah beberapa ciri penting dari IAM Group:
+
+                Sebuah group dapat berisi banyak user; seorang user dapat menjadi bagian dari beberapa group.
+                Group tidak dapat bercabang (nested); mereka hanya dapat berisi user, dan bukan berisikan group yang lain.
+                Tidak ada IAM Group default yang secara otomatis menyertakan semua user. Jika ingin memiliki group seperti itu, kita perlu membuatnya secara manual dan menetapkan setiap pengguna baru ke dalamnya.
+                Jumlah dan ukuran sumber daya IAM di akun AWS dibatasi.
+
+            Sebagai pembahasan kita, silakan lihat struktur IAM Group di bawah ini.
+
+            Example of relationship between AWS accounts, users, and groups
+
+            Katakanlah Anda sebagai pemilik perusahaan membuat group bernama Admins bagi beberapa user (Bob dan Susan) untuk membuat dan mengelola user lain seiring perkembangan perusahaan. Kemudian, user di group Admins tersebut membuat group Developers dan Test. 
+
+            Masing-masing group ini terdiri dari user (orang dan aplikasi) yang berinteraksi dengan AWS (Budi, Sinta, DevApp1, dan seterusnya). Setiap user memiliki sekumpulan kredensial keamanan individu. Dalam contoh ini setiap user masuk ke dalam satu group. Walaupun begitu, sebenarnya user dapat menjadi bagian dari banyak group.
