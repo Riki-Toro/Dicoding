@@ -58,3 +58,38 @@ Load Balancing (Penyeimbang Beban)
     Pada gambar di atas kita menggunakan sebuah Application Load Balancer untuk mengatur beban tiga sub-URL dari suatu aplikasi web, misalnya www.example.com. Masing-masing sub-URL mengacu kepada sepasang EC2 instance yang tersebar ke dua Availability Zone sebagai fitur dari high availability. 
 
     Untuk mempelajari lebih lanjut, Anda bisa melihat tautan berikut: Introducing Application Load Balancer - Unlocking and Optimizing Architectures.
+
+
+
+
+
+High Availability (Ketersediaan Tinggi)
+    Saat merancang suatu arsitektur, Anda harus mempertimbangkan soal aspek yang satu ini, yaitu High Availability atau Ketersediaan Tinggi. High Availability didefinisikan sebagai, “Kemampuan di mana aplikasi kita dapat pulih dari kegagalan atau beralih ke sumber sekunder dalam jumlah waktu kinerja terdegradasi yang masih dapat diterima.”
+
+    Semakin tinggi Availability-nya, semakin andal pula aplikasi kita, tetapi tentu saja ini akan berpengaruh terhadap biaya yang harus ditanggung. Tabel berikut menunjukkan perhitungan Uptime / Ketersediaan.
+
+    Uptime (%)	    |       Maksimal downtime per tahun	            |       Downtime jika disetarakan per hari
+    ----------------------------------------------------------------------------------------------------------
+    90%             |               36,5 hari                       |                   2,4 jam
+    99%             |               3,65 hari                       |                   14 menit
+    99,9%           |               8,76 jam                        |                   86 detik
+    99,99%          |               52,6 menit                      |                   8,6 detik
+    99,999%         |               5,25 menit                      |                   0,86 detik
+
+
+    Mendesain Ketersediaan
+        Dalam mendesain Ketersediaan, kita harus mengantisipasi kegagalan, dilanjutkan kemudian dengan memperhatikan dampaknya. Sebagai contoh dapat dilihat pada gambar di bawah ini.
+
+        20210421152821568e7b7724b02ce4c154fe1c471c7c49.png
+
+        Gambar di atas memperlihatkan arsitektur sebuah aplikasi yang mencakup dua app server dan dua database server dengan replikasi. Ini adalah arsitektur minimum untuk memenuhi standar ketersediaan tinggi.
+
+
+    Availability Zones
+        Sebagian besar aplikasi dapat dirancang untuk mendukung dua Availability Zone. Pada umumnya aplikasi tersebut tidak memperoleh keuntungan lebih dari penggunaan lebih banyak dari dua Availability Zone, terutama ketika kita menggunakan sumber data yang hanya mendukung failover primer dan sekunder. 
+
+        Availability Zone tersebar secara fisik. Pada prinsipnya, kita tidak akan menerima manfaat lebih dengan menduplikasi sumber daya kita di tiga atau lebih Availability Zone dalam satu region.
+
+        2021060411142482349ab05c069474733d779ec5886c84.png
+
+        Gambar di atas memperlihatkan contoh arsitektur yang berada di dua Availability Zone. 
