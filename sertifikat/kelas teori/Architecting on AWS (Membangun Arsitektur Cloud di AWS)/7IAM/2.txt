@@ -1,0 +1,38 @@
+Policy dan Permission
+    Policy
+        2021060412511878b87c70c7ffd48a736bc5865fb4a580.png
+
+        Kita dapat mengelola akses di AWS dengan membuat Policy dan melampirkannya ke identitas IAM (user, group, atau role) atau sumber daya AWS. 
+
+        Policy adalah objek di AWS yang jika dikaitkan/dipasang ke identitas atau sumber daya, ia dapat menentukan izin/permission akses. AWS mengevaluasi policy (kebijakan) ini ketika IAM Principal (User atau Role) membuat permintaan. Permission dalam Policy menentukan apakah permintaan tersebut diizinkan atau ditolak. Sebagian besar Policy disimpan di AWS sebagai dokumen JSON. 
+
+        AWS mendukung enam jenis Policy, di antaranya: 
+
+            Identity-based policies
+            Resource-based policies
+            Permission boundaries
+            Organizations SCPs
+            ACLs
+            Session policies
+
+        IAM Policy menentukan izin/permission untuk suatu tindakan, terlepas dari metode yang kita gunakan saat melakukan operasi. Misalnya, jika suatu policy mengizinkan tindakan GetUser, maka user dengan policy tersebut bisa mendapatkan informasi user dari AWS Management Console, AWS CLI, atau AWS API. 
+
+        Saat membuat IAM user, kita dapat memilih untuk mengizinkan akses terhadap console atau melakukannya secara programmatic. Jika akses console diizinkan, IAM user dapat masuk ke AWS Management Console menggunakan username dan password. Atau jika akses secara programmatic diizinkan, user dapat menggunakan access key untuk berinteraksi dengan CLI atau API.
+
+
+    Permission
+        Permission memungkinkan kita menentukan akses ke sumber daya AWS. Permission diberikan kepada entitas IAM (user, group, dan role). Secara default, entitas tersebut tak memiliki permission sejak awal. Dengan kata lain, entitas IAM tidak dapat melakukan apa pun di AWS hingga kita memberikan permission yang diinginkan kepada mereka. 
+
+        Untuk memberikan permission kepada entitas, kita dapat melampirkan Policy yang menentukan jenis akses, tindakan yang dapat dilakukan, dan sumber daya di mana tindakan dapat dilakukan. Selain itu, kita dapat menentukan kondisi apa pun yang harus disetel agar akses diizinkan atau ditolak.
+
+        202106041252546a36c6b63cc12b1db677978015c4e84a.png
+
+        Perhatikan gambar di atas, saat menentukan apakah permission diizinkan, IAM terlebih dahulu memeriksa policy terkait adanya explicit deny (penolakan secara eksplisit). Jika tidak ada, maka IAM akan memeriksa policy terhadap explicit allow (izinkan secara eksplisit). Jika tidak ada keduanya, maka IAM kembali ke default: implicit deny (penolakan secara implisit).
+
+
+    Menggunakan IAM User untuk Aplikasi
+        IAM User sebenarnya hanyalah sebuah identitas (principal) dengan izin (permission) terkait/terpasang. Karenanya, kita dapat membuat IAM User untuk mewakili aplikasi yang harus memiliki kredensial untuk membuat permintaan ke AWS.
+
+        2021060412532861acad3ac2128a66b685c2b6d5d6e3ff.png
+
+        Sebuah aplikasi mungkin memiliki identitas dan serangkaian permission-nya sendiri untuk mengakses layanan AWS. Ini mirip dengan bagaimana dalam sistem operasi modern, setiap proses memiliki identitas dan permission-nya sendiri. Jika aplikasi atau bahkan EC2 instance membutuhkan permission untuk mengakses sesuatu seperti S3 bucket, maka kita perlu menghindari untuk menyematkan kredensial dalam kode.
