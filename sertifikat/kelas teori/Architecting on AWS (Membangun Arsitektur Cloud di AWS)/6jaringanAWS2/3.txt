@@ -1,0 +1,60 @@
+Load Balancing (Penyeimbang Beban)
+    Saat kita berbicara mengenai load balancing alias penyeimbang beban/muatan, Anda harus berkenalan dengan layanan Elastic Load Balancing (ELB). 
+
+    ELB secara otomatis mendistribusikan lalu lintas data yang masuk ke beberapa target, seperti Amazon EC2 instance, container, alamat IP, Lambda function, dan lainnya. ELB dapat menangani berbagai beban lalu lintas data, baik di dalam satu Availability Zone atau tersebar ke beberapa Availability Zone.
+
+    20210421152553a4058d0348f83092549784a327f30e70.png
+
+    Dalam mendesain arsitektur aplikasi, kita tentunya harus memahami bagaimana Web Tier bekerja, beserta dengan penggunaan ELB dalam perancangannya. Dalam pelaksanaannya, ELB tidak hanya mengirim data ke EC2 instance, tetapi juga metrik ke Amazon CloudWatch (layanan pemantauan). 
+
+    Metrik dari Amazon EC2 dan ELB dapat juga bertindak sebagai pemicu (trigger) sehingga jika kita melihat kondisi latensi yang sangat tinggi atau server digunakan hingga mendekati batas maksimum, kita dapat memanfaatkan fungsi Auto Scaling (penyesuaian kapasitas otomatis) untuk menambahkan lebih banyak kapasitas ke armada server web.
+
+    Setelah mengetahui tentang cara kerjanya, perhatikan poin-poin di bawah ini yang menjelaskan karakteristik dari AWS Elastic Load Balancing:
+
+        1. Menggunakan protokol HTTP, HTTPS, TCP dan SSL (secure TCP).
+        2. Bisa eksternal atau internal facing.
+        3. Setiap load balancer akan menggunakan DNS name.
+        4. Mengenali dan merespons terhadap instance yang tidak sehat (unhealthy).
+
+    AWS ELB menawarkan tiga jenis load balancer yang semuanya memiliki fitur high availability, auto scaling, dan robust security yang diperlukan untuk membuat aplikasi kita lebih fault tolerance (toleran terhadap kegagalan). Ketiga jenis load balancer tersebut dijelaskan pada gambar di bawah ini.
+
+    20210421152611135757715062988d53df93c5690dc205.png
+
+    Oke, kita telah mengenal berbagai jenis ELB. Sekarang muncul suatu pertanyaan, “Apa sih keuntungan kita menggunakan AWS Elastic Load Balancing?” Alright, berikut adalah uraiannya:
+
+        High Availability
+            ELB secara otomatis mendistribusikan lalu lintas ke banyak target—Amazon EC2 instance, container, dan alamat IP—dalam satu atau beberapa Availability Zone.
+
+        Health Checks
+            Untuk menjamin availability dari Amazon EC2 instance Anda, load balancing secara berkala mengirim ping, mencoba koneksi, atau mengirim permintaan untuk mengetes instance.
+
+            Tes ini disebut health check. Setiap Amazon EC2 instance terdaftar harus merespons target health check dengan kode status HTTP 200 agar terdeteksi dengan status sehat oleh load balancing Anda.
+
+        Fitur Keamanan
+            ELB yang dibuat dalam Amazon VPC juga memanfaatkan fitur keamanan jaringan VPC tersebut, seperti Security Group.
+
+        TLS Termination
+            ELB menyediakan manajemen sertifikat terintegrasi dan dekripsi SSL yang memungkinkan kita mengelola pengaturan SSL load balancing secara terpusat dan melepaskan pekerjaan intensif CPU dari aplikasi Anda.
+
+
+    Pola Desain Cloud: Application Load Balancer
+        Application Load Balancer (ALB) beroperasi pada lapisan aplikasi, layanan ini membuat keputusan perutean dan load balancing (penyeimbangan beban) pada lalu lintas aplikasi menggunakan HTTP dan HTTPS.
+
+        Beberapa fitur untuk membantu kita dalam menggunakan fitur dari ALB antara lain:
+
+        Perutean berbasis konten
+            Hal ini memungkinkan kita menentukan aturan yang merutekan lalu lintas ke target group yang berbeda berdasarkan URL path. Target group biasanya mewakili sekumpulan layanan yang akan digunakan.
+
+        Dukungan container
+            Fitur ini memberikan kemampuan untuk melakukan load balancing untuk beberapa port pada Amazon EC2 instance yang sama. Fungsionalitas ini secara khusus menargetkan implementasi container yang diintegrasikan dalam layanan Amazon ECS.
+
+        Pemantauan aplikasi
+            Fitur ini memungkinkan kita memantau dan melakukan kontrol health check per target group.
+
+    Tak afdal rasanya jika kita telah belajar mengenai ALB, tetapi tidak membahas contoh arsitektur aplikasi penggunaannya. Berikut adalah contoh penggunaan dengan fitur perutean berbasis konten: 
+
+    2021060411125611981c22164e9eaaea9f3aefdeccd608.png
+
+    Pada gambar di atas kita menggunakan sebuah Application Load Balancer untuk mengatur beban tiga sub-URL dari suatu aplikasi web, misalnya www.example.com. Masing-masing sub-URL mengacu kepada sepasang EC2 instance yang tersebar ke dua Availability Zone sebagai fitur dari high availability. 
+
+    Untuk mempelajari lebih lanjut, Anda bisa melihat tautan berikut: Introducing Application Load Balancer - Unlocking and Optimizing Architectures.
