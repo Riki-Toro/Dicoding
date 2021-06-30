@@ -36,3 +36,33 @@ Policy dan Permission
         2021060412532861acad3ac2128a66b685c2b6d5d6e3ff.png
 
         Sebuah aplikasi mungkin memiliki identitas dan serangkaian permission-nya sendiri untuk mengakses layanan AWS. Ini mirip dengan bagaimana dalam sistem operasi modern, setiap proses memiliki identitas dan permission-nya sendiri. Jika aplikasi atau bahkan EC2 instance membutuhkan permission untuk mengakses sesuatu seperti S3 bucket, maka kita perlu menghindari untuk menyematkan kredensial dalam kode.
+
+
+
+
+
+Federated Identity Management (Manajemen Identitas Gabungan) 
+    IAM Roles
+        IAM Roles memungkinkan kita menentukan sekumpulan izin untuk mengakses sumber daya yang dibutuhkan user atau layanan, dengan cara di mana permission tidak perlu dilampirkan ke user atau IAM Group. Permission dapat dilampirkan ke Roles, dan Roles tersebut ketika dibutuhkan akan di-assume (digunakan) oleh suatu user atau layanan.
+
+        Dengan Roles, kita tak perlu membuat banyak akun untuk setiap user. Ketika seorang user meng-assume sebuah roles, permission yang ada akan dilupakan sementara. AWS me-return (mengembalikan) kredensial keamanan sementara yang digunakan user atau aplikasi untuk membuat permintaan secara programmatic ke AWS.
+
+        Karenanya, kita tidak perlu membagikan kredensial keamanan jangka panjang (misal dengan membuat IAM User) untuk setiap entitas yang memerlukan akses ke sumber daya di akun AWS kita. Roles dapat di-assign (ditetapkan) ke akun federated user yang sign in (masuk) menggunakan identity provider eksternal, bukan IAM.
+
+        Kita membuat Roles di akun AWS yang berisi sumber daya yang membutuhkan akses. Saat membuat Roles, kita menentukan dua policy: trust (kepercayaan) dan access/permission (akses/izin).
+
+        Trust Policy menentukan siapa yang diizinkan untuk meng-assume (mengambil) role (entitas atau principal yang tepercaya). Sementara itu, Permission Policy menentukan tindakan dan sumber daya mana yang boleh digunakan oleh Identity Principal.
+
+        Ini berguna jika organisasi kita sudah memiliki sistem identitasnya sendiri, seperti direktori pengguna perusahaan. Kasus penggunaan lainnya adalah dengan mengizinkan pengguna aplikasi seluler atau aplikasi web yang memerlukan akses ke sumber daya AWS. Dengan identity provider, autentikasi dikelola secara eksternal. Ini membantu menjaga keamanan akun AWS karena kita tidak perlu mendistribusikan atau menyematkan kredensial keamanan jangka panjang di dalam aplikasi.
+
+        Identity Principal juga dapat berupa IAM User, Group, atau Role dari akun AWS lain termasuk yang tidak kita miliki. 
+
+        Untuk informasi lebih lanjut dapat dilihat di laman web Identity providers and federation. 
+
+
+    Penggunaan IAM Roles
+        IAM Role dapat di-assume (digunakan) dengan  menggunakan AWS Management Console, AWS Command Line Interface (AWS CLI), AssumeRole API, dan AWS Security Token Service (AWS STS). AWS STS adalah layanan web yang memberikan kredensial sementara dengan hak istimewa terbatas (limited privilege) untuk IAM User atau pengguna yang diautentikasi menggunakan federasi.
+
+        AssumeRole API call me-return (mengembalikan) nilai berupa sekumpulan kredensial keamanan sementara yang terdiri dari access key ID, secret access key, dan security token. Biasanya, AssumeRole digunakan untuk akses lintas akun atau federasi.
+
+        AWS STS mendukung AWS CloudTrail, yang mana akan mencatat panggilan API untuk akun AWS dan mengirimkan log file ke Amazon S3 bucket. CloudTrail mencatat semua permintaan API yang diautentikasi (dibuat dengan kredensial) ke IAM dan AWS STS API. CloudTrail juga bahkan mencatat permintaan yang tidak diautentikasi ke daftar tindakan (action) AWS STS, AssumeRoleWithSAML, dan AssumeRoleWithWebIdentity. Bahkan, CloudTrail pun mencatat informasi yang diberikan oleh identity provider.
