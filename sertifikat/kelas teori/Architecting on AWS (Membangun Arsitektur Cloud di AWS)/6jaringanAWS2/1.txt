@@ -1,0 +1,20 @@
+Pengantar ke Jaringan di AWS
+    Selamat! Startup kita semakin berkembang. Kita telah melakukan promosi dan menghadiri banyak event agar semakin banyak orang yang mengenal dan mengunjungi website penjualan kopi online kita. 
+
+    Karenanya, tuntutan bisnis pun semakin kompleks. Coba bayangkan bagaimana jika kita ingin melakukan promosi “Beli satu kopi dapat kue coklat”, lalu tiba-tiba server mengalami gangguan. Bencana, bukan? Atau, bagaimana jika saking banyaknya orang yang membeli sehingga terjadi “server timeout”. Wah, ini tidak boleh terjadi!
+
+    Di modul ini kita akan mempelajari hal-hal yang akan menjawab tuntutan bisnis seperti contoh permasalahan di atas. Ayo kita mulai!
+
+    Pada modul sebelumnya kita telah belajar mengenai jaringan, tetapi pembahasan tersebut belum mencakup keseluruhan topik. Maka dari itu, di modul ini kita akan belajar beberapa hal berikut:
+
+        Menghubungkan Jaringan
+        VPC Endpoints
+        Load Balancing
+        High Availability
+
+    Keempat subjek di atas akan dibahas pada modul ini. Kita akan menggunakan subjek-subjek tersebut untuk mengembangkan arsitektur startup warung kopi seperti ditunjukkan pada gambar di bawah ini.
+
+    20210604132740217c5ec00f3000ed1847893956032512.png
+
+    Luar biasa, bukan? Di akhir modul ini kita akan memiliki arsitektur aplikasi yang berada di dua availability zone, memiliki kemampuan failover, dan juga load balancing. Masih semangat? Ayo kita mulai!
+    
