@@ -93,3 +93,49 @@ High Availability (Ketersediaan Tinggi)
         2021060411142482349ab05c069474733d779ec5886c84.png
 
         Gambar di atas memperlihatkan contoh arsitektur yang berada di dua Availability Zone. 
+
+
+
+
+Multi-Region High Availability dan DNS
+    Amazon Route 53 menyediakan Domain Name System (DNS) alias Sistem Penamaan Domain, pendaftaran nama domain, dan layanan health check untuk aplikasi web Anda. 
+
+    Layanan ini dirancang untuk memberi developer dan bisnis cara yang mengarahkan pelanggan Anda ke alamat aplikasi tertentu di internet dengan menerjemahkan nama seperti example.com ke alamat IP numerik (misal 202.100.100.5) yang digunakan komputer untuk terkoneksi satu sama lain. 
+
+    20210604111522d2b31eff676c8ff0326d0ffda78ecb08.png
+
+    Kita dapat menggabungkan DNS dengan layanan health-check untuk mengarahkan lalu lintas ke endpoint yang dituju atau secara independen memantau availability dari endpoint tersebut. Kita juga dapat membeli dan mengelola nama domain seperti example.com dan secara otomatis mengonfigurasi pengaturan DNS untuk domain Anda. 
+
+    Route 53 secara efektif menghubungkan permintaan pengguna ke infrastruktur yang berjalan di AWS, seperti Amazon EC2 instance, ELB, atau Amazon S3 bucket. Bahkan, layanan ini juga dapat digunakan untuk merutekan pengguna ke infrastruktur di luar AWS.
+
+    Berikut adalah beberapa opsi untuk melakukan routing di Amazon Route 53:
+
+        Simple round robin
+            Mendistribusikan jumlah permintaan dengan merata di antara semua server yang terlibat.
+
+        Weighted round robin
+            Menggunakan mekanisme pembobotan kepada kumpulan DNS Record tertentu untuk menghasilkan pengaturan yang berbeda berdasarkan pembobotan.
+
+        Latency-based routing (LBR)
+            Membantu kita meningkatkan kinerja aplikasi untuk akses global. LBR bekerja dengan merutekan pelanggan ke endpoint AWS berdasarkan latency (misalnya Amazon EC2 instance, Elastic IP address, atau Elastic Load Balancing).
+
+            Opsi ini memberikan hasil pengalaman terbaik berdasarkan pengukuran kinerja aktual dari berbagai AWS Region di mana aplikasi kita berjalan.
+
+        Health check and DNS failover
+            Memantau kesehatan dan kinerja aplikasi web, server web, dan sumber daya lainnya. Setiap health check yang kita buat dapat memantau salah satu dari berikut ini:
+
+                Kesehatan sumber daya tertentu, seperti server web.
+                Status dari health check lainnya.
+                Status Amazon CloudWatch alarm.
+
+        Geolocation routing
+            Memungkinkan kita memilih sumber daya yang melayani lalu lintas berdasarkan lokasi geografis pengguna (asal query DNS).
+
+        Geoproximity routing with traffic biasing
+            Memungkinkan kita mengarahkan lalu lintas berdasarkan jarak fisik antara pengguna dan sumber daya jika kita menggunakan traffic flow (arus lalu lintas) Route 53.
+
+
+        Multi-value answers
+            Jika ingin merutekan lalu lintas secara acak ke beberapa sumber daya, seperti server web, kita dapat membuat satu DNS record Multi-value answer untuk setiap sumber daya dan--secara opsional--mengaitkan health check Amazon Route 53 dengan setiap DNS record tersebut.
+
+    Oke, tibalah kita di penghujung modul ini, cukup panjang ya pembahasan kita kali ini. Tapi tak mengapa, tetaplah semangat karena perjalanan kita masih panjang. Let’s Go!
