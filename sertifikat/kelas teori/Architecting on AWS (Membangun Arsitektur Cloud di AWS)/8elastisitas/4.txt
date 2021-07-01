@@ -1,0 +1,88 @@
+Scaling Database (Penyesuaian Kapasitas pada Database)
+    Scaling pada database tentu berbeda dengan EC2 instance. Database tidak bisa di-scaling dengan menempatkan Load Balancer di depannya. Oleh karena itu, pada pembahasan kali ini kita akan belajar bagaimana melakukan scaling pada database. Berikut adalah metode-metode yang bisa kita lakukan untuk men-scaling database di AWS:
+
+
+    Horizontal Scaling 
+        Anda bisa meningkatkan kinerja database yang besar di sisi read (baca) data dengan menggunakan read replica untuk horizontal scaling pada database Anda. Amazon RDS MySQL, PostgreSQL, dan MariaDB dapat memiliki hingga 5 read replica, sedangkan Amazon Aurora dapat memiliki hingga 15 read replica.
+
+        20210420133540dfd7d9df701782e7b368addd8853ac52.png
+
+        Read Replica memungkinkan Anda membuat salinan read-only yang disinkronkan dengan database master. Anda juga dapat menempatkan read replica di AWS Regions yang berbeda sehingga membuatnya lebih dekat dengan pengguna Anda demi kinerja yang lebih baik. 
+
+        Sebagai tambahan, Anda dapat menggunakan read replica untuk meningkatkan availability (ketersediaan) database dengan mem-promote (mempromosikan) read replica ke master guna pemulihan yang lebih cepat jika terjadi bencana (disaster recovery). Namun, read replica bukanlah solusi pengganti untuk high availability dan kemampuan automatic failover karena hal itu sudah disediakan oleh fitur Amazon RDS Multi-AZ Deployments.
+
+
+    Push Button Scaling
+        Dengan menggunakan Amazon RDS API atau beberapa klik pada console, Anda dapat melakukan scaling up atau scaling down terhadap sumber daya komputasi dan memori yang mendasari proses deployment Anda. Operasi scaling biasanya selesai dalam beberapa menit. 
+
+        202104201336069612529db52bf183bb41ae00d17a2b0c.png
+
+        Catatan: * RDS normalnya memerlukan waktu henti (downtime) singkat 1-2 menit saat di-scale, tetapi Aurora Serverless dapat melakukan scaling tanpa downtime.
+
+        Seiring bertambahnya kebutuhan, Anda dapat menyediakan penyimpanan tambahan dengan cepat tanpa downtime. Jika Anda menggunakan RDS Provisioned IOPS (dengan pengecualian Amazon RDS for SQL Server), Anda juga dapat melakukan scaling terhadap throughput DB instance dengan menentukan tarif IOPS dari 1.000 IOPS hingga 80.000 IOPS (dalam kelipatan 1.000 IOPS) dan penyimpanan dari 100 GB menjadi 64 TB.
+
+        Storage alias penyimpanan dapat ditingkatkan tanpa downtime. Namun, mengubah tipe instance akan membutuhkan downtime.
+
+
+    Aurora DB Cluster
+        Amazon Aurora DB Cluster terdiri dari satu atau lebih DB instance dan cluster volume--yang mengelola data untuk DB instance tersebut. Aurora cluster volume adalah volume penyimpanan database virtual yang mencakup beberapa Availability Zone, dengan setiap Availability Zone-nya memiliki salinan data dari DB cluster. Dua jenis DB instance yang membentuk Aurora DB cluster antara lain:
+
+            Primary DB Instance
+                Mendukung operasi read/write dan melakukan semua modifikasi data ke cluster volume. Setiap Aurora DB cluster memiliki satu DB instance utama.
+
+            Aurora Replica
+                Menghubungkan ke volume penyimpanan yang sama dengan DB instance utama dan hanya mendukung operasi read. Setiap Aurora DB cluster dapat memiliki hingga 15 Aurora Replica selain DB instance utama.
+
+                Pertahankan high availability dengan menempatkan Aurora Replica di Availability Zone yang terpisah. Aurora secara otomatis akan failover (beralih) ke Aurora Replica jika terjadi kegagalan di DB instance utama.
+
+                Anda dapat menentukan prioritas failover untuk Aurora Replica. Saat instance utama gagal, Amazon RDS akan mempromosikan instance replica dengan prioritas tertinggi menjadi instance utama.
+
+                Jika dua atau lebih Aurora Replica berbagi prioritas yang sama, maka Amazon RDS mempromosikan replica dengan ukuran (size) terbesar. Namun jika dua atau lebih Aurora Replica berbagi prioritas dan size yang sama, maka Amazon RDS mempromosikan replica secara acak di tingkat promosi yang sama.
+
+                Aurora Replica juga dapat offload (melepaskan) beban kerja read dari DB instance utama.
+                202104201336507b1826c2c243a0983ce6029d7608233f.png 
+
+
+    Aurora Serverless
+        Amazon Aurora Serverless adalah konfigurasi Auto Scaling sesuai permintaan untuk Amazon Aurora sebagai database relasional. Aurora Serverless DB cluster adalah DB cluster yang secara otomatis memulai, mematikan, dan meningkatkan atau menurunkan kapasitas berdasarkan kebutuhan aplikasi Anda tanpa perlu mengelola infrastruktur server database.
+
+        Aurora Serverless menyediakan opsi yang relatif sederhana dan hemat biaya untuk beban kerja yang jarang, terputus-putus, atau tidak dapat diprediksi. Aurora Serverless dapat membantu Anda dalam hal tersebut karena ia secara otomatis memulai instance, melakukan scaling terhadap kapasitas agar sesuai dengan penggunaan aplikasi, dan menghentikan instance saat tidak digunakan. Saat mengonfigurasi Aurora Serverless, Anda menentukan maksimum dan minimum Aurora Capacity Unit (ACU) dan membayar jumlah ACU tersebut sesuai yang Anda gunakan.
+
+
+    Database Sharding
+        Sharding adalah teknik untuk meningkatkan kinerja writing (penulisan) dengan beberapa server database. Database dengan struktur identik disiapkan dan dibagi menggunakan kolom tabel yang sesuai sebagai kunci untuk mendistribusikan proses writing. Penggunaan layanan RDBMS yang disediakan di AWS Cloud memungkinkan Anda melakukan sharding ini untuk mencapai peningkatan ketersediaan dan operasi yang lebih efektif.
+
+        202104201337174063299ff6ef800b55b00ba20ed457a0.png
+
+        Anda dapat menggunakan Amazon RDS dalam membagi database backend. Cukup instal perangkat lunak sharding seperti server MySQL yang digabungkan dengan Spider Storage Engine pada Amazon EC2 instance, siapkan beberapa RDS, dan gunakan sebagai database backend sharding. Yang lebih menariknya, Anda dapat mendistribusikan RDS ke beberapa region.
+
+
+    DynamoDB
+        Saat Anda membuat tabel baru di layanan DynamoDB dengan menggunakan console, tabel tersebut akan mengaktifkan Auto Scaling secara default. DynamoDB Auto Scaling secara otomatis menyesuaikan kapasitas throughput read (baca) dan write (tulis) sebagai respons terhadap volume permintaan yang berubah secara dinamis dengan downtime (waktu henti) nol. 
+
+        Dengan DynamoDB Auto Scaling, Anda cukup menetapkan target penggunaan throughput yang diinginkan, batas minimum dan maksimum, dan Auto Scaling akan menangani sisanya.
+
+        DynamoDB Auto Scaling bekerja dengan Amazon CloudWatch untuk terus memantau konsumsi throughput yang aktual dan melakukan scaling up dan scaling down terhadap kapasitas secara otomatis ketika penggunaan aktual menyimpang dari target Anda.
+
+        Auto Scaling dapat diaktifkan untuk tabel baru (new table), yang sudah ada (existing table), dan indeks sekunder global. Tidak ada biaya tambahan untuk menggunakan DynamoDB Auto Scaling, selain yang sudah Anda bayar untuk DynamoDB dan CloudWatch alarm. DynamoDB Auto Scaling tersedia di semua AWS Region.
+
+        Amazon DynamoDB On-Demand adalah opsi penagihan fleksibel untuk DynamoDB yang mampu melayani ribuan permintaan per detik tanpa harus melakukan perencanaan kapasitas. Ini menggunakan model harga pay-per-request (bayar per permintaan), bukan provisioned-price model (jenis pembayaran berdasarkan sumber daya yang ditetapkan sebelumnya). 
+
+        DynamoDB On-Demand dapat mengamati setiap peningkatan atau scale (skala) tingkat lalu lintas. Jika tingkat lalu lintas mencapai puncak baru, DynamoDB akan beradaptasi dengan cepat untuk mengakomodasi beban kerja. Ini berguna jika beban kerja Anda sulit diprediksi atau mengalami lonjakan besar dalam durasi yang singkat. 
+
+        Anda dapat mengubah tabel dari kapasitas yang disediakan (provisioned) menjadi sesuai permintaan (on-demand) satu kali sehari. Sementara itu, Anda dapat beralih dari kapasitas on-demand ke provisioned sesering yang Anda inginkan.
+
+
+    Cara Kerja DynamoDB Auto Scaling
+        Setelah kita mengetahui penjelasan tentang DynamoDB Auto Scaling, mari kita telaah bagaimana cara kerjanya. Simaklah gambar berikut yang menunjukkan cara kerja dari DynamoDB Auto Scaling:
+
+        2021060413354761234bdc6aa061d809069d9333509bca.png
+
+        Dari gambar di atas, mari kita jabarkan cara kerjanya:
+
+        Buat Application Auto Scaling policy untuk tabel DynamoDB Anda.
+        DynamoDB publish (menerbitkan) metrik kapasitas yang dikonsumsi ke Amazon CloudWatch.
+        Jika kapasitas tabel yang dikonsumsi melebihi penggunaan target Anda (atau berada di bawah target) untuk jangka waktu tertentu, Amazon CloudWatch akan men-trigger (memicu) alarm. Anda dapat melihat alarm di console dan menerima notifikasi menggunakan Amazon SNS.
+        CloudWatch alarm memanggil Application Auto Scaling untuk mengevaluasi scaling policy Anda.
+        Application Auto Scaling mengeluarkan permintaan UpdateTable untuk menyesuaikan throughput yang disediakan tabel Anda.
+        DynamoDB memproses permintaan UpdateTable, kemudian ia secara dinamis meningkatkan (atau menurunkan) kapasitas throughput yang disediakan tabel sehingga mendekati penggunaan target Anda.
