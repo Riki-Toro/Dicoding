@@ -23,4 +23,70 @@ VPC Flow Logs
     Flow Logs dapat membantu Anda dengan sejumlah tugas (seperti memecahkan masalah mengapa lalu lintas tertentu tidak mencapai sebuah instance), yang pada akhirnya membantu Anda mendiagnosis rule dari security group yang terlalu membatasi. Anda juga dapat menggunakan Flow Logs sebagai alat keamanan untuk memantau lalu lintas yang mencapai instance Anda.
 
     VPC Flow Logs dapat digunakan untuk beberapa hal, misalnya memecahkan masalah konektivitas, menguji aturan akses jaringan, memantau lalu lintas, serta mendeteksi dan menyelidiki insiden keamanan.
-    
+
+
+
+
+
+Auto Scaling (Penyesuaian Kapasitas secara Otomatis)
+    Masih ingatkah Anda dengan kebutuhan startup warung kopi kita dalam hal elastisitas? Yup, Anda tak ingin menambah dan mengurangi jumlah server secara manual. Apalagi jika itu dilakukan pada malam hari atau akhir pekan. 
+
+    Nah, AWS menawarkan Auto Scaling yang dapat membantu Anda dalam menyesuaikan kapasitas secara otomatis sesuai kebutuhan.
+
+    Dengan menentukan scaling policies, Auto Scaling dapat meluncurkan atau menghentikan instance saat permintaan pada aplikasi Anda meningkat atau menurun. 
+
+    Auto Scaling terintegrasi dengan ELB (Elastic Load Balancing) untuk memungkinkan Anda memasang satu atau beberapa load balancer ke Auto Scaling group yang ada. Setelah memasang Load Balancer, secara otomatis Amazon EC2 Auto Scaling akan mendaftarkan instance di Auto Scaling group, lalu ELB akan mendistribusikan lalu lintas masuk ke seluruh instance.
+
+    202106041334220ef16509e04f7e15babbfb2db2ff1483.png
+
+    Saat satu Availability Zone menjadi unhealthy (tidak sehat) atau unavailable (tidak tersedia), Auto Scaling akan meluncurkan instance baru di Availability Zone yang tidak terpengaruh. Ketika Availability Zone yang unhealthy tersebut kembali ke keadaan healthy (sehat), Auto Scaling secara otomatis mendistribusikan ulang instance aplikasi secara merata di semua Availability Zone untuk Auto Scaling group Anda. 
+
+    Auto Scaling melakukan percobaan meluncurkan instance baru di Availability Zone dengan jumlah instance yang paling sedikit. Namun, jika upaya tersebut gagal, Auto Scaling akan mencoba untuk meluncurkan instance di Availability Zone lain hingga berhasil.
+
+
+    Cara Auto Scaling
+        Di AWS, AWS menawarkan beberapa cara untuk Anda melakukan Auto Scaling. Lihatlah gambar di bawah ini.
+
+        20210604133440eb080fff04ad148a7dec0b5ae08d583a.png
+
+        Mari kita kupas satu per satu:
+
+            Scaling berdasarkan jadwal (scheduled) memungkinkan Anda untuk melakukan scale terhadap aplikasi sebelum perubahan beban traffic diketahui. Misalnya, lalu lintas ke aplikasi web Anda mulai meningkat setiap hari Rabu, tetap tinggi pada hari Kamis, dan mulai menurun pada hari Jumat.
+
+            Scaling secara dinamis adalah solusi terbaik untuk penggunaan secara umum. Scaling akan dilakukan berdasarkan penggunaan CPU. Misalnya, saat penggunaan CPU mencapai 80%, maka Amazon EC2 Auto Scaling akan menambah instance baru.
+
+            Predictive Scaling adalah opsi yang paling mudah digunakan. AWS akan melakukan scaling berdasarkan machine learning sehingga Anda tidak perlu menyesuaikan rule secara manual.
+
+
+    Opsi Pembelian Auto Scaling
+        Amazon EC2 Auto Scaling mendukung beberapa opsi pembelian dalam Auto Scaling group (ASG) yang sama. Anda dapat menyertakan Spot Instance, On-Demand, dan Reserved Instance dalam satu ASG, sehingga memungkinkan Anda untuk menghemat hingga 90% pada biaya komputasi.
+
+        Gunakanlah Amazon EC2 Fleet agar dapat menentukan kombinasi tipe instance untuk membuat kapasitas yang diinginkan dari ASG Anda. Kombinasi ini dapat didefinisikan sebagai persentase dari setiap jenis opsi pembelian. 
+
+        EC2 Auto Scaling akan mempertahankan pengoptimalan biaya yang diinginkan saat ASG melakukan scaling in atau scaling out. ASG yang terdiri dari EC2 Fleet campuran (kombinasi tipe instance) masih mendukung life cycle hook (dibahas nanti), instance health check, dan scheduled scaling yang sama seperti ASG dengan EC2 Fleet tunggal.
+
+        Di bawah ini adalah opsi yang dapat dikonfigurasi pada saat menentukan ASG menggunakan kombinasi model model pembelian dan tipe-tipe instance:
+
+            Harga Spot Instance Maksimum : Menentukan harga maksimum Spot untuk instances di dalam ASG.
+
+            Strategi Alokasi Spot Instance : Konfigurasikan keragaman per Availability Zone. Ini sangat membantu ketika tipe instance tertentu mendapatkan permintaan yang tinggi di salah satu Availability Zone.
+
+            (Opsional) Basis On-Demand : Konfigurasikan kapasitas awal yang akan terdiri dari On-Demand Instance. Hal ini terlepas pada persentase On-Demand Instance yang membentuk total kapasitas.
+
+            Persentase On-Demand di Atas Basis : Mengontrol persentase On-Demand Instance untuk ditambahkan ke grup awal.
+
+        Konfigurasi mixed-fleet (fleet campuran) dapat digabungkan dengan tipe instance yang berbeda dengan jumlah RAM dan kapasitas vCPU yang bervariasi. EC2 Auto Scaling akan secara otomatis menyediakan kombinasi harga terendah untuk memenuhi kapasitas yang diinginkan.
+
+        Sekarang, perhatikan poin-poin berikut yang merupakan hal-hal penting mengenai Auto Scaling:
+
+            Anda mungkin perlu menggabungkan beberapa jenis Auto Scaling.
+            Arsitektur Anda mungkin memerlukan lebih banyak bantuan scaling menggunakan: Step Scaling.
+            Beberapa arsitektur perlu melakukan scaling dengan menggunakan dua atau lebih metrik (bukan hanya metric CPU saja).
+            Cobalah untuk melakukan scale out lebih awal dan cepat, sedangkan scale in perlahan secara bertahap (gradually).
+            Gunakan Life Cycle Hooks.
+
+        Life Cycle Hooks memungkinkan Anda untuk melakukan tindakan custom dengan menjeda (pause) instance saat Auto Scaling group meluncurkan atau menghentikannya. Saat sebuah instance dijeda, ia tetap dalam status menunggu hingga Anda menyelesaikan tindakan life cycle menggunakan perintah complete-lifecycle-action, operasi CompleteLifecycleAction, atau hingga periode waktu tunggu berakhir (satu jam secara default).
+
+        Sebagai contoh, misalnya instance yang baru Anda luncurkan menyelesaikan tahapan proses startup dan life cycle hook menjeda instans tersebut. Saat instance dalam status menunggu, Anda dapat menginstal atau mengonfigurasi perangkat lunak di dalamnya, memastikan bahwa instance Anda sepenuhnya siap sebelum mulai menerima traffic.
+
+    INGAT! EC2 instance mungkin memerlukan waktu beberapa menit sampai benar-benar beroperasi.
