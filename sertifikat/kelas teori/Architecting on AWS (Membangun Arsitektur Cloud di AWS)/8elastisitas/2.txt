@@ -1,0 +1,17 @@
+AWS Cost Explorer
+    Untuk menciptakan arsitektur yang lebih fleksibel dan elastis, Anda harus tahu di bagian mana Anda mengeluarkan uang atas sumber daya AWS yang dibangun. AWS Cost Explorer adalah layanan pemantauan pengeluaran dari AWS yang akan sangat membantu dalam hal ini.
+
+    AWS Cost Explorer memiliki beberapa kemampuan yang dapat membantu Anda dalam memantau pengeluaran di AWS, di antaranya: 
+
+        Monitor pengoptimalan biaya
+            AWS Cost Explorer dapat menghasilkan laporan yang memberikan wawasan tentang penggunaan layanan dan biaya. Layanan ini akan memberikan perkiraan biaya yang dapat dikelompokkan berdasarkan periode, akun, sumber daya, atau tag.
+
+        Melihat data hingga 13 bulan
+            Layanan ini memungkinkan Anda untuk melihat pola pembelanjaan sumber daya AWS dari waktu ke waktu, dengan maksimal 13 bulan (12 bulan terakhir dan bulan ini).
+
+        Forecasting dengan AWS Cost Explorer
+            Forecast atau perkiraan adalah prediksi seberapa banyak Anda akan menggunakan layanan AWS selama periode waktu tertentu di masa mendatang, berdasarkan penggunaan sebelumnya. 
+
+    Forecasting akan memberikan estimasi tentang berapa tagihan AWS yang akan Anda dapat. Ia juga memungkinkan Anda untuk menggunakan alarm dan budget (anggaran) untuk nilai jumlah tertentu yang diprediksikan akan Anda gunakan. Karena forecast adalah prediksi, maka estimasi jumlah penagihan pun mungkin bisa berbeda dari nilai aktual biaya sebenarnya untuk setiap periode laporan.
+
+    Rentang akurasi yang berbeda memiliki interval prediksi yang berbeda pula. Semakin tinggi interval prediksinya, semakin besar kemungkinan forecast tersebut benar. AWS Cost Explorer forecast memiliki interval prediksi 80%. Jika AWS tidak memiliki cukup data untuk memperkirakan dalam interval prediksi 80%, maka AWS Cost Explorer tidak akan menampilkan forecast.
