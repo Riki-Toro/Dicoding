@@ -1,0 +1,65 @@
+Pengantar ke Elastisitas, Ketersediaan Tinggi, dan Pemantauan
+    Startup warung kopi kita mengalami pertumbuhan yang luar biasa. Karena promosi yang cerdas dan dikombinasikan dengan produk kopi terbaik, permintaan terhadap produk kita pun meningkat pesat. Bayangkan, dalam waktu beberapa bulan saja sejak startup warung kopi meluncur, kita telah memiliki puluhan ribu pengguna.  
+
+    Dengan pertumbuhan yang ekstrem tersebut, tentu saja itu berarti tuntutan terhadap infrastruktur IT kita juga semakin tinggi. Nah, di modul ini kita akan mempelajari bagaimana AWS adalah partner terbaik untuk menjawab tuntutan bisnis seperti skenario tadi.
+
+    Beberapa materi yang akan kita bahas di antaranya:
+
+        Elastisitas
+        Pemantauan
+        Skalabilitas
+
+    Di akhir modul kita akan memiliki pemahaman yang lebih baik untuk mengembangkan arsitektur seperti yang ditunjukkan pada gambar di bawah ini.
+
+    20210604134543d38e641ba334df5eb2c1efb77416bcf2.png
+
+    Sekarang, arsitektur kita akan memiliki komponen Auto Scaling yang membuatnya elastis. Menarik bukan? Mari kita mulai.
+
+
+
+
+
+Elastisitas
+    Pada data center tradisional, perusahaan harus membayar sumber daya di muka dan berharap semoga hal itu dapat memenuhi kebutuhan. Bahkan, bisa saja sumber daya yang telah dibeli terlalu banyak sehingga menimbulkan keborosan.
+
+    Umumnya data center tradisional selalu harus memikirkan masalah klasik, yaitu bagaimana memenuhi tuntutan terhadap sumber daya komputasi (memori, CPU, jaringan, penyimpanan) dengan biaya yang paling optimal.
+
+    Tahukah Anda? Rata-rata waktu pemesanan perangkat keras data center adalah antara 8 sampai 12 minggu semenjak purchase order (PO) diberikan.
+
+
+    Studi Kasus: Amazon.com
+        Tidak perlu dikatakan lagi, Amazon.com adalah salah satu pelanggan setia dan terbesar dari AWS. Sebelum hadirnya AWS, Amazon.com pun memiliki data center sendiri dan juga berhadapan dengan masalah yang sama. Coba kita pelajari gambar di bawah ini.
+
+        20210420132813f78a1c01b4e79856c6243de91f288c66.png
+
+        Amazon.com mengalami periode puncak musiman (seasonal peak) pada bulan November (Black Friday, yaitu hari belanja konsumen utama di Amerika Serikat). Perusahaan harus berinvestasi dalam sumber daya yang cukup untuk mendukung periode puncak yang terjadi setiap tahun. Seiring pertumbuhan bisnis, Amazon.com harus terus berinvestasi pada perangkat keras dan perangkat lunak tambahan. Pada suatu saat, mereka akan kehabisan tempat, jadi mereka harus menambahkan data center baru.
+
+        Saat menggunakan solusi on-premise, sekitar 76 persen sumber daya dibiarkan menganggur hampir sepanjang tahun, karena nyatanya, hanya 24 persen kapasitas sajalah yang terpakai, tentu ini menjadikan sumber daya tersebut sia-sia. Tetapi tanpa berinvestasi pada perangkat keras tambahan tersebut, perusahaan mungkin tidak akan memiliki kemampuan komputasi yang cukup untuk mendukung periode puncak di bulan tertentu. Jika terjadi kegagalan pada server, perusahaan mungkin akan kehilangan kepercayaan pelanggan.
+
+
+    Apakah Elastisitas itu?
+        Infrastruktur yang elastis dapat secara cerdas menambah dan menyusut kapasitasnya sesuai kebutuhan. Contoh dari hal ini antara lain:
+
+        Meningkatkan jumlah server web saat traffic meningkat secara tiba-tiba.
+        Menurunkan kapasitas write (tulis) di database Anda saat lalu lintas menurun.
+        Menangani fluktuasi permintaan sehari-hari di seluruh arsitektur Anda.
+        Nah, begitu juga dengan arsitektur pada startup warung kopi. Seperti yang telah disebut di awal modul, startup kita sekarang telah memiliki puluhan ribu pengguna. Bayangkan betapa sulitnya jika kita harus menambah dan mengurangi server secara manual. 
+
+        Pertama, kita harus membuat analisis kapan lonjakan lalu lintas terjadi, kemudian bersiaga pada jam-jam tertentu, lalu menyesuaikan kapasitas sesuai beban traffic. Ahh! Itu aktivitas yang melelahkan.
+
+        Bayangkan, bagaimana jika lonjakan traffic terjadi di malam hari? Anda harus terbangun untuk menambah server! Atau, bagaimana jika lonjakan tersebut terjadi saat Anda sedang berlibur di akhir pekan? Hmm! Menjengkelkan, bukan?
+
+        Maka dari itu, elastisitas ini akan sangat membantu Anda dalam menyesuaikan kapasitas sesuai kebutuhan. Selanjutnya, mari kita lihat beberapa jenis elastisitas.
+
+
+        Tiga Jenis Elastisitas
+            AWS menawarkan tiga jenis elastisitas, yakni berbasis waktu, volume, dan perkiraan. Mari kita uraikan!
+
+                Berbasis Waktu
+                    Mematikan resource saat sudah tidak dibutuhkan lagi. Contoh yang paling sering dilakukan adalah pada lingkungan Development/Testing.
+
+                Berbasis Volume
+                    Menyesuaikan skala dengan intensitas permintaan Anda (memastikan Anda memiliki daya komputasi yang cukup).
+
+                Berbasis Perkiraan
+                    Memprediksi kebutuhan masa depan berdasarkan tren harian dan mingguan (termasuk lonjakan yang terjadi secara teratur).
