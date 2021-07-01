@@ -1,0 +1,9 @@
+AWS CloudTrail
+    AWS CloudTrail adalah layanan web yang mencatat panggilan AWS API dan mengirimkan file log kepada Anda. Informasi yang terekam mencakup identitas pemanggil API, waktu panggilan API, alamat IP sumber dari pemanggil API, parameter permintaan, dan elemen respons yang di-return oleh layanan AWS.
+
+    20210420133247fc8be6650c915e48cfb8c7388e2c3343.png
+
+    Dengan CloudTrail, Anda bisa mendapatkan riwayat panggilan API AWS untuk akun Anda, termasuk panggilan API yang dilakukan melalui AWS Management Console, AWS SDK, command-line, dan layanan AWS lainnya (seperti AWS CloudFormation). Riwayat panggilan API yang dihasilkan oleh CloudTrail akan memberikan analisis keamanan, pelacakan perubahan sumber daya, dan audit compliance (kepatuhan).
+
+    CloudTrail berjalan pada basis Region. Jika Anda menggunakan lebih dari satu Region, Anda dapat memilih ke mana file log dikirimkan. Misalnya, Anda dapat memiliki Amazon S3 bucket terpisah untuk setiap region atau menyatukan file log dari semua region dalam satu Amazon S3 bucket.
+    
