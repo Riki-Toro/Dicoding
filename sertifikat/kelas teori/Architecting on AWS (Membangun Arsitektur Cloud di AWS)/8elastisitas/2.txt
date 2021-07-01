@@ -15,3 +15,20 @@ AWS Cost Explorer
     Forecasting akan memberikan estimasi tentang berapa tagihan AWS yang akan Anda dapat. Ia juga memungkinkan Anda untuk menggunakan alarm dan budget (anggaran) untuk nilai jumlah tertentu yang diprediksikan akan Anda gunakan. Karena forecast adalah prediksi, maka estimasi jumlah penagihan pun mungkin bisa berbeda dari nilai aktual biaya sebenarnya untuk setiap periode laporan.
 
     Rentang akurasi yang berbeda memiliki interval prediksi yang berbeda pula. Semakin tinggi interval prediksinya, semakin besar kemungkinan forecast tersebut benar. AWS Cost Explorer forecast memiliki interval prediksi 80%. Jika AWS tidak memiliki cukup data untuk memperkirakan dalam interval prediksi 80%, maka AWS Cost Explorer tidak akan menampilkan forecast.
+
+
+
+
+
+Amazon CloudWatch
+    Langkah pertama dalam perjalanan kita untuk membuat arsitektur elastis adalah dengan mempelajari Amazon CloudWatch. CloudWatch mampu memberikan tingkat visibilitas yang lebih tinggi ke dalam sumber daya dan aplikasi AWS Anda.
+
+    Amazon CloudWatch memiliki beberapa kemampuan, di antaranya:
+
+        Anda dapat menggunakan CloudWatch untuk mengumpulkan dan melacak metrik, yaitu variabel yang dapat Anda ukur untuk sumber daya dan aplikasi.
+        CloudWatch alarm (dibahas nanti) bisa mengirimkan notifikasi. 
+        CloudWatch dapat secara otomatis membuat perubahan pada sumber daya yang sedang dipantau berdasarkan aturan yang Anda tentukan.
+        
+    Misalnya, Anda dapat memantau penggunaan CPU dan read/write pada disk Amazon EC2 instance, lalu menggunakan data ini untuk menentukan apakah Anda harus meluncurkan instance tambahan guna menangani peningkatan traffic atau tidak. Anda juga dapat menggunakan data tersebut untuk menghentikan instance yang tak terpakai agar menghemat uang. 
+
+    Selain metrik bawaan (built-in), Anda juga dapat memantau metrik custom yang Anda buat sendiri. Intinya, dengan CloudWatch Anda bisa mendapatkan visibilitas ke seluruh sistem, seperti pemanfaatan sumber daya, kinerja aplikasi, dan kesehatan operasional.
