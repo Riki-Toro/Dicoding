@@ -63,3 +63,19 @@ Elastisitas
 
                 Berbasis Perkiraan
                     Memprediksi kebutuhan masa depan berdasarkan tren harian dan mingguan (termasuk lonjakan yang terjadi secara teratur).
+
+
+
+
+
+Pemantauan
+    Memantau lingkungan adalah salah satu hal terpenting untuk dipikirkan saat melakukan desain dan arsitektur di cloud. Anda akan selalu membutuhkan cara untuk melacak bagaimana sumber daya beroperasi dan berkinerja. Pemantauan memberi Anda petunjuk pertama untuk mengetahui apakah ada sesuatu yang perlu diubah. 
+
+    Berikut beberapa poin tentang pemantauan yang perlu Anda ingat:
+
+        Monitoring atau pemantauan adalah langkah pertama untuk membangun arsitektur reaktif yang scalable (dapat diskalakan) saat permintaan naik dan turun. Jenis scaling ini akan sangat menghemat uang dan memberikan pengalaman yang lebih baik untuk Anda dan pelanggan Anda.
+
+        Resource utilization (pemanfaatan sumber daya) dan application performance (kinerja aplikasi) akan menjadi komponen besar untuk memastikan infrastruktur Anda memenuhi permintaan. Anda dapat menarik informasi ini melalui pemantauan.
+
+        Pemantauan juga sangat penting dari sudut pandang keamanan. Dengan parameter yang efektif, Anda dapat mengetahui saat pengguna mengakses bagian dari lingkungan AWS Anda yang seharusnya tidak boleh mereka akses.
+        
