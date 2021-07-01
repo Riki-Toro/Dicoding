@@ -32,3 +32,76 @@ Amazon CloudWatch
     Misalnya, Anda dapat memantau penggunaan CPU dan read/write pada disk Amazon EC2 instance, lalu menggunakan data ini untuk menentukan apakah Anda harus meluncurkan instance tambahan guna menangani peningkatan traffic atau tidak. Anda juga dapat menggunakan data tersebut untuk menghentikan instance yang tak terpakai agar menghemat uang. 
 
     Selain metrik bawaan (built-in), Anda juga dapat memantau metrik custom yang Anda buat sendiri. Intinya, dengan CloudWatch Anda bisa mendapatkan visibilitas ke seluruh sistem, seperti pemanfaatan sumber daya, kinerja aplikasi, dan kesehatan operasional.
+
+
+
+
+
+Cara Amazon CloudWatch Merespons
+    Amazon CloudWatch dapat merespons setiap kejadian berdasarkan beberapa faktor, seperti metrics, logs, alarms, events, rules, dan target. Bahkan, kita juga bisa memvisualisasikan metrik dalam bentuk berbagai diagram. Mari kita bahas satu per satu.
+
+
+    Metrics
+        Amazon CloudWatch metrics--mari kita singkat menjadi metrik--adalah data tentang kinerja sistem Anda. Banyak layanan AWS yang menyediakan metrik untuk sumber daya secara default (seperti Amazon EC2 instance, Amazon EBS volume, dan Amazon RDS DB instance). 
+
+        Anda juga dapat mengaktifkan pemantauan mendetail (detailed monitoring) untuk beberapa sumber daya, seperti Amazon EC2 instance atau menerbitkan metrik aplikasi Anda sendiri. Amazon CloudWatch bisa memuat semua metrik di akun Anda (baik metrik sumber daya AWS dan metrik aplikasi yang di-publish oleh Anda) untuk pencarian, grafik, dan alarm.
+
+        202104201329445fca1bd0937a44724a15376ad1323b27.png
+
+        Data-data metrics akan disimpan oleh Amazon CloudWatch selama 15 bulan, tanpa biaya. Data yang disimpan dalam jangka waktu lebih lama dari 15 bulan akan expire secara bertahap.
+
+
+    Logs
+        CloudWatch Logs memungkinkan Anda untuk memantau, menyimpan, dan mengakses file log dari sumber seperti EC2 instance, Amazon Route 53, AWS CloudTrail, dan layanan AWS lainnya. Misalnya, Anda dapat memantau log dari Amazon EC2 instance secara real time, lalu menyimpannya di Amazon S3. 
+
+        Bahkan, Anda dapat melacak jumlah kesalahan yang telah terjadi dalam log yang berasal dari aplikasi Anda dan mengirimkan pemberitahuan jika tingkat error tersebut melebihi jumlah yang sudah didefinisikan sebelumnya.
+
+        202104201330527c77f7f53fb4dde2e55a5056d061deb1.png
+
+        Tidak ada perubahan kode yang diperlukan pada aplikasi Anda untuk menggunakan Amazon CloudWatch. Selain itu, Anda dapat menggunakan CloudWatch Logs Insights untuk menganalisis log dalam hitungan detik guna memberi Anda kueri yang cepat dan visualisasi yang interaktif. Anda dapat memvisualisasikan hasil query menggunakan diagram dan menambahkan query tersebut ke CloudWatch dashboard.
+
+
+    Alarms
+        Anda dapat menggunakan CloudWatch alarm untuk secara otomatis memulai tindakan atas nama Anda. Alarm mengawasi satu metrik selama jangka waktu tertentu dan menjalankan satu atau beberapa tindakan tertentu berdasarkan nilai metrik yang relatif terhadap ambang batas (threshold) dari waktu ke waktu. Aksi yang dapat di-trigger contohnya adalah notifikasi yang dikirim ke Amazon SNS topic atau Auto Scaling policy. Anda juga bisa menambahkan alarm ke CloudWatch dashboard.
+
+        2021042013312003f93ffffa992048809248909c9f22fd.png
+
+        Pada contoh di atas, trigger akan memulai beberapa tindakan yang telah didefinisikan yaitu:
+
+        Mengirim pemberitahuan (misalnya ke tim developer);
+        Membuat instance lain untuk menangani traffic. 
+        Alarm meng-invoke (menjalankan) tindakan hanya untuk perubahan status yang dapat bertahan. CloudWatch alarm tidak meng-invoke tindakan hanya karena berada dalam status tertentu. Status tersebut harus telah berubah dan dapat dipertahankan selama beberapa periode tertentu.
+
+        Catatan: Tindakan/Action juga dapat dijalankan saat alarm tidak ter-trigger.
+
+
+    Events
+        Amazon CloudWatch event memberikan aliran sistem event (kejadian) hampir real time yang menggambarkan perubahan dalam sumber daya AWS.
+
+        Sumber daya di AWS dapat menghasilkan event ketika statusnya berubah. Misalnya, pada Amazon EC2 instance saat statusnya pending berubah menjadi running dan pada Amazon EC2 Auto Scaling saat meluncurkan instance baru atau mengakhiri (terminate) instance.
+
+        Dengan menggunakan rules (dibahas nanti) yang sederhana, Anda dapat mencocokkan event dan mengarahkannya ke satu atau beberapa target (Lambda function atau Kinesis stream).
+
+        CloudWatch Events akan menyadari atas terjadinya perubahan operasional. CloudWatch event akan menanggapi perubahan operasional tersebut dan mengambil tindakan perbaikan yang diperlukan dengan mengirim pesan untuk merespons lingkungan, mengaktifkan Lambda function, membuat perubahan, dan menangkap status informasi.
+
+        Anda juga dapat menggunakan CloudWatch Events untuk menjadwalkan tindakan otomatis yang self-trigger (memicu diri sendiri) pada waktu tertentu menggunakan cron atau rate expressions.
+
+
+    Rules
+        CloudWatch rules mencocokkan event yang masuk dan mengarahkannya ke target untuk diproses. Satu rules dapat diarahkan ke beberapa target yang semuanya diproses secara paralel. Rules tidak diproses dalam urutan tertentu, sehingga ini memungkinkan berbagai bagian yang berbeda dari sebuah organisasi untuk mencari dan memproses event yang menarik bagi mereka. 
+
+        Selain itu, rules dapat mengubah/menyesuaikan JSON yang dikirim ke target dengan hanya meneruskan bagian tertentu atau menimpanya dengan nilai konstan (constant values) yang kita definisikan.
+
+
+    Target
+        Target adalah komponen yang memproses event. Target ini dapat berupa Amazon EC2 instance, AWS Lambda function, Kinesis stream, Amazon ECS task, Step Functions state machine, Amazon SNS topic, Amazon SQS queue, dan built-in target (target bawaan). Target menerima event dalam format JSON.
+
+
+    Visualisasi CloudWatch
+        20210604133230bf6de6310f7e7986fe78b540582fb33a.png
+
+        Diambil dari Getting started with Amazon CloudWatch
+
+        Amazon CloudWatch pada dasarnya adalah repositori metrik. Layanan AWS—seperti contoh Amazon EC2—menempatkan metrik ke dalam repositori, sehingga Anda dapat mengambil statistik berdasarkan metrik tersebut. Jika Anda memasukkan metrik custom ke dalam repositori, Anda juga dapat mengambil statistik pada metrik tersebut. 
+
+        Dengan CloudWatch dashboard, Anda dapat menggunakan visualisasi seperti diagram batang (bar chart), diagram garis (line chart), dan diagram area bertumpuk (stacked area chart) untuk mengidentifikasi pola dalam data log secara lebih efisien. CloudWatch Logs Insights menghasilkan visualisasi untuk query yang menggunakan fungsi statistik dan satu atau beberapa fungsi agregasi.
