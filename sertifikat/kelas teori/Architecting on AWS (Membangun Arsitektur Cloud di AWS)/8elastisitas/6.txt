@@ -1,0 +1,87 @@
+Hands-on Lab: Membangun Arsitektur yang High Available (Sangat Tersedia) - Meluncurkan Auto Scaling
+    Pada bagian kedua ini kita akan meluncurkan Auto Scaling di 2 Availability Zone serta menghubungkannya dengan load balancer yang telah dibuat. Tapi sebelum itu, mari kita buat security group untuk server terlebih dahulu.
+
+        1. Pada halaman Amazon EC2 console, di bagian bawah Network & Security, masuklah ke halaman Security Groups, kemudian klik Create security group.
+        20210419095608f3ed50f331cc89846d759a5bc9ab05dd.jpeg
+
+        2. Di bagian ini, isikan sesuai konfigurasi berikut:
+
+            Security group name	|   dicoding-security-group-server
+            Description	        |   Allow SSH dan HTTP
+            VPC	                |   default
+            
+            20210419095730583f3c64dfdd7b9762c9010e1ef64061.jpeg
+
+        3. Untuk Inbound rules, kita akan membuat 2 rule. Klik Add rule dan sesuaikan dengan konfigurasi berikut ini:
+
+                    HTTP
+            Type	|   HTTP
+            Source	|   Anywhere
+                    SSH
+            Type	|   SSH
+            Source	|   Anywhere
+
+            Jika Anda merasa kesulitan, silakan lihat gambar di bawah ini.
+            20210428101033d2a924f6ec2b1d65c4e346ddb0970f2e.jpeg
+
+        4. Tambah tag dengan Key (Name) dan Value (Allow SSH dan HTTP). Jika sudah, lanjutkan dengan klik Create security group.
+        2021041910054407aee6534f36f6c786905bdf951b0689.jpeg
+
+        5. Oke, security group telah terbuat. Sekarang, yuk kita buat Auto Scaling. Dalam keadaan masih di halaman Amazon EC2 console, scroll navigasi di sisi kiri hingga ke paling bawah, masuklah ke menu Auto Scaling Groups, dan klik tombol Create Auto Scaling group.
+        202104191006195d91bd362996b4d44d613fcb796d1cca.jpeg
+
+        6. Isi Auto Scaling group name dengan dicoding-auto-scaling-group. Saat membuat Auto Scaling, kita harus memilih launch template terlebih dahulu untuk meluncurkan instance nantinya. Nah, karena kita belum membuatnya, silakan klik Create a launch template. Ini akan membuka tab browser yang baru.
+        202104191006575ea46ec2eb8af101f6d23203cb3232a3.jpeg
+        Catatan: Jangan dulu tutup tab browser sebelumnya, nanti kita akan kembali ke halaman tersebut.
+
+        7. Pada bagian Launch template name and description, isilah dengan konfigurasi berikut:
+
+            Launch template name	        |   dicoding-launch-template
+            Template version description	|   Launch Template untuk App Server
+            
+            202104281015175bf6b01b0cfe5c70406d255968e85a4c.jpeg
+
+        8. Lanjut, pilihlah Amazon Linux 2 AMI untuk bagian Amazon machine image (AMI) dan t2.micro pada Instance type.
+        2021041910094081f29979d5c6741075b67c7d5076554d.jpeg
+
+        9. Selanjutnya, buatlah key pair baru dengan klik Create new key pair.
+        202104191009560c5fb328c4e301e620ae71b1bd3fc854.jpeg
+
+        10. Isikan Key pair name dengan dicoding-server, biarkan File format pada pilihan .pem, lalu klik tombol Create key pair. Kemudian simpanlah file tersebut di lokasi penyimpanan yang mudah diingat, seperti di folder Downloads.
+        2021041910103592ae9481c68cf9dd2ad49c5b562fa4ca.jpeg
+
+        11. Selanjutnya adalah konfigurasi pada bagian Network settings. Biarkan pilihan Networking platform sesuai default, yakni Virtual Private Cloud (VPC). Selepas itu, pilihlah security group yang telah Anda buat sebelumnya pada step 1, yaitu dicoding-security-group-server.
+        20210419101141a555994024aa64307b5060d58816b174.jpeg
+
+        12. Lanjut, scroll ke halaman paling bawah dan silakan klik tanda panah pada Advanced details. Lalu, scroll lagi hingga Anda menemukan bagian User data. Pada box, isikan perintah berikut:
+
+            #! /bin/bash
+            yum install httpd -y
+            systemctl start httpd
+            systemctl enable httpd
+
+        13. Klik tombol Create launch template.
+        202104191016092eef7a96810024883c5e6c7509672f9e.jpeg
+            
+        14. Oke, kita telah berhasil membuat launch template. Silakan kembali ke tab browser Auto Scaling Anda. Klik tombol refresh, lalu pilih dicoding-launch-template. Scroll ke paling bawah dan klik tombol Next untuk melanjutkan proses berikutnya.
+        2021041910170611ef625b46a21eacb96be7db4bb3e7ab.jpeg
+        
+        15. Pada bagian Step 2 Configure settings, scroll ke bagian Network, dan untuk mempermudah latihan kali ini pilihlah VPC default. Kemudian, lanjut ke bagian Subnets. Karena kita ingin membuat instance pada Auto Scaling berada di 2 Availability Zone, maka pilihlah 2 subnet (ap-southeast-1a dan ap-southeast-1b). Usai itu, klik tombol Next.
+        2021041910180150da6a1f9d1d6a1de2d795dc1a0bb216.jpeg
+        
+        16. Langkah selanjutnya, kita akan memasang load balancer pada Auto Scaling. Klik Attach to an existing load balancer, lalu pada bagian Application or Network Load Balancer target groups pilih target group yang telah kita buat sebelumnya, yakni dicoding-target-group. Lanjut ke tahap selanjutnya, scroll ke halaman paling bawah dan klik tombol Next.
+        20210419101954e9914e42c9bb0ea332bb3ec8d280ced8.jpeg
+
+        17. Ubahlah nilai Desired capacity, Minimum capacity, dan Maximum capacity dengan nilai 2. Nanti, kita akan mengubah nilai tersebut saat proses pengujian. Mari kita masuk ke tahap berikutnya dengan scroll ke halaman paling bawah dan klik tombol Next.
+        202104191019572ec97af5d72502be0178b519382fcc50.jpeg
+        
+        18. Di tahap ini, kita tak akan menambahkan notifikasi apa pun. Jadi, silakan klik tombol Next.
+        20210419102024458f0b7a48d0a93e6e46dd60bff76ff3.jpeg
+        
+        19. Tambahkan tag dengan Key (Name) dan Value (AutoScaling EC2), kemudian klik tombol Next.
+        20210419102138b4eafdf9739a579194475f3afb22a65b.jpeg
+
+        20. Selanjutnya, silakan review konfigurasi Anda, kemudian klik Create Auto Scaling group.
+        202104191021415de43fc5ac3f7a087a4434a6ed77a56e.jpeg
+
+    Hooray! Kita telah berhasil meluncurkan Auto Scaling. Langkah selanjutnya sekaligus terakhir adalah melakukan pengujian. Yuk lanjut ke bagian ketiga!
