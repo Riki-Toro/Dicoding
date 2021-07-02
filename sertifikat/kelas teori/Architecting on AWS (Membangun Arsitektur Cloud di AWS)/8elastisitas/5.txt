@@ -1,0 +1,20 @@
+Hands-on Lab: Membangun Arsitektur yang Highly Available (Sangat Tersedia)
+    Masih ingatkah Anda dengan latihan sebelumnya? Kita telah berhasil melakukan VPC Peering sehingga startup warung kopi Anda bisa membagi lingkungan antara Development dan Testing.
+
+    Sekarang, pelanggan warung kopi Anda semakin bertambah dan semakin banyak pula yang melakukan transaksi pada website penjualan kopi online Anda. Ini membuat server kewalahan. Tahukah Anda apa solusinya untuk persoalan ini? Yup! Menambah server!
+
+    Namun masalahnya, Anda tak mengetahui kapan lonjakan lalu lintas terjadi. Terkadang, itu terjadi di pagi hari saat orang-orang berangkat kerja, sesekali juga melonjak pada malam hari saat menjelang libur.
+
+    Jika kasusnya seperti itu, tentu akan sulit untuk menambahkan server secara manual. Alhasil, kita harus menebak-nebak kapan lonjakan traffic terjadi. Maka dari itu, pada latihan kali ini kita akan belajar bagaimana cara membuat lingkungan yang elastis sekaligus highly available. Sehingga jika terjadi gangguan pada salah satu server Anda, website penjualan kopi pun tetap tersedia dan berjalan normal.
+
+    Berikut adalah gambar arsitektur yang akan kita buat pada latihan ini:
+
+    2021042015091411db117640d9394f2489a84938df1ed2.png
+
+    Kita akan menggunakan beberapa layanan yang telah dipelajari sebelumnya, yakni Amazon EC2, VPC, ELB, dan Auto Scaling. Untuk membuat server menjadi elastis dan highly available, kita akan menggunakan Auto Scaling dan menempatkannya di 2 Availability Zone, yang mana Auto Scaling tersebut terhubung dengan ELB. Berikut adalah tahapannya:
+
+        Membuat Load Balancer.
+        Meluncurkan Auto Scaling.
+        Melakukan Pengujian. 
+
+    Pastikan Anda mengikuti setiap tahapan dengan saksama ya agar semakin memahami teori yang telah kita pelajari. Penasaran seperti apa? Yuk kita mulai.
