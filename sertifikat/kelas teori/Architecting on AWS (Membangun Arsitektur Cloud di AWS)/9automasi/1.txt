@@ -14,4 +14,34 @@ Pengantar ke Automasi
         Automasi deployment
 
     Oke, mari kita lihat penjelasan lebih detail di materi berikutnya!
-    
+
+
+
+
+
+Alasan Melakukan Automasi
+    Pada materi-materi sebelumnya, kita telah belajar untuk membangun arsitektur di AWS secara manual, seperti membuat VPC, EC2 instance, RDS instance, dll. Semua komponen tersebut harus Anda buat satu per satu di masing-masing dashboard console layanannya. Nah, tahukah Anda? Kita bisa membuat automasi proses deploy arsitektur sehingga akan menghemat waktu.
+
+    Gambar di bawah ini menunjukkan proses manual dan panjang yang harus Anda lakukan saat membangun arsitektur di cloud. 
+
+    20210604154333ad0747e23927f1802e751339cc529582.png
+
+    Dapat Anda lihat pada gambar di atas bahwa dibutuhkan waktu dan proses yang besar untuk membangun lingkungan komputasi berskala besar. Berikut beberapa pertanyaan yang perlu Anda pertimbangkan:
+
+        Mana yang ingin Anda terapkan, implementasi otomatis atau manual? 
+        Apa saja risiko dari implementasi manual?
+        Bagaimana Anda memperbarui server yang berjalan di lingkungan production? Bagaimana Anda akan meluncurkan deployment di beberapa region geografis? Ketika terjadi kegagalan, bagaimana Anda melakukan rollback/restore?
+        Bagaimana dengan penerapan debugging? Bagaimana Anda menemukan apa yang salah dan kemudian memperbaikinya?
+        Bagaimana Anda akan mengelola dependensi pada berbagai sistem dan subsistem di organisasi Anda?
+        Terakhir, dapatkah Anda melakukan semua ini dengan manual?
+        
+    INGAT! Jika Anda harus mengubah sesuatu di lingkungan production secara manual, itu berarti Anda menempatkan diri pada risiko. Berikut adalah beberapa risiko jika Anda melakukan perubahan secara manual.
+
+    202106181505535e3c5a7978b5198b23b0f21ea131a253.png
+
+    Mari kita jabarkan poin-poinnya:
+
+        Dengan membuat dan menambahkan fitur aplikasi secara manual ke lingkungan Anda, lingkungan cloud Anda tidak akan bisa di-scale (diskalakan). Jika Anda bertanggung jawab atas aplikasi enterprise yang besar, maka takkan ada cukup orang untuk menjalankan proses secara manual.
+        Dengan melakukan proses manual, maka tidak ada version control. Sehingga, akan sulit untuk mengembalikan lingkungan production ke versi sebelumnya.
+        Memiliki jejak audit tentu sangatlah penting untuk menghadapi situasi compliance dan keamanan. Sangatlah berbahaya jika Anda membiarkan orang mengontrol dan mengedit lingkungan Anda secara manual.
+        Terakhir, sulit menerapkan konsistensi. Tahukah Anda? Konsistensi merupakan hal yang sangat penting untuk meminimalkan risiko. Nah, dengan automasi, Anda dapat menjaga konsistensi di lingkungan AWS.
