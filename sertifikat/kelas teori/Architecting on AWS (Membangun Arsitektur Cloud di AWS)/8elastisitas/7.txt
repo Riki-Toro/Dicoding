@@ -1,0 +1,63 @@
+Hands-on Lab: Membangun Arsitektur yang High Available (Sangat Tersedia) - Pengujian
+    Di bagian ketiga ini, kita akan melakukan pengujian, baik untuk kasus Load Balancer maupun Auto Scaling. Pertama, mari kita uji Load Balancer terlebih dahulu.
+
+        1. Masih di Amazon EC2 console, masuklah ke menu Load Balancers, pilih dicoding-lb, lalu salin DNS name-nya.
+        20210419102322ce0b995633a9c0a18d72348811adaa38.jpeg
+        
+        2. Kemudian, paste DNS name tersebut ke browser Anda dan lihatlah apa yang terjadi. Ta-da! Muncul suatu halaman tes alias Test Page. Namun, ini tidak memperlihatkan persis bagaimana load balancer yang telah kita buat mendistribusikan lalu lintasnya. Jadi, mari lanjut ke langkah berikutnya.
+        202104191023414405576075c092f20e4cf5d55b654e09.jpeg
+        Catatan: Jika tidak muncul halaman Test Page, tunggulah beberapa saat, lalu lakukan refresh kembali. Ingat! Tunggu proses pembuatan EC2 instance hingga berstatus running. Jika tidak, maka alamat DNS name untuk load balancer akan menunjukkan Error 503.
+
+        3. Lakukan SSH atau EC2 Instance Connect terhadap instance pertama pada Auto Scaling Anda (lihat menu Instances di Amazon EC2 console). Jika sudah masuk ke instance tersebut, silakan pindah ke folder /var/www/html/ dengan sintaks:
+
+            cd /var/www/html/
+
+        4. Buatlah suatu file html sederhana bernama index.html.
+
+            sudo nano index.html
+
+        5. Di dalam file tersebut, tuliskan seperti berikut:
+
+            <h1>Ini adalah instance 1</h1>
+
+            Jika sudah, simpan dengan cara menekan CTRL+X -> Y -> Enter.
+
+        6. Oke, semua yang perlu dilakukan pada instance pertama ini sudah selesai. Silakan keluar dengan menuliskan perintah:
+
+            exit
+
+        7. Selanjutnya, silakan lakukan hal yang sama (step 3-6) pada instance kedua Anda.
+
+            Lakukan SSH terhadap instance kedua.
+
+            Instal, nyalakan, dan aktifkan httpd.
+
+            Buat file index.html di folder /var/www/html/ dengan isi Ini adalah instance 2.
+
+            Keluar dari instance kedua tersebut.
+
+        8. Alright. Tugas kita sudah selesai untuk proses konfigurasi instance. Mari kita uji! Masih di halaman Amazon EC2 console, masuklah ke menu Load Balancers -> dicoding-lb. Salin DNS name dari load balancer Anda, kemudian bukalah tab browser baru, lalu paste di tab browser yang baru tersebut, dan lihatlah apa yang terjadi.
+        20210419103328dbb897158ba448f2bc73fa005476d66b.jpeg
+
+        9. Voila! Anda akan melihat tulisan “Ini adalah instance 1”, lakukan refresh berulang kali, dan akan muncul “Ini adalah instance 2”. Bisa jadi sebaliknya, Anda akan melihat tulisan “Ini adalah instance 2”, lakukan refresh berulang kali di browser Anda, dan akan muncul “Ini adalah instance 1”.
+        202104191033244eed62e8409578ea7bd63f58e6ec0f2a.jpeg
+        2021041910333063de129a2d80302b702d515ff328bb90.jpeg
+        Catatan: Jika tulisan di atas tidak muncul dan malah timbul eror. Tunggulah beberapa menit, lalu lakukan refresh kembali. Hal itu terjadi karena load balancer akan melakukan health check terlebih dahulu.
+
+        10. Yeay! Dengan munculnya tulisan seperti di atas, itu menandakan load balancer kita bekerja dengan baik dan mendistribusikan traffic ke kedua instance yang kita miliki. Jika Anda ingin memeriksa status dari health check yang dilakukan oleh load balancer, silakan masuk ke menu Target Groups, lalu klik nama dicoding-target-group.
+        20210419103503fc8ea9c7267fbbc63f0dca2aeadb5a14.jpeg
+
+        11. Bukalah tab Targets dan lihat kolom Status. Kedua instance kita berstatus healthy yang berarti load balancer dapat mengirim permintaan ke kedua instance tersebut dengan baik.
+        20210419103505ef27eaaa171303a29a883528f4ff431e.jpeg
+        
+        12. Langkah selanjutnya, mari lakukan pengujian terhadap kasus Auto Scaling, yakni dengan mengakhiri salah satu instance. Masuklah ke menu Instances, pilih salah satu instance Anda, klik tombol Instance state, dan klik Terminate Instance untuk mengakhiri instance tersebut.
+        202104191036142740d6091dbfd77f3d150f74c81a1a14.jpeg
+
+        13. Pastikan kolom Instance state berstatus Terminated. Tunggulah beberapa saat, lakukan refresh secara berkala, dan Anda akan melihat satu instance tambahan muncul.
+        202104191036161b756562a8782edd4eebe0231df24ec5.jpeg
+
+    Yuhuu! Latihan kali ini berjalan dengan sukses. Load balancer kita telah berjalan dengan baik dan Auto Scaling pun melakukan tugasnya dengan sempurna. Selamat untuk itu! Level Unlocked! 
+
+    Masih ada beberapa modul yang harus Anda selesaikan di kelas ini. Jadi, keep it up!
+
+    Catatan: Hapuslah segala sumber daya yang telah Anda buat, seperti EC2 instance, load balancer, auto scaling group, dan lain-lain guna menghindari adanya tagihan.
