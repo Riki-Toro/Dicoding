@@ -18,3 +18,61 @@ Hands-on Lab: Membangun Arsitektur yang Highly Available (Sangat Tersedia)
         Melakukan Pengujian. 
 
     Pastikan Anda mengikuti setiap tahapan dengan saksama ya agar semakin memahami teori yang telah kita pelajari. Penasaran seperti apa? Yuk kita mulai.
+
+
+
+
+
+Hands-on Lab: Membangun Arsitektur yang Highly Available (Sangat Tersedia) - Membuat Load Balancer
+    Pada bagian pertama, kita akan membuat load balancer yang berfungsi untuk mendistribusikan lalu lintas masuk ke Auto Scaling instance (akan kita buat nanti). Silakan ikuti langkah-langkah berikut:
+
+        1. Masuklah ke Amazon EC2 console dengan ketikkan ec2 di kotak pencarian, lalu klik EC2.
+        20210419094345aa0ae95ebf0bba0d12f139ce5a945fdc.jpeg
+
+        2. Scroll pada navigasi sebelah kiri, masuk ke menu Load Balancers, kemudian klik tombol Create Load Balancer.
+        20210419094403baba770dbff68d405b5933dd3bf232b4.jpeg
+
+        3. Tentu Anda sudah belajar bahwa Elastic Load Balancing memiliki 3 tipe load balancer, yakni Application Load Balancer, Network Load Balancer, dan Classic Load Balancer. Untuk latihan kali ini, kita akan menggunakan Application Load Balancer. Silakan klik tombol Create di bagian Application Load Balancer.
+        20210419094420fcb8c070473f8c9bebc7eb393d9af6bb.jpeg
+
+        4. Isilah nama load balancer Anda menjadi dicoding-lb. Biarkan konfigurasi yang lain sesuai default pada bagian ini.
+        20210419094524eaf990ca37dca388380815361624684b.jpeg
+
+        5. Scroll ke bawah pada halaman tersebut hingga Anda menemukan bagian Availability Zones. Kita akan menggunakan VPC default agar mempermudah proses latihan kali ini. Pilihlah VPC default, lalu klik 2 availability zone (ap-southeast-1a dan ap-southeast-1b).
+        2021041909460013e76c88cab6668a948ddf3a88f40bc7.jpeg
+
+        6. Tambahkan Tag dengan konfigurasi berikut:
+
+            Key	    |   Name
+            Value	|   Dicoding Load Balancer
+            
+            Jika sudah, lanjutkan dengan klik tombol Next: Configure Security Settings.
+            2021042920145211a5da6b53dd6b773a47f122706d912b.jpeg
+
+        7. Kita tak perlu mengubah apa pun di halaman ini. Jadi, silakan klik tombol Next: Configure Security Groups.
+        20210419094848e68bdd24a7446630dd8b42fac97aecdb.jpeg
+
+        8. Pilih Create a new security group. Kemudian isikan sesuai konfigurasi berikut:
+
+            Security group name	    |   Load-Balancer-SG
+            Description	            |   Load Balancer Security Group
+            
+            Biarkan nilai-nilai lain sesuai default, lalu klik tombol Next: Configure Routing.
+            20210429201533a7642f1e2aafe9ced801a75cf1ee1423.jpeg
+
+        9. Di halaman ini kita akan membuat target group untuk load balancer. Isikan nama target group Anda dengan dicoding-target-group.
+        2021041909520548a48a5fb38e9895592650793753c632.jpeg
+
+        10. Scroll ke halaman paling bawah dan klik tombol Next: Register Targets.
+        202104190952231db28876402e2c2f011c7c25ceae2b54.jpeg
+
+        11. Sekarang masuk ke halaman Register Targets. Di sini kita dapat mendaftarkan target (instance) untuk masuk ke dalam target group. Namun karena sampai tahap ini kita belum meluncurkan instance, jadi kita lewati saja proses ini. Kita akan melakukan registrasi target nanti dengan menggunakan Auto Scaling. Yuk lanjutkan dengan klik Next: Review.
+        202104190952485c8c491cf8a14968a24d7eb4e244de0c.jpeg
+
+        12. Review-lah konfigurasi Anda, lalu klik tombol Create.
+        20210419095300abce6087a0e20c3adab254c3d5a9dbb1.jpeg
+
+        13. Kemudian tunggu hingga proses pembuatan load balancer selesai, lalu klik Close.
+        202104190953122bc990c08cdadbbd466da86d38a0ea51.jpeg
+
+    Congrats! Anda telah berhasil membuat load balancer. Mari kita lanjutkan ke tahap meluncurkan Auto Scaling.
