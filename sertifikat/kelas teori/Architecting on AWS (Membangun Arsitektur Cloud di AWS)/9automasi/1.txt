@@ -1,0 +1,17 @@
+Pengantar ke Automasi
+    Di modul sebelumnya kita sudah mempelajari bagaimana Elastisitas, Ketersediaan Tinggi, dan Pemantauan membantu kita untuk melakukan scaling terhadap Startup Warung Kopi dalam menangani lonjakan pengguna hingga menembus angka puluhan bahkan mungkin ratusan ribu. Mantap!
+
+    Tetapi jangan lupa, sampai saat ini, proses membuat arsitektur, men-deploy aplikasi, dan pembaruan perangkat lunak masih dilakukan secara manual. Hal ini akan sangat menghambat Startup kita untuk mampu menangani lonjakan user seperti itu.
+
+    Di modul ini kita akan melengkapi arsitektur Startup Warung Kopi dengan automasi. Sehingga, saat melakukan update ataupun deploy di cloud, Anda akan terbebas dari proses manual. 
+
+    Dengan menghilangkan proses manual, arsitektur IT kita akan benar-benar mampu beradaptasi terhadap tuntutan bisnis, baik itu lonjakan user (naik maupun turun), peluncuran produk, atau mencoba fitur baru yang bisa mendukung pertumbuhan bisnis Startup kita. 
+
+    Untuk menjawab kebutuhan arsitektur di atas, kita akan mempelajari hal-hal berikut ini:
+
+        Mengapa melakukan automasi?
+        Automasi infrastruktur
+        Automasi deployment
+
+    Oke, mari kita lihat penjelasan lebih detail di materi berikutnya!
+    
