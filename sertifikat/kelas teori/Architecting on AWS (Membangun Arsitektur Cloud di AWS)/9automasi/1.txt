@@ -45,3 +45,12 @@ Alasan Melakukan Automasi
         Dengan melakukan proses manual, maka tidak ada version control. Sehingga, akan sulit untuk mengembalikan lingkungan production ke versi sebelumnya.
         Memiliki jejak audit tentu sangatlah penting untuk menghadapi situasi compliance dan keamanan. Sangatlah berbahaya jika Anda membiarkan orang mengontrol dan mengedit lingkungan Anda secara manual.
         Terakhir, sulit menerapkan konsistensi. Tahukah Anda? Konsistensi merupakan hal yang sangat penting untuk meminimalkan risiko. Nah, dengan automasi, Anda dapat menjaga konsistensi di lingkungan AWS.
+
+
+
+
+
+Automasi Infrastruktur
+    Saat membangun arsitektur di AWS, tentu akan jauh lebih baik jika Anda melakukan automasi guna menghindari risiko human error, memudahkan Anda dalam mengimplementasikan desain arsitektur, dan menghemat waktu. Dalam hal ini termasuk juga untuk mengotomatiskan proses pembuatan infrastruktur.
+
+    Nah, untuk mengetahui bagaimana cara membuat infrastruktur secara otomatis, yuk kita lihat di pembahasan berikutnya!
