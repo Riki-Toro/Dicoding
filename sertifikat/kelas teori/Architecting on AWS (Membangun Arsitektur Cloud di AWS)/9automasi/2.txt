@@ -1,0 +1,101 @@
+AWS CloudFormation
+    AWS CloudFormation menyediakan resource dengan cara yang aman dan dapat diulang (repeatable). Ini memungkinkan Anda untuk build (membangun) dan rebuild (membangun kembali) infrastruktur dan aplikasi Anda tanpa harus melakukan tindakan secara manual.
+
+    AWS CloudFormation memungkinkan Anda untuk memperlakukan infrastruktur sebagai kode (infrastructure as code). Anda bisa membuatnya dengan code editor apa pun, upload ke dalam version control system seperti GitHub atau AWS CodeCommit, dan memeriksa file dengan anggota tim sebelum men-deploy-nya ke lingkungan yang sesuai.
+
+    Dengan AWS CloudFormation, Anda dapat membuat template berformat YAML untuk mendeskripsikan resource dan properti AWS di AWS CloudFormation. Tak hanya YAML, Anda juga memiliki opsi untuk menggunakan template berformat JSON untuk membuat model dan mendeskripsikan infrastruktur AWS Anda. 
+
+    Template AWS CloudFormation berformat YAML mengikuti anatomi yang sama seperti template berformat JSON yang ada dan mendukung semua fitur yang sama.
+
+    202106041545094ec655bb370d4fb61f7a5aeadac362ef.png
+
+    Selain penjelasan di atas, berikut adalah beberapa poin tambahan untuk template AWS CloudFormation:
+
+        Perlakukan sebagai kode dan kelola menggunakan version control pilihan Anda (misal, Git atau SVN).
+        Tentukan seluruh stack aplikasi (semua resource yang diperlukan untuk aplikasi Anda) dalam file template JSON atau YAML.
+        Tentukan parameter runtime untuk template (ukuran Amazon EC2 instance, Amazon EC2 key pair, dll).
+        
+    Saat menggunakan AWS CloudFormation, Anda juga dapat membuat cross stack reference (referensi lintas stack) yang memungkinkan berbagi output atau keluaran dari satu CloudFormation stack dengan stack lainnya. Cross stack reference berguna untuk pelanggan yang memisahkan infrastruktur AWS mereka menjadi komponen logis yang dikelompokkan berdasarkan stack (misal stack jaringan, stack aplikasi, dll). Selain itu, cross stack reference berguna bagi yang membutuhkan cara untuk menerapkan loosely coupled (keterkaitan yang longgar) terhadap stack secara bersamaan sebagai alternatif dari nested stack (stack bersarang) dalam satu template besar.
+
+
+    Infrastructure as Code (IaC)
+        AWS CloudFormation memungkinkan pembuatan sekumpulan resource Amazon Web Services (AWS) menjadi mudah, kita hanya perlu mengirimkan template ke layanan CloudFormation.
+
+        Jika Anda masih merasa asing dengan beberapa term atau beberapa istilah di atas, berikut adalah poin-poin pembahasannya:
+
+        Template adalah file teks yang menjelaskan dan mendefinisikan resource yang akan di-deploy di lingkungan.
+        AWS CloudFormation adalah mesin yang memproses template. Output dari AWS CloudFormation disebut stack.
+        Stack adalah kumpulan resource AWS yang di-deploy bersama sebagai satu grup.
+        2021060415452946e15c4205947dd8caa5968543feb354.png
+
+        Saat menggunakan AWS CloudFormation, Anda perlu memahami apa yang dimaksud dengan drift detection. Untuk pembahasan lebih jelas, simak penjelasan di bawah ini.
+
+    Apakah Drift Detection itu?
+        Melakukan operasi deteksi penyimpangan (drift detection) pada stack dapat menentukan apakah terjadi perubahan yang menyimpang terhadap stack dari konfigurasi template yang ditentukan sebelumnya. Kita akan mendapatkan informasi mendetail tentang status penyimpangan dari setiap resource dalam stack yang mendukung drift detection.
+
+        Drift detection dapat diaktifkan pada stack dengan klik kotak dialog "Detect Drift for current stack". Proses ini akan melanjutkan deteksi penyimpangan meskipun Anda menutup kotak dialog dan meninjau detail penyimpangan nanti. Jika Anda ingin mempelajarinya lebih lanjut, silakan lihat referensi situs-situs berikut:
+
+        Detect drift on an entire CloudFormation stack. 
+        Detecting unmanaged configuration changes to stacks and resources.
+
+
+    Keuntungan menggunakan IaC
+        Dengan membangun infrastruktur dengan kode, Anda akan mendapatkan manfaat dari repeatability (pengulangan) dan reusability (penggunaan kembali) saat membangun lingkungan Anda. Bayangkan, dengan satu template (atau kombinasi beberapa template), Anda dapat membangun lingkungan kompleks yang sama secara akurat berulang kali. 
+
+        Saat menggunakan infrastruktur sebagai kode dengan AWS, Anda bahkan dapat membuat lingkungan yang bergantung pada kondisi. Dengan demikian, apa yang akan Anda buat akhirnya dibangun secara spesifik sesuai dengan konteks Anda membuatnya. 
+
+        Misalnya, template dapat dirancang menggunakan kondisi sehingga AMI yang berbeda digunakan berdasarkan apakah template ini akan diluncurkan ke dalam lingkungan Development atau Production.
+
+        Perhatikan gambar di bawah ini yang menerangkan penggunaan CloudFormation template yang memanfaatkan repeatability dan reusability. 
+
+        20210604154557c8d3fd9bcdeaca884a0556071ea39aa6.png
+
+        Dalam skenario yang ada di gambar, template telah diperbarui dengan menambahkan konfigurasi security group baru ke dalam stack. 
+
+        Hanya dengan satu perubahan pada template yang digunakan untuk meluncurkan lingkungan ini, kedua lingkungan dapat memiliki security group baru yang Anda tambahkan. Fitur ini memberikan manfaat kemudahan pemeliharaan resource, konsistensi yang lebih baik, dan pengurangan upaya melalui paralelisasi.
+
+
+    CloudFormation Conditions
+        Lingkungan Production dan Development Anda harus dibangun dari stack yang sama. Ini memastikan bahwa aplikasi Anda bekerja dalam produksi sesuai dengan yang dirancang dan dikembangkan pada lingkungan Development.
+
+        Selain itu, lingkungan Development dan Testing Anda juga harus menggunakan stack yang sama. Dengan demikian, semua lingkungan akan memiliki aplikasi dan konfigurasi yang identik.
+
+        Anda mungkin memerlukan beberapa lingkungan Testing berbeda untuk pengujian fungsional, pengujian User Acceptance, dan pengujian beban / Load Test. Menciptakan lingkungan-lingkungan tersebut secara manual memiliki risiko yang besar.
+
+        Maka dari itu, Anda dapat menggunakan pernyataan Kondisi/Conditions di AWS CloudFormation template untuk memastikan bahwa lingkungan Development, Testing, dan Production dikonfigurasi secara identik, meskipun berbeda dalam ukuran dan cakupan.
+
+        202106041546499ea500079e23afc17ee6a773ef11bad8.png
+
+        Pada contoh di atas, diperlihatkan bahwa dengan satu template, kita dapat mendefinisikan hal-hal berikut (kita ambil contoh Web Tier): 
+
+            Men-deploy Web Tier ke 2 Availability Zone di lingkungan Production.
+            Web Tier terbentuk dengan arsitektur yang mirip tetapi lebih sederhana (deployment untuk 1 Availability Zone) di lingkungan Development.
+
+
+    Memperbarui Stack dengan ChangeSets
+        Saat dirasa perlu untuk memperbarui Stack, maka Anda harus memahami bagaimana perubahan akan memengaruhi resource yang sedang berjalan sebelum Anda menerapkannya, sehingga dapat membantu Anda dalam memperbarui Stack tanpa takut terjadi masalah. 
+
+        Change Sets memungkinkan Anda untuk melihat preview bagaimana perubahan yang diusulkan pada Stack dapat memengaruhi resource Anda yang sedang berjalan. Misalnya, apakah perubahan Anda akan menghapus atau mengganti resource penting? 
+
+        AWS CloudFormation akan membuat perubahan pada Stack hanya ketika Anda memutuskan untuk menjalankan Change Sets. Ini memungkinkan Anda memutuskan apakah akan melanjutkan perubahan yang Anda usulkan atau memeriksa perubahan lain dengan membuat Change Sets lain. Anda dapat membuat dan mengelola Change Sets menggunakan AWS CloudFormation console, AWS CLI, atau AWS CloudFormation API.
+
+        20210604154708f66c8afbc41544693cbd5f4be418d268.png
+
+        Untuk menggunakan Change Sets, lakukan langkah-langkah berikut:
+
+            Buat Change Sets dengan mengirimkan perubahan untuk Stack yang ingin Anda perbarui. Anda dapat mengirimkan template Stack atau nilai parameter input yang telah dimodifikasi. AWS CloudFormation akan membandingkan Stack Anda dengan perubahan yang Anda kirim untuk menghasilkan Change Sets. Saat ini tidak ada perubahaan pada Stack anda.
+            Lihat Change Sets untuk melihat pengaturan Stack dan resource mana yang akan berubah. Anda dapat melihat resource mana yang akan ditambahkan, diubah, atau dihapus oleh AWS CloudFormation.
+            Opsional : Jika Anda ingin mempertimbangkan perubahan lain sebelum memutuskan perubahan mana yang akan dilakukan, maka buatlah Change Sets tambahan. Membuat beberapa Change Sets membantu Anda memahami dan mengevaluasi bagaimana perubahan yang berbeda akan memengaruhi resource. Anda dapat membuat Change Sets sebanyak yang dibutuhkan.
+            Jalankan Change Sets yang berisi perubahan yang ingin diterapkan ke Stack Anda. AWS CloudFormation akan memperbarui Stack Anda dengan perubahan tersebut.
+
+        Dengan atribut DeletionPolicy, Anda dapat mempertahankan atau (dalam beberapa kasus) membuat backup dari resources saat stacknya dihapus atau diperbarui. Misalnya, jika Anda menghapus resource dari template stack, lalu mengupdate stack dengan template tersebut. Anda menentukan atribut DeletionPolicy untuk setiap sumber daya yang ingin Anda kontrol. Jika sebuah resource tidak memiliki atribut DeletionPolicy, AWS CloudFormation akan menghapusnya secara default. 
+
+        Kemampuan ini tidak berlaku untuk resource yang instance-nya diganti/diubah propertinya selama operasi pembaruan stack. Misalnya, jika Anda mengedit properti dari resource sehingga AWS CloudFormation mengganti resource tersebut ketika proses update stack.
+
+
+    Layered Architecture
+        AWS CloudFormation templates bisa Anda gunakan untuk membangun layered architecture alias arsitektur berlapis. Perhatikan gambar di bawah ini yang merupakan diagram sederhana dari layered architecture.
+
+        20210604154724a56c01662d9ad75b9f687c6625ef8117.png
+
+        Pada pendekatan ini, kita menggunakan CloudFormation templates yang berbeda untuk masing-masing layer dan cross-stack reference di mana output dari--misalnya-- Stack Identity yang mendefinisikan IAM Users, Groups, dan Roles menjadi input dari layer di atasnya, dalam hal ini template Base Network dan seterusnya.
