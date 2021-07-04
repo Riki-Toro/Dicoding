@@ -1,0 +1,41 @@
+AWS OpsWorks
+    AWS OpsWorks adalah layanan manajemen konfigurasi yang membantu Anda mengonfigurasi dan mengoperasikan aplikasi di perusahaan cloud dengan menggunakan Puppet atau Chef. 
+
+    AWS OpsWorks Stacks dan AWS OpsWorks for Chef Automate memungkinkan Anda menggunakan Chef cookbooks dan solusi untuk manajemen konfigurasi.
+
+    Sementara itu, AWS OpsWorks for Puppet Enterprise memudahkan Anda dalam mengonfigurasi Puppet Enterprise master server di AWS. Puppet menawarkan serangkaian tools untuk menegakkan kondisi infrastruktur yang Anda inginkan dan mengautomasi tugas sesuai permintaan.
+
+    20210604154930c3353510aca024ce63c75fde787a4706.png
+
+    Mari kita bahas AWS OpsWorks for Chef Automate, AWS OpsWorks for Puppet Enterprise, dan AWS OpsWorks Stacks satu per satu pada poin-poin berikut:
+
+        AWS OpsWorks for Chef Automate
+            AWS OpsWorks for Chef Automate adalah layanan Chef Automate server terkelola sepenuhnya dan rangkaian alat automasi yang memberikan automasi alur kerja untuk deployment berkelanjutan, automasi pengujian untuk compliance dan keamanan, serta user interface yang memberikan penglihatan ke dalam nodes dan statusnya.
+
+            OpsWorks menghilangkan kebutuhan untuk mengoperasikan sistem manajemen konfigurasi Anda sendiri, sehingga Anda tak perlu khawatir tentang pemeliharaan infrastruktur.
+
+            OpsWorks memberi Anda akses ke semua fitur Chef Automate, seperti konfigurasi dan manajemen compliance yang dapat Anda kelola melalui Chef console atau command line tool (Knife). Layanan ini juga mampu bekerja dengan Chef cookbook yang Anda miliki. Gunakan AWS OpsWorks for Chef Automate jika anda berpengalaman menggunakan Chef.
+
+
+        AWS OpsWorks for Puppet Enterprise
+            AWS OpsWorks for Puppet Enterprise menyediakan Puppet Enterprise server yang terkelola dan serangkaian tool automasi yang memberikan alur automasi alur kerja untuk orkestrasi, penyediaan otomatis, dan visualisasi untuk traceability (keterlacakan).
+
+            Puppet Enterprise server memberikan Anda automasi penuh dengan menangani tugas operasional, seperti konfigurasi perangkat lunak dan sistem operasi, instalasi paket, penyiapan database, dan lainnya. Puppet Master secara terpusat menyimpan tugas konfigurasi Anda dan menyajikannya ke setiap node di lingkungan komputasi pada skala apa pun, dari beberapa node hingga ribuan node.
+
+
+        AWS OpsWorks Stacks
+            AWS OpsWorks Stacks adalah aplikasi dan layanan manajemen server. Dengan OpsWorks Stacks, Anda dapat membuat model aplikasi sebagai stack yang berisi berbagai layer, seperti load balancing, database, dan server aplikasi.
+
+            Dalam setiap layer, Anda dapat menggunakan Amazon EC2 instance, mengaktifkan Auto Scaling, dan mengonfigurasi instance dengan Chef recipes menggunakan Chef Solo. Ini memungkinkan Anda untuk mengotomatiskan tugas-tugas seperti menginstal paket, mengonfigurasi perangkat lunak, dan banyak lagi.
+
+            AWS OpsWorks Stacks menyediakan cara yang fleksibel untuk membuat dan mengelola Stacks serta aplikasi, yaitu melalui trigger seperti ditunjukkan di gambar di bawah ini.
+            202106041549584388f578969a08b20bfed5159268bfc2.png 
+
+        Menggunakan AWS Opsworks Stacks dengan AWS CloudFormation
+            Ketahuilah! Anda dapat membuat model komponen OpsWorks (stacks, layer, instance, dan aplikasi) di dalam CloudFormation template, lalu menyajikannya sebagai CloudFormation stacks. 
+
+            Hal tersebut memungkinkan Anda untuk mendokumentasikan, melakukan version control, dan berbagi konfigurasi OpsWorks. Anda memiliki fleksibilitas untuk menyediakan komponen OpsWorks dan resource AWS lainnya, seperti Amazon VPC dan AWS Elastic Load Balancer dengan CloudFormation template terpadu atau CloudFormation template terpisah.
+
+            2021060415501245b62dd47252bddc7a5bf23753686bce.png
+
+            Pada gambar di atas, CloudFormation template digunakan untuk membuat infrastruktur dasar seperti IAM Permissions, VPC, dsb. Selanjutnya, dalam template tersebut juga didefinisikan PHP Application Stack yang sebenarnya merupakan stacks dari OpsWorks.
