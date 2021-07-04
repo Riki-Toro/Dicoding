@@ -39,3 +39,32 @@ AWS OpsWorks
             2021060415501245b62dd47252bddc7a5bf23753686bce.png
 
             Pada gambar di atas, CloudFormation template digunakan untuk membuat infrastruktur dasar seperti IAM Permissions, VPC, dsb. Selanjutnya, dalam template tersebut juga didefinisikan PHP Application Stack yang sebenarnya merupakan stacks dari OpsWorks.
+
+
+
+
+
+Opsi Automasi yang Lebih Mudah
+    Opsi automasi seperti CloudFormation, System Manager, maupun OpsWorks memang sangat membantu, tetapi hal ini masih cukup kompleks dan memerlukan waktu dan tenaga yang tidak sedikit, ini disebabkan beberapa hal berikut:
+
+    Mengelola infrastruktur untuk proses deploy aplikasi bisa jadi sulit.
+    Perlu banyak waktu untuk mengelola dan mengonfigurasi server.
+    Kurangnya konsistensi di beberapa proyek atau aplikasi.
+    Tenang, AWS sangat memahami hal ini. Maka dari itu, untuk lebih membantu Anda dan tim developer, AWS menghadirkan Elastic Beanstalk. Simak penjelasannya di materi berikutnya!
+
+
+AWS Elastic Beanstalk
+    Tujuan dari AWS Elastic Beanstalk adalah membantu developer men-deploy dan memelihara aplikasi serta layanan web yang dapat di-scale (diskalakan) di cloud tanpa harus mengkhawatirkan infrastruktur yang mendasarinya. Perhatikan, gambar di bawah ini menunjukkan bahwa hanya Code-lah yang menjadi tanggung jawab Anda, sisanya, provision sumber daya, operasi dari infrastruktur, dan pengelolaan stack aplikasi akan ditangani oleh AWS.
+
+    20210422085034608e5e8d95168e3e148eb1cdb71bde1f.png
+
+    AWS Elastic Beanstalk mengonfigurasi setiap EC2 instance di lingkungan Anda dengan komponen yang diperlukan untuk menjalankan aplikasi di atas platform yang dipilih. Bahkan, Anda tidak perlu mengoperasikan instance Anda untuk memasang dan mengonfigurasi stack aplikasi.
+
+    Terdapat dua jenis lingkungan yang dapat Anda pilih saat bekerja dengan AWS Elastic Beanstalk. Pertama, lingkungan instance tunggal. Jenis ini memungkinkan Anda untuk meluncurkan satu EC2 instance. Ingat bahwa di sini tidak menyertakan load balancer atau Auto Scaling. 
+
+    Ada juga lingkungan yang kedua. Jenis ini dapat meluncurkan beberapa EC2 instance, mencakup load balancer, dan konfigurasi Auto Scaling.
+
+    202106041551223569907f1f13ba1f442c632439c79b2e.png
+
+    Dengan hadirnya AWS Elastic Beanstalk, tentu ini akan memudahkan kita dalam men-deploy aplikasi. Layanan ini akan menyediakan resource infrastruktur yang diperlukan, seperti ELB, Auto Scaling group, security group, dan database (opsional).
+    
