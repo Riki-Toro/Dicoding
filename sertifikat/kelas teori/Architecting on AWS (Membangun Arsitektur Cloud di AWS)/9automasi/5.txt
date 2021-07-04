@@ -22,6 +22,47 @@ Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation
         Mengulas CloudFormation template.
         Memperbarui CloudFormation stack untuk menambahkan S3 bucket.
         Menghapus CloudFormation stack.
-        
+
     Oke, sepertinya Anda sudah siap untuk memulai latihan kali ini. Jadi, mari kita meluncur ke langkah-langkah di bawah ini.
 
+
+
+
+
+
+Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation - Deploy VPC
+    Pada bagian pertama, kita akan menggunakan AWS CloudFormation untuk men-deploy VPC. Untuk membuatnya, silakan unduh file berikut vpc-alb-app-db.yaml dan simpan di lokasi penyimpanan komputer/laptop Anda yang mudah dicari (misalnya di folder Downloads). Ini adalah file YAML yang akan kita gunakan nanti sebagai template saat membuat CloudFormation stack. Yuk kita mulai!
+
+        1. Masuklah ke halaman utama AWS CloudFormation dengan cara mengetik cloudformation pada kotak pencarian yang berada di bagian atas AWS Management Console.
+        20210421125701f1d19120de724a365f506ad7aa132b4a.jpeg
+        Catatan: Pastikan Anda berada di region terdekat ya (di bagian kanan atas halaman console), yakni Singapore (ap-southeast-1).
+
+        2. Buatlah CloudFormation stack dengan klik tombol Create stack.
+        20210421125746ded132cc47be43ddbd5bf3cfe9a653df.jpeg 
+
+        3. Pada bagian Prepare template, biarkan pada pilihan Template is ready. Kemudian pada Specify template, pilihlah Upload a template file, lalu klik Choose file, dan pilihlah file vpc-alb-app-db.yaml di komputer Anda. Jika sudah, silakan klik tombol Next.
+        20210421125845c23692ca59ee12a1c0fe530b1794f8dc.jpeg
+
+        4. Anda akan diarahkan ke halaman Specify stack details. Masukkan nama stack dengan WebApp1-VPC (pastikan sama, termasuk huruf besar kecilnya).
+        20210421125901458f65395a494d3b9c8758d82e16dc00.jpeg
+
+        5. Selanjutnya adalah bagian Parameters, biarkan bagian ini sesuai default (Anda tidak perlu mengubah apa pun). Silakan perhatikan setiap konfigurasi dengan saksama, lalu scroll ke paling bawah, dan klik tombol Next.
+        20210421130043c9b27cec0b0350af8456a52987589f18.jpeg
+
+        6. Mari kita buat tag yang dapat membantu Anda dalam mengidentifikasi stack. Masukkan Name pada kolom kiri yang mana adalah key dan WebApp1-VPC pada kolom sebelah kanan yang mana adalah value.
+        2021042113012340b3bc6b01562daa5c70f68dce1d6723.jpeg       
+
+        7. Kita tidak akan menggunakan permission atau opsi tambahan.  Jadi, klik tombol Next.
+        20210421130238e1134e7de3ba8ca899b04fc949a09792.jpeg 
+
+        8. Silakan review konfigurasi stack Anda. Pada halaman paling bawah, centang I acknowledge that AWS CloudFormation might create IAM resources with custom names, kemudian klik tombol Create stack.
+        202104211303259314f71aa0565ca9a427bd63d7d9dc57.jpeg 
+
+        9. Tunggulah beberapa menit hingga status stack Anda berubah dari CREATE_IN_PROGRESS menjadi CREATE_COMPLETE. Anda bisa klik tombol refresh secara berkala untuk memastikan perubahan pada status stack Anda.
+        20210421130526a66b70b660bca4c57b12e357a8b40543.jpeg
+
+    Yuhuu! Anda sudah berhasil membuat CloudFormation stack untuk VPC (sebenarnya, CloudFormation-lah yang melakukannya untuk Anda). Sebagai bukti, silakan cek ke halaman Amazon VPC (dengan cara mengetikkan vpc di kotak pencarian pada bagian atas console) dan lihatlah bahwa di sana ada VPC yang telah kita buat menggunakan AWS CloudFormation. 
+
+    20210421125636968c32c4a238d98b8ffc3384e31a0fe9.jpeg
+
+    Mari kita lanjutkan ke bagian berikutnya!
