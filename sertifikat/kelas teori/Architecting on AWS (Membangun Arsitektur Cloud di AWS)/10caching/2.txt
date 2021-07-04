@@ -1,0 +1,117 @@
+Web Caching
+    Bagian pertama dari poin interaksi adalah bagian Internet/Edge dan Web. Gambar di bawah menunjukkan cakupan dari Edge Caching.
+
+    Catatan: Pada kelas ini kita tidak akan membahas bagian Users, tentu saja ada teknik-teknik caching yang bisa dilakukan, tetapi itu tidak termasuk cakupan dari kelas ini.
+
+    202106041559270231c6db91c677137c7e5a86afaddf3f.png
+
+
+
+
+
+
+Edge Caching dengan Amazon CloudFront
+    Saat pengguna aplikasi Anda tersebar secara global, tentu akan sulit dan mahal untuk mereplikasi seluruh infrastruktur di seluruh dunia. 
+
+    Content Delivery Network (CDN) memberi Anda kemampuan untuk menggunakan jaringan global dari edge location guna mengirimkan salinan konten web dalam cache (seperti video, halaman web, gambar, dan sebagainya) kepada pelanggan Anda. 
+
+    Untuk mengurangi waktu respons, CDN menggunakan edge location terdekat dari pelanggan atau lokasi permintaan asal. Dengan demikian, throughput pun akan meningkat mengingat web asset dikirim dari cache.
+
+    20210604160012c8673c0059e91c4ce6ca0b0369e5896c.png
+
+    Untuk layanan CDN di AWS, Anda bisa menggunakan Amazon CloudFront. Amazon CloudFront adalah layanan CDN global yang mempercepat pengiriman situs web, API, konten video, atau aset web Anda lainnya. Layanan ini terintegrasi dengan produk AWS lainnya untuk memberi developer dan bisnis cara yang mudah dalam mempercepat pengiriman konten ke pengguna tanpa minimum requirement.
+
+    Amazon CloudFront memberikan fleksibilitas yang luas untuk mengoptimalkan cache behavior, ditambah dengan optimasi jaringan untuk latensi dan throughput. Content Delivery Network (CDN) menawarkan multi-tier cache secara default dengan Regional Edge Caches yang memperbaiki latensi dan menurunkan beban di server origin Anda saat objek belum di-cache di Edge.
+
+    CloudFront juga memiliki kemampuan untuk menyajikan data dinamis dari Custom Origin, misalnya dari EC2 web server.
+
+    Seperti layanan AWS lainnya, CloudFront menawarkan layanan mandiri, bayar sesuai penggunaan, dan tidak memerlukan komitmen jangka panjang atau biaya minimum.
+
+
+    Cara Kerja Caching di Amazon CloudFront
+        Sekarang, mari kita belajar tentang bagaimana caching bekerja di Amazon CloudFront.
+
+        Saat pengguna me-request konten yang Anda sajikan dengan CloudFront, pengguna tersebut akan diarahkan ke edge location yang menyediakan latensi terendah. Dengan demikian, konten dapat dikirim dengan performa terbaik. 
+
+        Nah, jika konten sudah berada di edge location dengan latensi terendah, maka CloudFront akan segera mengirimkannya. Namun jika konten tidak berada di edge location tersebut, CloudFront akan mengambilnya dari Amazon S3 bucket atau HTTP server (misalnya web server) yang telah Anda identifikasi sebagai sumber untuk konten Anda.
+
+        Untuk memahami cara kerja Amazon CloudFront, silakan amati gambar di bawah ini.
+
+        20210422092144a46dc9eaa301a9f320eb79a0199c603d.png
+
+        Pada contoh di atas menjelaskan bahwa:
+
+            Jika konten tidak disimpan dalam cache, maka objek yang diminta akan diambil dari sumber (origin). Langkah 1, 2, 3, dan 4 dilakukan untuk mengambil dan mengembalikan data yang diminta oleh pengguna.
+
+            Namun, jika konten di-cache, maka permintaan objek yang di-cache diarahkan ke edge location paling optimal dan objek yang di-cache diambil seperti yang ditunjukkan pada langkah 1 dan 4.
+
+        Dengan teknologi caching dan akselerasi dari CloudFront, AWS dapat mengirimkan semua konten Anda, dari gambar statis hingga konten yang diinput oleh pengguna Anda.
+
+        20210421144846a6a49a1884b4850192ed60ac48c52b8d.png
+
+        Gambar di atas menunjukkan apa saja yang dapat di-cache oleh CloudFront untuk meningkatkan response time dari aplikasi, antara lain:
+
+            Static : Gambar, JS, HTML, dll dengan time-to-live (TTL) yang tinggi.
+            Video : Dukungan RTMP dan HTML streaming.
+            Dynamic : Konten kustomisasi dan tidak dapat di-cache.
+            User input : Dukungan HTTP action, termasuk PUT/POST.
+            Secure : Menyajikan konten secara aman dengan SSL (HTTPS).
+
+
+    Konfigurasi Amazon CloudFront
+        Setelah belajar mengenai Amazon Cloudfront beserta cara kerjanya, sekarang mari kita pahami cara untuk mengonfigurasi CloudFront. Silakan amati gambar berikut:
+
+        202106041606321a80bf018c43fd2d7a1830cadb7b69f4.png
+
+        Mari kita jabarkan poin-poin pada gambar di atas.
+
+            1. Anda menentukan origin server (server asal), seperti Amazon S3 bucket atau HTTP server Anda sendiri, intinya adalah tempat di mana CloudFront mendapatkan file Anda. File ini akan didistribusikan ke CloudFront edge location di seluruh dunia.
+            Origin server menyimpan versi asli dari objek Anda. Jika Anda menyajikan konten melalui HTTP, maka origin server Anda adalah antara Amazon S3 bucket atau HTTP server (seperti web server).
+            HTTP server Anda dapat berjalan di Amazon EC2 instance atau di server on-premise yang Anda kelola. Server ini juga dikenal sebagai custom origin.
+
+            2. Anda membuat distribution yang memberi tahu CloudFront, origin server mana untuk mendapatkan file Anda saat pengguna memintanya melalui website atau aplikasi. Pada saat yang sama, Anda menentukan detail, misalnya apakah Anda ingin CloudFront mencatat semua permintaan dan apakah Anda ingin distribusi diaktifkan segera setelah dibuat.
+
+            3. CloudFront memberikan nama domain untuk CloudFront distribution baru Anda.
+
+            4. CloudFront mengirimkan konfigurasi distribution Anda (tetapi tidak dengan kontennya) ke semua edge location. Edge location merupakan kumpulan server di data center yang tersebar secara geografis. Di dalam Edge Location inilah  CloudFront menyimpan salinan objek Anda dalam cache.
+
+        Itulah beberapa langkah untuk mengonfigurasi Amazon CloudFront. Mari kita lanjut ke materi berikutnya.
+
+
+
+    Cara Membuat Konten Menjadi Expire
+        Setelah menerapkan caching, lantas bagaimana cara memastikan file yang disimpan pada edge location selalu up to date? Tentu Anda tidak mau kan pengguna mengakses informasi yang sudah expire (kedaluwarsa)? Solusinya, Anda perlu belajar bagaimana cara agar CloudFront mengetahui konten yang sudah expire.
+
+        Berikut adalah beberapa metode yang dapat Anda gunakan untuk membuat konten menjadi expire di CloudFront:
+
+            1. Time to Live (TTL)
+                Periode waktunya tetap alias fixed (periode expire).
+                Dikonfigurasi oleh ANDA.
+                GET request ke origin dari CloudFront akan menggunakan If-Modified-Since header.
+
+            2. Mengubah Object Name 
+                Contoh: Header-v1.jpg menjadi Header-v2.jpg.
+                Nama baru akan memaksa refresh.
+
+            3. Invalidate object
+                Menghapus objek dari cache sebelum ia expire. Sehingga ketika pengguna mengakses objek, ia akan langsung diarahkan ke origin server.
+                Langkah ini sangat tidak efisien dan mahal karena memaksa sistem untuk berinteraksi pada seluruh edge location.
+
+        Dari ketiga cara di atas, dua cara pertama sering digunakan karena cukup mudah diimplementasikan. Sementara itu, cara ketiga (invalidate objek) sebaiknya dilakukan sebagai cara terakhir. Untuk keterangan lebih lanjut dapat Anda baca di halaman dokumentasi Request and Response Behavior for Amazon S3 Origins yang disediakan AWS.
+
+
+    Contoh Arsitektur
+    Secara umum, Anda hanya menyimpan konten statis dalam cache. Tetapi tergantung pada bagaimana aplikasi bekerja, Anda bisa mendapatkan beberapa peningkatan kinerja dengan melakukan caching untuk konten dinamis atau unik di Amazon S3.
+
+    202106041607372cf29dd326bc76c5ba85466689bda610.png
+
+    Pada arsitektur di atas, kita menggunakan CloudFront untuk mendistribusikan konten ke pengguna. Untuk konten yang dinamis CloudFront mengambilnya dari EC2, sedangkan konten statis di Amazon S3. Ada beberapa langkah yang bisa Anda lakukan untuk menyimpan konten statis, antara lain:
+
+        Buat referensi URL absolut untuk aset statis Anda, bukan URL relatif.
+        Simpan aset statis di Amazon S3.
+        Optimalkan untuk "Write Once Read Many".
+
+    Selain itu, Anda dapat membatasi geografis konten Anda. Pembatasan geografis (dikenal juga sebagai geoblocking/geo-restriction) mencegah pengguna di lokasi geografis tertentu mengakses konten yang Anda distribusikan melalui CloudFront web distribution. Untuk menggunakan pembatasan geografis, Anda memiliki dua opsi, di antaranya:
+
+        Gunakan fitur CloudFront geo-restriction untuk membatasi akses ke semua file yang terkait dengan distribution dan juga membatasi akses di tingkat negara.
+        Gunakan layanan geolokasi pihak ketiga untuk membatasi akses ke subset file yang terkait dengan distribution atau membatasi akses pada perincian yang lebih baik daripada tingkat negara.

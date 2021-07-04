@@ -1,0 +1,105 @@
+Decoupling Arsitektur Anda dengan Amazon SNS
+    Amazon Simple Notification Service (Amazon SNS) adalah layanan web yang memudahkan Anda untuk mengatur, mengoperasikan, dan mengirim notifikasi dari cloud. Layanan ini menggunakan paradigma perpesanan "publisher-subscriber” (pub-sub) dengan notifikasi yang dikirimkan ke klien menggunakan mekanisme "push".
+
+    Cara kerja layanan ini cukup sederhana, Anda membuat SNS topic dan mengontrol akses ke topic tersebut dengan mendefinisikan kebijakan yang menentukan publisher (penerbit) dan subscriber (pelanggan) mana yang dapat berkomunikasi dengan topic tersebut. Publisher mengirimkan pesan ke SNS topic yang mereka buat atau ke topic yang telah diziinkan untuk mem-publish-nya.
+
+    Alih-alih menyertakan alamat tujuan tertentu di setiap pesan, publisher cukup mengirimkan pesan ke topic yang diinginkan. Kemudian, Amazon SNS akan mencocokkan topic dengan daftar subscriber yang telah berlangganan ke topic tersebut dan mengirimkan pesan ke masing-masing subscriber tersebut.
+
+    Setiap topic memiliki nama unik yang mengidentifikasi endpoint Amazon SNS bagi publisher untuk mem-publish pesan; dan subscriber untuk mendaftar notifikasi. Subscriber akan menerima semua pesan yang dipublikasikan ke topic langganan mereka dan semua subscriber dari topic tersebut akan menerima pesan yang sama.
+
+    20210604162328b52597e7885014459e6b79c26c3e834d.png
+
+    Amazon SNS mendukung topik terenkripsi. Saat Anda mem-publish pesan ke topic yang terenkripsi, Amazon SNS menggunakan customer master key (CMK) yang didukung oleh AWS Key Management Service untuk mengenkripsi pesan Anda.
+
+    Amazon SNS mendukung CMK yang dikelola pelanggan serta yang dikelola AWS. Segera setelah Amazon SNS menerima pesan Anda, enkripsi dilakukan di server menggunakan algoritma AES-GCM 256-bit. Pesan disimpan dalam bentuk terenkripsi di beberapa Availability Zone (AZ) untuk ketahanan dan didekripsi sebelum dikirim ke subscriber, seperti Amazon SQS queue, AWS Lambda function, dan HTTP dan HTTPS webhook.
+
+
+    Jenis-Jenis Subscription pada Amazon SNS
+        Saat menggunakan Amazon SNS, Anda dapat memilih salah satu metode berikut sebagai bagian dari permintaan berlangganan (subscription):
+
+        2021060416234765a38d904ce19b1bede953d338e610c8.png
+
+        Mari kita uraikan setiap poin-poinnya:
+
+            Email atau Email-JSON : Pesan dikirim ke alamat yang terdaftar sebagai email. Email-JSON mengirimkan notifikasi sebagai objek JSON, sedangkan Email berarti mengirimkan notifikasi berbasis teks.
+
+            HTTP/HTTPS : Subscriber menentukan URL sebagai bagian dari pendaftaran langganan/subscription. Notifikasi akan dikirim melalui HTTP POST ke URL yang ditentukan.
+
+            SMS : Pesan dikirim ke nomor telepon yang terdaftar sebagai pesan teks SMS.
+
+            Amazon SQS queue : Anda dapat menentukan SQS standard queue sebagai endpoint, kemudian Amazon SNS akan mengantrekan pesan notifikasi ke queue yang ditentukan. Perhatikan bahwa FIFO queue saat ini belum didukung.
+
+            AWS Lambda function : Pesan juga dapat dikirim ke AWS Lambda function untuk menangani kustomisasi pesan, mengaktifkan persistensi pesan, atau berkomunikasi dengan layanan AWS lainnya.
+
+
+    Contoh Kasus Penggunaan Amazon SNS
+        Setelah mempelajari seputar Amazon SNS, mari kita bahas tentang beberapa contoh kasus penggunaan untuk Amazon SNS. Ada banyak cara untuk menggunakan notifikasi pada Amazon SNS.
+
+        20210604162403443530ef36315b2429c1550caf80d71e.png
+
+        Mari kita uraikan berdasarkan gambar di atas:
+
+        Anda dapat menerima notifikasi langsung saat suatu event (peristiwa) terjadi, seperti perubahan spesifik pada AWS Auto Scaling group.
+
+        Anda dapat menggunakan Amazon SNS untuk menyampaikan headline berita kepada subscriber melalui email atau SMS. Setelah menerima email atau SMS, pembaca yang tertarik kemudian dapat memilih untuk mempelajari lebih lanjut dengan mengunjungi website atau membuka aplikasi Anda.
+
+        Anda dapat mengirim notifikasi ke suatu aplikasi, misal menunjukkan bahwa pembaruan tersedia. Pesan notifikasi dapat menyertakan tautan untuk mengunduh dan menginstal pembaruan aplikasi tersebut.
+
+        Bagaimana, sudah mulai tertarik menggunakan Amazon SNS? Selanjutnya, mari kita lihat karakteristik dari Amazon SNS di pembahasan selanjutnya.
+
+
+    Karakteristik Amazon SNS
+        Sebelum menggunakan Amazon SNS untuk arsitektur Anda, alangkah baiknya ketahui terlebih dahulu beberapa karakteristiknya. Mari kita jabarkan.
+
+            Single published message
+                Semua pesan notifikasi akan berisi satu pesan yang diterbitkan (single published message). Amazon SNS akan mencoba mengirimkan pesan dari publisher sesuai urutan penerbitannya ke dalam SNS topic. Namun, masalah jaringan dapat berpotensi mengakibatkan pesan out-of-order (rusak) di subscriber.
+
+            No recall options
+                Ketika pesan berhasil dikirim, tidak ada cara untuk menariknya kembali (no recall options).
+
+            HTTP/HTTPS retry
+                Amazon SNS Delivery Policy dapat digunakan untuk mengontrol pola retry pattern alias percobaan ulang (linier, geometris, mundur eksponensial), maksimum dan minimum untuk retry delay, dan parameter lainnya.
+
+            Order and delivery not guaranteed
+                Untuk mencegah terjadinya kehilangan pesan, semua pesan yang di-publish ke Amazon SNS disimpan secara redundant di beberapa server dan data center.
+
+        Amazon SNS dirancang untuk memenuhi kebutuhan aplikasi apa pun, dari yang sederhana hingga berskala enterprise. SNS memungkinkan aplikasi untuk mem-publish pesan dalam jumlah tak terbatas kapan pun. 
+
+        Amazon SNS memungkinkan aplikasi dan pengguna pada berbagai perangkat dapat menerima pemberitahuan melalui Mobile Push notification (perangkat Apple, Google, dan Kindle Fire), HTTP/HTTPS, Email/Email-JSON, SMS, Amazon SQS queue, atau AWS Lambda function. 
+
+        Amazon SNS menyediakan mekanisme kontrol akses untuk memastikan topic dan pesan diamankan dari akses yang tidak sah. Pemilik topic dapat mengatur policy untuk suatu topic yang membatasi siapa yang dapat mem-publish atau subscribe pada suatu topic. 
+
+        Selain itu, pemilik topic juga dapat memastikan bahwa notifikasi dienkripsi, yakni dengan menentukan mekanisme pengiriman menggunakan HTTPS.
+
+
+    Contoh Arsitektur yang Menggunakan Amazon SNS
+        Dengan Amazon SNS, Anda dapat menggunakan topic untuk memisahkan publisher pesan dari subscriber, menyebarkan pesan ke beberapa penerima sekaligus, dan menghilangkan polling di aplikasi Anda. Lihatlah gambar arsitektur yang menggunakan Amazon SNS di bawah ini.
+
+        2021060416255285462a3ca60f0e240f9f85127e966ca4.png
+
+        Dalam skenario di atas, saat Anda mengunggah gambar ke Amazon S3, maka itu akan memicu event notification yang kemudian mengirimkan pesan ke SNS topic secara otomatis. Topic ini di-subscribe oleh SQS queue sesuai dengan kategorinya, ada queue untuk membuat thumbnail, mobile, dan juga web.
+
+        Masing-masing queue di atas selanjutnya di-pull oleh mesin-mesin EC2 yang tergabung ke dalam Auto Scaling Group (ASG) terpisah untuk melakukan pemrosesan gambar yang selanjutnya disimpan di Amazon S3 bucket.
+
+        Mudah kan memahaminya? Selanjutnya, kita akan melihat perbedaan antara Amazon SQS dan Amazon SNS. Break a leg!
+
+
+    Perbedaan Amazon SQS dan Amazon SNS
+        Sejauh ini, kita telah mempelajari layanan Amazon SQS dan Amazon SNS. Sekarang, kita akan melihat perbandingan di antara keduanya. Perhatikan tabel di bawah ini.
+
+                                    Amazon SNS (Publisher/Subscriber)   |   Amazon SQS (Producer/Consumer)
+        ------------------------------------------------------------------------------------------------------
+        Persistensi Pesan	    |               Tidak	                |               Ya
+        Mekanisme Pengiriman	|           Push (pasif)	            |           Poll (aktif)
+        Producer/Consumer	    |           Publish/Subscribe	        |           Send/Receive
+        Model distribusi	    |               One to many	            |            One to one
+        
+        Mari kita jabarkan perbedaannya secara terperinci satu per satu.
+
+            Pesan pada Amazon SNS tidak persisten, sedangkan di Amazon SQS persisten. Amazon SNS mendefinisikan delivery policy (kebijakan pengiriman) untuk setiap protokol pengiriman. Delivery policy menentukan bagaimana Amazon SNS mencoba kembali pengiriman pesan ketika terjadi kesalahan pada sisi server. Saat delivery policy habis, Amazon SNS berhenti mencoba kembali pengiriman dan membuang pesan, kecuali dead-letter queue dilampirkan ke subscription/langganan.
+
+            Amazon SNS memungkinkan aplikasi mengirim pesan penting ke beberapa subscriber melalui mekanisme push. Sementara itu, Amazon SQS bertukar pesan melalui model polling: komponen pengiriman dan penerimaan decoupled (dipisahkan).
+
+            Amazon SNS memiliki model distribusi one-to-many, sedangkan Amazon SQS one-to-one. Amazon SQS memberikan fleksibilitas bagi komponen aplikasi terdistribusi untuk mengirim dan menerima pesan tanpa mengharuskan setiap komponen tersedia secara bersamaan.
+
+    Oke, materi tentang Amazon SNS dan Amazon SQS telah tuntas sampai di sini. Selanjutnya, kita akan belajar mengenai Amazon MQ. Apa itu MQ? Jawabannya ada di materi berikutnya!

@@ -1,0 +1,70 @@
+Amazon MQ
+    Amazon MQ adalah layanan terkelola (managed service) dari AWS untuk Apache ActiveMQ dan RabbitMQ, yaitu message broker yang open-source dan populer. Infrastruktur yang mendasarinya secara otomatis disediakan untuk high availability (ketersediaan tinggi) dan durability (ketahanan) untuk mendukung keandalan aplikasi Anda. 
+
+    20210420142005b24ec9d438458da9f776142893c06660.png
+
+    Dengan Amazon MQ, Anda mendapatkan akses langsung ke ActiveMQ console serta API dan protokol standar industri untuk pengiriman pesan, termasuk JMS, NMS, AMQP, STOMP, MQTT, dan WebSocket. 
+
+    Anda dapat dengan mudah berpindah dari message broker mana pun yang menggunakan standar ini ke Amazon MQ. Ini karena Anda tidak perlu menulis ulang kode perpesanan (messaging) apa pun di aplikasi Anda.
+
+
+    Arsitektur Broker
+        Anda bisa membuat arsitektur broker sebagai single instance broker ataupun active/standby broker. Untuk kedua penerapan tersebut, Amazon MQ memberikan ketahanan yang tinggi dengan menyimpan data secara redundant. Mari kita pelajari keduanya.
+
+
+        Single Instance
+        Arsitektur broker dengan instance tunggal terdiri dari satu broker dalam satu Availability Zone di belakang Network Load Balancer (NLB). Broker berkomunikasi dengan aplikasi Anda dan dengan Amazon EFS (hanya berlaku untuk broker ActiveMQ) atau dengan Amazon EBS.
+
+        2021060416275005e5e9762dbf97868a3f3967f408ba3a.png
+
+        Pada ilustrasi di atas ditunjukkan bahwa Amazon MQ dapat menggunakan Amazon EFS maupun Amazon EBS sebagai penyimpanan datanya.
+
+
+    Active/Standby
+        Arsitektur broker Active/Standby terdiri dari dua broker di dua Availability Zone yang dikonfigurasi dalam redundant pair. Broker ini berkomunikasi secara synchronous dengan aplikasi Anda dan shared storage.    
+
+        20210604162815fd59e77336096a38847f71226262b7cf.png
+
+        Biasanya, hanya satu broker instance yang aktif setiap saat, sementara broker lainnya dalam keadaan siaga (standby). Jika salah satu broker instance mengalami malfungsi atau sedang menjalani pemeliharaan, Amazon MQ akan membuat instance tersebut menjadi out-of-service, lalu mengizinkan standby instance yang sehat menjadi aktif dan mulai menerima komunikasi yang masuk. Saat Anda me-reboot broker, peristiwa failover hanya membutuhkan waktu beberapa detik saja.
+
+        Untuk broker active/standby, Amazon MQ menyediakan dua URL untuk ActiveMQ web console, tetapi hanya satu URL yang aktif dalam satu waktu. Demikian pula, Amazon MQ menyediakan dua endpoint untuk setiap wire-level protocol, tetapi hanya satu endpoint yang aktif di setiap redundant pair pada satu waktu. 
+
+
+    Contoh Kasus Penggunaan Amazon MQ: Hybrid Integration
+        Banyak perusahaan yang mengandalkan message broker untuk menghubungkan dan mengoordinasikan sistem yang berbeda. 
+
+        Message broker memungkinkan aplikasi terdistribusi untuk berkomunikasi satu sama lain, berfungsi sebagai tulang punggung teknologi untuk lingkungan IT, dan layanan bisnis mereka. Aplikasi mereka sangat bergantung pada sistem perpesanan (messaging) untuk operasinya.
+
+        Dalam banyak kasus, perusahaan tersebut telah mulai membangun aplikasi baru atau lift and shift ke AWS. Dalam beberapa kasus, terdapat aplikasi (seperti sistem mainframe) yang terlalu mahal untuk dimigrasikan. Pada skenario ini, aplikasi on-premise tersebut masih perlu berinteraksi dengan komponen berbasis Internet.
+
+        202106041628357189d823068e039049074a1177267151.png
+
+        Diagram di atas menunjukkan bahwa Anda dapat menggunakan Amazon MQ untuk mengintegrasikan lingkungan on-premise dan cloud menggunakan fitur jaringan broker ActiveMQ. Gambar di atas juga menjabarkan life cycle (siklus hidup) pesan, mulai dari on-premise producer ke on-premise broker, kemudian melintasi koneksi hybrid antara on-premise broker dan Amazon MQ, dan akhirnya digunakan di dalam AWS Cloud.
+
+
+
+
+
+
+Ikhtisar
+    Di modul ini kita telah mempelajari mengenai tiga jenis layanan dari AWS yang memungkinkan kita memisahkan (decouple) arsitektur menjadi komponen-komponen mandiri sehingga dapat beroperasi secara independen. 
+
+    Ketiga Layanan tersebut adalah Amazon Simple Queue Service (Amazon SQS), Amazon Simple Notification Service (Amazon SNS), dan Amazon MQ.
+
+    Amazon MQ, Amazon SQS, dan Amazon SNS adalah layanan perpesanan (messaging) yang cocok untuk siapa pun mulai dari startup hingga perusahaan yang sudah besar. Tabel di bawah ini menunjukkan perbedaan dan penggunaan ketiga layanan Message Broker dari AWS. 
+
+        Amazon MQ	                                        |   Amazon SQS dan Amazon SNS
+        ------------------------------------------------------------------------------------------------------------------------
+        Untuk migrasi aplikasi	                            |   Untuk aplikasi cloud native
+        Protokol: JMS, NMS, AMQP, STOMP, MQTT, dan WebSocket|	Protokol: HTTPS
+        Banyak fitur	                                    |   Unlimited throughput
+        Biaya per jam dan biaya per GB	                    |   Biaya per request
+        Bisa melakukan Pub/Sub	                            |   Tidak ada Pub/Sub di SQS, tetapi Anda bisa melakukan Pub/Sub di SNS
+
+    Jika Anda menggunakan messaging dengan aplikasi yang sudah ada dan ingin memindahkannya ke cloud dengan cepat dan mudah, maka pertimbangkanlah Amazon MQ.
+
+    Amazon MQ mendukung API dan protokol standar yang terbuka sehingga Anda dapat beralih dari message broker pesan berbasis standar ke Amazon MQ tanpa menulis ulang kode pesan di aplikasi Anda. 
+
+    Namun, jika Anda membangun aplikasi baru di cloud, maka gunakanlah Amazon SQS dan Amazon SNS. SQS adalah layanan antrean pesan (message queue), sedangkan SNS adalah layanan topic. Kedua layanan tersebut sangat ringan dan terkelola sepenuhnya yang berskala hampir tak terbatas dan menyediakan API sederhana serta mudah digunakan. 
+
+    Anda dapat menggunakan Amazon SQS dan Amazon SNS untuk decoupling dan scaling terhadap microservice, sistem terdistribusi, dan aplikasi serverless.

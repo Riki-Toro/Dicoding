@@ -1,0 +1,104 @@
+Caching Web Tier
+    Mari kita lihat kembali gambar perjalanan data kita. Sebelumnya kita telah membahas bagaimana edge caching menggunakan Amazon CloudFront, sekarang mari kita lihat caching di web tier.
+    202106041608501b63298e5cb1c6f528679e41f3b8bc67.png
+
+
+    Session Management
+        Session Management mungkin tidak tampak sebagai metode caching, tetapi sebenarnya ia termasuk. Pada dasarnya, web session adalah urutan dari HTTP transactions dari pengguna yang sama ke suatu lingkungan. 
+
+        HTTP dirancang untuk mentransfer dokumen, bukan mengelola state (kondisi) karena setiap request tidak tergantung pada transaksi sebelumnya. 
+
+        Apakah Anda benar-benar ingin orang mengirim kredensial untuk setiap request yang dibuat ke server Anda? Apakah server Anda memiliki jaringan dan daya komputasi yang diperlukan untuk meningkatkan skala seiring meningkatnya pengguna dan kebutuhan? Nah, AWS menawarkan solusinya untuk Anda. Simak di pembahasan selanjutnya!
+
+
+    Menggunakan Load Balancer
+        Session management adalah autentikasi dan kontrol akses. Pendekatan umum untuk mengelola state salah satunya adalah menggunakan sticky session atau cache terdistribusi.
+
+        2021042209070367c1209ccb80e0d33f2eb269b0b74901.png
+
+        Sticky Session (disebut juga session affinity) memungkinkan Anda untuk mengarahkan permintaan ke server tertentu yang mengelola user session (sesi pengguna). Validitas session dapat ditentukan dengan sejumlah metode, seperti client-side cookies atau parameter yang diatur di load balancer.
+
+        Sticky Session juga hemat biaya karena Anda menyimpan session di web server yang menjalankan aplikasi. Ini menghilangkan latensi jaringan dan mempercepat pengambilan session tersebut. Namun jika terjadi kegagalan, kemungkinan besar Anda akan kehilangan session yang disimpan di node
+
+
+
+
+
+
+Database Caching
+    Di bagian sebelumnya kita mempelajari teknik caching di bagian Front End dari aplikasi. Saat ini kita masuk ke bagian selanjutnya atau sering disebut sebagai bagian Back-End.
+
+    2021060416111826f55d7c26764a863c0bc6d1a4b00092.png
+
+    Database caching adalah teknik di mana kita menyimpan atau mengambil data persisten yang sering diakses oleh user. Lalu, muncul suatu pertanyaan, “Kapan database caching dilakukan?” 
+
+    Jawabannya, kita melakukan database caching saat ada kebutuhan seperti di bawah ini.
+
+    20210604161128c4a882c7aaab4ec06f0c7eca24a7be11.png
+
+
+    Menyimpan Session di DynamoDB
+        Sering kali, kita ada keperluan untuk menyimpan state atau kondisi dari user di database. Kemudian kita ambil state tersebut untuk digunakan kembali saat user login. Teknik ini kritikal dan biasanya digunakan pada situs gaming online, terutama yang dimainkan secara masif.
+
+        202106041612115f5daeaee1493a2bd945d60ac15911a9.png
+
+        DynamoDB adalah solusi NoSQL database dari AWS yang sangat cepat dan scalable sehingga dapat memberikan respons cepat pada tingkat milidetik. Dengan menggunakan DynamoDB, aplikasi Anda mendapatkan kemampuan untuk menyimpan data secara persisten dan dapat diakses oleh banyak instance web server Anda. Sehingga DynamoDB cocok digunakan untuk menyimpan dan mendapatkan state pada website gaming online.
+
+
+    DynamoDB Accelerator (DAX)
+        Bagaimana jika layanan Anda membutuhkan respons super cepat pada tingkat microseconds? Misalnya, promosi Kopi Macchiato Rasa Durian Anda sangat berhasil, bahkan teknik caching sebelumnya masih juga kurang cepat memenuhi kebutuhan bisnis/pengguna.
+
+        Nah, untuk keadaan di mana respons microseconds dari data DynamoDB dibutuhkan, maka Anda perlu mempertimbangkan untuk menggunakan DynamoDB Accelerator (DAX).
+
+        DAX adalah layanan cache yang kompatibel dengan DynamoDB. Layanan ini memungkinkan Anda memanfaatkan kinerja dalam memori (in-memory) yang cepat untuk aplikasi yang menuntut kinerja super tinggi.
+
+        202106041612318ac1d741d88d507f8fd2ec7f73a83976.png
+
+        DAX sepenuhnya terintegrasi dengan layanan AWS untuk meningkatkan keamanan. Anda dapat menggunakan AWS Identity and Access Management (IAM) untuk menetapkan kredensial keamanan unik ke setiap pengguna dan mengontrol akses setiap pengguna ke layanan dan sumber daya. Anda bisa menggunakan Amazon CloudWatch untuk mendapatkan visibilitas ke seluruh sistem dalam hal penggunaan sumber daya, kinerja aplikasi, dan kesehatan operasional. 
+
+        Anda juga bisa mengintegrasikan DAX dengan AWS CloudTrail guna memungkinkan Anda dengan mudah mencatat dan mengaudit perubahan pada konfigurasi DAX cluster. Selain itu, DAX mendukung Amazon Virtual Private Cloud (VPC) untuk akses yang aman dan mudah dari aplikasi yang Anda miliki. 
+
+        Jangan lupa, berikan tag agar Anda dapat memiliki visibilitas tambahan untuk membantu mengelola DAX cluster Anda.
+
+        20210604161357141c28c47eb7942e755d288f7cfa296b.png
+
+        Sama dengan teknik caching lainnya, DAX sebaiknya digunakan untuk menyimpan data query dari DynamoDB yang sering diakses oleh pengguna. Pengambilan data cache mengurangi beban read (baca) pada tabel DynamoDB yang ada. Artinya, ini dapat mengurangi kapasitas read yang disediakan dan menurunkan biaya operasional secara keseluruhan.
+
+
+    Amazon ElastiCache
+        DAX hanya mendukung DynamoDB sebagai database-nya, lalu bagaimana bila Anda tidak menggunakan DynamoDB? Tenang, AWS selalu punya solusi, perkenalkan Amazon ElastiCache!
+
+        Amazon ElastiCache adalah layanan web yang memudahkan Anda untuk men-deploy dan menjalankan node server yang sesuai dengan protokol Memcached atau Redis di cloud. 
+
+        Amazon ElastiCache dapat meningkatkan kinerja aplikasi web dengan memungkinkan Anda mengambil informasi dari sistem in-memory (dalam memori) yang cepat dan terkelola, bukan mengandalkan database berbasis disk yang lebih lambat. 
+
+        Dengan menggunakan Amazon ElastiCache, Anda tidak hanya dapat meningkatkan waktu load dan respons untuk tindakan dan kueri pengguna, tetapi juga mengurangi biaya yang terkait dengan scaling aplikasi web.
+
+        202106041614256df2d11ddfffb238f5f2ff3ed9d4121f.png
+
+        ElastiCache memberikan layanan in-memory cache untuk Redis dan Memcache. Redis dan Memcache adalah engine (mesin) untuk penyimpanan data in-memory yang populer dan open-source. 
+
+        Meskipun keduanya mudah digunakan dan menawarkan performa tinggi, ada perbedaan penting yang perlu dipertimbangkan saat memilih engine. Memcache dirancang untuk kesederhanaan, sementara Redis menawarkan serangkaian fitur kaya yang membuatnya efektif untuk berbagai kasus penggunaan.
+
+        Tabel di bawah ini ini menunjukkan perbedaan fitur antara Redis dan Memcache.
+
+
+                                                Memcached	        Redis
+        -------------------------------------------------------------------------
+        Latency tingkat sub milidetik       |       Yes         |       Yes
+        Mudah Digunakan Developer           |       Yes         |       Yes
+        Pemisahan (partitioning) data       |       Yes         |       Yes
+        Mendukung banyak bahasa pemrograman |       Yes         |       Yes
+        Struktur data tingkat lanjut        |       -           |       Yes
+        Arsitektur multi threading          |       Yes         |       -
+        Snapshot                            |       -           |       Yes
+        Replikasi                           |       -           |       Yes
+        Transaksi                           |       -           |       Yes
+        Pub/Sub                             |       -           |       Yes
+        Scripting LuA                       |       -           |       Yes
+        Dukungan Geospatial                 |       -           |       Yes
+        Scaling horizontal untuk writes / storage|  Yes         |       No*
+        Multi-availability Zone dengan failover otomatis|No     |       Yes
+        Backup dan Restore                  |       No          |       Yes
+
+    * Redis dengan mengaktifkan mode cluster akan melakukan scaling saat permintaan pada cluster Anda berubah

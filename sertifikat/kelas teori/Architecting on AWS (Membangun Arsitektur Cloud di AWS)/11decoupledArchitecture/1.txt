@@ -1,0 +1,125 @@
+Pengantar ke Membangun Decoupled Architecture
+    Tak terasa ya sudah sejauh ini perjalanan kita di kelas Architecting on AWS ini. Sekarang, arsitektur untuk startup warung kopi Anda sudah mendukung ratusan ribu pengguna. Luar biasa! 
+
+    Tapi, tunggu! Masih ada kemungkinan bahwa arsitektur kita kurang sempurna. Misal, ketika satu komponen mengalami kegagalan, seluruh aplikasi kita akan gagal beroperasi. Maka dari itu, Anda perlu menghilangkan ketergantungan (dependencies) yang terikat erat antar komponen aplikasi. Nah, tenang. Di modul ini kita akan belajar bagaimana membangun decoupled architecture.
+
+    Berikut adalah beberapa hal yang akan kita pelajari:
+
+        Cara membangun decoupled architecture.
+        Menggunakan Amazon SQS dan Amazon SNS untuk membangun decoupled architecture.
+
+    Oke. Untuk memahami arti dari decoupled architecture, kita harus mengenal terlebih dahulu tentang tightly coupled dan loosely coupled. Mari kita awali dengan tightly coupled.
+
+    Design dari infrastruktur tradisional umumnya terdiri dari server-server (dengan fungsinya masing-masing) yang terintegrasi secara erat. Inilah yang menyebabkan hal fatal terjadi ketika salah satu komponen/lapisan tersebut mati. Selain itu, ini menghalangi arsitektur kita untuk melakukan scaling. Jika Anda menambah atau menghapus server pada satu lapisan, setiap server di setiap lapisan juga harus terhubung dengan benar. Contoh arsitektur tradisional digambarkan pada ilustrasi di bawah ini.
+
+    2021060416192001f9f0ae967bbdd4991d09bae16ad534.png
+
+    Pada gambar di atas, setiap komponen terikat sangat erat antara satu sama lain. Inilah yang menyebabkan ketergantungan. Sehingga jika salah satu komponen gagal, komponen lain juga akan ikut mengalami kegagalan. Itulah yang dimaksud dengan tightly coupled. 
+
+    Nah, karena arsitektur di atas termasuk tightly coupled, maka perlu dilakukan decoupling. Decoupling mengacu pada komponen yang tetap independen dan otonom satu sama lain saat mereka menyelesaikan pekerjaannya untuk menghasilkan keluaran yang lebih baik. Maka dari itu, Anda harus menghilangkan ketergantungannya agar jika nanti terjadi perubahan atau kegagalan pada satu komponen tidak akan berdampak pada komponen lain.
+
+    Salah satu langkah yang dapat Anda lakukan untuk memisahkan arsitektur adalah dengan menambahkan komponen baru yaitu Load Balancer. 
+
+    202106041619511026423f49c123917650a6f21aed3a0c.png
+
+    Load Balancer membantu Anda dalam menangani pertumbuhan permintaan akan sumber daya dengan menyeimbangkan beban yang datang ke sekumpulan server. Anda tentunya ingat sudah mempelajari elasticity dan Auto Scaling sebelumnya, bukan?
+
+    Tetapi perlu diperhatikan, jika dalam memproses order (misalnya) aplikasi Anda masih harus menunggu proses penulisan/pengambilan data dari database, maka secara proses arsitektur ini masih tightly coupled. Jangan terjebak ya.
+
+    Kembali ke skenario startup warung kopi. Katakanlah desain arsitektur di atas adalah yang dipakai pada aplikasi web startup kita untuk memproses pesanan pelanggan. Biasanya, salah satu titik potensial terjadinya kerentanan adalah pada proses menyimpan pesanan di dalam database yang dilakukan oleh App Tier. Nah, dalam proses tersebut, tentu Anda mengharapkan bahwa setiap pesanan dapat disimpan ke dalam database tanpa masalah, bukan? 
+
+    Namun ketahuilah, potensi terjadinya masalah yang menyebabkan kegagalan saat menyimpan pesanan di database itu tetaplah ada. Bila masalah terjadi, pesanan akan hilang tanpa ada cara untuk memulihkannya. Lantas, bagaimana mengatasi hal ini? Simak pembahasan di materi berikutnya!
+
+
+
+
+
+
+Decoupling Arsitektur Anda dengan Amazon SQS
+    Berdasarkan permasalah sebelumnya, salah satu hal yang bisa kita lakukan adalah dengan melakukan decoupling (pemisahan) arsitektur menggunakan Amazon SQS.
+
+    Amazon Simple Queue Service (Amazon SQS) adalah layanan terkelola sepenuhnya yang hemat biaya dan hanya memerlukan sedikit konfigurasi. Layanan ini bekerja dalam skala besar, ia mampu memproses jutaan pesan per hari. 
+
+    Amazon SQS menyimpan semua antrean pesan dalam satu AWS Region yang highly available (selalu tersedia) dengan beberapa Availability Zone yang redundant. Sehingga tidak ada kegagalan komputer, jaringan, atau Availability Zone yang dapat membuat pesan tidak dapat diakses. Pesan dapat dikirim dan dibaca secara bersamaan.
+
+    2021060416203264d1b7a51670a8a758766b4ddd4d4166.png
+
+    Developer dapat dengan aman membagikan Amazon SQS queue secara anonim atau dengan akun AWS tertentu. Berbagi queue juga dapat dibatasi oleh alamat IP dan waktu. 
+
+    Server-side encryption (SSE) akan melindungi konten pesan dalam Amazon SQS queue menggunakan key yang dikelola di AWS Key Management Service (AWS KMS). SSE mengenkripsi pesan segera setelah Amazon SQS menerimanya. Pesan yang disimpan akan terenkripsi dan Amazon SQS mendekripsinya hanya jika dikirimkan ke konsumen yang terotorisasi.
+
+    Dengan menggunakan Amazon SQS, maka kita akan mendapatkan beberapa manfaat. Silakan liat gambar di bawah ini.
+
+    2021060416204889109f24ebe36f5e2fdd886ef8a83586.png
+
+
+    Jenis-Jenis SQS queue
+        Amazon SQS memiliki dua jenis queue, yakni Standard dan FIFO. Apa perbedaan di antara keduanya? Mari kita jabarkan.
+
+        Standard queue menawarkan pengiriman setidaknya sekali (at-least-once delivery) dan pengurutan dengan sekadarnya (best-effort ordering).
+
+        At-Least-Once Delivery, berarti terkadang lebih dari satu salinan pesan terkirim.
+
+        Best-Effort Ordering, berarti terkadang pesan dikirim dalam keadaan yang tidak berurutan.
+
+        FIFO queue (first in, first out) dirancang untuk menjamin bahwa pesan diproses tepat satu kali dengan urutan yang sama persis seperti saat dikirim.
+        20210604162127a6b5d05c4c67edc56d64486032467601.png 
+
+        Standard queue menawarkan throughput maksimum, sementara FIFO queue mendukung hingga 300 pesan per detik (300 operasi kirim, terima, atau hapus per detik). Saat Anda mengumpulkan 10 pesan per operasi (maksimum), FIFO queue dapat mendukung hingga 3000 pesan per detik.
+
+
+    Contoh Kasus Penggunaan SQS
+        Setelah mempelajari tentang Amazon SQS dan jenis-jenis queue yang dimilikinya, mari kita lihat beberapa contoh kasus penggunaannya. Ada banyak cara berbeda untuk menggunakan SQS queue, seperti work queue, buffer batch operations, request offloading, dan scaling trigger.
+
+        202106041621468d3cd446b1e9f053e06e84769a4f5ec0.png
+
+        Mari kita kupas satu per satu berdasarkan gambar di atas.
+
+            Work queue (antrean pekerjaan) : Dengan Amazon SQS, Anda bisa memisahkan komponen aplikasi terdistribusi, sehingga aplikasi Anda tidak harus memproses sejumlah pekerjaan yang sama secara bersamaan.
+
+            Buffer batch operations (buffer/penyangga pada proses batch) : Gunakan Amazon SQS untuk menambahkan skalabilitas dan keandalan pada arsitektur Anda. Dengannya, Anda bisa menambahkan volume sementara, sehingga akan terhindar dari risiko kehilangan pesan atau terjadinya latensi yang tinggi.
+
+            Request offloading (Memindahkan proses) : Pindahkan operasi yang lambat dari jalur permintaan interaktif dengan mengantrekan request/permintaan.
+
+            Auto Scaling trigger (pemicu Auto Scaling) : Gunakan Amazon SQS queue untuk membantu menentukan beban pada aplikasi. Saat terintegrasi dengan Auto Scaling, Anda dapat melakukan scaling out atau scaling in pada Amazon EC2 instance bergantung pada volume lalu lintas.
+
+        Bagaimana, mulai tertarik menggunakan Amazon SQS pada arsitektur Anda? Tunggu, kita belum sempat membahas fitur-fiturnya. Simak pada materi berikutnya!
+
+
+    Fitur-Fitur Amazon SQS
+        Amazon SQS memiliki beberapa fitur menarik untuk kita gunakan. Perhatikan gambar berikut yang menjelaskan fitur-fitur dari SQS.
+
+        202106041622094495a02a39222b1882755c07ab22bfd1.png
+
+        Agar lebih jelas, mari kita uraikan satu per satu.
+
+        Dukungan Dead Letter Queue
+            Dead letter queue (DLQ) adalah antrean pesan yang tidak dapat diproses. DLQ menerima pesan setelah jumlah upaya pemrosesan maksimum tercapai. Pesan dapat dikirim dan diterima dari DLQ seperti SQS queue lainnya. Anda dapat membuat DLQ dari SQS API dan SQS console.
+
+            Tugas utama DLQ adalah menangani kegagalan pesan. DLQ berguna untuk men-debug aplikasi atau sistem perpesanan Anda, karena melalui DLQ, Anda dapat mengisolasi pesan yang bermasalah agar dapat dianalisis guna mencari tahu alasan mengapa pemrosesannya tidak berhasil.
+
+        Visibility Timeout
+            Visibility timeout adalah periode waktu di mana pesan menjadi "tidak terlihat" oleh server/aplikasi Anda yang lain setelah komponen aplikasi mendapatkannya dari queue. Selama visibility timeout, komponen yang menerima pesan akan memproses dan menghapusnya dari queue. Ini berguna untuk mencegah beberapa komponen memproses pesan yang sama.
+
+            Ketika aplikasi membutuhkan lebih banyak waktu untuk pemrosesan, batas waktu "invisible/tak terlihat" dapat Anda modifikasi.
+
+        Long Polling
+            Long polling adalah cara untuk mengambil pesan dari Amazon SQS queue Anda. Long polling dapat mengurangi jumlah respons kosong dengan mengizinkan Amazon SQS menunggu waktu sedikit lama agar pesan benar-benar tersedia dalam antrean sebelum mengirim respons.
+
+            Secara default, short polling akan selalu melakukan pemeriksaan segera, bahkan jika antrean pesan yang sedang di-polling tersebut kosong. Namun, long polling tidak mengembalikan respons seketika hingga pesan tiba di antrean atau waktu long polling habis.
+
+            Long polling membuat pengambilan pesan dari Amazon SQS queue Anda lebih murah, karena pemeriksaan pesan dilakukan hanya setelah pesan tersedia.
+
+
+    Contoh Decoupling Arsitektur dengan Amazon SQS
+        Oke, kita telah belajar mengenai Amazon SQS. Tapi, tak afdal rasanya jika tidak melihat contoh penggunaan Amazon SQS untuk memisahkan arsitektur (decoupling architecture), bukan? Bahkan, Anda juga dapat memanfaatkan SQS queue untuk membantu meningkatkan aplikasi pemesanan Anda. 
+
+        Perhatikan gambar di bawah ini.
+
+        20210604162233db060878b4b12b864ec080dd6360ff34.png
+
+        Dengan menggunakan queue, Anda dapat mengisolasi setiap proses pesanan ke dalam komponen independen yang berjalan secara terpisah dari Web app. Dengan demikian, hal ini membuat arsitektur Anda menjadi lebih tahan terhadap lonjakan traffic. Bahkan, memungkinkan setiap proses pesanan dilakukan dengan lebih cepat sehingga bisa menghemat biaya.
+
+        Selain itu, Anda sekarang memiliki mekanisme untuk menyimpan pesanan dalam antrean (di mana queue bertindak sebagai database sementara) sehingga meringankan beban kerja database Anda. 
+
+        Jika terjadi pengecualian aplikasi atau kegagalan transaksi, sistem memastikan bahwa pemrosesan pesanan dapat dihentikan atau dialihkan ke Dead Letter Queue (DLQ) Amazon SQS, untuk diproses ulang di tahap selanjutnya.

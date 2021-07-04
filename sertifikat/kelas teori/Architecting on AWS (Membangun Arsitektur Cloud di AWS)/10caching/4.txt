@@ -1,0 +1,88 @@
+Strategi untuk Caching Database 
+    Terdapat beberapa strategi yang bisa Anda lakukan dalam melakukan caching database, ada write through, lazy loading, dan menambahkan TTL. Mari kita bahas satu per satu.
+
+
+    Write Through
+        Pada strategi Write Through, data ditambahkan atau diperbarui di dalam cache setiap kali data ditulis ke database.
+
+        20210604161524fa814500da5b1132e478cb2bedbdd8a2.png
+
+        Saat menggunakan strategi Write Through, Anda akan mendapatkan beberapa keuntungan, salah satunya adalah data di cache tidak akan akan pernah usang. Ini karena data di cache diperbarui setiap kali ditulis ke database, sehingga data akan di cache selalu terkini.
+
+        Walaupun demikian, strategi Write Through juga memiliki beberapa kekurangan, yaitu:
+
+            Biaya write : Setiap proses write melibatkan dua perjalanan, yakni write ke cache dan ke database.
+            Data yang hilang : Saat node baru dibuat untuk memperbarui atau mengganti node yang hilang, node tersebut tersebut tidak berisi semua data. Data akan akan terus hilang hingga ada penambahan atau pembaharuan data dalam database. Dalam skenario ini, Anda mungkin memilih untuk menggunakan pendekatan Lazy Loading guna mengisi kembali cache.
+            Data yang tidak digunakan : Karena sebagian besar data tidak pernah di-read, mungkin ada banyak data di cluster yang tidak pernah di-read juga.
+            Cache churn : Tingkat perubahan cache yang tinggi jika record tertentu sering kali diperbarui.
+
+
+    Lazy Loading
+        Lazy Loading adalah strategi caching yang memuat data ke dalam cache hanya jika benar-benar diperlukan. Dalam penerapan ini, ElastiCache berada di antara aplikasi Anda dan database yang diaksesnya. 
+
+        Setiap kali aplikasi Anda me-request data, aplikasi itu terlebih dahulu membuat permintaan ke ElastiCache cache. Jika data tersebut terdapat di cache dan merupakan data terkini, maka ElastiCache mengembalikan data langsung ke aplikasi (cache hit). Jika tidak, aplikasi akan me-request data dari penyimpanan data dan kemudian barulah data tersebut dikembalikan ke aplikasi Anda. Terakhir, aplikasi Anda akan menulis/write data yang barusan diterima ke cache sehingga dapat diambil lebih cepat lagi ada kebutuhan yang lain.
+
+        202106041615433986e20ee6670b3d40f180e25f6bbee7.png
+
+        Dengan Lazy Loading, hanya data yang diminta sajalah yang akan disimpan dalam cache. Karena sebagian besar data tidak pernah di-request, Lazy Loading menghindari pengisian cache dengan data-data yang tidak perlu. Namun, ada cache miss penalty (waktu ekstra karena cache tidak ditemukan). Di mana setiap cache miss membutuhkan tiga perjalanan bolak-balik, inilah yang dapat menyebabkan penundaan dalam pengambilan data ke aplikasi. 
+
+        Selain itu, jika data hanya ditulis saat ada cache yang tidak ditemukan (cache miss), maka data di cache bisa menjadi usang karena tidak ada pembaruan ke cache saat data diubah pada database.
+
+
+    Adding TTL
+        Strategi Lazy Loading memungkinkan data menjadi usang, sementara Write Through memastikan bahwa data selalu segar, tetapi dapat mengisi cache dengan data yang tidak perlu.
+
+        Nah dengan menambahkan time to live alias TTL ke setiap penulisan/proses write, Anda akan mendapat keuntungan dari setiap strategi dan menghindari kekacauan cache dengan data.
+
+        20210604161602dbdf97d1291d8cfe3c82fafb9942fdf5.png
+
+        TTL adalah nilai integer yang menentukan jumlah detik atau milidetik (bergantung pada in-memory engine), hingga nilai tersebut expire (kedaluwarsa). 
+
+        Saat aplikasi mencoba membaca nilai yang expire, data di cache akan diperlakukan seolah-olah tidak ditemukan. Itu berarti, aplikasi akan melakukan request ke database dan cache pun diperbarui. Dengan demikian, data akan terjaga agar tidak terlalu usang dan mengharuskan nilai di dalam cache sesekali disegarkan dari database.
+
+
+
+
+
+
+Arsitektur AWS Cloud: Web Hosting
+    Sampai saat ini, kita telah belajar banyak hal dan mengenal beberapa layanan AWS. Sekarang mari kita lihat contoh arsitektur yang mengimplementasikan layanan-layanan yang telah dibahas sebelumnya, yaitu dalam kasus web hosting.
+
+    Arsitektur web hosting tradisional biasanya menerapkan model aplikasi web three tier yang memisahkan arsitektur menjadi lapisan presentation (front-end), application (back-end), dan persistence (database). Skalabilitas terwujud dengan menambahkan host pada setiap lapisan tersebut.
+
+
+    Hosting aplikasi web di AWS Cloud
+        Dengan AWS, arsitektur web hosting tradisional dapat dipindahkan ke cloud dengan mudah hanya dengan sedikit modifikasi. 
+
+        Jika Anda memutuskan bahwa cloud adalah solusi yang tepat, maka Anda memerlukan arsitektur yang sesuai. Berikut adalah arsitektur umum untuk meng-hosting aplikasi web beserta penggunaan layanan-layanan AWS secara terpadu.
+
+        2021060416165618e610fbcaecd7f09a01383f31806e5d.png
+
+        Mari kita jabarkan setiap layanan AWS yang digunakan dalam arsitektur di atas.
+
+            Amazon Route 53 menyediakan layanan DNS dan juga berfungsi untuk menyederhanakan manajemen domain.
+            Amazon CloudFront menyediakan edge caching untuk konten dengan banyak permintaan.
+            Elastic Load Balancing mendistribusikan lalu lintas ke web server Auto Scaling group dalam gambar di atas.
+            Exterior Firewall diterapkan ke setiap web server melalui security group.
+            Backend Firewall diterapkan ke setiap instance back-end menggunakan security group.
+            App server load balancer pada Amazon EC2 instance mendistribusikan lalu lintas ke app server cluster.
+            Amazon ElastiCache menyediakan layanan cache untuk aplikasi, yang mana akan mengurangi beban pada database.
+
+
+
+
+
+
+Ikhtisar
+    Di modul ini kita telah mempelajari mengenai Caching. Caching dapat dilakukan di semua poin interaksi sebuah aplikasi modern. Cakupan modul ini ditunjukkan pada gambar berikut:
+
+    20210604161747b6a6b80d9cdc1ee132d65c3462880681.png
+
+    Mari kita jabarkan setiap poin-poinnya:
+
+        Caching di tingkat Internet/Edge dapat dilakukan dengan menggunakan Content Distribution Network atau CDN. AWS menawarkan Amazon CloudFront yang merupakan layanan CDN tingkat dunia yang tersebar pada banyak lokasi di seluruh dunia.
+        Di tingkat web server, caching juga dapat dilakukan pada load balancer dengan menggunakan Session Management.
+        Selanjutnya, kita juga telah mempelajari teknik caching dengan menyimpan data yang sering diakses menggunakan in-memory caching. Amazon menawarkan dua jenis in-memory cache, yaitu DAX (DynamoDB Accelerator) atau ElastiCache.
+        Terakhir, kita sudah mempelajari bagaimana menggunakan Arsitektur Cloud AWS beserta komponen-komponennya dapat digunakan untuk membangun aplikasi web secara optimal.
+
+    Masih ada beberapa langkah lagi dalam menyelesaikan kelas ini. Jadi, tetap semangat ya!
