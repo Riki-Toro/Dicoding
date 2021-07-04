@@ -12,3 +12,17 @@ AWS Quick Starts
 
 
 
+
+Automasi Deployment
+    Anda dapat membuat seluruh infrastruktur secara otomatis dengan menggunakan AWS CloudFormation, tetapi masih ada beberapa pertanyaan penting untuk diajukan.
+
+    Bagaimana cara memperbarui Amazon EC2 instance Anda? Apakah Anda harus masuk ke setiap instance dan menjalankan perintah pembaruan secara manual? Bagaimana Anda mengembalikan perubahan jika terjadi kesalahan? Bagaimana jika Anda memiliki 100 server yang menjalankan tiga aplikasi berbeda?
+
+    202106041548197a1ce71ca32ac6325ff9452a46646465.png
+
+    Sebenarnya, ada beberapa tool tradisional yang dapat membantu Anda dalam skenario di atas, tetapi sebuah solusi yang out-of-the-box tentu akan lebih baik. Simaklah materi-materi berikutnya!
+
+
+
+
+
