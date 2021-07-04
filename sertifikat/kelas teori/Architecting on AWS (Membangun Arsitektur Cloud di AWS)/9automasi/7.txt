@@ -1,0 +1,224 @@
+Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation - Mengulas CloudFormation Template
+    Di bagian keempat ini kita akan menjelajahi template dan belajar bagaimana Anda bisa men-deploy aplikasi web menggunakan template tersebut. Seperti yang sudah dijelaskan sebelumnya, template ini ditulis dengan format YAML, ia merupakan salah satu format file yang didukung oleh layanan CloudFormation selain JSON. Mari kita mulai!
+
+        1. Masuk ke halaman AWS CloudFormation, lalu buka menu Stacks, dan klik CloudFormationLab. Ini adalah hasil Stack yang dibuat oleh step sebelumnya di bagian 2.
+        202104211329154e3ea1fceb7c4e61756936735c300589.jpeg 
+
+        2. Selanjutnya, silakan buka tab Template. Ini adalah template yang Anda gunakan untuk membuat aplikasi web. Mari kita kupas beberapa bagian.
+        20210421132953ed24b227504588fd3ede7cdfedf7f925.jpeg
+
+        3. Pertama, lihatlah pada bagian InstanceType (Anda bisa melakukan pencarian dengan tekan CTRL + F). Ini adalah bagian di mana kita bisa memilih tipe instance yang akan digunakan untuk men-deploy server untuk aplikasi web. Nah, di sini kita menentukan bahwa default-nya adalah t2.micro karena tipe ini termasuk ke dalam Free Tier.
+
+        InstanceType:
+
+            Description: WebServer EC2 instance type
+
+            Type: String
+
+            Default: t2.micro
+
+            AllowedValues:
+
+            - t3.nano
+
+            - t3.micro
+
+            - t3.small
+
+            - t3.medium
+
+            - t3.large
+
+            - t2.nano
+
+            - t2.micro
+
+            - t2.small
+
+            - t2.medium
+
+            - t2.large
+
+            - m5.medium
+
+            - m5.large
+
+            - m5.xlarge
+
+            - m5.2xlarge
+
+            - m5.4xlarge
+
+            - m5.12xlarge
+
+            - m5.24xlarge
+
+            ConstraintDescription: must be a valid EC2 instance type.
+
+        4. Selanjutnya, temukan Web1LaunchConfig. Ini adalah launch configuration yang kita gunakan untuk Auto Scaling. Lihat pada baris InstanceType: !Ref InstanceType. Ini menandakan bahwa Auto Scaling akan menggunakan tipe instance yang kita tetapkan sebelumnya pada langkah ke-3, yang telah ditentukan default value-nya adalah t2.micro.
+
+        Web1LaunchConfig:
+
+            Type: 'AWS::AutoScaling::LaunchConfiguration'
+
+            #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html
+
+            Properties:
+
+            ImageId: !Ref LatestAmiId
+
+            IamInstanceProfile: !Ref Web1InstanceInstanceProfile
+
+            InstanceType: !Ref InstanceType
+
+            SecurityGroups:
+
+                - !Ref Web1InstanceSecurityGroup
+
+        5. Lanjut, carilah bagian Resources. Bagian ini merupakan “jantung” dari template. Di sinilah Anda menentukan infrastruktur yang akan di-deploy.
+
+        Fokus ke bagian resource pertama, yakni DynamoDB. Ini adalah Amazon DynamoDB table yang digunakan sebagai recommendation engine pada aplikasi web kita. Berikut poin-poin pembahasannya:
+
+        Logical ID
+            Logical ID pada kasus ini adalah DynamoDBServiceMockTable. Logical ID ini adalah cara kita merujuk ke sumber daya DynamoDB table dalam CloudFormation template.
+
+        Type
+            Ini memberi tahu CloudFormation tipe sumber daya mana yang akan dibuat. Pada kasus ini yaitu AWS::DynamoDB::Table.
+
+        Properties
+            Bagian ini mendefinisikan beberapa nilai yang digunakan untuk DynamoDB table.
+
+        Di bawah ini adalah potongan template untuk bagian DynamoDB table.
+
+        Resources:
+
+        DynamoDBServiceMockTable:
+
+            Type: 'AWS::DynamoDB::Table'
+
+            Properties: 
+
+            TableName: 'RecommendationService'
+
+            AttributeDefinitions: 
+
+                - 
+
+                AttributeName: 'ServiceAPI'
+
+                AttributeType: 'S'
+
+                - 
+
+                AttributeName: 'UserID'
+
+                AttributeType: 'N'
+
+            KeySchema: 
+
+                - 
+
+                AttributeName: 'ServiceAPI'
+
+                KeyType: 'HASH'
+
+                - 
+
+                AttributeName: 'UserID'
+
+                KeyType: 'RANGE'
+
+            ProvisionedThroughput: 
+
+                ReadCapacityUnits: '5'
+
+                WriteCapacityUnits: '5'
+
+            SSESpecification: 
+
+                SSEEnabled: 'true'
+
+        6. Sekarang mari kita lihat bagian selanjutnya, silakan scroll dan cari bagian Outputs. Bagian ini digunakan untuk menampilkan informasi tertentu mengenai sumber daya di dalam CloudFormation stack setelah proses provisioning selesai. Pada kasus ini, kita menggunakan function bawaan !GetAtt untuk mendapatkan DNSName (nama DNS) dari Application Load Balancer.
+
+        URL ini adalah yang kita gunakan untuk mengakses aplikasi web seperti pada Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation - Menguji Aplikasi Web.
+
+        Outputs:
+
+        WebsiteURL:
+
+            Value: !Join
+
+            - ''
+
+            - - 'http://'
+
+                - !GetAtt 
+
+                - ALB1LoadBalancer
+
+                - DNSName
+
+                - /
+
+            Description: Static Website
+
+        7. Terakhir, silakan temukan bagian Metadata. Bagian ini kita gunakan untuk mengelompokkan dan mengatur bagaimana CloudFormation template ditampilkan saat Anda men-deploy template menggunakan AWS Console.
+
+        Metadata: 
+
+        AWS::CloudFormation::Interface: 
+
+            ParameterGroups: 
+
+            - 
+
+                Label: 
+
+                default: "General Configuration"
+
+                Parameters: 
+
+                - NamingPrefix
+
+            - 
+
+                Label: 
+
+                default: "VPC Stack Imports"
+
+                Parameters: 
+
+                - VPCImportName
+
+                - VPCImportApp1Instance1Subnet1
+
+                - VPCImportApp1Instance1Subnet2
+
+                - VPCImportApp1Instance1Subnet3
+
+                - VPCImportALB1Subnet1
+
+                - VPCImportALB1Subnet2
+
+                - VPCImportALB1Subnet3
+
+            - 
+
+                Label: 
+
+                default: "Application Tier Configuration"
+
+                Parameters: 
+
+                - InstanceType
+
+                - LatestAmiId
+
+                - ServerCodeUrl
+
+                - Web1AutoScaleDesired
+
+                - ALBSGSource
+
+
+    Oke, kita sudah mengulas beberapa bagian pada CloudFormation template. Selanjutnya, kita akan melakukan update untuk menambahkan S3 bucket ke dalamnya. Break a leg!
