@@ -26,3 +26,41 @@ Automasi Deployment
 
 
 
+AWS Systems Manager
+    AWS Systems Manager adalah layanan manajemen yang membantu Anda mengumpulkan inventaris perangkat lunak secara otomatis, menerapkan patch OS, membuat image sistem, dan mengonfigurasi sistem operasi Windows dan Linux. 
+
+    Kemampuan ini membantu Anda untuk menentukan dan melacak konfigurasi sistem, mencegah penyimpangan, serta menjaga compliance perangkat lunak Amazon EC2 dan konfigurasi on-premise Anda. Dengan memberikan pendekatan manajemen ini, AWS Systems Manager memudahkan Anda untuk menjembatani dengan mulus infrastruktur yang Anda miliki dengan AWS.
+
+    Anda dapat membuka AWS Systems Manager dari Amazon EC2 console, pilih instance yang ingin Anda kelola, dan tentukan tugas manajemen yang ingin dilakukan. AWS Systems Manager tersedia tanpa biaya untuk mengelola Amazon EC2 dan resource di on-premise.
+
+    AWS Systems Manager mampu melakukan beberapa hal, silakan perhatikan gambar di bawah ini.
+
+    20210421162125d493552224ac449b79e7f370e364bd5d.png
+
+    Berdasarkan gambar di atas, AWS Systems Manager memiliki kemampuan dalam hal Command, Patch Management, Session Manager, Maintenance Windows, State Manager, dan Inventory. Mari kita uraikan setiap poinnya.
+
+        Run Command
+            Gunakan Run Command untuk melakukan perubahan sesuai permintaan (on-demand changes), seperti memperbarui aplikasi atau menjalankan Linux shell scripts dan Windows PowerShell commands pada kumpulan target untuk lusinan atau ratusan instance.
+
+        Patch Management
+            Gunakan Patch Manager untuk mengotomatiskan proses patching instance terkelola Anda. Kemampuan ini memungkinkan Anda untuk memindai (scan) instance dalam menemukan patch yang hilang dan menerapkan patch tersebut secara individual atau ke sekelompok instance melalui tag pada Amazon EC2 instance.
+
+            Untuk security patch, Patch Manager menggunakan patch baseline yang menyertakan aturan untuk auto-approving patches (patch yang disetujui secara otomatis) dalam beberapa hari setelah dirilis, demikian pula daftar patch yang disetujui dan ditolak.
+
+            Security patch diinstal dari repositori default untuk patch yang dikonfigurasi bagi instance tersebut. Anda dapat menginstal security patch secara teratur dengan menjadwalkan proses patching untuk dijalankan sebagai Systems Manager Maintenance Window task.
+
+            Pada sistem operasi Linux, Anda dapat menentukan repositori yang harus digunakan untuk operasi patching sebagai bagian dari patch baseline Anda. Dengan demikian, Anda dapat meyakinkan bahwa updates yang diinstal akan bersumber dari repositori yang dapat dipercaya terlepas dari repositori yang terkonfigurasi pada instance.
+
+        Maintenance Windows
+            Gunakan Maintenance Windows untuk menyiapkan jadwal bagi instance Anda dalam menjalankan tugas seperti menginstal patch tanpa mengganggu keberlangsungan operasi bisnis yang kritikal.
+
+        State Manager
+            Membantu mengotomatiskan proses dalam menjaga instance terkelola Anda agar tetap pada keadaan (state) yang ditentukan. Anda dapat menggunakan State Manager untuk memastikan instance Anda di-bootstrap dengan perangkat lunak tertentu saat memulai, digabungkan ke domain Windows (hanya instance Windows), atau di-patch dengan pembaruan perangkat lunak tertentu.
+
+        Session Manager
+            Gunakan Session Manager untuk mengelola Amazon EC2 instance Anda melalui shell berbasis browser atau AWS CLI. Session Manager menyediakan manajemen instance yang aman dan dapat diaudit tanpa perlu membuka inbound-port masuk, memelihara bastion host, atau mengelola SSH key.
+
+            Session Manager juga memudahkan Anda untuk mematuhi kebijakan perusahaan yang memerlukan akses terkontrol ke instance, praktik keamanan yang ketat, dan log yang dapat diaudit sepenuhnya dengan detail akses instance.
+
+        Inventory
+            Gunakan Inventory untuk visibilitas ke Amazon EC2 Anda dan lingkungan komputasi di on-premise. Anda dapat menggunakan Inventory untuk mengumpulkan metadata dari instance terkelola Anda.
