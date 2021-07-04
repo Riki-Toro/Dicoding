@@ -1,0 +1,85 @@
+Pengantar ke Caching
+    Sederhananya, caching adalah salah satu teknik untuk memastikan aplikasi kita mampu menangani lonjakan user. Bagaimana caranya? Coba pikirkan skenario ini. Misalkan tim marketing Anda melakukan promosi besar-besaran di seluruh kota besar yang ada di Indonesia untuk kopi varian baru andalan startup Anda, anggap saja Anda meluncurkan “Kopi Macchiato Rasa Durian”. 
+
+    Nah, kira-kira dari sisi IT, apa yang akan terjadi? Kemungkinan, data ataupun query yang dilakukan oleh pengguna sebagian besar akan banyak mengenai kopi varian baru tersebut. Bayangkan saja, dari 100.000 request (misalnya), 95%-nya mengenai Kopi Macchiato Rasa Durian. 
+
+    Karena Anda tidak menerapkan caching, seluruh request tersebut terpaksa diproses oleh server. Ini tentu sangat membebani server, memperbesar biaya, dan meningkatkan latensi. Tentu saja Anda akan berpikir, “Adakah cara yang lebih baik?” 
+
+    Eits, jangan khawatir! Di modul ini kita akan mempelajari mengenai caching. 
+
+    Untuk menjawab kebutuhan arsitektur di atas, kita akan mempelajari hal-hal berikut ini:
+
+        Tinjauan Caching
+        Edge Caching
+        Database Caching
+
+    Di akhir modul kita akan memiliki pemahaman untuk mengembangkan arsitektur kita seperti gambar di bawah ini.
+
+    20210604160433992b7e8f400de027360f64b2d940499e.png
+
+    Bisa Anda lihat gambar di atas, pada modul ini kita akan menambahkan beberapa komponen untuk melengkapi arsitektur di kelas ini, yakni Amazon CloudFront dan Memcached. Penasaran seperti apa? Yuk kita masuk ke pembahasan berikutnya!
+
+
+
+
+
+
+Tinjauan Caching
+    Untuk mengilustrasikan bagaimana caching dapat meningkatkan performa, mari kita buat perumpamaan. Bayangkan Anda sedang memperbaiki rumah. Untuk melakukannya, Anda membutuhkan beberapa perkakas. 
+
+    Waktu tempuh rata-rata ke toko perkakas ini adalah sekitar 30 menit. Jika setiap kali membutuhkan perkakas Anda perlu ke toko tersebut, maka tentu ini akan sangat memakan waktu.
+
+    2021060415573198bad7f21e12d2a88c2ac7770f59cb64.png
+
+    Nah, sekarang bayangkan jika Anda memiliki gudang perkakas atau toko perkakas tersebut membuka cabang di depan kompleks rumah Anda. Karena hal ini, waktu tempuh rata-rata menjadi turun drastis menjadi sekitar 2 menit saja, sangat menyingkat waktu, bukan?
+
+    Dalam komputasi, cache adalah lapisan penyimpanan data berkecepatan tinggi yang menyimpan subset data, biasanya bersifat sementara, sehingga permintaan di masa mendatang untuk data tersebut disajikan lebih cepat daripada mengakses lokasi penyimpanan utama data. Caching memungkinkan Anda untuk menggunakan kembali data yang sudah pernah diambil atau dihitung secara efisien.
+
+
+    Apa yang harus di-cache?
+        Setelah memahami apa itu caching, mungkin akan muncul suatu pertanyaan di benak Anda, “Apa saja yang harus saya cache?” Perhatikan, hal-hal atau data dengan sifat di bawah ini adalah kandidat yang baik untuk di-cache.
+
+        Data yang membutuhkan query kompleks dan waktu proses lama.
+        Data yang relatif statis dan sering diakses, contohnya profil dari media sosial perusahaan Anda.
+        Informasi yang valid untuk jangka waktu relatif panjang, misalnya laporan kegiatan CSR (Corporate Social Responsibility) perusahaan atau laporan keuangan.
+        INGAT! Mendapatkan data dari database selalu lebih lambat dan mahal daripada cache. Terlebih pada query database yang dilakukan secara inheren seperti melakukan penggabungan (join) di beberapa tabel.
+
+        Maka dari itu, data yang diambil dengan cara yang mahal dan lambat menjadi kandidat kuat untuk menyimpan di dalam cache. Walaupun demikian, data yang memerlukan query cepat dan sederhana pun masih bisa menjadi kandidat untuk caching, bergantung pada faktor lain.
+
+
+    Keuntungan Melakukan Caching
+        Ada banyak keuntungan yang akan Anda dapatkan saat melakukan caching. Ketahuilah! Cache dapat memberikan throughput tinggi dan akses latensi rendah ke data aplikasi yang sering diakses, dengan menyimpan data dalam memori. Tak hanya itu, dengan caching, Anda juga dapat mengurangi beban query database yang memakan waktu. Inilah yang sering kali menyebabkan kemacetan dalam aplikasi. 
+
+        20210604155750fadcc0b95aba3ae51166fc53d6b97977.png
+
+        Untuk query atau aplikasi yang sering melakukan operasi read (baca) secara intensif, caching dapat memberikan peningkatan kinerja yang signifikan dengan mengurangi waktu pemrosesan aplikasi dan waktu akses database.
+
+
+    Jenis Caching 
+        Terdapat beberapa jenis teknik dalam melakukan caching, ada client side (sisi klien) dan server side (sisi server). Untuk memahami keduanya, mari kita ambil contoh kasus web caching. Web caching dilakukan dengan menyimpan HTTP response dan web resources ke dalam cache (penyimpanan sementara) dengan tujuan untuk memenuhi permintaan di masa mendatang langsung dari cache, bukan dari server asal. 
+
+        20210604155805e507a4aeaca086b8faefa9bc9d876ba5.png
+
+        Mari kita bahas dari level yang paling dasar, yakni client-side web caching (web caching di sisi klien). 
+
+        Pada client-side web caching, alih-alih melakukan kueri berulang kali ke web server, data dapat disimpan sementara di browser. Metodologi caching didasarkan pada HTTP header directives yang disediakan oleh HTTP response dari server asal ke browser. HTTP cache header memberikan detail tentang berapa lama browser dapat menyimpan data di cache. Data tersebut akan digunakan untuk memberikan respons di masa mendatang. Sehingga konten web tidak perlu lagi mengambil dari sumber aslinya (dalam kurun waktu tertentu), yakni web server.
+
+        Sedangkan pada sisi server, terdapat berbagai teknik web caching yang bisa digunakan untuk meningkatkan kinerja sebuah website, contohnya reverse proxy cache. Reverse proxy cache dapat ditempatkan di depan aplikasi dan web server untuk menyediakan cache dari HTTP response yang disimpan dari keduanya. Cache ini diimplementasikan oleh administrator dan bertindak sebagai perantara antara browser dan server origin. Reverse proxy cache juga biasanya digunakan pada HTTP cache directives.
+
+
+
+
+
+
+Caching di AWS
+    Untuk memahami caching di AWS, silakan amati gambar di bawah yang menunjukkan perjalanan data untuk sebuah aplikasi. Walaupun pada gambar di bawah menampilkan arsitektur 3-tier, sebenarnya model ini berlaku untuk arsitektur apa pun. 
+
+    202106041558491809233b2f3f0d2d46ab12a95cae70f6.png
+
+    Dalam sebuah aplikasi dengan akses publik/internet, umumnya saat user berinteraksi dengan aplikasi itu, maka data akan berjalan seperti pada gambar di atas. 
+
+    Misalnya dalam skenario promosi produk terbaru kita, yakni “Kopi Macchiato Rasa Durian” User yang tertarik akan mengeklik halaman dari website. Atau, jika Startup kita memiliki mobile app, maka user akan mengeklik halaman di mobile app. 
+
+    Berkaca dari gambar di atas, bagian pertama yang akan terdampak pada interaksi ini adalah Internet/Edge, misalnya firewall atau perangkat lain di data center AWS maupun on-premise. Selanjutnya, interaksi ini akan diteruskan ke front-end web. Setelah itu diteruskan ke Application Layer dan kemudian mengolah data yang diambil dari database.
+
+    Dalam sebuah arsitektur aplikasi, keseluruhan poin interaksi di atas merupakan titik yang potensial terjadi perlambatan. Di AWS, keseluruhan poin interaksi tersebut memiliki potensi untuk dilakukan teknik-teknik caching guna mempercepat respons pada skala cloud. Mari kita bedah.
