@@ -36,3 +36,21 @@ Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation - M
     Mantap! Kita telah berhasil melakukan update pada CloudFormation stack. Selanjutnya, pada bagian berikutnya Anda akan menghapus kedua stack yang telah dibuat. Yuk kita lanjutkan!
 
 
+
+
+
+
+Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation - Menghapus Stack
+    Setelah selesai membuat, mengulas, dan memperbarui stack, sekarang mari kita menghapus keduanya. Ikuti langkah-langkah berikut:
+
+        1. Masuk ke halaman AWS CloudFormation, lalu buka menu Stacks, dan klik CloudFormationLab.
+        2021042113532365e05e0ec67c93f568fe57d09e81fca5.jpeg
+
+        2. Selanjutnya, klik tombol Delete untuk menghapusnya.
+        20210421135458bbf1e798a3413425ff307783bfac0425.jpeg
+
+        3. Jika CloudFormationLab sudah terhapus, lakukanlah hal yang sama untuk WebApp1-VPC.
+        202104211355245c98cad285b25e44826945d161284f1a.jpeg
+
+    Hooray! Selamat Anda telah menyelesaikan latihan pada kali ini. Tetap semangat ya! Ke depannya kita akan belajar sesuatu yang baru. Persiapkan diri Anda dan silakan meluncur ke modul selanjutnya!
+    
