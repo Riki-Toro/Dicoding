@@ -1,0 +1,27 @@
+Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation
+    Pada latihan kali ini, kita akan men-deploy infrastruktur multi-tier yang andal menggunakan automasi dengan layanan AWS CloudFormation. Kita akan membuat dua CloudFormation template, satu untuk membuat Amazon Virtual Private Cloud (VPC) dan lainnya untuk men-deploy infrastruktur yang andal ke VPC Anda, yakni Amazon EC2 yang terdistribusi ke tiga Availability Zone. 
+
+    Setelah selesai men-deploy dan mengulas template, kita juga akan meng-update CloudFormation stack, lalu terakhir kita akan melihat proses penghapusan stack. Dengan mengikuti latihan ini, Anda akan bisa membangun beban kerja yang elastis, andal, dan memiliki ketersediaan tinggi sesuai dengan praktik terbaik AWS Well-Architected Framework untuk pilar reliability menggunakan automasi. Menarik, bukan?
+
+    Arsitektur dari infrastruktur yang akan Anda deploy direpresentasikan dengan diagram berikut:
+
+    20210604155355f455e596da4f41ac9ae00fce56626f35.png
+
+    Mari kita ulas apa yang dimaksud dari gambar arsitektur di atas:
+
+    Terdapat satu EC2 instance di setiap Availability Zone.
+        Ketika connection terhadap website di-refresh beberapa kali, perhatikan bahwa EC2 instance dan Availability Zone yang melayani permintaan tersebut akan berubah di antara tiga yang tersedia.
+        Kita menggunakan salah satu jenis load balancer dari ELB, yakni Application Load Balancer yang akan menerima setiap permintaan dan mendistribusikannya di antara EC2 instance yang tersedia di seluruh Availability Zone.
+        EC2 instance berada dalam Amazon EC2 Auto Scaling group. Auto Scaling group ini dikonfigurasi untuk mempertahankan tiga instance. Oleh karena itu, jika satu instance terdeteksi unhealthy (tidak sehat), ia akan digantikan dengan instance yang baru guna mempertahankan tiga instance yang healthy (sehat).
+        
+    Oke, sebelum kita masuk ke praktiknya, berikut adalah tahapan-tahapan yang akan kita lakukan di latihan ini:
+
+        Men-deploy VPC menggunakan AWS CloudFormation.
+        Men-deploy aplikasi web dan infrastructure menggunakan AWS CloudFormation.
+        Menguji aplikasi web.
+        Mengulas CloudFormation template.
+        Memperbarui CloudFormation stack untuk menambahkan S3 bucket.
+        Menghapus CloudFormation stack.
+        
+    Oke, sepertinya Anda sudah siap untuk memulai latihan kali ini. Jadi, mari kita meluncur ke langkah-langkah di bawah ini.
+
