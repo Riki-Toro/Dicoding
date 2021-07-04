@@ -1,0 +1,38 @@
+Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation - Menambahkan S3 Bucket
+    Pada bagian ini, kita akan memperbarui CloudFormation stack CloudFormationLab guna menambahkan S3 bucket. Yuk langsung saja kita mulai!
+
+        1. Salin konfigurasi YAML berikut:
+
+        MyS3Bucket:
+
+            Type: AWS::S3::Bucket
+
+        2. Buka file staticwebapp.yaml pada komputer Anda menggunakan notepad atau teks editor, lalu paste konfigurasi di atas setelah bagian RecommendationServiceEnabled sebelum baris tanda pagar. Perhatikan gambar di bawah ini.
+        202104211341575de503ccc23744ad41847e668501199e.jpeg
+        Pastikan MyS3Bucket di awali dengan 2 spasi, sementara Type: AWS::S3::Bucket di awali 4 spasi. Jika sudah, silakan simpan file tersebut dengan cara pilih Save pada text editor Anda.
+
+        3. Selanjutnya, masuk ke halaman AWS CloudFormation, lalu buka menu Stacks, dan klik CloudFormationLab.
+        202104211343490af336e7e63ecfe576c5d41e809970b1.jpeg
+
+        4. Setelah masuk ke halaman CloudFormationLab stack, silakan klik tombol Update.
+        20210421134416836c598db0d824819a5c7a69d9e2a94c.jpeg
+
+        5. Pada bagian Prepare template, klik Replace current template. Kemudian, pilih Upload a template file untuk Template source, lalu klik Choose file, dan pilih staticwebapp.yaml di komputer Anda (file ini sudah diperbarui di langkah 2). Seusai itu, klik tombol Next.
+        2021042113460505f1f5c1a87e1fe9de08d49141fa2bbf.jpeg
+        Catatan : Jika Anda mengalami eror saat mengunggah file, cek kembali indentasi pada file YAML Anda (lihat langkah 2). Jika dipastikan sudah aman, silakan unggah ulang file YAML tersebut.
+
+        6. Anda akan diarahkan ke halaman selanjutnya. Tak ada yang perlu diubah, jadi silakan klik Next.
+        2021042113465760b56e03ff4a62358c526dc010c687b7.jpeg
+
+        7. Lanjut, scroll ke halaman paling bawah dan klik tombol Next.
+        202104211347196564d42a135ba53736dfe68b6bcfb026.jpeg
+
+        8. Pada halaman Review CloudFormationLab, perhatikan bagian Change set preview yang menampilkan penambahan S3 bucket. Kemudian, centang I acknowledge that AWS CloudFormation might create IAM resources with custom names. Jika sudah, lanjutkan dengan klik tombol Update stack.
+        20210421134827053bde90c5f78bd5abd17d058bc414cb.jpeg
+
+        9. Tunggu beberapa menit hingga status pada CloudFormationLab berubah menjadi UPDATE_COMPLETE. Lanjut, buka tab Resources, kemudian scroll hingga Anda menemukan Logical ID dengan nama MyS3Bucket. Ini menandakan bahwa penambahan S3 bucket kita telah berhasil dengan sempurna.
+        20210421134926ca801825cfb6be590a57c7d68a01dc93.jpeg
+
+    Mantap! Kita telah berhasil melakukan update pada CloudFormation stack. Selanjutnya, pada bagian berikutnya Anda akan menghapus kedua stack yang telah dibuat. Yuk kita lanjutkan!
+
+
