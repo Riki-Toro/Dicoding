@@ -1,0 +1,28 @@
+Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation - Menguji Aplikasi Web
+    Sekarang, kita akan menguji coba aplikasi web yang telah di-deploy menggunakan AWS CloudFormation pada bagian sebelumnya. Penasaran? Mari kita mulai!
+
+        1. Masuk ke halaman AWS CloudFormation, buka menu Stacks, lalu klik CloudFormationLab. Pastikan stack tersebut telah berstatus CREATE_COMPLETE.
+        20210421132217fbb9204d406f0078af27767a8bf96bf6.jpeg
+
+        2. Selanjutnya buka tab Outputs, lalu klik kanan -> open in new tab pada tautan yang ada di kolom Value.
+        20210421132311c518e0036a04c5b7dcdaf2abecae4d9e.jpeg
+
+        3. Aplikasi website Anda pun akan muncul seperti gambar di bawah ini. Ingat! Data yang dimuat pertama kali mungkin akan berbeda pada layar Anda.
+        202104211323401d51bdb37110fba154e0c2a1cfd9e94c.jpeg
+        Catatan: Jika muncul eror seperti 502 Bad Gateway, maka tunggulah beberapa saat dan coba lakukan refresh. Ini karena server membutuhkan waktu untuk memulai.
+
+        4. Cobalah lakukan refresh di web browser beberapa kali. Perhatikan! Bagian nama, judul, Availability Zone, dan instance id akan berubah setiap Anda melakukan refresh.
+        202104211324159c99bf05a5e70a9df8db62eca2e6a897.jpeg 
+
+    Oke, aplikasi website Anda sudah berhasil termuat. Mari kita jabarkan penjelasannya berdasarkan gambar di atas.
+
+    Aplikasi website tersebut menyimulasikan sebuah recommendation engine (mesin pemberi rekomendasi) yang membuat saran yang dipersonalisasi untuk acara TV klasik. Berikut adalah fitur-fiturnya:
+
+        Bagian di atas garis menunjukkan rekomendasi yang dipersonalisasi.
+            Bagian ini menampilkan nama dan acara TV.
+            Cara kerjanya cukup sederhana. Setiap request yang dilakukan akan menampilkan nama pengguna secara acak dan memuat rekomendasi yang dipetakan secara statis ke pengguna tersebut. Nama pengguna, judul acara TV, dan proses pemetaan berada di sebuah DynamoDB table.
+            
+        Bagian di bawah garis menunjukkan metadata yang berguna bagi Anda pada latihan kali ini
+            Bagian instance_id dan availability_zone memudahkan Anda untuk melihat EC2 instance dan Availability Zone mana yang sedang melayani request masuk.
+        
+    Menarik, bukan? Eits, belum berhenti sampai di sini. Selanjutnya, kita akan mengulas template yang kita pakai sebelumnya. Let’s Go! 
