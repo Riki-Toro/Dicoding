@@ -1,0 +1,14 @@
+AWS Quick Starts
+    AWS Quick Starts dibuat oleh AWS solutions architects dan partner untuk membantu Anda dalam men-deploy teknologi populer di AWS berdasarkan praktik terbaik AWS untuk keamanan dan high availability (ketersediaan tinggi). 
+
+    Akselerator ini mampu mengurangi ratusan prosedur manual menjadi hanya beberapa langkah saja, sehingga Anda dapat membangun lingkungan production dengan cepat dan bisa segera mulai menggunakannya. Setiap Quick Starts menyertakan AWS CloudFormation template yang mengotomatiskan proses deploy, panduan yang membahas arsitektur, dan memberikan instruksi deployment langkah demi langkah. Quick start dapat diakses secara online dari website AWS.
+
+    20210421112952b2a5da9b65ae091f69fc974a72d55fbe.jpeg
+
+    AWS Quick Starts dibuat dari AWS CloudFormation template dan skrip terkait untuk membangun lingkungan di akun AWS Anda. Quick Starts akan melakukan semua bootstrap dan deployment untuk Anda. 
+
+    Perlu diperhatikan bahwa Anda akan dikenai biaya untuk resource yang digunakan dalam pembuatan dan pengoperasian lingkungan yang dibuat.
+
+
+
+
