@@ -66,3 +66,50 @@ Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation - D
     20210421125636968c32c4a238d98b8ffc3384e31a0fe9.jpeg
 
     Mari kita lanjutkan ke bagian berikutnya!
+
+
+
+
+
+Hands-on Lab: Automasi Proses Deploy Infrastruktur dengan AWS CloudFormation - Deploy Aplikasi Web dan Infrastruktur
+    Pada bagian kedua ini, kita akan men-deploy aplikasi web dan infrastrukturnya. Kita akan membuat Amazon EC2 instance, DynamoDB table, Application Load Balancer, dan Auto Scaling.  
+
+    Silakan unduh file YAML berikut staticwebapp.yaml yang nantinya akan kita gunakan saat membuat CloudFormation stack.
+
+        1. Silakan masuk ke halaman AWS CloudFormation (dengan cara mengetikkan cloudformation di kotak pencarian pada bagian atas console). Buka menu Stacks -> Create stack -> With new resources (standard).
+        20210421130730ea6fb4f5bb976656eb8b2e5d9a2f363d.jpeg 
+
+        2. Biarkan Prepare template sesuai default. Untuk Template source, pilih Upload a template file. Kemudian klik Choose file dan pilih CloudFormation template yang telah Anda unduh sebelumnya: staticwebapp.yaml. Jika sudah, klik tombol Next.
+        202104211309447820f48be14894904660cbf3dd929b1a.jpeg 
+
+        3. Pada Stack name, isikan CloudFormationLab.
+        20210421131239867139c20afc61fa40a6d225524ed572.jpeg 
+
+        4. Selanjutnya, silakan perhatikan bagian Parameters dan biarkan sesuai default. Lalu klik tombol Next.
+        2021042113130563becef407917d43db5e2ddd569dcc18.jpeg
+
+        5. Sekarang kita masuk ke bagian Configure stack options. Tambahkanlah tag dengan isian Name di kolom kiri yang mana adalah key dan CloudFormationLab di kolom sebelah kanan yang mana adalah value.
+        202104211315486e051fe8e088376dc6c7a601d6b8b46b.jpeg
+
+        6. Kita tak akan menggunakan permission dan opsi tambahan pada latihan kali ini. Jadi, klik tombol Next.
+        202104211316478a83c96f1237e509531bd5042253e81b.jpeg 
+
+        7. Masuklah kita ke halaman Review. Silakan perhatikan konfigurasi yang telah Anda buat. Pada halaman paling bawah, centang I acknowledge that AWS CloudFormation might create IAM resources with custom names. Jika sudah, silakan klik tombol Create stack.
+        202104211318038c02d1565ab260998502e893469b0e66.jpeg
+
+        8. Kita akan dibawa ke halaman status dari CloudFormation stack events. Tunggulah beberapa menit dan lakukan refresh secara berkala guna melihat perubahan pada status stack Anda hingga menjadi CREATE_COMPLETE.
+        20210421131819558b2141416e9be5fb87e92beb06551f.jpeg
+
+    Selamat! Anda telah berhasil membuat CloudFormation stack untuk aplikasi web dan infrastrukturnya. Sebagai bukti, silakan cek ke halaman Amazon EC2 (dengan cara mengetikkan ec2 di kotak pencarian pada bagian atas console) dan lihatlah bahwa di sana ada hasil instance yang telah kita buat menggunakan AWS CloudFormation. 
+
+    20210421130654ea8babb21f4799e170037c4095c52e3f.jpeg
+
+    Cek juga Load Balancer dan Auto Scaling (masih berada di halaman EC2), serta DynamoDB (dengan cara mengetikkan dynamodb di kotak pencarian pada bagian atas console) untuk melihat hasil dari CloudFormation stack kita. Perhatikan, gambar di bawah ini adalah tampilan DynamoDB table yang telah kita buat menggunakan AWS CloudFormation. Terdapat sebuah DynamoDB table dengan nama RecommendationService. Cobalah klik pada nama tabel tersebut.
+
+    202104211319459a64c6e1c745dff9707591458c3d2a35.jpeg
+
+    Kemudian buka ke tab Items dan Anda akan melihat sekumpulan nilai. Fokuslah ke kolom Result dan UserName.
+
+    202104211306548cc7b9d3415f94ceaec1b514add6d665.jpeg
+
+    Penasaran seperti apa penggunaan kedua kolom tersebut? Jawabannya ada di bagian berikutnya, semangat!
