@@ -1,0 +1,25 @@
+AWS Fargate
+    AWS Fargate adalah teknologi untuk Amazon ECS dan Amazon Elastic Kubernetes Service (Amazon EKS) yang memungkinkan Anda menjalankan container tanpa harus mengelola server atau cluster. 
+
+    Dengan AWS Fargate, Anda tidak lagi harus menyediakan, mengonfigurasi, dan melakukan scaling terhadap cluster dari virtual machine untuk menjalankan container. Layanan ini menghilangkan kebutuhan untuk memilih jenis server, memutuskan kapan akan scaling cluster Anda, atau mengoptimalkan pengemasan cluster. 
+
+    20210604163600d4aeeadd3c68038ed814b361cc97bcf0.pngAWS Fargate memungkinkan Anda fokus pada merancang dan membangun aplikasi ketimbang mengelola infrastruktur. Layanan ini mendukung Amazon EKS dan ECS.
+
+
+
+
+
+Menjadi Serverless
+
+Apa itu Komputasi Serverless?
+    Komputasi serverless (tanpa server) memungkinkan Anda membangun dan menjalankan aplikasi dan layanan tanpa merencanakan atau melakukan provisioning (penyediaan) server. Aplikasi serverless tidak mengharuskan Anda untuk menyediakan, melakukan scaling, dan mengelola server apa pun. Semua yang dibutuhkan untuk menjalankan dan scaling aplikasi Anda dengan ketersediaan tinggi (high availability) akan ditangani oleh AWS untuk Anda.
+
+    2021060416370024aef77512822bcf339df31837044a46.png
+
+    Kemudian, mungkin Anda akan bertanya-tanya, “Mengapa kita perlu menggunakan komputasi serverless?”
+
+    Dengan membangun aplikasi serverless, itu berarti Anda dapat fokus pada produk aplikasi daripada khawatir tentang pengelolaan dan pengoperasian server atau runtime, baik di cloud maupun on-premise. Ini memungkinkan Anda mendapatkan kembali waktu dan energi yang dapat digunakan untuk mengembangkan produk hebat yang scalable dan dapat diandalkan.
+
+    Tak hanya itu, dengan serverless, Anda bisa menggunakan sumber daya komputasi sesuai kebutuhan dan buat aplikasi Anda berbasis microservices. Menarik, bukan?
+
+    Lalu, apa saja layanan serverless yang ditawarkan oleh AWS? Mari kita kita lihat pada materi berikutnya!
