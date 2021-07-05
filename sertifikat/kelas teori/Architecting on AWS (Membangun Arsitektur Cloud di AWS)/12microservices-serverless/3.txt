@@ -1,0 +1,68 @@
+Amazon ECS
+    Amazon Elastic Container Service (Amazon ECS) adalah layanan manajemen container berkinerja tinggi dan sangat scalable yang mendukung Docker container dan memungkinkan Anda menjalankan aplikasi dengan mudah pada managed cluster (klaster terkelola) dari Amazon EC2 instance.
+
+    20210604163254e659b0f4637e117ff99e1cc7606089fa.png
+
+    Amazon ECS adalah layanan cluster yang scalable untuk meng-hosting container, layanan ini dapat:
+
+        Scale hingga ribuan instance.
+        Memantau deployment dari container.
+        Mengelola state (kondisi) lengkap dari cluster.
+        Menjadwalkan container menggunakan penjadwal bawaan (built-in scheduler) atau penjadwal pihak ketiga (misal Apache Mesos atau Blox).
+        API yang dapat dikembangkan (Extensible API).
+        Diluncurkan dengan jenis peluncuran (launch type) Fargate atau EC2.
+
+    Karena berjalan di atas Amazon EC2, ECS Cluster dapat memanfaatkan Spot Instances dan Reserved Instances. 
+
+
+    Bekerja dengan ECS
+        Terdapat 3 bagian besar yang harus diingat saat Anda ingin menggunakan ECS. Ketiga bagian tersebut ditunjukkan pada gambar di bawah ini. 
+
+        2021060416330693ee20cd2e035c1d908de0a61205e53b.png
+
+        Secara garis besar, untuk menggunakan ECS kita memerlukan Container, ECS Task Definition, dan ECS Cluster. Mari kita uraikan setiap poin-poinnya.
+
+        Container
+            Container ini dibuat oleh Anda dan dikemas dalam bentuk Docker Image. Selanjutnya agar bisa diakses oleh ECS, maka image ini tentu saja disimpan di tempat yang dapat diakses melalui internet. Salah satu tempat yang disarankan adalah Amazon Elastic Container Registry.
+        
+        ECS Task Definition
+            Task Definition itu seperti cetak biru (blueprint) untuk aplikasi Anda. Setiap kali meluncurkan task di Amazon ECS, Anda menentukan Task Definition. ECS kemudian mengetahui Docker image mana yang akan digunakan untuk container, berapa banyak container yang akan digunakan dalam task tersebut, dan alokasi resource untuk setiap container.
+
+        ECS Cluster
+            ECS Cluster adalah pengelompokan task atau service secara logical. Jika Anda menjalankan task atau service yang menggunakan jenis peluncuran EC2, maka cluster merupakan pengelompokan dari container instance. Jika Anda menggunakan capacity provider (penyedia kapasitas), maka cluster merupakan pengelompokan logis dari capacity provider.
+
+            Saat Anda pertama kali menggunakan Amazon ECS, cluster default telah dibuat untuk Anda. Akan tetapi, Anda dapat membuat beberapa cluster di dalam akun Anda untuk menjaga sumber daya tetap terpisah.
+
+    Saat menggunakan Amazon ECS, kita bisa melakukan scaling secara otomatis untuk jumlah instance yang tersedia. Ini diilustrasikan pada gambar berikut:
+
+    20210604163403174cf08b884213e6e98364492987fb33.png
+
+    Jika Anda mengonfigurasi Auto Scaling group untuk menghapus container instance, task apa pun yang sedang berjalan pada container instance tersebut akan dihentikan. Jika task Anda dijalankan sebagai bagian dari service, Amazon ECS akan memulai ulang task tersebut di instance lain jika sumber daya yang diperlukan tersedia (CPU, memori, port). Namun, task yang dimulai secara manual tidak akan dimulai ulang secara otomatis.
+
+
+
+    Beralih dari Aplikasi Monolitik ke Microservices Berbasis Container
+        Pada pembahasan kali ini kita akan kembali menggunakan skenario Aplikasi Forum. Untuk mengubah Aplikasi Forum yang semula monolitik menjadi pendekatan microservice, Anda dapat memecah kode menjadi individual encapsulated services (layanan enkapsulasi individual). Pastikan masing-masing service menjalankan fungsinya dengan sempurna, lalu daftarkan service tersebut dengan Amazon Elastic Container Registry (ECR).
+
+        202106041634326c1320c6aedc26b7cd2b1378744d1822.png
+
+        2021060416352012245206c472c5148c7afcf07ad5fbdf.png
+
+        Selanjutnya, di dalam Amazon ECS, buat service untuk masing-masing bagian dari aplikasi asli Anda. Kemudian daftarkan target group instance untuk service tersebut. Terakhir, buat Application Load Balancer dengan target group yang mengarah ke Amazon ECS app service Anda.
+
+        Ketahuilah! AWS Cloud Map dan AWS App Mesh dapat membantu dalam membangun dan memecahkan masalah arsitektur Anda. Mari kita bahas keduanya.
+
+            AWS Cloud Map
+                AWS Cloud Map adalah layanan terkelola sepenuhnya yang memungkinkan Anda mendaftarkan sumber daya aplikasi apa pun (seperti database, queue, microservices, dan sumber daya cloud lainnya) dengan custom namespace (cara untuk mengelompokkan service untuk sebuah aplikasi).
+
+                AWS Cloud Map kemudian terus-menerus memeriksa kesehatan (health check) sumber daya untuk memastikan lokasinya terkini (up-to-date), sehingga memungkinkan Anda untuk menambahkan dan mendaftarkan sumber daya apa pun dengan intervensi manual yang minimal dari pemetaan (mapping). AWS Cloud Map membantu service discovery (penemuan layanan), continuous integration (integrasi berkelanjutan), dan health monitoring (pemantauan kesehatan) untuk microservice dan aplikasi Anda.
+
+            AWS App Mesh
+                AWS App Mesh menangkap metrik, log, dan jejak dari setiap microservice yang dapat Anda ekspor ke Amazon CloudWatch, AWS X-Ray, serta tools AWS partner dan komunitas untuk pemantauan dan pelacakan.
+
+                Layanan ini juga memberikan kontrol khusus atas perutean traffic antara microservice untuk membantu deployment, kegagalan, atau scaling pada aplikasi Anda.
+
+
+    Kita telah belajar bahwa Amazon ECS adalah layanan manajemen container yang memungkinkan Anda menjalankan aplikasi dengan mudah pada managed cluster (klaster terkelola) dari Amazon EC2 instance.
+
+    Jika Anda tak ingin mengurusi perihal server atau cluster, tenang, AWS menyediakan solusinya dengan menghadirkan AWS Fargate. Simak pembahasan di materi berikutnya!
