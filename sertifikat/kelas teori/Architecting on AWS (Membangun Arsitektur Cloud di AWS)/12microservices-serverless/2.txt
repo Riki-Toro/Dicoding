@@ -1,0 +1,43 @@
+Layanan Container
+    Manfaat arsitektur yang berorientasi pada microservices harus diterapkan juga pada tingkat infrastruktur. Saat ini, walaupun kita sudah mendesain arsitektur secara terpisah (decoupled) dan menggunakan model microservices, dari sisi implementasinya Anda masih menggunakan virtual machine. 
+
+    Meskipun menggunakan VM di cloud menjadikan arsitektur fleksibel, namun dengan menggunakan container akan membuat infrastruktur Anda menjadi lebih fleksibel dan dinamis. Mari kita pelajari lebih jauh.
+
+
+    Apa itu Container?
+        Container adalah metode virtualisasi sistem operasi yang memungkinkan Anda menjalankan aplikasi dan dependensinya dalam proses yang diisolasi dari resources, dalam hal ini adalah VM Anda. 
+
+        Dengan menggunakan container, Anda dapat dengan mudah menjadikan kode aplikasi, konfigurasi, dan dependensi ke dalam satu paket komponen yang mudah digunakan. Container dapat memberikan konsistensi lingkungan, efisiensi operasional, produktivitas developer, dan version control.
+
+        2021060416313230bfbaa6e2b8d6aa9b613e15a301dec1.png
+
+        Saat berbicara mengenai container, Anda juga perlu memahami tentang container image. Container image adalah snapshot dari sistem file yang tersedia untuk container. Misalnya, Anda dapat memiliki sistem operasi Debian sebagai container image. Sehingga saat menjalankan container, Anda akan memiliki sistem operasi Debian yang tersedia di container tersebut.
+
+        Anda juga dapat mengemas semua dependensi kode Anda dalam container image dan menggunakannya sebagai code artifact Anda. Perlu dicatat bahwa space dari image container biasanya berukuran lebih kecil dari virtual machine. Anda dapat menyalakan container hanya dalam hitungan ratusan milidetik saja.
+
+        Jadi dengan menggunakan kontainer, Anda dapat menggunakan lingkungan infrastruktur yang agnostik, cepat, dan portabel.
+
+
+    Beberapa Masalah yang Bisa Container Selesaikan
+        Saat menggunakan container, Anda akan mendapatkan beberapa keuntungan karena ia dapat memecahkan beberapa masalah, seperti perbedaan lingkungan deployment dan pemanfaat sumber daya komputasi. Mari kita lihat lebih detail di bawah ini.
+
+
+        Perbedaan Lingkungan Deployment
+            Container dapat membantu memastikan bahwa aplikasi di-deploy dengan cepat, andal, dan konsisten, terlepas dari lingkungan deployment-nya. Ini menjawab pertanyaan yang sering dilontarkan oleh tim developer Anda saat men-debug program aplikasi, “Kenapa di laptop saya aplikasinya berjalan mulus, sementara di laptop Manajer tidak jalan sama sekali?” 
+
+            20210604163154ce298b218176dfc7d9020e20078d19f5.png
+
+            Selain itu, container juga memberi Anda kontrol yang lebih terperinci atas sumber daya, sehingga dapat meningkatkan efisiensi terhadap infrastruktur Anda. 
+
+            Jika Anda mencari solusi container yang sudah dibuat sebelumnya, Anda bisa mengunjungi AWS Marketplace for Containers yang akan membantu Anda menemukan dan membeli produk container dari vendor perangkat lunak independen, baik melalui Amazon ECS console maupun AWS Marketplace. 
+
+            Produk-produk terverifikasi dan didukung secara komersial tersebut berjalan pada layanan container AWS yang kompatibel dengan Docker, seperti Amazon ECS, AWS Fargate, dan Amazon EKS. Anda dapat memilih dari kategori produk, seperti high-performance computing (komputasi kinerja tinggi), security, dan developer tools. Selain itu, produk SaaS (Software as a Service) yang mengelola, menganalisis, atau melindungi aplikasi container pun tersedia.
+
+
+        Pemanfaatan Sumber Daya Komputasi
+            Saat mendengar kemampuan dari container, sering kali kita berpikir bahwa ini terdengar seperti virtual machine. Namun sebenarnya keduanya berbeda, perbedaannya terletak pada detailnya. 
+
+            Perbedaan yang paling mencolok antara container dan VM adalah tidak lagi diperlukan hypervisor. Container dapat berjalan di sistem Linux apa pun dengan dukungan fitur kernel yang sesuai dan adanya Docker daemon. Ini membuatnya sangat portabel.
+            20210604163213b738b692b973ba0a25f4b8e7f734d60e.png
+
+            Kebanyakan container dapat melakukan boot hanya dalam beberapa detik saja. Selain itu, di dalam AWS, container kini menjadi bagian penting dari infrastruktur melalui utilitas dari Elastic Container Services, Docker, dan Elastic Beanstalk.
