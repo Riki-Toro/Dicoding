@@ -1,0 +1,16 @@
+Pengantar ke Arsitektur Microservices dan Serverless
+    Aplikasi startup warung kopi kita masih memiliki arsitektur monolitik, yang berisi komponen-komponen saling terikat satu sama lain. Jika salah satu komponen tersebut gagal, seluruh aplikasi akan macet. Atau jika ada lonjakan permintaan, seluruh arsitektur harus di-scale. Tak hanya itu, menambahkan fitur ke aplikasi monolitik juga akan menjadi lebih kompleks seiring berjalannya waktu. Bahkan, potongan-potongan kode pun harus sinkron satu sama lain dengan benar.
+
+    Tentu Anda tak ingin kan aplikasi startup warung kopi mengalami kendala sehingga membuat pelanggan kecewa? Oleh karena itu, pada modul kali ini kita akan belajar cara membangun arsitektur microservices dan serverless.
+
+    Dengan arsitektur microservices, aplikasi dibangun sebagai komponen independen yang menjalankan setiap proses aplikasi sebagai service (layanan). Service ini berkomunikasi melalui antarmuka yang ditentukan dengan baik menggunakan API. Service dibangun untuk kemampuan bisnis yang masing-masing menjalankan satu fungsi tertentu. 
+
+    Karena dijalankan secara independen, setiap service dapat di-update, di-deploy, dan di-scale untuk memenuhi permintaan fungsi tertentu dari suatu aplikasi.
+
+    Oke, untuk menjawab kebutuhan arsitektur di atas, kita akan mempelajari hal-hal berikut ini:
+
+        Membangun microservices
+        Layanan container
+        Menjadi serverless
+        
+    Kita akan membedah poin-poin tersebut satu per satu. Yuk kita masuk ke materi berikutnya!
