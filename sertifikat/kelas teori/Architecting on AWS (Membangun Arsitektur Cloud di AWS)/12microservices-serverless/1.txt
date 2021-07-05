@@ -14,3 +14,36 @@ Pengantar ke Arsitektur Microservices dan Serverless
         Menjadi serverless
         
     Kita akan membedah poin-poin tersebut satu per satu. Yuk kita masuk ke materi berikutnya!
+
+
+
+
+
+Arsitektur Microservices
+    Untuk memahami arsitektur microservices, kita harus memahami pengertian dan juga karakteristiknya terlebih dahulu. Yuk kita mulai pembahasannya!
+
+
+    Apa itu Microservices?
+        Sebelum membahasnya lebih jauh, mari kita berkenalan dulu tentang apa itu microservices. Microservices adalah aplikasi yang terdiri dari layanan independen yang berkomunikasi melalui API yang telah ditentukan dengan baik. Sebagai contoh, mari kita lihat gambar berikut ini.
+
+        20210604162952a1a27218768a6ff5a2e3a8f032ae1740.png
+
+        Di sebelah kiri adalah Aplikasi Forum dengan arsitektur monolitik. Walaupun secara arsitektur aplikasi ini terdiri dari tiga komponen (Users, Topics, dan Messages), tapi dalam cara bekerja masing-masing komponen masih terikat erat dengan komponen lain. Misalnya, user ingin mem-posting sebuah pesan baru di forum, kemungkinan ini diimplementasikan dengan cara memanggil stored procedure ke database. Proses ini sebenarnya bisa bekerja dengan baik, tapi tidak scalable.
+
+        Gambar di sebelah kanan menggambarkan Aplikasi Forum dalam arsitektur microservices. Mari kita kembali ke skenario user yang ingin mem-posting sebuah pesan baru di Forum. Dalam arsitektur microservices, Users service akan berkomunikasi dengan Topics service melalui API. Selanjutnya, pesan tersebut di-posting oleh Topics service dengan cara berkomunikasi melalui API dengan Messages service.
+
+
+    Karakteristik Microservices
+        Setelah mengenal apa itu microservices dan perbedaannya dengan monolitik, sekarang mari kita belajar tentang karakteristik dari microservices. Microservices memiliki dua karakteristik, yaitu Autonomous dan Specialized.
+
+        2021060416300401667eb7884c19ad2d6df9f30b462036.png
+
+        Yuk kita jabarkan masing-masing karakteristiknya.
+
+        Autonomous
+            Setiap komponen service dalam arsitektur microservices dapat dikembangkan, di-deploy, dioperasikan, dan di-scale tanpa memengaruhi fungsi service lain. Service tidak perlu menggunakan kode bersama (sharing) atau implementasinya dengan service lain. Setiap komunikasi antara komponen individu terjadi melalui API yang didefinisikan dengan jelas (well-defined API).
+
+        Specialized
+            Setiap service dirancang untuk serangkaian kemampuan dan berfokus pada pemecahan masalah tertentu. Jika developer menambahkan lebih banyak kode ke service dari waktu ke waktu sehingga service menjadi kompleks, maka service itu dapat dipecah lagi menjadi service yang lebih kecil.
+
+    Itulah pembahasan kita mengenai microservices. Selanjutnya, kita akan belajar tentang layanan container di AWS. Penasaran? Mari kita melangkah ke materi berikutnya!
