@@ -23,3 +23,60 @@ Apa itu Komputasi Serverless?
     Tak hanya itu, dengan serverless, Anda bisa menggunakan sumber daya komputasi sesuai kebutuhan dan buat aplikasi Anda berbasis microservices. Menarik, bukan?
 
     Lalu, apa saja layanan serverless yang ditawarkan oleh AWS? Mari kita kita lihat pada materi berikutnya!
+
+
+
+
+
+
+AWS Lambda
+    AWS Lambda memungkinkan Anda untuk menjalankan kode tanpa harus menyediakan atau mengelola server. Layanan ini menjalankan kode Anda pada infrastruktur komputasi yang highly available dan melakukan semua administrasi sumber daya komputasi, termasuk aktivitas seperti pemeliharaan server dan sistem operasi, penyediaan kapasitas dan automatic scaling, serta pemantauan dan pencatatan kode. 
+
+    Sehingga yang perlu Anda lakukan hanyalah memberikan kode Anda dalam salah satu bahasa yang didukung AWS Lambda (saat ini Node.js, Java, C#, Python, Go, Ruby, dan PowerShell).
+
+    AWS juga menyediakan Lambda@Edge yang dapat memberikan kemampuan untuk menjalankan Lambda function sebagai respons terhadap events yang dihasilkan oleh Amazon CloudFront CDN dan scaling kode Anda dengan ketersediaan tinggi di AWS edge location yang paling dekat dengan pengguna. Anda dapat menggunakan Lambda function untuk mengubah permintaan dan respons CloudFront pada poin-poin berikut:
+
+        Viewer request
+        Origin request
+        Origin response
+        Viewer response
+
+    Hal tersebut bisa digunakan untuk membuat website lebih aman, aplikasi dinamis, optimasi SEO, real time, dan skenario-skenario lainnya.
+
+
+    Cara Kerja AWS Lambda
+        Komponen inti dari AWS Lambda adalah event source dan Lambda function. Event Source mem-publish event, sementara Lambda function adalah kode yang Anda tulis untuk memproses event. Lambda yang nantinya akan menjalankan fungsi sebagai perwakilan Anda.
+
+        202106041637517e40827fbeb0e116664614ce79579b6a.png
+
+        Lambda function terdiri dari kode Anda, associated dependencies (dependensi terkait), dan konfigurasi. Konfigurasi termasuk di dalamnya informasi seperti handler yang akan menerima event, IAM role yang dapat di-assume (digunakan) oleh AWS Lambda untuk menjalankan Lambda function, sumber daya komputasi yang ingin Anda alokasikan, dan juga timeout (waktu tunggu).
+
+        Layers (lapisan) memungkinkan developer AWS Lambda function untuk memelihara package, binaries, runtime, dan file lain yang diperlukan sebagai komponen yang terpisah dari kode function. 
+
+        Saat membuat Lambda function, Anda memiliki opsi untuk menentukan satu atau lebih Layers yang akan disertakan dengan lingkungan runtime Lambda function. Hal tersebut menghilangkan kebutuhan untuk memelihara salinan dari file yang sama yang didistribusikan di beberapa Lambda function. 
+
+        Misalnya, aplikasi serverless yang ditulis dengan Python dapat menggunakan package seperti PyMySQL untuk membuat query database Amazon RDS MySQL. Dengan layer, hanya satu salinan paket PyMySQL yang perlu di-maintain dan dapat digunakan oleh function apa pun dalam aplikasi.
+
+        Saat menggunakan Lambda layer, Anda memiliki restriksi/batasan seperti berikut:
+
+        Satu function dapat menggunakan hingga 5 layers sekaligus.
+        Ukuran total ukuran unzipped dari function (termasuk layers) tidak boleh melebihi batas sebesar 250 MB.
+        Lambda layers mendukung resource-level permission (izin tingkat sumber daya) dan dapat dibagikan (shared) ke akun AWS tertentu, AWS Organizations, atau semua akun. Layer dapat Anda tambahkan ke suatu function (baik selama pembuatan atau setelahnya) dan dapat diperbarui sesuai kebutuhan. AWS Serverless Application Model (SAM) juga mendukung pengelolaan layers di seluruh function.
+
+        Mirip dengan function versioning, Lambda layers mendukung versi individu dan permission yang sesuai. Versi yang telah di-publish dari sebuah layer tidak dapat diperbarui (selain mengubah versi dari permission). Untuk memperbarui layer, versi baru harus di-publish. Dengan cara ini, Anda dapat mengontrol peluncuran dari layer baru di berbagai function.
+
+        Seperti yang telah kita pelajari sebelumnya, salah satu komponen inti dari AWS Lambda adalah event source. Ketahuilah! AWS Lambda mendukung banyak event source, seperti S3, DynamoDB, SNS, SQS, CloudWatch events, Target Group (ALB), AWS IoT button, dan masih banyak lagi. 
+
+        Dari banyaknya event source yang tersedia, mari kita ambil contoh untuk ALB. Anda dapat menggunakan ALB (Application Load Balancer) untuk mengirim lalu lintas ke Lambda function Anda melalui HTTP/HTTPS. Atau karena ALB adalah perutean berbasis konten (content-based routing), Anda dapat memilih untuk mengirim lalu lintas ke Lambda function yang berbeda berdasarkan sebuah host atau URL path pada permintaan yang datang ke ALB. 
+
+        Dengan mendaftarkan Lambda function Anda sebagai target ke ALB, Load Balancer akan meneruskan konten ke Lambda function Anda dalam format JSON. Secara default, health check dinonaktifkan untuk target group berjenis Lambda.
+
+
+    Contoh Penggunaan Lambda Function
+        Setelah kita belajar mengenai AWS Lambda, sekarang mari kita lihat bagaimana contoh penggunaannya. Berikut adalah contoh arsitektur aplikasi order processing yang menggunakan Lambda function.
+
+        202104211256551b73eb6669a04bbe30eefbd228378b2f.png
+
+        Bisa Anda lihat pada contoh arsitektur di atas, itu adalah sebuah aplikasi yang mengolah file yang disimpan di S3 bucket. File tersebut diproses oleh Lambda function yang kemudian memasukkan data ke dalam dua tabel terpisah di DynamoDB (table transaction dan table customer).
+
+        Selanjutnya, ada Lambda function lainnya yang bertugas mengumpulkan transaksi dan memperbarui total di DynamoDB table yang lain. Jika ditemukan total transaksi yang melebihi jumlah tertentu, maka akan dikirimkan alert/peringatan ke SNS topic HighBalanceAlert. SNS topic ini mem-push notifikasi ke email dan dua SQS queue terpisah yaitu, CreditCollection dan CustomerNotify untuk ditindaklanjuti.
