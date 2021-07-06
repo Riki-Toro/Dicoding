@@ -1,0 +1,15 @@
+Hands-on Lab: Implementasi Arsitektur Serverless dengan AWS Managed Services - Uji Coba
+    Setelah berhasil membangun arsitektur serverless, sekarang mari kita lakukan pengujian untuk mengecek apakah skenario kita berhasil atau tidak, yakni dengan mengunggah file inventory ke S3 bucket, lalu seharusnya kita akan menerima notifikasi email. Ikuti langkah-langkah berikut:
+
+        Unduh file inventory-makassar berikut dan simpan di lokasi penyimpanan di komputer/laptop yang mudah diingat (misalnya folder Download).
+        Masuk ke halaman Amazon S3, lalu buka bucket Anda (inventory-xxx).
+        Di tab Objects, klik tombol Upload, klik Add files, pilih file inventory-makassar. Kemudian, scroll ke halaman paling bawah dan klik Upload.
+        Ketika Anda mengunggah file tersebut, aplikasi yang sedari tadi Anda buat akan memprosesnya. Anda tak perlu melakukan apa pun lagi, tunggu saja hingga email dari AWS Notifications akan masuk.
+
+    20210421145148047b3d826f5bf15159a1f6cac71d1524.jpeg
+    
+    Bagaimana? Apakah Anda sudah menerima email masuk yang menyatakan bahwa stok biji kopi toraja di kota Makassar sedang kosong? Mudah. bukan?
+
+    Hanya dengan mengunggah file laporan dari setiap gudang ke Amazon S3 bucket, Anda akan menerima email jika terdapat stok biji kopi yang kosong. Selamat ya, Anda telah berhasil mengimplementasikan arsitektur serverless di AWS.
+
+    Catatan: Hapus semua komponen yang telah Anda buat, mulai dari S3 bucket, Lambda function. DynamoDB table, dan SNS topic guna menghindari penagihan.
