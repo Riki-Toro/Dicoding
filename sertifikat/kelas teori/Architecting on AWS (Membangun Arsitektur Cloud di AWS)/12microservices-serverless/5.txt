@@ -1,0 +1,18 @@
+Amazon API Gateway
+    Amazon API Gateway adalah layanan AWS untuk membuat, mem-publish, memelihara, memantau, dan mengamankan RESTful dan WebSocket API dalam skala apa pun. Anda dapat membuat API yang mengakses AWS atau layanan web lainnya, serta data yang disimpan di AWS Cloud. Anda juga bisa membuat API untuk digunakan dalam aplikasi klien Anda sendiri atau menjadikan API Anda tersedia untuk developer aplikasi pihak ketiga. 
+
+    202106041638313b7806c084c171d515ce3b6b30206743.png
+
+    Terdapat dua jenis API yang dapat Anda buat, RESTful dan WebSocket API. Dengan Amazon API Gateway, Anda dapat membuat RESTful API yang dioptimalkan untuk beban kerja serverless dan HTTP backend menggunakan HTTP API. Jika API Anda memerlukan fungsionalitas proxy API dan fitur manajemen API dalam satu solusi, API Gateway juga menawarkan REST API.
+
+    Selain itu, Anda juga bisa membangun aplikasi komunikasi dua arah secara real time, seperti aplikasi chatting dan dashboard streaming dengan WebSocket API.
+
+
+    Contoh Arsitektur Serverless Menggunakan API Gateway
+        Sekarang, mari kita telaah contoh arsitektur serverless menggunakan API Gateway. Gambar di bawah ini adalah contoh arsitektur serverless dengan API gateway dan beberapa komponen/layanan AWS lainnya. 
+
+        202106041638486daede433f79613ee1574e352ff4d868.png
+
+        Bisa Anda lihat pada gambar di atas, Amazon API Gateway digunakan pada arsitektur Serverless Mobile Backend. Mari kita jabarkan. 
+
+        Seorang user melakukan request, kemudian Amazon API Gateway mengirim request ke Lambda function yang sesuai. Untuk user identity management, Amazon API gateway akan mengirim request ke Lambda function pertama yang kemudian diteruskan ke Amazon Cognito, AWS STS, dan Amazon DynamoDB. Kemudian untuk core business logic, Amazon API Gateway akan mengirim request ke Lambda function kedua yang kemudian akan meneruskannya ke Amazon DynamoDB, Amazon S3, Amazon ElastiCache, dan Amazon RDS.
