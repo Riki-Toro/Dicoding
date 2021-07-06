@@ -1,0 +1,28 @@
+Hands-on Lab: Implementasi Arsitektur Serverless dengan AWS Managed Services
+    Kita sudah belajar mengenai arsitektur serverless di AWS. Sekarang, kita akan berlatih bagaimana cara mengimplementasikan arsitektur serverless dengan menggunakan beberapa layanan dari AWS Managed Services (Layanan Terkelola AWS).
+
+    Mari kita buat skenario. Startup Warung Kopi Anda sekarang telah memiliki gudang persediaan biji kopi di beberapa kota di Indonesia, yaitu Medan dan Makassar. Setiap bulannya, manajer di masing-masing kota mengirimkan laporan persediaan biji kopi kepada Anda. Anda pun harus memastikan bahwa tidak ada stok biji kopi yang kosong di setiap gudang.
+
+    Saat ini, Anda harus memeriksa setiap laporan secara manual. Tentu ini akan memakan waktu dan melelahkan. Maka dari itu, Anda membutuhkan aplikasi cloud yang andal, scalable, dan hemat biaya. 
+
+    Anda menginginkan cara yang mudah untuk memenuhi kebutuhan tersebut. Cukup unggah file laporannya, kemudian jika terdapat stok biji kopi yang kosong, maka aplikasi tersebut akan memberikan notifikasi ke email Anda. Dengan begitu, Anda pun tahu bahwa ada persediaan yang kosong tanpa harus memeriksa file laporan secara manual satu per satu.   
+
+    Perhatikan gambar di bawah ini yang menerangkan workflow (alur kerja) yang akan kita buat pada arsitektur di latihan kali ini.
+
+    20210604164127992bc30d95d1702a53721811ae805dff.png
+
+    Mari kita uraikan lebih lanjut.
+
+        Pertama, kita mengunggah file inventory yang sudah disediakan ke Amazon S3 bucket.
+        AWS Lambda function (fungsi yang pertama) akan ter-trigger dan kemudian melakukan aksi penulisan item dari file inventory tersebut ke DynamoDB table.
+        Ketika item sudah termuat ke Amazon DynamoDB table, AWS Lambda function (fungsi yang kedua) akan ter-trigger dan memeriksa item. Jika terdapat nilai nol, maka akan mengirim pesan ke Amazon SNS.
+        Kemudian, Amazon SNS akan mengirimkan notifikasi ke email Anda.
+        
+    Nah, untuk membangun arsitektur seperti gambar di atas, kita akan melakukan beberapa tahapan, antara lain:
+
+        Membuat IAM role.
+        Membuat AWS Lambda function pertama, Amazon S3 bucket, dan Amazon DynamoDB table.
+        Membuat Amazon SNS topic dan AWS Lambda function kedua.
+        Menguji coba.
+        
+    Penasaran hasilnya seperti apa? Mari kita mulai perjalanannya dari bagian pertama.
