@@ -16,3 +16,52 @@ Amazon API Gateway
         Bisa Anda lihat pada gambar di atas, Amazon API Gateway digunakan pada arsitektur Serverless Mobile Backend. Mari kita jabarkan. 
 
         Seorang user melakukan request, kemudian Amazon API Gateway mengirim request ke Lambda function yang sesuai. Untuk user identity management, Amazon API gateway akan mengirim request ke Lambda function pertama yang kemudian diteruskan ke Amazon Cognito, AWS STS, dan Amazon DynamoDB. Kemudian untuk core business logic, Amazon API Gateway akan mengirim request ke Lambda function kedua yang kemudian akan meneruskannya ke Amazon DynamoDB, Amazon S3, Amazon ElastiCache, dan Amazon RDS.
+
+
+
+
+
+
+AWS Step Functions
+    Untuk memahami AWS Step Functions, mari kita awali dengan suatu pertanyaan. Bagaimana jika kita membutuhkan suatu proses yang menjalankan Lambda function secara bersamaan (paralel) atau menjalankan Lambda function dengan menunggu function sebelumnya untuk selesai dieksekusi (serial), dsb seperti berikut:
+
+    2021060416394063a0b1c698ab2fed46f932b691dcd29e.png
+
+    Nah, AWS telah memiliki solusinya. Untuk memenuhi kebutuhan di atas, Anda membutuhkan layanan AWS Step Functions.
+
+    AWS Step functions memiliki banyak kemampuan, di antaranya:
+
+        Mengoordinasikan microservices dengan menggunakan tool visual workflow.
+        Mengatur step (urutan) pemrosesan function di aplikasi Anda.
+        Otomatis men-trigger dan melacak setiap step.
+        Memberikan error catching dan logging sederhana jika sebuah step gagal.
+
+    AWS Step Function adalah State Machine. State Machine adalah objek yang memiliki sejumlah kondisi operasi yang bergantung pada kondisi sebelumnya untuk menentukan output (keluaran). Lihat gambar ilustrasi berikut:
+
+    2021042113083383a70baa9217f86001974e4cc0e34c5f.png
+
+    Contoh umum dari state machine adalah mesin penjual soda (vending machine). Mesin mulanya berada dalam status sedang beroperasi (menunggu transaksi), kemudian beralih ke status pemilihan soda saat uang dimasukkan. Setelah itu, ia memasuki status vending, di mana soda di-deploy ke pelanggan. Setelah selesai, state alias statusnya kembali ke menunggu transaksi.
+
+    AWS Step Functions memungkinkan Anda membuat dan mengotomatiskan state machine Anda sendiri dalam lingkungan AWS. Ini dilakukan dengan penggunaan Amazon State Language (ASL) berbasis JSON yang berisi struktur yang dibuat dari berbagai status (state), tugas (task), pilihan (choice), penanganan eror (error handling), dan banyak lagi.
+
+
+    AWS State Language 
+        Sebelumnya kita telah menyebutkan tentang ASL alias Amazon State Language, mari kita bahas. Amazon States Language adalah bahasa terstruktur berbasis JSON yang digunakan untuk mendefinisikan state machine Anda. State machine adalah kumpulan status yang dapat melakukan pekerjaan (task states), menentukan status mana yang akan ditransisikan ke berikutnya (Choicestates), menghentikan proses dengan error (fail states), dan seterusnya.
+
+        2021060416395964c7a2fb9793bf4d34c468a7c62afc44.png
+
+        Setelah Anda selesai membuat ASL, Visual Workflow akan menggambarkan representasi visual dari AWS State Language. Lalu ketika Anda mengubah ASL di atas, misalnya mengganti nama state dari StartState menjadi StateAwal, maka perubahan tersebut akan terlihat di Visual Workflow.
+
+
+    Arsitektur Video On-Demand (VOD)
+        Untuk mempermudah Anda memahami arsitektur serverless, AWS menyediakan contoh solusi menggunakan AWS CloudFormation template yang menerapkan alur kerja untuk melakukan ingestion terhadap video sumber dan memproses video untuk playback jenis-jenis perangkat tertentu (misalnya perangkat seluler yang punya pixel kecil, ultra high definition TV, dan lainnya). 
+
+        20210604164015803f5ef7c8c6e47dc8dab6fc6b9187df.png
+
+        Mari kita jabarkan penjelasan sesuai arsitektur di atas.
+
+        Saat Anda mengunggah source video, opsi encoding sudah didefinisikan di AWS CloudFormation template saat peluncuran, kemudian diterapkan ke setiap video untuk di-encode. Saat Anda mengupload video dan file metadata, parameter encoding untuk setiap video ditentukan dalam file metadata, sehingga pelanggan dapat menerapkan opsi encoding untuk setiap video. 
+
+        AWS CloudFormation template men-deploy alur kerja yang menyertakan AWS Elemental MediaConvert dan AWS Step Functions yang membuat function ingest, processing, dan publishing. Template tersebut juga meluncurkan AWS Lambda function yang melakukan pekerjaan setiap step (langkah) dan memproses pesan error, Amazon S3 bucket untuk file media sumber dan tujuan, Amazon CloudWatch untuk pencatatan, Amazon CloudWatch Events rule untuk AWS Elemental MediaConvert notifications, dan Amazon CloudFront distribution. 
+
+        Amazon DynamoDB table menyimpan data yang diambil melalui alur kerja, Amazon SQS queue untuk menangkap output dan Amazon SNS topic mengirimkan notifikasi encoding, publishing, dan error.
