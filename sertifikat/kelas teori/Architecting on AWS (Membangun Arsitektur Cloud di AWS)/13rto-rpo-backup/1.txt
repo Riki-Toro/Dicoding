@@ -1,0 +1,12 @@
+Pengantar ke RTO/RPO dan Backup Recovery Setup
+    Sampai di modul ini, kita telah berhasil membangun arsitektur mulai dari yang sederhana menggunakan Amazon S3, kemudian menambahkan komputasi dan database, lalu menghubungkan jaringan dengan VPC Peering, membuat arsitektur dengan automasi, menjadikannya elastis dengan ketersediaan yang tinggi, hingga menggunakan microservices. Luar biasa, bukan?
+
+    Sekarang kita sudah merasa yakin bahwa arsitektur yang menopang startup warung kopi akan terus tersedia dan mulus selama digunakan oleh pelanggan. Walaupun begitu, jangan sampai kita gegabah dan cuek terhadap kemungkinan kegagalan. Kita harus tetap memikirkan bagaimana caranya aplikasi kita bisa kembali berjalan/beroperasi jika infrastruktur kita tidak tersedia atau mengalami kegagalan, tentu dalam waktu dan biaya yang sesuai. 
+
+    Oleh karena itu, di modul ini kita akan kembali ke dasar atau istilahnya “Back to Basic”. Kita akan belajar hal-hal berikut:
+
+    Perencanaan Disaster Recovery
+    Strategi Recovery
+    Skenario Recovery
+    Yuk kita mulai!
+    
