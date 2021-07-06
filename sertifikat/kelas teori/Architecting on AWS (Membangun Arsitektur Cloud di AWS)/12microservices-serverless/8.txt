@@ -1,0 +1,112 @@
+Hands-on Lab: Implementasi Arsitektur Serverless dengan AWS Managed Services - Membuat SNS topic dan Lambda function 2
+    Sekarang, kita akan membuat Amazon SNS topic dan AWS Lambda function kedua, yang mana function ini akan mengeksekusi DynamoDB table dan mengirim notifikasi ke email Anda melalui Amazon SNS. Ikuti langkah-langkah berikut: 
+
+        1. Silakan masuk ke halaman Amazon SNS.
+        20210421134717c12f51b78a7423f207d1a9acc8e96d60.jpeg       
+
+        2. Buka menu Topics yang ada di sisi kiri, lalu klik tombol Create topic.
+        202104211347406db8a1bbe23b4b2899174e50d960b2b8.jpeg
+        
+        3. Pada halaman Create topic, pilih Standard. Kemudian, isikan Name dengan NoStock. Jika sudah, klik tombol Create topic di halaman paling bawah.
+        2021042113480510dbe6a0ff5caffe742f8be687e918b9.jpeg
+        
+        4. Setelah itu, scroll hingga Anda menemukan bagian Subscriptions. Lalu, klik tombol Create subscription.
+        20210421134825a670ac6778959a64cb9e067814a959d1.jpeg
+        
+        5. Di halaman Create subscription, sesuaikan dengan tabel berikut:
+
+            Protocol	|   Email
+            Endpoint	|   Isi dengan email Anda
+            Jika sudah, silakan scroll dan klik Create subscription.
+            2021042113491048d63eeefbf5e1b7dfb6fe03b3a131a4.jpeg
+        
+        6. Cek pesan masuk pada email yang sudah Anda daftarkan ke dalam layanan SNS. Buka email dari AWS Notifications, kemudian klik Confirm subscription.
+        202104211349413353c177d399d9bd7e31e4345bb5441a.jpeg 
+
+        7. Tab browser baru pun akan terbuka, ia akan menampilkan konfirmasi bahwa email Anda telah terdaftar di SNS topic.
+        20210421135002e05890e563e5fe65872f1895d90c4f0b.jpeg
+        
+        8. Oke, kembali ke AWS Management Console. Sekarang kita akan membuat AWS Lambda function kedua yang akan mengeksekusi DynamoDB table dan mengirim pesan ke SNS topic. Silakan masuk ke halaman AWS Lambda dengan mengetikkan lambda di kotak pencarian service.
+
+        9. Setelah berada di AWS Lambda console dashboard, klik tombol Create Function.
+
+        10. Pada halaman Create function, sesuaikan dengan konfigurasi berikut:
+
+            Choose one of the following options to create your function	|   Author from scratch
+            Function name	                                            |   Check-Stock
+            Runtime	                                                    |   Python 3.8
+
+            Di bagian Permissions, klik tanda panah pada Change default execution role.
+
+            Execution role	|   Use an existing role
+            Existing role	|   Check-Stock
+
+            Jika sudah, silakan klik tombol Create function di halaman paling bawah.
+
+        11. Scroll ke bawah, pastikan Anda berada di tab Code, klik dua kali pada lambda_function.py.
+
+        12. Hapus semua kode yang ada di code editor. Silakan copy dan paste kode berikut:
+
+            Catatan: Salin dulu ke notepad untuk menghindari kesalahan indentasi.
+
+                # Stock Check Lambda function
+                #
+                # This function is triggered when values are inserted into the Inventory DynamoDB table.
+                # Inventory counts are checked, and if an item is out of stock, a notification is sent to an SNS topic.
+                   
+                import json, boto3
+                   
+                # This handler is run every time the Lambda function is triggered
+                def lambda_handler(event, context):      
+                
+                # Show the incoming event in the debug log
+                print("Event received by Lambda function: " + json.dumps(event, indent=2))   
+                
+                # For each inventory item added, check if the count is zero
+                for record in event['Records']:
+                    newImage = record['dynamodb'].get('NewImage', None)
+                    if newImage:
+                   
+                    count = int(record['dynamodb']['NewImage']['Count']['N'])
+                  
+                    if count == 0:
+                        store = record['dynamodb']['NewImage']['Store']['S']
+                        item  = record['dynamodb']['NewImage']['Item']['S']
+                    
+                        # Construct message to be sent
+                        message = store + ' is out of stock of ' + item
+                        print(message) 
+                
+                        # Connect to SNS
+                        sns = boto3.client('sns')
+                        alertTopic = 'NoStock'
+                        snsTopicArn = [t['TopicArn'] for t in sns.list_topics()['Topics']
+                                        if t['TopicArn'].lower().endswith(':' + alertTopic.lower())][0]
+                  
+                        # Send message to SNS
+                        sns.publish(
+                        TopicArn=snsTopicArn,
+                        Message=message,
+                        Subject='Inventory Alert!',
+                        MessageStructure='raw'
+                        )
+                    
+                # Finished!
+                return 'Successfully processed {} records.'.format(len(event['Records']))
+
+        13. Jika sudah selesai, lanjutkan dengan klik tombol Deploy.
+
+        14. Oke, sekarang mari kita tambahkan trigger. Scroll ke atas, lalu klik Add trigger.
+        202104211353305dc9062185f99bd366ac339d92e911b5.jpeg
+
+
+        15. Silakan sesuaikan dengan tabel berikut:
+
+            Select a trigger	|   DynamoDB
+            DynamoDB table	    |   Inventory
+            
+            Jika sudah, lanjut klik tombol Add yang ada di paling bawah halaman.
+            202104292038013e2d769eb6338ac28a5d0a4464c59be4.jpeg
+
+        16. Yuhu! Kita telah berhasil menambahkan trigger DynamoDB ke AWS Lambda function.
+        20210421135438f8d3c6b89cb9cede3e82bf78b11d3efb.jpeg
