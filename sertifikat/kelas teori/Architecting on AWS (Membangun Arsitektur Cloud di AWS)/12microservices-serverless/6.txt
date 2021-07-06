@@ -24,5 +24,66 @@ Hands-on Lab: Implementasi Arsitektur Serverless dengan AWS Managed Services
         Membuat AWS Lambda function pertama, Amazon S3 bucket, dan Amazon DynamoDB table.
         Membuat Amazon SNS topic dan AWS Lambda function kedua.
         Menguji coba.
-        
+
     Penasaran hasilnya seperti apa? Mari kita mulai perjalanannya dari bagian pertama.
+
+
+
+
+
+
+Hands-on Lab: Implementasi Arsitektur Serverless dengan AWS Managed Services - Membuat IAM Role
+    Pada bagian pertama ini, kita akan membuat IAM role untuk masing-masing AWS Lambda function. Pada AWS Lambda function 1, ia akan memiliki permission untuk membaca Amazon S3 bucket dan akses penuh terhadap Amazon DynamoDB table. Sedangkan AWS Lambda function 2, ia akan memiliki permission untuk mengeksekusi DynamoDB table dan akses penuh ke Amazon SNS. Yuk kita mulai!
+
+        1. Silakan masuk ke halaman AWS Identity and Access Management dengan mengetikkan IAM pada kotak pencarian.
+        202104211315532c44832bf248301ea61059741ab1350d.jpeg
+
+        2. Buka menu Roles yang ada di sisi kiri, lalu klik tombol Create role.
+        202104211316102e77e1f0e76d34a9171d9df5ddee123f.jpeg
+        
+        3. Kita akan memberikan Trust terhadap layanan Lambda. Pilih AWS service, klik Lambda, kemudian klik Next: Permissions.
+        202104211316427fbcb614510d452301a1914520fab8db.jpeg
+        
+        4. Gunakan kotak pencarian untuk menemukan permission. Cari AmazonDynamoDBFullAccess lalu centang, kemudian cari AmazonS3ReadOnlyAccess lalu centang. Jika sudah, silakan klik Next: Tags.
+        20210421131656905630c53c2d36b87fc36e1c6b828cdf.jpeg
+        
+        5. Tambahkan tag sesuai konfigurasi berikut:
+
+            Key     |   Name
+            Value   |   Load-Inventory
+            Lihat gambar di bawah ini, kemudian klik Next: Review.
+            20210421131847815c462b2a4fde92cab7034d720abaf9.jpeg 
+
+        6. Berikan nama dan deskripsi sesuai tabel di bawah ini. Jika sudah selesai, lanjutkan dengan klik tombol Create role.
+
+            Role name           |   Load-Inventory
+            Role description    |   Allows Lambda function to have read only access to Amazon S3 and have full access to DynamoDB
+
+            202104281040555eedc780471b55e1438ee64c368da42a.jpeg
+
+        7. IAM role Anda sudah berhasil dibuat. Kemudian, kita akan membuat IAM role kedua (role ini akan dipakai oleh Lambda function yang kedua nantinya). Silakan klik tombol Create role.
+        202104211322371d01dab7af5693aa482c91c3873f91d9.jpeg
+        
+        8. Pilih AWS service, klik Lambda, kemudian lanjutkan dengan klik tombol Next: Permissions.
+
+        9. Gunakan kotak pencarian untuk menemukan permission, centang AWSLambdaDynamoDBExecutionRole dan AmazonSNSFullAccess. Lalu, klik Next: Tags.
+
+        10. Tambahkan tag dengan nilai berikut:
+
+            Key     |   Name
+            Value   |   Check-Stock
+
+            Lanjutkan dengan klik tombol Next: Review.
+
+        11. Pada halaman Review, isilah nama dan deskripsi dengan nilai berikut:
+
+            Role name           |   Check-Stock
+            Role description    |    Allows Lambda function to execute DynamoDB and have full access to SNS
+
+            Kemudian, klik tombol Create role.
+
+
+        12. Perhatikan, dua IAM role yang telah Anda dibuat akan terdaftar pada halaman IAM role.
+        20210421132716187b068403b39b990805bef099bef08a.jpeg
+
+    Oke, bagian pertama telah kita selesaikan. Yuk kita lanjutkan ke bagian kedua.
