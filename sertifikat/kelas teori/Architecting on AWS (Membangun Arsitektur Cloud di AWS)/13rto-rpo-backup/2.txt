@@ -1,0 +1,88 @@
+Perencanaan Disaster Recovery
+
+    20210420160045b8fe6b652f19e56e66c9317ca53ed31b.png
+
+    Seperti yang diungkapkan oleh CTO dan Vice President of Amazon, yaitu Werner Vogels, “Everything fails, all the time.” Atau dalam bahasa Indonesia, semuanya pasti akan gagal di suatu saat. Oleh karena itu, kita harus memiliki perencanaan pemulihan sebelum kegagalan menimpa arsitektur. 
+
+    Nah, saat merencanakan, Anda perlu menentukan skala bencana atau kegagalan seperti apa yang ingin dipersiapkan? Apakah kecil, besar, atau justru kolosal?
+
+    Kegagalan berskala kecil adalah di mana Anda hanya perlu backup dan restore, kegagalan berskala besar adalah di mana beberapa sumber daya (resources) akan terpengaruh, dan kegagalan kolosal adalah di mana beberapa orang dan sumber daya akan terkena dampak.
+
+    Maka dari itu, kita akan belajar mengenai Disaster Recovery atau DR. Disaster Recovery adalah kebijakan dalam mempersiapkan dan memulihkan diri dari bencana. Bencana yang dimaksud adalah segala kejadian yang berdampak negatif pada keberlangsungan bisnis atau keuangan perusahaan. Ini termasuk kegagalan perangkat keras atau perangkat lunak, pemadaman jaringan, pemadaman listrik, kerusakan fisik pada gedung (seperti kebakaran atau banjir), human error, atau kejadian lainnya.
+
+    Biasanya, untuk meminimalkan dampak bencana, perusahaan harus menginvestasikan waktu dan sumber daya untuk merencanakan dan mempersiapkan, melatih karyawan, serta mendokumentasikan dan memperbarui proses. Jumlah investasi untuk perencanaan DR pun dapat sangat bervariasi, tergantung pada biaya potensi kegagalan.
+
+    Perusahaan yang memiliki lingkungan on-premise biasanya harus menduplikasi infrastruktur untuk memastikan ketersediaan kapasitas cadangan jika sewaktu-waktu terjadi bencana. Infrastruktur perlu disiapkan, diinstal, dan dipelihara agar mampu mendukung kebutuhan kapasitas yang diantisipasi. Selama operasi normal, infrastruktur cadangan biasanya kurang dimanfaatkan (utilisasi yang rendah) atau tersedia secara sia-sia.
+
+    Nah, dengan AWS, perusahaan Anda dapat melakukan scale up infrastruktur sesuai kebutuhan. Hebatnya, Anda hanya akan dikenakan biaya sesuai dengan penggunaan (pay-as-you-go), tidak lebih dan tidak kurang. 
+
+    Tak hanya itu, Anda akan mendapatkan akses ke infrastruktur yang sangat aman, andal, dan cepat. AWS juga memberi Anda fleksibilitas untuk mengubah dan mengoptimalkan sumber daya dengan cepat selama peristiwa DR, yang mana dapat menghasilkan penghematan biaya yang signifikan.
+
+
+    Konsep Availability
+        Sistem produksi biasanya hadir dengan tujuan uptime (waktu selama mesin beroperasi) yang sudah ditentukan atau secara implisit. Sistem Anda bisa disebut highly available (sangat tersedia) jika dapat bertahan dari kegagalan satu atau beberapa komponen (misalnya, hard disk, server, dll).
+
+        Oke, untuk memahami konsep dari Availability atau Ketersediaan, kita perlu menjabarkan beberapa istilah, seperti High Availability, Backup, dan Disaster Recovery.
+
+        Mari kita uraikan secara lebih detail.
+
+            High Availability
+            High Availability atau Ketersediaan Tinggi memberikan redundancy dan fault tolerance. Tujuannya adalah untuk memastikan layanan Anda selalu tersedia bahkan jika terjadi kegagalan.
+
+
+            Backup 
+            Backup atau Pencadangan adalah hal yang sangat penting untuk melindungi data dan memastikan keberlangsungan bisnis Anda. Pada saat yang sama, hal ini bisa menjadi tantangan bagaimana caranya diimplementasikan dengan baik.
+
+            Di masa ini, kecepatan di mana data dihasilkan tumbuh secara eksponensial. Hal ini sangat membebani storage lokal atau on-premise, bahkan solusi backup di enterprise dan perusahaan besar telah menjadi industri yang terpisah sendiri. Data di seluruh dunia dihasilkan oleh sejumlah besar endpoint, misalnya: laptop, desktop, server, virtual machine, dan sekarang perangkat seluler.
+
+            Ketahuilah! Perangkat lunak untuk backup saat ini sangat terpusat, model umumnya adalah mengumpulkan data dari banyak perangkat dan menyimpannya di satu tempat. Terkadang, salinan dari data yang disimpan itu juga dikirim ke tape. Pendekatan terpusat semacam ini berpotensi membebani target backup (misalnya server di data center cadangan) selama recovery dari bencana dan mengakibatkan recovery SLA (service-level agreement) tidak dapat terpenuhi sesuai dengan ekspektasi.
+
+            Skenario backup di perusahaan umumnya terlihat seperti ini:
+
+                Jika Anda menginginkan akses data berkinerja tinggi, maka data harus disimpan di disk.
+
+                Jika Anda menginginkan penyimpanan arsip yang hemat biaya, maka data harus disimpan di dalam tape.
+
+                Jika Anda ingin mengarsipkan data secara off-site, Anda harus mengirimkan tape arsip secara fisik ke lokasi lain.
+
+                Recovery (pemulihan) dari disk lokal akan berjalan mulus, kecuali jika Anda memerlukan data dari tape, bahkan akan membutuhkan waktu lama jika tape itu tidak ada di lokasi (on-site).
+
+            Namun, jangan khawatir. Cloud telah mengubah banyak hal. Perangkat lunak backup dapat menyimpan data ke ke cloud tanpa perlu melakukan perubahan apa pun pada perangkat lunak backup itu sendiri.
+
+
+    Disaster Recovery
+        Seperti yang telah dibahas, Disaster Recovery (DR) adalah tentang mempersiapkan dan memulihkan diri dari bencana. Baik Availability dan Disaster Recovery, keduanya memiliki praktik terbaik yang sama, seperti pemantauan terhadap kegagalan, deploy ke beberapa lokasi, dan failover (pengalihan operasi) secara otomatis.
+
+        Namun, Availability berfokus pada komponen beban kerja, sedangkan Disaster Recovery berfokus pada salinan terpisah dari keseluruhan beban kerja. Disaster Recovery juga memiliki fokus yaitu pada waktu untuk pemulihan setelah bencana.
+
+
+    RPO dan RTO
+        Dalam merencanakan Disaster Recovery, kita akan sering membahas mengenai RPO dan RTO. Berikut adalah diagram sederhana untuk menjelaskan kedua hal tersebut.
+
+        202106041642395bb88a695b0eafcf8ff4f49edc1f7c75.png
+
+        Supaya lebih jelas, mari kita jabarkan arti dari keduanya. RPO atau Recovery Point Objective adalah jumlah kehilangan data yang dapat diterima dan diukur dalam waktu. Misalnya, jika bencana terjadi pada pukul 12.00 siang dan RPO-nya adalah satu jam, maka sistem harus memulihkan semua data yang ada di sistem sebelum pukul 11.00 siang. Sehingga kehilangan data hanya akan berlangsung satu jam, yakni antara jam 11.00 dan 12.00 siang.
+
+        Oke, sekarang mari kita bahas apa itu RTO. RTO atau Recovery Time Objective adalah waktu yang diperlukan setelah gangguan untuk memulihkan kembali proses bisnis ke keadaan semula dengan tingkat kualitas layanan yang sama, sebagaimana ditentukan oleh perjanjian tingkat operasional atau Operational Level Agreement (OLA). Sebagai contoh, jika bencana terjadi pada pukul 12.00 siang dan RTO-nya adalah delapan jam, maka proses DR harus memulihkan proses bisnis ke tingkat layanan yang dapat diterima pada pukul 20.00.
+
+        Perusahaan umumnya memutuskan RPO dan RTO berdasarkan dampak finansial terhadap bisnis ketika sistem tidak tersedia. Perusahaan menentukan dampak finansial dengan mempertimbangkan banyak faktor, seperti hilangnya bisnis dan rusaknya reputasi karena downtime serta kurangnya ketersediaan sistem.
+
+        Organisasi IT kemudian merencanakan solusi untuk masalah tersebut dengan menyediakan pemulihan sistem yang hemat biaya berdasarkan RPO dalam timeline dan tingkat layanan yang ditetapkan oleh RTO.
+
+
+        AWS Regions bisa Mengalami Kegagalan
+        Di kelas ini kita sudah mempelajari dan memahami bahwa dalam satu Region, ada sedikitnya dua Availability Zone, tetapi sebagian besar AWS Regions memiliki tiga Availability Zone. Jika Anda mendesain sistem untuk bisa memanfaatkan semua Availability Zone, tentu Anda akan merasa aman, bukan?
+
+        Sangat kecil sekali kemungkinan untuk suatu Region menjadi unavailable (tidak tersedia), tetapi tentu masih mungkin jika ada peristiwa berskala sangat besar terjadi pada suatu Region—misalnya hantaman meteor.
+
+        AWS menawarkan beberapa Region di seluruh dunia, sehingga Anda dapat memilih lokasi yang paling sesuai untuk lokasi DR, selain dari lokasi di mana sistem Anda di-deploy sepenuhnya.
+
+        2021060416430920d5916c4f9b1d7ae4f177f52551e783.png
+
+        AWS menyajikan halaman web yang berisi daftar layanan terkini yang ditawarkan oleh Region (produk dan layanan menurut Region). AWS menjaga kebijakan isolasi Region yang ketat sehingga segala kejadian berskala besar di satu Region tidak akan memengaruhi Region lain. AWS mendorong pelanggan untuk melakukan pendekatan serupa dengan menerapkan strategi multi-region.
+
+        Jika Anda memiliki koneksi AWS Direct Connect (DX) ke AWS Regions mana pun di Amerika Serikat, maka Anda akan mendapat akses ke semua Region di AS, termasuk AWS GovCloud (AS) tanpa melalui internet publik.
+
+        Selain itu, Anda juga perlu mempertimbangkan bagaimana aplikasi di-deploy. Jika Anda men-deploy ke setiap Region secara terpisah, maka Anda dapat mengisolasi Region tersebut jika terjadi bencana dan mentransfer semua lalu lintas ke Region lain.
+
+        Jika Anda memiliki kebutuhan untuk men-deploy aplikasi dan infrastruktur baru dengan cepat, Anda bisa memiliki active-active region. Misalnya, ketika Anda men-deploy sesuatu yang menyebabkan aplikasi di suatu Region menjadi tidak tersedia atau berperilaku tidak semestinya. Anda dapat menghapus Region tersebut dari kumpulan record aktif di Route 53, mengidentifikasi akar masalah, dan kembali ke perubahan sebelumnya (rollback) sebelum mengaktifkan kembali Region tersebut.
