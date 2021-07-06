@@ -1,0 +1,144 @@
+Hands-on Lab: Implementasi Arsitektur Serverless dengan AWS Managed Services - Membuat Lambda function 1, S3 bucket, dan DynamoDB table
+    Pada bagian kedua ini, kita akan membuat AWS Lambda function, Amazon S3 bucket, dan Amazon DynamoDB table. Mari kita mulai!
+
+        1. Masuklah ke menu AWS Lambda dengan mengetikkan Lambda di menu pencarian service.
+        20210421133011d9967c2f4ed8814c000b929e32fc79a3.jpeg
+
+        2. Buatlah function dengan klik tombol Create function.
+        2021042113302627e255e835e55d9301440b7ccd5f80ca.jpeg
+        
+        3. Pilih Author from scratch.
+        2021042113304617096da74b04500bfeebac8196d85748.jpeg
+        
+        4. Di bagian Basic information, sesuaikan dengan konfigurasi untuk Lambda function pertama berikut:
+            Function name	|   Load-Inventory
+            Runtime	        |   Python 3.8
+            20210428134824ff24004b9f219d1abe8946a891c92333.jpeg 
+
+        5. Lanjut ke bagian berikutnya. Klik tanda panah pada Change default execution role, lalu pilih Use an existing role. Pada bagian Existing role, pilih Load-Inventory, yakni IAM role yang telah Anda buat sebelumnya. Jika sudah, silakan klik tombol Create function.
+        20210421133223ac2e1738a6de1ef053e897b38461388c.jpeg
+        
+        6. Scroll halaman ke bawah, pastikan Anda berada di tab Code, klik dua kali pada lambda_function.py. Setelah itu, hapus semua kode yang ada dan copy paste kode di bawah ini. Jika sudah, lanjutkan dengan klik Deploy.
+
+            Catatan: Salin dulu ke notepad guna menghindari kesalahan indentasi.
+
+                # Load-Inventory Lambda function
+                #
+                # This function is triggered by an object being created in an Amazon S3 bucket.
+                # The file is downloaded and each line is inserted into a DynamoDB table.
+                
+                import json, urllib, boto3, csv
+                      
+                # Connect to S3 and DynamoDB
+                s3 = boto3.resource('s3')
+                dynamodb = boto3.resource('dynamodb')
+                  
+                # Connect to the DynamoDB tables
+                inventoryTable = dynamodb.Table('Inventory');
+                    
+                # This handler is run every time the Lambda function is triggered
+                def lambda_handler(event, context):
+                
+                # Show the incoming event in the debug log
+                print("Event received by Lambda function: " + json.dumps(event, indent=2))              
+                
+                # Get the bucket and object key from the event
+                bucket = event['Records'][0]['s3']['bucket']['name']
+                key = urllib.parse.unquote_plus(event['Records'][0]['s3']['object']['key'])
+                localFilename = '/tmp/inventory.txt'
+                          
+                # Download the file from S3 to the local filesystem
+                try:
+                    s3.meta.client.download_file(bucket, key, localFilename)
+                except Exception as e:
+                    print(e)
+                    print('Error getting object {} from bucket {}. Make sure they exist and your bucket is in the same region as this function.'.format(key, bucket))
+                    raise e               
+                
+                # Read the Inventory CSV file
+                with open(localFilename) as csvfile:
+                    reader = csv.DictReader(csvfile, delimiter=',')                
+                
+                    # Read each row in the file
+                    rowCount = 0
+                    for row in reader:
+                    rowCount += 1               
+                
+                    # Show the row in the debug log
+                    print(row['store'], row['item'], row['count'])               
+                
+                    try:
+                        # Insert Store, Item, and Count into the Inventory table
+                        inventoryTable.put_item(
+                        Item={
+                            'Store':  row['store'],
+                            'Item':   row['item'],
+                            'Count':  int(row['count'])})
+                           
+                    except Exception as e:
+                        print(e)
+                        print("Unable to insert data into DynamoDB table".format(e))
+                                
+                    # Finished!
+                    return "%d counts inserted" % rowCount
+
+            20210428135253d87b525f65c5d3a362af516f15fe0280.jpeg
+
+        7. Oke, kita telah berhasil membuat AWS Lambda function. Selepas itu, kita akan membuat Amazon S3 bucket. Silakan masuk ke halaman S3.
+        202104211334587a2455e020729380a3d3eb0e6be9a46d.jpeg
+        
+        8. Buatlah sebuah bucket dengan klik tombol Create bucket.
+        202104211335270e51c40965c61142c0b25fc8ff0b588e.jpeg       
+
+        9. Isikan Bucket name dengan inventory-xxx (ganti xxx dengan nomor unik). Pastikan Anda memilih Asia Pacific (Singapore) ap-southeast-1 untuk AWS Region. Di halaman paling bawah, klik Create bucket.
+        20210421133605cf248a0d78b1deb09ab3f9b59370e307.jpeg       
+
+        10. Bucket Anda telah berhasil terbuat. Lanjut, masuk ke bucket yang tadi Anda buat dengan klik pada nama bucket.
+        20210421133625c57fc277020f014c911d55cc0bbfa859.jpeg      
+
+        11. Buka tab Properties, scroll hingga Anda menemukan bagian Event notifications. Kemudian, klik Create event notification.
+        202104211336506e6233ecc7336b5b907111827800927a.jpeg       
+
+        12. Isilah Event name dengan Load-Inventory.
+        20210421133705fdaf427b0b6d8b75e18f72f659522765.jpeg
+    
+        13. Pada bagian Event types, klik All object create events.
+        2021042113374027cc8f2f043f2609694468417f4301f0.jpeg
+
+        14. Di bagian Destination, sesuaikan dengan konfigurasi berikut:
+
+            Destination	            |   Lambda function
+            Specify Lambda function	|   Choose from your Lambda functions
+            Lambda function	        |   Load-Inventory
+            
+            Di halaman paling bawah, klik tombol Save changes.
+            2021042113382885244912cf3691508212b22d5b695e0f.jpeg
+        
+        15. Nice! Kita telah berhasil membuat Lambda function. Selanjutnya, kita akan membuat Amazon DynamoDB table. Silakan masuk ke halaman DynamoDB.
+        202104211338500c074dceba0154e841b164c0ffb6319a.jpeg        
+
+        16. Ketika sudah masuk, lanjut klik Create table.
+        202104211339069443d6351235b025e9d66a6a75c91089.jpeg     
+
+        17. Masukkan Inventory pada Table name, lalu isikan Store untuk Primary key. Jangan lupa, centang Add sort key dan isikan dengan Item. Jika sudah, klik Create di halaman paling bawah.
+        20210421133956f31883f0b9058df955a5b716b654af40.jpeg       
+
+        18. Yeay! Kita sudah berhasil membuat AWS Lambda function, Amazon S3 bucket, dan Amazon DynamoDB table. Tahukah Anda? Kita sudah setengah jalan. Oleh karena itu, mari kita uji coba terlebih dahulu.
+
+        19. Unduh file inventory-medan berikut ke lokasi penyimpanan di komputer/laptop Anda.
+
+        20. Silakan masuk ke halaman Amazon S3, klik pada nama bucket Anda, lalu klik tombol Upload.
+
+        21. Selepas itu, klik Add files dan pilih file inventory-medan di komputer/laptop Anda. Di halaman paling bawah, klik tombol Upload.
+        202104211341235c29dfca15733e8a378a1af0cc2e711d.jpeg
+        
+        22. Oke, kita telah mengunggah file inventory-medan. Karena AWS Lambda function kita berfungsi untuk membaca file yang diunggah di S3 dan memuatnya menjadi Amazon DynamoDB table, jadi mari kita masuk ke halaman DynamoDB.
+        2021042113414757cb7ac5d02e9b0f3ff2f49a30253b20.jpeg
+        
+        23. Buka menu Tables, lalu klik pada nama DynamoDB table Anda, yakni Inventory.
+        20210421134209699a6a9beacd1000bf26d9773b5a7198.jpeg
+        
+        24. Masuklah ke tab Items, Anda akan melihat beberapa item yang ada. Perhatikan, pada tabel tersebut terdapat satu item yang memiliki nilai 0 (nol). Inilah yang nantinya akan men-trigger Lambda function kedua. Tenang, kita akan membuatnya nanti.
+        202104211342320afa1ea7e99bedfa9f51b0863a95fcb5.jpeg
+        
+    Selamat! AWS Lambda function Anda telah berhasil membaca file yang diunggah di S3, lalu memuatnya dengan sempurna ke DynamoDB table. Selanjutnya, Anda akan membuat SNS topic dan Lambda function kedua. Jadi, mari kita meluncur!
