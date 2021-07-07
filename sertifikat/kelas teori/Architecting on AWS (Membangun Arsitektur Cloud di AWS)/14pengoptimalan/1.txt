@@ -10,3 +10,67 @@ Pengantar ke Pengoptimalan dan Ringkasan
     20210604165157b894d1e3bff038fd08f539435d6d8b18.png
 
     Luar biasa, kan? Perjalanan kita cukup panjang untuk tiba di modul ini. Jadi, berikan apresiasi untuk diri Anda! Nah, sekarang di modul ini kita akan mengulas beberapa hal yang sudah pernah dipelajari. Tak hanya itu, kita juga akan belajar bagaimana membuat arsitektur yang telah kita bangun menjadi lebih optimal. Mari kita mulai!
+
+
+
+
+
+
+Hal-Hal yang Perlu Dipikirkan
+    Mari kita kilas balik. Sejauh ini, kita telah berlatih membangun berbagai macam arsitektur. Mulai dari yang paling sederhana, yakni meng-hosting website statis menggunakan S3, hingga mengimplementasikan arsitektur serverless menggunakan AWS Lambda. Amazon DynamoDB, dan Amazon SNS.
+
+    Nah, setelah mampu membangun arsitektur di AWS, sekarang Anda akan diberikan beberapa pertanyaan untuk mengevaluasi arsitektur Anda sendiri.
+
+
+    Apakah Anda sudah menggunakan sumber daya yang tepat?
+        Sering kali, ketika suatu perusahaan membeli perangkat keras untuk ditempatkan di data center, mereka terhalang oleh anggaran (budget) dan berharap perangkat keras tersebut akan awet sampai masa depan.
+
+        Tahukah Anda? Perangkat keras terbaik saat ini akan tertinggal teknologinya dalam waktu sekitar 2-3 tahun ke depan, bahkan bisa jadi terjadi dalam kurun waktu lebih pendek. Jadi, perusahaan akan terpaksa membeli perangkat keras lagi di kemudian hari untuk mencegah ketertinggalan ini.
+
+        Oleh karena itu, saat mempertimbangkan untuk membangun data center sendiri, tanyakan pada diri Anda, "Apa yang saya butuhkan saat ini?" Anda harus menyesuaikan jenis perangkat keras yang Anda beli. Jika beban kerja Anda berat, tentu Anda tak bisa membeli perangkat keras yang murah.
+
+        Lalu, bagaimana jika beban kerja Anda itu beragam, seperti machine learning, analytics, database, dan arsip? Tentu, Anda harus menggunakan jenis perangkat keras yang sesuai untuk masing-masing beban kerja tersebut.
+
+        Atau coba Anda pikirkan, "Apakah sebaiknya saya menggunakan managed service (layanan terkelola)?
+
+        Layanan terkelola, seperti Amazon RDS, memungkinkan Anda untuk membangun sumber daya di AWS tanpa harus memikirkan kelengkapan persyaratan terlebih dahulu. 
+
+        Katakanlah seorang developer membutuhkan database Microsoft SQL Server, tetapi Anda belum pernah menginstal perangkat lunak tersebut sebelumnya. Tentu saja, ini akan memakan banyak waktu dan upaya. 
+
+        Daripada seperti itu, Anda bisa mencari tahu jenis database apa yang dibutuhkan dan biarkan AWS membangunnya untuk Anda. Dengan AWS, Anda memiliki kendali penuh atas database, data, dan aksesnya.
+
+
+    Apakah arsitektur Anda cukup tangguh?
+        Saat membangun arsitektur, Anda perlu bertanya pada diri sendiri, “Apa yang akan rusak? Apakah arsitektur ini cukup tangguh?”
+
+        Untuk membuat arsitektur AWS yang tangguh, Anda perlu memastikan bahwa tidak ada salah satu titik/poin yang dapat menyebabkan kegagalan. Dan walaupun terjadi kegagalan atau bahkan bencana, sistem yang Anda buat haruslah bisa pulih dari bencana (disaster recovery). Saat terjadi kegagalan, gantilah sistem yang rusak terlebih dahulu, barulah selepas itu cari tahu penyebabnya.
+
+        Di AWS, Anda dapat menjalankan simulasi pemulihan bencana (disaster recovery) tanpa memengaruhi lingkungan production Anda. Yup, biayanya mungkin beberapa dolar, tetapi itu jauh lebih murah daripada membangun data center kedua.
+
+        Tak hanya itu, dengan menggunakan AWS, Anda dapat menyiapkan lingkungan yang dapat memantau dirinya sendiri, mengganti hal-hal yang rusak sesuai kebutuhan, lalu memberi tahu Anda apa yang terjadi. Bahkan, Anda bisa membuat lingkungan baru saat lingkungan Anda mengalami kegagalan. Itulah yang dinamakan self-healing. Jadi, jika bisa otomatis, kenapa harus melakukannya secara manual?
+
+
+    Apakah arsitektur Anda sudah loosely coupled?
+        Microservices adalah salah satu cara terbaik untuk meningkatkan keandalan dan ketersediaan arsitektur Anda. Pendekatan ini dapat membantu meningkatkan kecepatan inovasi Anda, yakni dengan mengurangi ketergantungan di antara komponen aplikasi. Tim Anda akan dapat bertindak secara asinkron untuk memberikan pembaruan fitur tanpa memengaruhi seluruh sistem.
+
+        Aplikasi yang loosely coupled biasanya diimplementasikan menggunakan arsitektur berorientasi pesan (message-oriented). Semakin loosely coupled komponen aplikasi Anda, semakin baik proses scale-nya. 
+
+        Rancanglah aplikasi Anda agar terdiri dari komponen yang independen dan pisahkan interaksinya sejauh mungkin. Untuk mencapai tujuan tersebut, Anda dapat menggunakan layanan Amazon SQS. Layanan ini memastikan bahwa aplikasi tetap berfungsi walaupun dengan konkurensi yang tinggi, beban tak terduga, dan/atau lonjakan traffic.
+
+
+    Apakah arsitektur Anda dapat scale secara efektif?
+        Untuk menangani traffic pengguna yang fluktuatif (misal dari 100 pengguna ke 1 juta pengguna), Anda mungkin menginginkan mesin yang terbaik, tercepat, dan terkuat untuk menangani beban kerja Anda. Namun, jika Anda tidak menggunakan mesin tersebut secara maksimal, tentu itu akan membuang-buang uang.
+
+        Saat menggunakan data center on-premise, Anda mungkin memerlukan waktu sekitar 3 bulan guna mendapatkan pola data traffic yang tepat untuk menyiapkan kapasitas yang memadai. Sehingga, Anda harus membeli mesin dengan kapasitas yang lebih besar dari yang Anda butuhkan. 
+
+        Selepas itu, barulah Anda dapat menyesuaikannya. Jika ternyata mesin yang Anda beli terlalu berlebihan, maka Anda harus menguranginya sebagian. Namun mesin tersebut jika tak cukup, Anda harus membeli mesin lagi.
+
+        Tentu ini berbeda jika Anda menjalankan beban kerja di AWS. Anda bisa memiliki mesin yang dapat menyesuaikan kapasitas (scale) secara efektif. Kabar baiknya adalah bahwa di AWS biayanya transparan, sehingga Anda bisa mengetahui bahwa menjalankan instance baru jauh lebih murah daripada membangun server fisik.
+
+        Tahukah Anda? Ada dua jenis kegagalan dalam dunia IT, antara lain:
+
+        Ada yang rusak karena Anda meminta perangkat keras atau perangkat lunak untuk melakukan sesuatu di luar toleransi yang ditentukan.
+
+        Produk Anda menjadi sangat sukses dan digunakan oleh banyak sekali pengguna, sehingga menyebabkan perangkat keras dan perangkat lunak Anda melebihi toleransi yang ditentukan.
+
+        Oleh karena itu, Auto Scaling dapat membantu Anda dalam hal ini. Memang, Auto Scaling membutuhkan biaya, tetapi tanpanya, aplikasi Anda akan tidak dapat bekerja dengan baik karena tidak sanggup menangani beban. Anggaplah biaya tersebut sepadan dengan investasi agar aplikasi Anda tetap berjalan.
