@@ -18,3 +18,27 @@ Ubah Arsitektur Tightly Coupled Menjadi Loosely Coupled
     Selanjutnya, pesanan yang berada di Queue akan diproses oleh instance back-end yang dapat melakukan scaling secara otomatis. Setelah itu, barulah pesanan pelanggan disimpan dan diproses di database. 
 
     Jika terdapat pesanan yang tidak terproses karena hal tertentu, pesanan tersebut akan disimpan di Dead Letter Queue, sehingga tim Anda dapat memeriksanya.
+
+
+
+
+
+
+Manfaatkan Model Penetapan Harga di Amazon EC2
+    Dalam merancang arsitektur, manfaatkanlah beberapa model penentuan harga pada Amazon EC2. Tentu kita telah mempelajari beberapa jenis penentuan harga EC2 instance, seperti On-Demand Instances, Reserved Instances, Savings Plans, dan Spot Instance. Untuk mempermudah penjelasan, silakan perhatikan gambar di bawah ini. 
+
+    202106041655397f2eb0fcd081bf995b5faaf1faedcc30.png
+
+    Grafik bagian kiri memperlihatkan lalu lintas yang dimiliki oleh suatu perusahaan aplikasi yang menggunakan On-Demand Instances. Dapat Anda lihat, terjadi lonjakan traffic selama jam kerja, lalu menurun kembali setelah menjelang malam.
+
+    Nah, pada bagian kanan, perusahaan tersebut mengambil pendekatan yang lebih kompleks, yakni mencoba memanfaatkan ketiga model harga (Reserved Instances, On-Demand Instances, dan Spot Instances). 
+
+    Perusahaan menggunakan Reserved Instances untuk memenuhi kebutuhan komputasi tingkat dasar atau sering disebut baseline. Jika kapasitas Reserved Instances tidak memadai, beberapa instance tambahan akan muncul sebagai On-Demand. Kemudian, untuk kebutuhan selanjutnya ditangani dengan Spot Instances. 
+
+    Dengan demikian, perusahaan tersebut dapat menghemat dengan menggunakan Spot Instances daripada On-Demand. Namun, hal itu membuat perusahaan harus siap menghadapi penghentian (interupsi) instance yang tidak terduga dari AWS. Hal ini dapat menyebabkan hilangnya data atau kurangnya kapasitas yang tidak lagi memadai bagi pelanggan mereka. Itulah mengapa model Spot Instances hanya boleh diterapkan dalam keadaan di mana beban kerja Anda tidak akan mengalami masalah dengan mekanisme penghentian instance yang tiba-tiba. 
+
+    Dengan Spot Instances, Anda cukup membayar harga Spot yang berlaku untuk periode waktu saat instance Anda berjalan. 
+
+    Selain itu, untuk mengurangi dampak interupsi dan mengoptimalkan Spot Instances, lakukan diversifikasi dan jalankan aplikasi Anda di beberapa kumpulan kapasitas. Kelompokkan setiap instance family, setiap ukuran instance, di setiap Availability Zone, di setiap Region menjadi kumpulan Spot terpisah. Anda dapat menggunakan operasi API RequestSpotFleet untuk meluncurkan ribuan Spot Instances dan mendiversifikasi sumber daya secara otomatis.
+
+    Untuk lebih mengurangi dampak gangguan, Anda juga dapat mengatur Spot Instances dan Spot Fleets (Armada Spot) untuk merespons pemberitahuan gangguan dengan menghentikan (stopping) atau menghibernasi (hibernate) daripada mengakhiri (terminate) instance saat kapasitas tidak lagi tersedia.
