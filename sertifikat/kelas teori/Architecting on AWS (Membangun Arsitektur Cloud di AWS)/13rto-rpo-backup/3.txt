@@ -1,0 +1,136 @@
+Layanan AWS untuk Disaster Recovery
+    Sebelum membahas berbagai pendekatan untuk Disaster Recovery (DR), penting untuk meninjau layanan dan fitur AWS yang paling relevan dengannya. 
+
+    20210604164415bcc80034826d6bde163239c3aa6c9f26.png
+
+    Saat merencanakan DR, pertimbangkanlah untuk menggunakan layanan dan fitur yang mendukung migrasi data dan penyimpanan tahan lama karena keduanya memungkinkan Anda untuk memulihkan data penting yang telah dicadangkan ke AWS saat bencana melanda. 
+
+    Untuk beberapa skenario yang melibatkan scaled-down atau fully-scaled deployment dari sistem Anda di AWS, resource komputasi juga akan diperlukan. Scaled-down deployment maksudnya adalah sistem yang dipersiapkan sebelumnya dengan skala yang lebih kecil dibandingkan dengan keadaan di production. Sedangkan fully-scaled deployment berarti lingkungan yang dipersiapkan di DR akan sama skalanya dengan production.
+
+    Selama bencana berlangsung, Anda perlu mengaktifkan resource baru atau melakukan failover ke resource yang telah dikonfigurasi sebelumnya. Resource ini tidak hanya mencakup kode dan konten, tetapi bagian lain seperti DNS entries, network firewall rules, dan virtual machine/instance. Supaya lebih jelas, mari kita lihat beberapa layanan yang dapat Anda gunakan untuk mempersiapkan Disaster Recovery pada kategori penyimpanan, komputasi, jaringan, database, dan deployment.
+
+
+    Disaster Recovery untuk Penyimpanan
+        AWS menawarkan banyak cara untuk menyimpan data Anda. Setiap layanan memiliki kemampuan yang berbeda, sehingga Anda dapat mencocokkan layanan dengan kebutuhan terhadap sistem Anda masing-masing dengan tepat.
+
+        Berikut adalah strategi duplikasi penyimpanan Anda saat menggunakan layanan AWS.
+
+        20210604164433393c7ec160288eb0a11bfad5cc4fe303.png
+
+        Mari kita jabarkan setiap layanan berdasarkan gambar di atas:
+
+        Amazon S3
+            Amazon S3 menyediakan infrastruktur penyimpanan yang mempunyai daya tahan yang tinggi. Layanan ini yang dirancang untuk penyimpanan data utama dan mission critical. Objek disimpan secara redundant di beberapa perangkat di berbagai fasilitas dalam suatu region, bahkan S3 didesain untuk memberikan daya tahan 99.999999999. AWS memberikan perlindungan lebih lanjut untuk penyimpanan dan pengarsipan data melalui versioning di Amazon S3, AWS MFA, bucket policy, dan AWS IAM.
+
+            Untuk mempersiapkan DR pada Amazon S3, Anda bisa mengaktifkan fitur cross-region replication. Cross-region replication adalah konfigurasi tingkat bucket yang memungkinkan penyalinan objek secara otomatis dan asinkron antara bucket yang berada di Region yang berbeda. Bucket pada cross-region replication disebut source bucket dan destination bucket, bahkan bucket dapat dimiliki oleh akun AWS yang berbeda.
+
+        Amazon S3 Glacier
+            Amazon S3 Glacier menyediakan penyimpanan berbiaya yang sangat rendah untuk pengarsipan dan pencadangan data. Objek dioptimalkan untuk akses yang jarang dan waktu pengambilannya yang perlu beberapa jam masih mencukupi kebutuhan.
+
+            Amazon Glacier dirancang untuk ketahanan yang sama dengan Amazon S3. Meskipun Anda perlu mempertahankan indeks data yang Anda unggah ke Amazon S3 Glacier, namun penyimpanan dari semua arsip di setiap vault Anda disimpan untuk tujuan disaster recovery. Penyimpanan vault diperbarui setiap sekali sehari.
+
+            Anda dapat me-request vault inventory sebagai file JSON atau CSV yang berisi detail tentang arsip di dalam vault Anda termasuk ukuran, tanggal pembuatan, dan deskripsi arsip (jika Anda memberikannya saat mengunggah).
+
+            Meskipun Amazon S3 Glacier tidak mendukung fitur Glacier to Glacier cross-region replication, Anda dapat melakukan cross-region replication ke Glacier di region lain dari kelas penyimpanan S3 Standard.
+
+        Amazon EBS
+            Amazon EBS memberi Anda kemampuan untuk membuat snapshot point-in-time (saat tertentu) dari volume data. Anda dapat menggunakan snapshot sebagai titik awal untuk membuat Amazon EBS volume baru. Bahkan, Anda dapat melindungi data untuk ketahanan jangka panjang karena snapshot tersebut akan tersimpan di layanan Amazon S3.
+
+            Setelah volume dibuat, Anda dapat meng-attach (memasangnya) ke Amazon EC2 instance yang sedang berjalan. Amazon EBS volume berjalan secara independen dari daur hidup EC2 instance (artinya walaupun EC2 diakhiri, EBS tetap bisa dipasangkan ke EC2 yang lain) dan direplikasi dalam Availability Zone untuk mencegah hilangnya data.
+
+            Setelah Anda membuat snapshot dan fitur EBS snapshot ini selesai menyalin ke Amazon S3 (saat status snapshot selesai), Anda dapat menyalinnya dari satu region ke region lain, atau dalam region yang sama. Amazon S3 akan melindungi data snapshot dengan enkripsi in-transit selama operasi penyalinan. Salinan snapshot akan menerima ID yang berbeda dari ID snapshot asli.
+
+        AWS Snowball
+            AWS Snowball adalah solusi transportasi data yang mempercepat perpindahan terabyte hingga petabyte data masuk dan keluar AWS menggunakan perangkat penyimpanan yang dirancang agar aman untuk transportasi fisik. Dengan menggunakan AWS Snowball, Anda dapat menghilangkan tantangan dalam mentransfer data berskala besar, termasuk biaya jaringan yang tinggi, waktu transfer yang lama, dan masalah keamanan.
+
+            Karena disalin secara lokal di dalam data center Amazon, perangkat Snowball dapat mentransfer data lebih cepat daripada melakukan penyalinan melalui internet berkecepatan tinggi.
+
+        AWS DataSync
+            AWS DataSync dapat Anda gunakan untuk menyinkronkan file secara efisien dan aman dari sistem file on-premise atau cloud ke Amazon Elastic File System (Amazon EFS) dengan kecepatan hingga 10x lebih cepat daripada tools yang open source. AWS DataSync menyalin file dengan aman dan efisien melalui internet atau koneksi AWS Direct Connect.
+
+
+    AWS Backup
+        2021060416444675da15eb3fa5b2f80839188215e2a266.png
+
+        AWS Backup adalah layanan backup (pencadangan) terkelola sepenuhnya yang memudahkan Anda untuk memusatkan dan mengotomatiskan pencadangan data di seluruh layanan AWS. Dengan menggunakan AWS Backup, Anda dapat mengonfigurasi backup policy atau kebijakan pencadangan secara terpusat dan memantau aktivitas backup untuk resource AWS, seperti Amazon EBS volume, Amazon EC2 instance, Amazon RDS database, Amazon DynamoDB table, Amazon EFS file system, dan AWS Storage Gateway volume.
+
+
+    Disaster Recovery untuk Komputasi
+        Dalam konteks Disaster Recovery, sangat penting untuk dapat membuat virtual machine dengan cepat. Dengan meluncurkan instance di Availability Zone yang terpisah, Anda dapat melindungi aplikasi dari kegagalan di satu lokasi.
+
+        20210604164504d5196956d57cb5c01f193f3c28745223.png
+
+        Anda dapat mengatur pemulihan otomatis dari EC2 instance ketika pemeriksaan status sistem (system status check) dari perangkat keras yang mendasarinya gagal. Instance akan di-reboot, tetapi akan mempertahankan ID instance, IP address, Elastic IP Addresses, lampiran EBS volume, dan detail konfigurasi lainnya. Agar pemulihan selesai, Anda harus memastikan bahwa instance secara otomatis memulai layanan atau menjalankan aplikasi apa pun sebagai bagian dari proses inisialisasinya.
+
+        Anda juga dapat mengonfigurasi AMI Anda sendiri dalam konteks merencanakan DR. AWS sangat menyarankan agar Anda mengonfigurasi dan mengidentifikasi AMI Anda sendiri sehingga AMI dapat diluncurkan sebagai bagian dari prosedur pemulihan. AMI tersebut harus dikonfigurasi sebelumnya dengan sistem operasi ditambahkan dengan bagian yang sesuai aplikasi Anda.
+
+
+    Disaster Recovery untuk Jaringan
+        Saat menghadapi bencana, kemungkinan besar Anda harus mengubah pengaturan jaringan karena sistem Anda beralih ke lokasi lain. AWS menawarkan beberapa layanan dan fitur yang memungkinkan Anda untuk mengelola dan mengubah pengaturan jaringan, seperti Amazon Route 53, Elastic Load Balancing, Amazon VPC, dan AWS Direct Connect. Perhatikan gambar di bawah ini.
+
+        20210604164517ab27f56d6f4c150fdc96d65f95640d2c.png
+
+        Mari kita jabarkan secara lebih detail untuk setiap layanannya:
+
+        Amazon Route 53
+            Amazon Route 53 menyertakan sejumlah kemampuan load balancing global (yang mana efektif ketika Anda berurusan dengan skenario DR seperti DNS endpoint health check). Amazon Route 53 juga memiliki kemampuan untuk melakukan failover (pengalihan operasi) antara beberapa endpoint dan bahkan website statis yang dihosting di Amazon S3.
+
+        Elastic Load Balancing
+            Elastic Load Balancing secara otomatis mendistribusikan lalu lintas aplikasi yang masuk ke beberapa Amazon EC2 instance. Layanan ini memungkinkan Anda mencapai fault tolerance yang lebih besar untuk aplikasi Anda dengan menyediakan kapasitas load balancing guna merespons traffic yang masuk.
+
+        Amazon VPC
+            Dalam konteks Disaster Recovery, Anda dapat menggunakan Amazon VPC untuk memperluas topologi jaringan yang ada ke cloud. VPC adalah solusi yang sesuai untuk memulihkan aplikasi perusahaan yang biasanya ada di jaringan internal.
+
+        AWS Direct Connect (DX)
+            AWS Direct Connect memudahkan Anda untuk membuat koneksi jaringan terdedikasi dari lokasi Anda (on-premise) ke AWS. Dalam banyak kasus, hal ini dapat mengurangi biaya jaringan, meningkatkan throughput bandwidth, dan memberikan jaringan yang lebih konsisten daripada melalui internet (misalnya VPN).
+
+
+    Disaster Recovery untuk Database
+        Saat merencanakan DR pada database Anda, pertimbangkanlah untuk menggunakan layanan database Amazon RDS dan Amazon DynamoDB. Mengapa begitu? Perhatikan gambar di bawah ini.
+
+        202106041645316fc1acee594e259ff6b9cd9472fa4b8c.png
+
+        Mari kita uraikan untuk setiap layanannya di atas.
+
+        Amazon RDS
+            Amazon RDS dapat digunakan baik dalam fase persiapan DR (untuk menyimpan data penting dalam database yang sudah berjalan) maupun dalam fase recovery/pemulihan (untuk menjalankan database production Anda).
+
+            Saat Anda ingin menggunakan database di lebih dari satu Region, Amazon RDS dapat memberi kemampuan untuk melakukan snapshot data dari satu Region ke Region lain, juga menjalankan Read Replica di Region lain.
+
+            Dengan menggunakan Amazon RDS, Anda dapat membagikan (shared) manual DB snapshot atau DB cluster snapshot. Anda dapat membagikan manual snapshot hingga 20 akun AWS lainnya.
+
+            Anda juga dapat membagikan manual snapshot yang tidak terenkripsi (unencrypted manual snapshot) sebagai publik, sehingga membuat snapshot menjadi tersedia untuk semua akun AWS. Ingat! Berhati-hatilah saat berbagi snapshot sebagai publik, pastikan tidak ada informasi pribadi yang disertakan dalam snapshot tersebut.
+
+            Amazon RDS Read Replica for MySQL dan MariaDB sekarang mendukung Multi-AZ deployment. Sehingga, ini memungkinkan Anda membangun strategi disaster recovery yang tangguh dan menyederhanakan proses upgrade untuk database engine Anda.
+
+            Tak hanya itu, Amazon RDS Read Replica juga memungkinkan Anda untuk membuat satu atau beberapa salinan read-only dari database instance dalam Region yang sama atau berbeda. Pembaruan yang dibuat ke source database kemudian disalin secara asinkron ke Read Replica Anda. Selain menyediakan skalabilitas untuk beban kerja baca yang berat (read-heavy workloads), Read Replica juga dapat dipromosikan menjadi database instance sendiri bila diperlukan.
+
+
+        Amazon DynamoDB
+            Amazon DynamoDB dapat Anda gunakan dalam fase persiapan DR, yakni dengan menyalin data ke DynamoDB di Region lain atau ke Amazon S3. Selama fase recovery, Anda dapat melakukan scale up dalam hitungan menit dengan satu klik atau panggilan API.
+
+            Global Tables (Tabel Global) dibangun di atas infrastruktur global DynamoDB sehingga dapat memberi Anda database yang multi-region, terkelola sepenuhnya, dan multi-master dengan kinerja read/write yang cepat untuk aplikasi global berskala besar. Global Tables mereplikasi Amazon DynamoDB table secara otomatis di seluruh AWS Regions pilihan Anda.
+
+            Bahkan, Global Tables juga menghilangkan beban Anda dalam mereplikasi data antar-region dan menyelesaikan konflik pembaruan. Dengan begitu, Anda bisa fokus pada bisnis aplikasi. Global Tables juga memungkinkan aplikasi Anda tetap tersedia meskipun terjadi isolasi atau degradasi di seluruh Region.
+
+
+    Disaster Recovery untuk Deployment
+        Dalam melakukan pemulihan atau recovery, salah satu hal yang perlu Anda hindari adalah melakukannya secara manual. AWS memiliki beberapa tools yang dapat Anda gunakan dalam melakukan automasi saat melakukan recovery, perhatikan gambar di bawah ini.
+
+        2021060416455452869d4076736cddb567818e1453b90d.png
+
+        Untuk memperjelas pembahasan, mari kita jabarkan satu per satu.
+
+        AWS CloudFormation
+            AWS CloudFormation memungkinkan Anda membuat model dari keseluruhan infrastruktur Anda dalam bentuk file teks. Oleh karenanya, ini membantu Anda untuk menstandarisasi komponen infrastruktur yang digunakan di seluruh organisasi, mendapatkan compliance di sisi konfigurasi, dan memungkinkan pemecahan masalah lebih yang cepat.
+
+            AWS CloudFormation menyediakan sumber daya Anda dengan cara yang aman dan dapat diulang, memungkinkan Anda untuk membangun (build) serta membangun kembali (rebuild) infrastruktur dan aplikasi Anda tanpa harus melakukan tindakan manual. AWS CloudFormation menangani penentuan operasi yang tepat untuk dilakukan saat mengelola Stack Anda dan mengembalikan perubahan secara otomatis jika terdeteksi adanya kesalahan.
+
+        AWS Elastic Beanstalk
+            AWS Elastic Beanstalk dapat Anda gunakan untuk mengunggah kode dan men-deploy-nya ke lingkungan AWS Elastic Beanstalk atau men-deploy ulang dari versi yang telah diunggah sebelumnya.
+
+
+        AWS OpsWorks
+            AWS OpsWorks adalah layanan manajemen aplikasi yang memudahkan proses deploy dan pengoperasian aplikasi dari semua jenis dan ukuran. Anda dapat menentukan lingkungan sebagai serangkaian layer dan mengonfigurasi setiap layer sebagai tingkat aplikasi Anda.
+
+            AWS OpsWorks memiliki fitur automatic host replacement (penggantian host otomatis). Jadi jika terjadi kegagalan instance, maka ia akan diganti secara otomatis. Anda juga dapat menggunakan AWS OpsWorks dalam fase persiapan untuk membuat template lingkungan Anda. Anda bisa menggabungkannya dengan AWS CloudFormation dalam fase pemulihan (recovery).
