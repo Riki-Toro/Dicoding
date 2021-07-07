@@ -1,0 +1,20 @@
+Ubah Arsitektur Tightly Coupled Menjadi Loosely Coupled
+    Saat membangun arsitektur cloud, buatlah agar setiap komponennya tidak saling bergantung satu sama lain, alias loosely coupled. Sehingga ketika satu komponen mengalami kegagalan, komponen lain tidak akan terpengaruh. Coba perhatikan contoh gambar arsitektur aplikasi pesanan di bawah ini. 
+
+    202106041654262fd10f8db338c608f40e24e668a946c7.png
+
+    Pada contoh di atas, aplikasi bertanggung jawab untuk menangani dan mempertahankan data pesanan, serta menangani peningkatan lalu lintas untuk beberapa permintaan yang sangat populer.
+
+    Tahukah Anda? Salah satu titik kerentanan yang potensial dalam alur kerja pemrosesan pesanan adalah pada saat menyimpan data ke dalam database. Bisnis tentunya mengharapkan bahwa setiap pesanan segera disimpan ke dalam database. Namun, setiap potensi deadlock (kebuntuan) atau masalah jaringan dapat menyebabkan kegagalan dalam penyimpanan pesanan. Kemudian, pesanan pun akan hilang tanpa ada jalan lain untuk memulihkannya.
+
+    Dengan kemampuan log yang baik, Anda mungkin dapat mengidentifikasi kapan terjadi kesalahan dan pesanan pelanggan mana yang gagal. Walaupun hal itu tidak akan memulihkan transaksi kembali.
+
+    20210604165438f5fa35b485f3ed1fa1109b8cdf32d4b4.png
+
+    Di sini kita menggunakan SQS Customer Order Queue sebagai penghubung sekaligus buffer antara instance front-end dan back-end yang melakukan pemrosesan pesanan. 
+
+    Setiap pesanan pelanggan dilayani oleh instance front-end. Proses ini akan berjalan sangat cepat karena front-end terbebas dari ketergantungan proses di back-end. Kemudian, instance front-end meneruskan pesanan pelanggan ke Customer Order Queue. 
+
+    Selanjutnya, pesanan yang berada di Queue akan diproses oleh instance back-end yang dapat melakukan scaling secara otomatis. Setelah itu, barulah pesanan pelanggan disimpan dan diproses di database. 
+
+    Jika terdapat pesanan yang tidak terproses karena hal tertentu, pesanan tersebut akan disimpan di Dead Letter Queue, sehingga tim Anda dapat memeriksanya.
