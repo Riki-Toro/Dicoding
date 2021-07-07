@@ -1,0 +1,27 @@
+Mengubah Arsitektur Menjadi Lebih Tangguh
+    Salah satu hal yang perlu Anda pertimbangkan saat membangun arsitektur cloud adalah membuatnya menjadi lebih tangguh. Dengan begitu, aplikasi Anda bisa menghadapi lonjakan traffic dengan efektif, dapat diandalkan, dan siap menghadapi kegagalan/bencana.
+
+    Coba kita lihat arsitektur di bawah ini yang menggambarkan aplikasi dengan high availability dalam satu Availability Zone. 
+
+    202106041656212ff1131deea0517a9940ae485095af0b.png
+
+    Mari kita kembali ke skenario startup warung kopi. Katakanlah startup kita memiliki arsitektur seperti di atas. Anda ditugaskan untuk melakukan penyempurnaan atas arsitektur tersebut. Kira-kira, apa saja yang akan Anda lakukan?
+
+    Oke, mari kita uraikan saja.
+
+        Tambahkan Availability Zone baru
+        Jika kita lihat dari sisi Perencanaan Disaster Recovery, arsitektur tersebut masih rentan terhadap kegagalan yang bisa saja terjadi di satu Availability Zone (AZ). Salah satu hal yang dapat Anda lakukan dengan cepat adalah dengan menambahkan AZ baru, seperti yang diilustrasikan pada gambar di bawah ini.
+        202106041656514dac2854f4858841847c75fd1dbeb069.png
+
+
+        Tambahkan kemampuan Auto Scaling
+        Langkah selanjutnya yang bisa Anda lakukan adalah dengan memanfaatkan kemampuan Auto Scaling di masing-masing subnet. Hal ini tentu akan memungkinkan arsitektur Anda mengatasi lonjakan user.
+        202106041657046a2c794066ae1c8bf1f183a67ad84761.png
+
+
+        Replikasi arsitektur ke Region baru
+        Selanjutnya, Anda bisa mereplikasi arsitektur ke region baru sebagai bagian dari ekspansi dan juga failover atau disaster recovery.
+        20210604165735342c213356cbd5ea4893097cd6d68368.png
+
+
+    Lihat! Sekarang arsitektur tersebut menjadi lebih elastis, andal, dan siap jika suatu saat terjadi kegagalan atau bahkan bencana.
