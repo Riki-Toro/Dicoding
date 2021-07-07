@@ -1,0 +1,170 @@
+Strategi Recovery
+    Sedari tadi kita telah membahas tentang persiapan untuk Disaster Recovery. Nah, sekarang kita akan mempelajari beberapa strategi yang dapat digunakan untuk recovery atau pemulihan. Terdapat empat strategi, yakni Backup and Restore, Pilot Light, Fully Working Low-Capacity Standby, dan Multi-Site Active-Active.
+
+    Penasaran seperti apa perbedaan dari keempat strategi tersebut? Yuk kita lanjutkan di materi berikutnya.
+
+
+    Backup and Restore
+        Di sebagian besar lingkungan tradisional, data di-backup (dicadangkan) ke tape penyimpanan dan dikirim ke luar lokasi data center secara berkala. Jika Anda menggunakan metode ini, maka tentu akan memerlukan waktu yang lama untuk memulihkan sistem Anda semisal terjadi gangguan atau bencana.
+
+        20210604164634ff978c3465394a7c66b3b38bff542a26.png
+
+        Amazon S3 adalah tujuan ideal untuk mem-backup data yang mungkin diperlukan dengan cepat untuk melakukan pemulihan. Dengan mentransfer data ke dan dari Amazon S3, Anda dapat mengakses data Anda dari lokasi mana pun. Berikut adalah contoh skenario penggunaan Amazon S3 untuk backup:
+
+        Anda dapat menggunakan AWS Snowball untuk mentransfer kumpulan data yang sangat besar dengan mengirimkan perangkat penyimpanan langsung ke AWS.
+
+        Untuk penyimpanan data jangka panjang, jika Anda tak masalah dengan waktu pengambilan yang membutuhkan waktu beberapa jam, gunakanlah Amazon Glacier. Layanan ini memiliki model ketahanan yang sama dengan Amazon S3. Amazon Glacier dan Amazon S3 dapat digunakan bersama untuk menghasilkan solusi pencadangan bertingkat.
+
+
+        Backup Data On-Premise ke AWS
+        Jika Anda memiliki kebutuhan untuk mem-backup data on-premise ke AWS, maka Anda perlu berkenalan dengan layanan AWS Storage Gateway. Layanan ini menghubungkan peralatan perangkat lunak di on-premise dengan penyimpanan berbasis cloud. AWS Storage Gateway menyediakan integrasi yang mulus dan sangat aman antara lingkungan IT di on-premise Anda dan infrastruktur penyimpanan AWS. 
+
+        AWS Storage Gateway mendukung protokol penyimpanan berstandar industri, yang bekerja dengan aplikasi Anda dan menyimpan semua data dan dengan aman terenkripsi di Amazon S3 atau Amazon Glacier. Layanan ini juga terintegrasi dengan Amazon CloudWatch, AWS CloudTrail, AWS KMS, AWS IAM, dan lain-lain.
+
+        202106041646493110ef4f83e7e6a8e073a1791e736f8c.png
+
+        AWS Storage Gateway mendukung tiga antarmuka penyimpanan: file, volume, dan tape. Mari kita bahas ketiganya.
+
+        File gateway
+        File gateway memungkinkan Anda untuk menyimpan dan mengambil objek di Amazon S3 menggunakan protokol file NFS dan SMB. Objek yang disimpan melalui file gateway dapat langsung diakses di S3.
+
+
+        Volume Gateway
+        Volume Gateway menyediakan penyimpanan blok (block storage) ke aplikasi Anda menggunakan protokol iSCSI. Data pada volume disimpan di Amazon S3. Anda dapat mengambil salinan dari volume Anda menggunakan AWS Backup, yang disimpan di AWS sebagai Amazon EBS snapshot.
+
+        Untuk volume gateway, Anda dapat menggunakan cached volume atau stored volume.
+
+        Gateway-Cached Volume
+        Anda dapat menyimpan data primer Anda di Amazon S3 dan menyimpan data yang sering diakses secara lokal. Volume yang disimpan dalam cache gateway memberikan penghematan biaya yang substansial pada penyimpanan utama, meminimalkan kebutuhan untuk menskalakan penyimpanan Anda di lokal, dan mempertahankan akses latensi rendah ke data yang sering diakses.
+
+        Gateway-Stored Volume
+        Jika Anda memerlukan akses latensi rendah ke seluruh kumpulan data Anda, Anda dapat mengonfigurasi data gateway lokal Anda untuk menyimpan data primer Anda secara lokal dan secara asinkron mencadangkan snapshot point-in-time dari data ini ke Amazon S3.
+
+
+        Tape Gateway
+        Tape Gateway menyediakan aplikasi backup dengan antarmuka iSCSI Virtual Tape Library (VTL) yang terdiri dari virtual media changer, virtual tape drives, dan virtual tapes. Data yang disimpan di virtual tape disimpan di Amazon S3 atau dapat diarsipkan ke Amazon Glacier.
+
+        Anda dapat memiliki koleksi virtual tape tidak terbatas. Setiap virtual tape dapat Anda simpan di virtual tape library (VTL) yang didukung oleh Amazon S3 atau virtual tape shelf yang didukung oleh Amazon Glacier.
+
+
+        Untuk mem-backup data on-premise ke AWS Cloud menggunakan AWS Storage Gateway, Anda dapat memilih di antara dua pendekatan umum:
+
+        Menyimpan data backup secara langsung ke Amazon S3 dengan melakukan panggilan API ke layanan AWS.
+
+        Menyimpan atau mengambil data backup melalui permintaan HTTP PUT dan GET yang aman langsung di Internet. Di sini, titik akhir itu sendiri membuat koneksi langsung dengan Amazon S3 untuk menulis data dan mengambil data.
+
+        Tunggu, tak sampai di sana. AWS Storage gateway juga memiliki fitur lainnya, yakni AWS Storage Gateway Hardware Appliance. Ia adalah peralatan perangkat keras (hardware appliance) yang menyediakan perangkat lunak AWS Storage Gateway yang telah diinstal sebelumnya di server pihak ketiga dan bisa diinstal di on-premise. 
+
+        Berikut adalah contoh infrastruktur untuk penggunaan AWS Storage Gateway dengan dukungan tiga antarmuka penyimpanan, File gateway, Volume gateway, dan Tape gateway.
+
+        20210604164707b76319df44dc526204bb9df2a26a6006.png
+
+        Oke, setelah menilik tentang layanan AWS Storage Gateway, selanjutnya mari kita belajar mengenai kasus penggunaannya.
+
+
+        Kasus Penggunaan AWS Storage Gateway: Solusi Off-Site Backup dengan Gateway-Stored Volume
+        Setelah menginstal perangkat lunak AWS Storage Gateway--virtual machine--pada host di data center on-premise dan mengaktifkannya, Anda dapat membuat storage gateway volumes, lalu memetakannya ke Direct Attached Storage (DAS) atau Storage Area Network (SAN) di on-premise.
+
+        Anda dapat memulai dengan disk baru atau disk yang sudah menyimpan data. Kemudian, pasanglah storage volumes ini ke server aplikasi on-premise Anda sebagai perangkat iSCSI. Saat aplikasi on-premise melakukan proses write dan read data ke dan dari storage volume, data tersebut disimpan dan diambil dari volume disk yang sudah ditetapkan.
+
+        20210604164740306fdd81fd28d268a36fc88ba2bf3523.png
+
+        Untuk menyiapkan data yang akan diunggah ke Amazon S3, gateway Anda juga menyimpan data yang masuk di area staging (atau disebut sebagai upload buffer). Kemudian, gateway Anda mengunggah data dari upload buffer melalui koneksi Secure Sockets Layer (SSL) terenkripsi ke layanan AWS Storage Gateway yang berjalan di AWS Cloud. Layanan tersebut kemudian menyimpan data di Amazon S3.
+
+        Selain itu, Anda juga bisa melakukan incremental backup, yang disebut snapshot, dari storage volume Anda. AWS Storage Gateway akan menyimpan snapshot tersebut di Amazon S3 sebagai Amazon EBS snapshot.
+
+        Saat Anda mengambil snapshot baru, hanya data yang telah berubah sejak snapshot terakhir sajalah yang disimpan. Anda dapat memulai snapshot berdasarkan jadwal atau hanya satu kali. Ketika Anda menghapus snapshot, hanya data yang tidak diperlukan untuk snapshot lain sajalah yang dihapus.
+
+        Anda dapat me-restore (memulihkan) Amazon EBS snapshot ke storage gateway volume di on-premise jika Anda perlu memulihkan data. Anda juga dapat menggunakan snapshot sebagai starting point alias titik awal untuk Amazon EBS volume baru, yang kemudian dapat Anda hubungkan ke EC2 instance.
+
+
+        Kasus Penggunaan AWS Storage Gateway: Restore Backup ke Data Center On-Premise dengan Gateway-Stored Volume
+        Untuk gateway-stored volumes, data volume Anda disimpan di on-premise. Dalam kasus ini, snapshot menyediakan off-site backup yang tahan lama di Amazon S3. Misalnya, jika disk lokal yang dialokasikan sebagai storage volume mengalami masalah, Anda dapat membuat disk lokal baru dan me-restore (memulihkan) snapshot ke dalamnya selama proses pembuatan volume.
+
+        20210604164754bb7e9e81f8a10961465f9b31082895af.png
+
+        Setelah memulai proses restore snapshot ke gateway-stored volume, data snapshot diunduh di latar belakang. Fungsionalitas semacam ini menandakan bahwa setelah Anda membuat volume dari snapshot, tidak perlu menunggu semua data ditransfer dari Amazon S3 ke volume Anda. Setelah proses unduh selesai, aplikasi Anda dapat mulai mengakses volume tersebut dan semua datanya. 
+
+        Jika aplikasi Anda mengakses sepotong data yang belum dimuat, gateway segera mengunduh data yang diminta dari Amazon S3. Kemudian, gateway melanjutkan proses memuat data volume lainnya di latar belakang.
+
+
+    Pilot Light
+        Pola ini relatif murah untuk diterapkan. Dalam fase persiapan DR, penting untuk mempertimbangkan penggunaan layanan dan fitur yang mendukung migrasi data dan penyimpanan tahan lama, karena keduanya memungkinkan Anda memulihkan data penting yang dicadangkan ke AWS saat bencana melanda. Untuk beberapa skenario yang melibatkan deployment dalam skala kecil atau besar dari keseluruhan sistem Anda di AWS, sumber daya komputasi juga akan diperlukan.
+
+        202106041648328efeffdd35dc86518b47695114a6b2d8.png
+
+        Perhatikan gambar di atas, arsitektur tersebut memiliki lingkungan di on-premise yang berisi komponen web server, app server, dan database utama. Selain itu, ada juga lingkungan Pilot Light di AWS yang berisi web server dan app server (nonaktif), serta database kedua yang selalu aktif dan direplikasi dari database utama. Cara kerja dari strategi ini adalah ketika bencana melanda lingkungan on-premise, sistem akan mengalihkan operasinya ke lingkungan Pilot Light AWS.
+
+        Saat bereaksi terhadap bencana, penting untuk menyiapkan sumber daya komputasi dengan cepat untuk mulai menjalankan sistem Anda di AWS atau mengatur failover ke sumber daya yang sudah berjalan di AWS. Bagian infrastruktur yang harus ada mencakup DNS, fitur jaringan, dan berbagai fitur Amazon EC2.
+
+        Dalam fase persiapan, Anda perlu mereplikasi data yang sering berubah secara teratur ke lingkungan Pilot Light. Untuk data yang jarang diperbarui, seperti sistem operasi dan aplikasi, dapat Anda perbarui dan simpan secara berkala sebagai AMI.
+
+        Untuk mempersiapkan Disaster Recovery menggunakan strategi Pilot Light, berikut adalah tahapan-tahapannya:Siapkan Amazon EC2 instance untuk mereplikasi data.
+
+        Pastikan Anda memiliki semua paket perangkat lunak pendukung yang tersedia di AWS.
+        Buat dan kelola Amazon Machine Images (AMI) dari server utama yang memerlukan recovery (pemulihan) cepat.
+        Secara teratur jalankan, uji, dan perbarui software atau perubahan konfigurasi apa pun untuk server di lingkungan Pilot Light.
+        Pertimbangkan untuk mengotomatiskan pembuatan sumber daya AWS.
+        Nah, lalu bagaimana jika bencana terjadi sehingga membuat sistem utama kita mengalami kegagalan? Dengan strategi Pilot Light, maka:
+
+        Secara otomatis menjalankan sumber daya di lingkungan Pilot Light di AWS.
+        Lakukan scale pada sistem sesuai kebutuhan untuk menangani lalu lintas production terkini.
+        Beralih ke sistem yang baru.
+        Sesuaikan DNS record agar mengarah ke AWS.
+        Dengan strategi Pilot Light, RTO (Recovery Time Objective)-nya adalah selama waktu yang diperlukan untuk mendeteksi kebutuhan DR dan mengaktifkan sistem DR. Sedangkan RPO (Recovery Point Objective)-nya tergantung pada jenis replikasi yang diterapkan.
+
+
+    Fully Working Low-Capacity Standby
+        Low capacity standby (siaga berkapasitas rendah) amatlah serupa seperti Pilot Light dengan level lebih lanjut. Istilah Warm Standby digunakan untuk menggambarkan skenario DR di mana melibatkan versi deployment dengan skala kecil (yang aktif berjalan di cloud) dari keseluruhan sistem Anda.
+
+        Solusi Warm Standby memungkinkan Anda untuk semakin mengurangi recovery time (waktu pemulihan) karena beberapa layanan berjalan secara aktif. Dengan mengidentifikasi sistem bisnis, Anda dapat sepenuhnya menduplikasi sistem ini di AWS dan selalu mengaktifkannya.
+
+        2021060416485331e5df0f12a4d3eba717d796bceaa1ca.png
+
+        Gambar di atas menunjukkan arsitektur yang menggunakan strategi Fully Working Low-Capacity Standby. Perhatikan, pada data center on-premise terdapat dua komponen web server, dua app server, dan satu database utama. Sedangkan di AWS, terdapat lingkungan berkapasitas rendah, yakni hanya satu web server, satu app server, dan satu database kedua yang direplikasi dari database utama. Arsitektur tersebut juga menggunakan Amazon Route 53 untuk mendistribusikan permintaan antara sistem utama (on-premise) dan cloud (AWS).
+
+        Server di AWS dapat berjalan pada armada Amazon EC2 instance dengan jumlah minimum dan ukuran terkecil. Strategi ini tidak melakukan scale untuk menangani keseluruhan beban production, melainkan sekadar cukup untuk berfungsi secara penuh. Strategi ini dapat Anda gunakan untuk pekerjaan non-production, seperti testing, quality assurance, dan penggunaan internal.
+
+        Nah, saat bencana melanda, barulah sistem akan di-scale dengan cepat untuk menangani beban produksi. Di AWS, hal ini dapat dilakukan dengan menambahkan lebih banyak instance ke Load Balancer dan dengan mengubah ukuran server berkapasitas kecil agar dijalankan pada tipe instance Amazon EC2 yang lebih besar. Ingat! Horizontal scaling lebih disarankan daripada vertical scaling.
+
+        Cara kerjanya begini. Jika lingkungan utama (dalam kasus ini adalah on-premise) tidak tersedia, Amazon Route 53 beralih ke sistem sekunder (AWS) yang dirancang untuk meningkatkan kapasitasnya secara otomatis jika terjadi failover dari sistem utama.
+
+        Saat menggunakan strategi Fully Working Low-Capacity Standby untuk DR, Anda perlu melakukan beberapa tahapan, antara lain:
+
+        Persiapan mirip dengan Pilot Light.
+        Semua komponen yang diperlukan berjalan 24/7, tetapi tidak di-scale untuk lalu lintas production.
+        Terapkanlah praktik terbaik, yakni melakukan pengujian secara berkelanjutan.
+        Alihkan sebagian kecil traffic dari production ke situs DR.
+        Nah, saat bencana melanda, maka:
+
+        Langsung melakukan failover (pengalihan operasi) untuk beban production.
+        Sesuaikan DNS agar mengarah ke AWS.
+        Scale sistem Anda (baik Auto Scaling maupun manual) lebih lanjut untuk menangani semua beban production.
+        Dengan strategi Fully Working Low-Capacity Standby, RTO (Recovery Time Objective)-nya adalah:
+
+        Untuk beban kerja penting/kritis : Selama waktu yang dibutuhkan untuk me-recovery (memulihkan) sistem. 
+        Untuk semua beban kerja lainnya : Selama waktu yang dibutuhkan untuk scale agar memenuhi kebutuhan beban kerja.
+        Sedangkan RPO (Recovery Point Objective)-nya tergantung pada jenis replikasi.
+
+
+
+    Multi-Site Active-Active
+        Strategi untuk Disaster Recovery selanjutnya adalah dengan menjalankan sistem yang berfungsi sepenuhnya di AWS pada waktu yang sama dengan sistem di on-premise. Perkenalkan Multi-Site Active-Active.
+
+        Solusi multi-site berjalan di AWS dan juga di infrastruktur on-premise Anda, dalam konfigurasi active-active (keduanya aktif). Metode replikasi data yang Anda gunakan akan ditentukan oleh recovery point (titik pemulihan) yang Anda pilih.
+
+        2021060416491375df5b621fa0d18fec19b52253d2f8fa.png
+
+        Gambar di atas menunjukkan arsitektur yang menggunakan strategi Multi-Site Active-Active. Baik lingkungan on-premise maupun AWS keduanya aktif secara bersamaan dengan kapasitas penuh untuk mendukung beban production.
+
+        Anda dapat menggunakan layanan DNS yang mendukung weighted routing (perutean berbobot), seperti Amazon Route 53, untuk merutekan lalu lintas production ke lokasi berbeda yang menyajikan aplikasi atau layanan yang sama. Sebagian traffic akan masuk ke infrastruktur di AWS dan sisanya ke infrastruktur di on-premise Anda.
+
+        Saat bencana terjadi, Anda dapat menyesuaikan pembobotan DNS (DNS weighting) dan mengirim semua traffic ke server AWS. Anda dapat menggunakan Amazon EC2 Auto Scaling untuk mengotomatiskan proses peningkatan kapasitas dalam menangani beban production secara penuh. Anda juga bisa menambahkan beberapa logika aplikasi untuk mendeteksi kegagalan layanan database utama (DB primary) dan beralih ke layanan database paralel (DB secondary) yang berjalan di AWS.
+
+        Saat Anda menggunakan strategi Multi-Site Active-Active untuk DR, Anda perlu melakukan beberapa tahapan, antara lain:
+
+        Persiapan mirip dengan low-capacity standby.
+        Scaling in atau scaling out sepenuhnya untuk menangani beban production.
+        Nah, saat bencana melanda, maka sistem akan melakukan failover segera untuk semua beban production.
+
+        Dengan strategi Multi-Site Active-Active, RTO (Recovery Time Objective)-nya adalah selama waktu yang dibutuhkan untuk failover. Sedangkan RPO (Recovery Point Objective)-nya tergantung pada jenis replikasi.
