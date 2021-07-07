@@ -1,0 +1,22 @@
+Praktik Terbaik untuk Mempersiapkan Disaster Recovery
+    Setelah membahas berbagai cara yang dapat dilakukan dalam mempersiap disaster recovery, sekarang mari kita lihat beberapa praktik terbaiknya. Amati poin-poin berikut:
+
+    20210604164955992d1bb3cbf1963d6cf21291b836da77.png
+
+    Mari kita uraikan satu per satu.
+
+        Mulailah dari yang paling mudah dan sederhana, lalu tingkatkan ke tingkat yang lebih lanjut. 
+
+            Anda bisa mulai dengan melakukan backup di AWS. 
+            Kemudian, tingkatkan RTO/RPO secara bertahap sebagai upaya berkelanjutan.
+
+        Periksalah masalah lisensi dari semua perangkat lunak Anda. Memastikan bahwa Anda memiliki lisensi yang benar untuk lingkungan AWS Anda itu sama pentingnya dengan lisensi untuk lingkungan lainnya. 
+
+            AWS menyediakan berbagai model untuk membuat pemberian lisensi lebih mudah untuk Anda kelola. Misalnya, "Bring Your Own License” (Bawa Lisensi Anda Sendiri) memungkinkan untuk beberapa komponen perangkat lunak atau sistem operasi. 
+            Sebagai alternatif, ada berbagai perangkat lunak yang biaya lisensinya termasuk dalam biaya per jam. Ini dikenal sebagai "License included”.
+
+        Lakukan latihan untuk solusi Disaster Recovery Anda. 
+
+            Dengan melakukan latihan, itu akan menguji sistem atau bahkan seluruh region yang akan offline. 
+            Anda juga harus memastikan data backup, snapshot, AMI, dll berfungsi dengan normal. 
+            Terakhir, pantau sistem monitoring Anda.
