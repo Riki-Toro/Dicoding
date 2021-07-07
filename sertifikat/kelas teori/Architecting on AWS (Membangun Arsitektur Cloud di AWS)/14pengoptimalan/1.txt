@@ -1,0 +1,12 @@
+Pengantar ke Pengoptimalan dan Ringkasan
+    Wah, tidak terasa ya kita sudah mencapai modul akhir dari kelas ini. Ada banyak sekali materi yang telah kita pelajari. Mulai dari komputasi, database, jaringan, keamanan, microservices, serverless, hingga cara agar arsitektur kita siap jika terjadi bencana. 
+
+    Bahkan, arsitektur startup warung kopi kita pun terus berkembang. Diawali dengan arsitektur sederhana untuk hosting website statis seperti ini:
+
+    2021060416513723dbbdc1cded814e4acf56df95530c2d.png
+
+    Sekarang, arsitektur startup warung kopi kita menjadi kompleks seperti di bawah ini:
+
+    20210604165157b894d1e3bff038fd08f539435d6d8b18.png
+
+    Luar biasa, kan? Perjalanan kita cukup panjang untuk tiba di modul ini. Jadi, berikan apresiasi untuk diri Anda! Nah, sekarang di modul ini kita akan mengulas beberapa hal yang sudah pernah dipelajari. Tak hanya itu, kita juga akan belajar bagaimana membuat arsitektur yang telah kita bangun menjadi lebih optimal. Mari kita mulai!
