@@ -20,3 +20,26 @@ Praktik Terbaik untuk Mempersiapkan Disaster Recovery
             Dengan melakukan latihan, itu akan menguji sistem atau bahkan seluruh region yang akan offline. 
             Anda juga harus memastikan data backup, snapshot, AMI, dll berfungsi dengan normal. 
             Terakhir, pantau sistem monitoring Anda.
+
+
+
+
+
+
+Ikhtisar
+    Saat membangun aplikasi, ia bisa menjadi hal yang kompleks untuk dikelola. Kelangsungan bisnis memastikan bahwa bisnis akan terus beroperasi atau pulih dengan cepat meskipun terjadi bencana serius.
+
+    Pada modul ini, kita telah belajar beberapa hal dalam mempersiapkan pemulihan jika terjadi bencana, seperti konsep Availability, RPO dan RTO, dan layanan AWS untuk Disaster Recovery. Kita juga telah menguraikan empat skenario Disaster Recovery (DR) yang menyoroti penggunaan AWS dan on-premise, di antaranya:
+
+        Backup and Restore
+        Pilot Light
+        Fully Working Low-Capacity Standby Sepenuhnya
+        Multi-Site Active-Active
+        
+    Perhatikan gambar di bawah ini:
+
+    202104201914394d4ad0a8e47c65339a4e54b8fc0fb7a5.png
+
+    Gambar di atas menunjukkan spektrum untuk empat skenario yang disusun berdasarkan seberapa cepat sistem dapat tersedia bagi pengguna setelah peristiwa DR.
+
+    AWS memungkinkan Anda untuk mengoperasikan setiap strategi DR ini dengan hemat biaya. Jika aplikasi Anda sudah berjalan di AWS, maka Anda bisa menggunakan implementasi multi Region dan menerapkan strategi DR yang baru saja kita pelajari.
