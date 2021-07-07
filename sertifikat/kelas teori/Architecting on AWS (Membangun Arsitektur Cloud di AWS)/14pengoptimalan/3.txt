@@ -58,3 +58,20 @@ Praktik Terbaik untuk Membuat Sistem di AWS
     Ingat! Untuk memastikan lingkungan Anda telah menerapkan praktik terbaik dari AWS, gunakanlah AWS Well-Architected Tool. Tentu Anda masih ingat kan dengan layanan tersebut? Layanan tersebut telah kita bahas di modul pertama dari kelas ini. 
 
     AWS Well-Architected Tool adalah tool gratis yang tersedia di AWS Management Console untuk membantu Anda dalam mengulas dan membandingkan beban kerja dengan praktik terbaik terbaru terkait arsitektur dari AWS. Tentu, praktik terbaik tersebut mengacu pada AWS Well-Architected Framework.
+
+
+
+
+
+
+
+Ikhtisar
+    Pada modul kali ini, kita telah belajar banyak, mulai dari mengulas arsitektur hingga cara-cara yang dapat digunakan untuk mengoptimalkan arsitektur cloud di AWS. Mari kita uraikan:
+
+    Kita telah mengulas arsitektur yang telah kita bangun melalui beberapa pertanyaan secara arsitektur. Dengan pertanyaan-pertanyaan tersebut, kita bisa semakin menyempurnakan arsitektur kita.
+
+    Kita juga telah melihat beberapa cara yang dapat membuat arsitektur kita semakin optimal, mulai dari mengubahnya menjadi loosely coupled, memanfaatkan model penetapan harga di EC2, mengubah arsitektur menjadi lebih tangguh, dan mengetahui beberapa praktik terbaik untuk membuat sistem di AWS.
+
+    Tibalah kita di penghujung materi di kelas ini. Huft! Panjang juga ya perjalanan kita. Semoga kelas ini bisa membantu Anda untuk semakin memahami AWS Cloud dan mampu membangun arsitektur di AWS ya.
+
+    Jangan menyerah dan tetap semangat. Selanjutnya, Anda akan diberikan soal-soal untuk menguji pemahaman Anda. Keep the spirit high!
