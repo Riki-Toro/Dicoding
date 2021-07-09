@@ -282,6 +282,15 @@
             sessionUserAttempsAmountField.innerText = sessionStorage.getItem(sessionUserAttempKey);
         });
 
+        destroyDataButton.addEventListener('click', function() {
+            sessionStorage.removeItem(sessionAnswerKey);
+            sessionStorage.removeItem(sessionUserAttempKey);
+            sessionStorage.removeItem(sessionUserIsPlayingKey);
+            localStorage.removeItem(localTotalVictoryKey);
+            localStorage.removeItem(localMaximumAttempsKey);
+            alert('Mohon me-refresh halaman ini kembali!');
+        });
+
     </script>
 
 </body>
