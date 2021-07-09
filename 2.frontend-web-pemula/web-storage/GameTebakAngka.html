@@ -275,6 +275,13 @@
             localTotalVictoryField.innerText = localStorage.getItem(localTotalVictoryKey);
         }
 
+        window.addEventListener('beforeunload', function() {
+            sessionUserAnswerField.innerText = "";
+            sessionUserWrongAnswerField.innerText = "";
+            sessionStorage.setItem(sessionUserAttempKey, 0);
+            sessionUserAttempsAmountField.innerText = sessionStorage.getItem(sessionUserAttempKey);
+        });
+
     </script>
 
 </body>
