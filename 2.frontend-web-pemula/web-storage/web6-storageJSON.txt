@@ -108,9 +108,42 @@ Implementasi Web Storage - Menyimpan Data Kompleks pada Storage menggunakan obje
                 </script>
             </body>
         </html>
-        
+
     Dari berkas HTML di atas, kita sudah memiliki tampilan halaman web sebagai berikut:
 
     202104291917046b35284a0d79e03d647078357f087ec9.png
 
     Walau tampilannya sudah tampak, isi elemen <script>-nya sedikit dan tidak memiliki pengaruh apa-apa ke tampilan halaman web. Berikutnya kita akan menambahkan beberapa fungsionalitas secara perlahan.
+
+
+    Fungsionalitas pertama adalah memeriksa apakah fitur web storage didukung oleh browser yang kita gunakan melalui sebuah fungsi bernama checkForStorage():
+
+        function checkForStorage() {
+            return typeof(Storage) !== "undefined"
+        }
+
+    Fungsi di atas akan mengembalikan nilai true jika fitur web storage didukung oleh browser dan false jika tidak. Berikutnya kita akan menerapkan sebuah fungsi bernama putUserList(). Fungsi ini berguna untuk membuat item storage, membuat nilai awalnya serta untuk memodifikasi nilai pada item storage-nya juga:
+
+        function putUserList(data){
+            if(checkForStorage()){
+                let userData = [];
+                if (localStorage.getItem(storageKey) === null) {
+                    userData = [];
+                } else {
+                    userData = JSON.parse(localStorage.getItem(storageKey));
+                }     
+                userData.unshift(data); 
+                if (userData.length > 5) {
+                    userData.pop();
+                }
+                localStorage.setItem(storageKey, JSON.stringify(userData));   
+            }
+        }
+        
+    Fungsi di atas akan memeriksa apakah fitur web storage sudah didukung melalui fungsi checkForStorage(). Jika iya, kita akan membuat sebuah variabel bernama userData yang akan menampung semua data pada item storage. Jika item storage yang digunakan belum dibuat, kita akan memberikan nilai array kosong ke variabel userData. Jika tidak, kita akan mengambil data yang disimpan dan memasukkannya ke fungsi JSON.parse().
+
+    Apa kegunaan dari fungsi JSON.parse? Fungsi tersebut berguna untuk mengonversi sebuah JSON yang ditulis dalam bentuk string ke bentuk JSON "asli". Masih ingat materi "Memodifikasi Item Storage" bahwa data apa pun yang disimpan ke web storage akan menjadi bentuk string? Nah, untuk mengubah sebuah JSON yang ditulis dalam bentuk string ke bentuk JSON "asli", gunakan fungsi JSON.parse().
+
+    Kode userData.unshift(data) akan memasukkan nilai yang disimpan di parameter data di elemen paling depan array yang tersimpan di variabel userData. Kode di dalam kondisi if terakhir (userData.length > 5) berfungsi untuk menghilangkan data pada elemen paling terakhir jika panjang userData melebihi 5. 
+
+    Hal ini dilakukan untuk memunculkan 5 data dari user yang paling baru agar tampilan halaman web tetap rapi. Baris terakhir adalah menyimpan data tersebut ke dalam local storage melalui method setItem(). Sebelum disimpan, kita harus mengubah array yang berisi data-data JSON ke dalam bentuk string terlebih dahulu. Hal ini bisa kita capai melalui fungsi JSON.stringify().
