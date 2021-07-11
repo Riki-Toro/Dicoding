@@ -1,0 +1,24 @@
+Mengimplementasikan Web Storage ke Proyek Todo Apps
+    Untuk Latihan kali ini kita akan akan menambahkan fungsionalitas baru ke aplikasi TODO Apps yang telah kita buat sebelumnya. Tentunya fungsionalitas baru ini berkaitan dengan materi web storage yang sedang kita pelajari.
+
+    Pada aplikasi TODO Apps, cobalah untuk menambahkan beberapa task baru, lalu pindahkan task-nya dari todo list ke completed ataupun sebaliknya. Setelah itu reload-lah halamannya.  
+
+    2021042920143019713e707f52f03790820f94cdc9ebcf.gif
+
+
+    Nampak, bahwa ketika suatu task telah berhasil dibuat, kemudian dipindah, lalu kita reload halamannya, maka datanya kembali kosong. Hal ini dikarenakan browser tidak menyimpan semua data task yang telah ditambahkan ke aplikasi.
+
+    Nah, inilah yang akan menjadi fokus kita sekarang. Belum lengkap aplikasi TODO Apps tanpa menyimpan semua data task-nya. Oleh karena itu, mari kita terapkan beberapa ilmu yang telah kita pelajari mengenai ‘web storage’ pada beberapa modul sebelumnya. Let’s go!
+
+    Beberapa langkah yang akan kita lakukan untuk melengkapi aplikasi TODO Apps untuk bisa menyimpan data adalah sebagai berikut:
+
+        Menambahkan fungsi dasar manipulasi data
+        Memodifikasi file dom.js untuk menerapkan fungsi manipulasi data
+        Menguji data yang telah disimpan
+        Menambahkan fungsionalitas pada aplikasi agar dapat memuat data saat startup.
+        
+    Persiapkan terlebih dahulu proyek latihan TODO Apps yang telah dikerjakan sebelumnya, atau kamu bisa mengunduh proyek tersebut pada link github berikut ini : Proyek Todo Apps - DOM Manipulation
+
+    Untuk mempermudah dalam pengunduhan Anda bisa mengunduh versi zip-nya. Caranya klik tombol Code kemudian Download Zip, untuk lebih jelasnya perhatikan gambar berikut ini.
+
+    20210429201532d190b63d5312cf8f05785af6615ebd39.png
