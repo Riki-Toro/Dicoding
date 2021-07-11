@@ -41,3 +41,40 @@ function updateDataToStorage() {
         saveData();
     }
 }
+
+
+// Fungsi yang digunakan untuk membuat objek TODO baru dari beberapa parameter yang telah ditentukan.
+function composeToDoObject(task, timestamp, isCompleted) {
+    return {
+        id: +new Date(),
+        task,
+        timestamp,
+        isCompleted
+    };
+}
+
+
+// Mencari objek task TODO yang ada pada array todos berdasarkan ID yang di input pada argumen pertama. Lalu mengembalikan objek TODO jika ditemukan, dan null sebaliknya.
+function findToDo(todoId) {
+    for( let todo of todos ) {
+        if( todo.id === todoId ) {
+            return todo;
+        }
+    }
+    return null;
+}
+
+
+// Mencari index dari objek task TODO yang ada pada array todos berdasarkan ID yang di input pada argumen pertama. Lalu mengembalikan nilai index (posisi) jika ditemukan, dan - 1 sebaliknya.
+function findToDoIndex(todoId) {
+    let index = 0;
+
+    for( let todo of todos ) {
+        if( todo.id === todoId ) {
+            return index;
+        }
+        index++;
+    }
+
+    return -1;
+}
