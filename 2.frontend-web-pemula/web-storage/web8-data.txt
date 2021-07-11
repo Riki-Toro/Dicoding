@@ -1,0 +1,106 @@
+Menambahkan Fungsi Dasar Manipulasi Data
+    Sebagai langkah pertama, mari kita buat terlebih dahulu beberapa helper function yang akan membantu dalam mengelola data dari web-storage secara lebih mudah. Silakan tuliskan kode berikut pada berkas pada file js/data.js (buat berkas JavaScript baru).
+
+        const STORAGE_KEY = "TODO_APPS";
+        
+        let todos = [];
+        
+        function isStorageExist() /* boolean */ {
+        if(typeof(Storage) === undefined){
+            alert("Browser kamu tidak mendukung local storage");
+            return false
+        }
+        return true;
+        }
+        
+        function saveData() {
+        const parsed = JSON.stringify(todos);
+        localStorage.setItem(STORAGE_KEY, parsed);
+        document.dispatchEvent(new Event("ondatasaved"));
+        }
+        
+        function loadDataFromStorage() {
+        const serializedData = localStorage.getItem(STORAGE_KEY);
+        
+        let data = JSON.parse(serializedData);
+        
+        if(data !== null)
+            todos = data;
+        
+        document.dispatchEvent(new Event("ondataloaded"));
+        }
+        
+        function updateDataToStorage() {
+        if(isStorageExist())
+            saveData();
+        }
+        
+        function composeTodoObject(task, timestamp, isCompleted) {
+        return {
+            id: +new Date(),
+            task,
+            timestamp,
+            isCompleted
+        };
+        }
+        
+        function findTodo(todoId) {
+        for(todo of todos){
+            if(todo.id === todoId)
+                return todo;
+        }
+        return null;
+        }
+        
+        
+        function findTodoIndex(todoId) {
+        let index = 0
+        for (todo of todos) {
+            if(todo.id === todoId)
+                return index;
+        
+            index++;
+        }
+        
+        return -1;
+        }
+
+    Pada tahap ini, ada beberapa fungsi dan global variable yang telah kita buat, antara lain:
+
+    Nama fungsi/variabel    |   Kegunaan
+        const STORAGE_KEY
+            Berfungsi untuk menyediakan key yang digunakan untuk mengakses data pada local storage
+
+        let todos
+            Sebuah global variable yang digunakan untuk menyimpan data temporary dari TODO.
+
+        function isStorageExist()
+            Fungsi yang digunakan untuk mengecek dukungan web storage pada browser. Mengembalikan nilai false apabila tidak didukung.
+
+        function saveData()
+            Fungsi yang digunakan untuk menyimpan data TODO ke storage. Ia mengkonversikan data pada global variabel todo ke JSON-formatted string untuk disimpan. Setelah itu, fungsi ini mentrigger custom event ‘ondatasaved’
+
+        function loadDataFromStorage()
+            Memuat data TODO dari web storage ke dalam variabel todos. Kemudian trigger custom event ‘ondataloaded’ agar kita bisa menggunakannya untuk load data pada aplikasi.
+
+        function updateDataToStorage()
+            Fungsi yang digunakan sebagai perantara dalam menyimpan data, ia memastikan terlebih dahulu apakah web storage sudah didukung oleh browser sebelum memanggil saveData()
+
+        function composeTodoObject(task, timestamp, isCompleted)
+            Fungsi yang digunakan untuk membuat objek TODO baru dari beberapa parameter yang telah ditentukan.
+
+        function findTodo(todoId)
+            Mencari objek task TODO yang ada pada array todos berdasarkan ID yang di input pada argumen pertama. Lalu mengembalikan objek TODO jika ditemukan, dan null sebaliknya.
+
+        function findTodoIndex(todoId)
+            Mencari index dari objek task TODO yang ada pada array todos berdasarkan ID yang di input pada argumen pertama. Lalu mengembalikan nilai index (posisi) jika ditemukan, dan - 1 sebaliknya.
+
+    Kemudian, silakan gunakan file js/data.js pada file index.html menggunakan tag <script>. Pastikan untuk urutan tag script sesuai dengan kode di bawah ini.
+
+        <script src="js/data.js" type="text/javascript"></script>
+        <script src="js/dom.js" type="text/javascript"></script>
+        <script src="js/script.js" type="text/javascript"></script>
+
+    Mengapa file data.js diletakkan ‘lebih awal’ sebelum file dom.js dan script.js? Hal ini dikarenakan semua fungsi dan variabel yang ada pada data.js digunakan oleh kedua fungsi tersebut.
+
+    Dengan menyimpan data.js di awal, kode yang berada di berkas tersebut akan dieksekusi terlebih dahulu. Sehingga fungsi-fungsi yang ada di dalamnya dapat digunakan pada berkas dom.js dan script.js.
