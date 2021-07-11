@@ -16,9 +16,11 @@ Mengimplementasikan Web Storage ke Proyek Todo Apps
         Memodifikasi file dom.js untuk menerapkan fungsi manipulasi data
         Menguji data yang telah disimpan
         Menambahkan fungsionalitas pada aplikasi agar dapat memuat data saat startup.
-        
+
     Persiapkan terlebih dahulu proyek latihan TODO Apps yang telah dikerjakan sebelumnya, atau kamu bisa mengunduh proyek tersebut pada link github berikut ini : Proyek Todo Apps - DOM Manipulation
 
     Untuk mempermudah dalam pengunduhan Anda bisa mengunduh versi zip-nya. Caranya klik tombol Code kemudian Download Zip, untuk lebih jelasnya perhatikan gambar berikut ini.
 
     20210429201532d190b63d5312cf8f05785af6615ebd39.png
+
+    
