@@ -107,6 +107,12 @@ function undoTaskFromCompleted(taskElement /* HTMLELement */){
 
     const newTodo = makeTodo(taskTitle, taskTimestamp, false);
 
+    const todo =findToDo(taskElement[TODO_ITEMID]);
+    todo.isCompleted = false;
+    newTodo[TODO_ITEMID] = todo.id;
+
     listUncompleted.append(newTodo);
     taskElement.remove();
+
+    updateDataToStorage();
 }
