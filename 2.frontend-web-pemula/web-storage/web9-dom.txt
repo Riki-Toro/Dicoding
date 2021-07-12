@@ -1,0 +1,128 @@
+Memodifikasi File dom.js Untuk Menerapkan Fungsi Manipulasi Data
+    Bukalah file js/dom.js, mari kita coba untuk memodifikasi beberapa fungsi agar bisa mendukung operasi storage!
+
+    Sebelum melakukan modifikasi pada tiap fungsi, tambahkanlah terlebih dahulu kode berikut setelah variabel COMPLETED_LIST_TODO_ID.
+
+        const UNCOMPLETED_LIST_TODO_ID = "todos";
+        const COMPLETED_LIST_TODO_ID = "completed-todos";
+        const TODO_ITEMID = "itemId";
+
+    Kode ini berfungsi sebagai object key yang akan digunakan untuk menyimpan id dari masing-masing task pada objek HTMLElement.
+
+    Lalu, tambahkanlah beberapa kode yang ditebalkan berikut pada fungsi addTodo(). 
+
+        function addTodo() {
+            const uncompletedTODOList = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
+            const textTodo = document.getElementById("title").value;
+            const timestamp = document.getElementById("date").value;
+            
+            const todo = makeTodo(textTodo, timestamp, false);
+            const todoObject = composeTodoObject(textTodo, timestamp, false);
+            
+            todo[TODO_ITEMID] = todoObject.id;
+            todos.push(todoObject);
+            
+            uncompletedTODOList.append(todo);
+            updateDataToStorage();
+        }
+
+    Nah, ada yang menarik di sini. Mari kita kenali satu per satu pada kode yang ditebalkan.
+
+        const todoObject = composeTodoObject(textTodo, timestamp, false);
+        ...
+        todos.push(todoObject);
+
+    Bagian kode ini berfungsi untuk menyimpan objek task yang kita buat ke dalam variabel todos yang telah dibuat sebelumnya. Hal ini diperlukan supaya kita bisa dengan mudah memuat dan menyimpan data dari dan ke web storage.
+
+        todo[TODO_ITEMID] = todoObject.id;
+    
+    Supaya kita bisa track perubahan pada masing masing elemen, maka perlu dilakukan ‘penandaan’ pada setiap elemen yang ditambahkan dengan menambahkan properti baru pada elemen TODO.
+
+    Kemudian, agar data pada storage bisa up-to-date maka jangan lupa untuk memanggil fungsi berikut:
+
+        updateDataToStorage(); 
+
+    Saatnya beralih ke fungsi selanjutnya, tentunya kita ingin agar saat mengubah task TODO menjadi ‘completed’ data tersebut bisa tersimpan pada storage. Maka, tambahkanlah beberapa kode yang ditebalkan berikut ke dalam fungsi addTaskToCompleted().
+
+        function addTaskToCompleted(taskElement /* HTMLELement */) {
+            const listCompleted = document.getElementById(COMPLETED_LIST_TODO_ID);
+            const taskTitle = taskElement.querySelector(".inner > h2").innerText;
+            const taskTimestamp = taskElement.querySelector(".inner > p").innerText;
+            
+            const newTodo = makeTodo(taskTitle, taskTimestamp, true);
+            const todo = findTodo(taskElement[TODO_ITEMID]);
+            todo.isCompleted = true;
+            newTodo[TODO_ITEMID] = todo.id;
+            
+            listCompleted.append(newTodo);
+            taskElement.remove();
+            
+            updateDataToStorage();
+        }
+
+    Ada beberapa kode yang baru lagi nih! Mari kita bahas satu per satu.
+
+        const todo = findTodo(taskElement[TODO_ITEMID]);
+        todo.isCompleted = true;
+
+    Kode ini berfungsi untuk memperbarui status (isCompleted) dari masing-masing objek TODO. Pertama, kita mencari objek TODO yang akan di-update pada array todos yang telah dideklarasikan sebelumnya dengan menggunakan fungsi findTodo().  
+
+    Setelah objek task TODO ditemukan, maka kita ubah property isCompleted menjadi true supaya TODO ini ditandai ‘selesai’,
+
+    Kemudian, kita update lagi identifier yang ada pada elemen TODO yang baru.
+
+        newTodo[TODO_ITEMID] = todo.id;
+
+    Kita sudah menambahkan fungsionalitas untuk update data pada beberapa fungsi seperti addTodo() dan addTaskToCompleted(). Namun, ketika menghapus data, data tersebut belum bisa terhapus dengan benar dari storage. Untuk itu, mari kita tambahkan beberapa fungsionalitas baru pada fungsi removeTaskFromCompleted().
+
+        function removeTaskFromCompleted(taskElement /* HTMLELement */) {
+        
+            const todoPosition = findTodoIndex(taskElement[TODO_ITEMID]);
+            todos.splice(todoPosition, 1);
+            
+            taskElement.remove();
+            updateDataToStorage();
+        }
+
+    Mari kita pelajari pada kode yang baru ditambahkan pada fungsi tersebut.
+
+        const todoPosition = findTodoIndex(taskElement[TODO_ITEMID]);
+        todos.splice(todoPosition, 1);
+
+    Kode ini berfungsi untuk menghapus data dari array TODO berdasarkan posisi data pada array yang diperoleh dari findTodoIndex(). Fungsi ini mempunyai cara kerja yang sama dengan find(), yaitu mencari objek TODO. Namun, bedanya nilai yang dikembalikan (return) pada fungsi ini adalah integer dari posisi objek yang match.
+
+    Setelah posisi dari objek telah ditemukan, maka kita bisa menghapus objek tersebut dengan menggunakan fungsi splice().
+
+        todos.splice(todoPosition, 1);
+
+    Cara kerja dari fungsi ini adalah menghapus objek yang ada pada suatu array sesuai dengan index yang didefinisikan pada argumen pertama dari fungsi, dengan spesifikasi jumlah objek pada argumen kedua yang akan dihapus dimulai dari index pada argumen pertama tadi.
+
+    Karena kita hanya butuh untuk menghapus satu objek saja, maka pada argumen kedua kita definisikan ke 1 (satu).
+
+    Akhirnya, semua fungsionalitas update data pada storage untuk fungsi menambahkan TODO, memperbarui TODO menjadi ‘completed’, dan menghapus data sudah berhasil kita terapkan. Masih ada satu fungsi yang tersisa untuk ditambah fungsionalitasnya, yaitu undoTaskFromCompleted(). Maka dari itu, tambahkanlah beberapa kode yang ditebalkan berikut pada fungsi tersebut.
+
+        function undoTaskFromCompleted(taskElement ) {
+            const listUncompleted = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
+            const taskTitle = taskElement.querySelector(".inner > h2").innerText;
+            const taskTimestamp = taskElement.querySelector(".inner > p").innerText;
+            
+            const newTodo = makeTodo(taskTitle, taskTimestamp, false);
+            
+            const todo = findTodo(taskElement[TODO_ITEMID]);
+            todo.isCompleted = false;
+            newTodo[TODO_ITEMID] = todo.id;
+            
+            listUncompleted.append(newTodo);
+            taskElement.remove();
+            
+            updateDataToStorage();
+        }
+
+    Mari kita fokus kembali pada beberapa kode yang ditambahkan.
+
+        const todo = findTodo(taskElement[TODO_ITEMID]);
+        todo.isCompleted = false; 
+        
+    Kode ini mirip seperti pada fungsi addTaskToCompleted(), namun perbedaannya ialah pada bagian property isCompleted diubah ke false, yang berarti akan mengubah statusnya menjadi ‘not completed’.
+
+    Semua kode sudah berhasil ditambahkan. Artinya, aplikasi web yang telah dimodifikasi sudah dapat menyimpan data. Yuk! kita pastikan terlebih dahulu, apakah data memang sudah benar - benar tersimpan dengan melakukan beberapa test.
