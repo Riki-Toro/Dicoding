@@ -1,5 +1,6 @@
 const UNCOMPLETED_LIST_TODO_ID = "todos";
 const COMPLETED_LIST_TODO_ID = "completed-todos";
+const TODO_ITEMID = "itemID"; // sebagai object key yang akan digunakan untuk menyimpan id dari masing-masing task pada objek HTMLElement.
 
 function makeTodo(data /* string */, timestamp /* string */, isCompleted /* boolean */) {
 
@@ -63,9 +64,15 @@ function addTodo() {
     const uncompletedTODOList = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
     const textTodo = document.getElementById("title").value;
     const timestamp = document.getElementById("date").value;
+
     const todo = makeTodo(textTodo, timestamp, false);
+    const todoObject = composeToDoObject(textTodo, timestamp, false);
+
+    todo[TODO_ITEMID] = todoObject.id;
+    todo.push(todoObject); // untuk menambahkan suatu elemen di dalam array. Elemen akan bertambah pada posisi sebelah kanan, atau bagian akhir.
 
     uncompletedTODOList.append(todo);
+    updateDataToStorage();
 }
 function addTaskToCompleted(taskElement /* HTMLELement */) {
     const listCompleted = document.getElementById(COMPLETED_LIST_TODO_ID);
