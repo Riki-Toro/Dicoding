@@ -67,26 +67,37 @@ function addTodo() {
 
     const todo = makeTodo(textTodo, timestamp, false);
     const todoObject = composeToDoObject(textTodo, timestamp, false);
+    // untuk menyimpan objek task yang kita buat ke dalam variabel todos yang telah dibuat sebelumnya. Hal ini diperlukan supaya kita bisa dengan mudah memuat dan menyimpan data dari dan ke web storage.
 
-    todo[TODO_ITEMID] = todoObject.id;
+    todo[TODO_ITEMID] = todoObject.id; // penandaan
     todo.push(todoObject); // untuk menambahkan suatu elemen di dalam array. Elemen akan bertambah pada posisi sebelah kanan, atau bagian akhir.
 
     uncompletedTODOList.append(todo);
     updateDataToStorage();
 }
+
 function addTaskToCompleted(taskElement /* HTMLELement */) {
     const listCompleted = document.getElementById(COMPLETED_LIST_TODO_ID);
     const taskTitle = taskElement.querySelector(".inner > h2").innerText;
     const taskTimestamp = taskElement.querySelector(".inner > p").innerText;
 
     const newTodo = makeTodo(taskTitle, taskTimestamp, true);
+    const todo = findToDo(taskElement[TODO_ITEMID]); //  untuk memperbarui status (isCompleted) dari masing-masing objek TODO. Pertama, kita mencari objek TODO yang akan di-update pada array todos yang telah dideklarasikan sebelumnya dengan menggunakan fungsi findTodo().  
+    todo.isCompleted = true; //ubah property isCompleted menjadi true supaya TODO ini ditandai ‘selesai’
+    newTodo[TODO_ITEMID] = todo.id; // update lagi identifier yang ada pada elemen TODO yang baru
 
     listCompleted.append(newTodo);
     taskElement.remove();
+
+    updateDataToStorage();
 }
 
 function removeTaskFromCompleted(taskElement /* HTMLELement */) {
+    const todoPosition = findToDoIndex(taskElement[TODO_ITEMID]); // untuk menghapus data dari array TODO berdasarkan posisi data pada array yang diperoleh dari findTodoIndex(). Fungsi ini mempunyai cara kerja yang sama dengan find(), yaitu mencari objek TODO. Namun, bedanya nilai yang dikembalikan (return) pada fungsi ini adalah integer dari posisi objek yang match.
+    todos.splice(todoPosition, 1); // menghapus objek tersebut dengan menggunakan fungsi splice().
+
     taskElement.remove();
+    updateDataToStorage();
 }
 
 function undoTaskFromCompleted(taskElement /* HTMLELement */){
