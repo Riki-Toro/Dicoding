@@ -70,7 +70,7 @@ function addTodo() {
     // untuk menyimpan objek task yang kita buat ke dalam variabel todos yang telah dibuat sebelumnya. Hal ini diperlukan supaya kita bisa dengan mudah memuat dan menyimpan data dari dan ke web storage.
 
     todo[TODO_ITEMID] = todoObject.id; // penandaan
-    todo.push(todoObject); // untuk menambahkan suatu elemen di dalam array. Elemen akan bertambah pada posisi sebelah kanan, atau bagian akhir.
+    todos.push(todoObject); // untuk menambahkan suatu elemen di dalam array. Elemen akan bertambah pada posisi sebelah kanan, atau bagian akhir.
 
     uncompletedTODOList.append(todo);
     updateDataToStorage();
