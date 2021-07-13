@@ -1,0 +1,22 @@
+Menguji Data yang Telah Disimpan
+    Jalankan TODO Apps pada sebuah browser (pada test ini menggunakan Chrome), kemudian tambahkan beberapa task TODO yang Anda inginkan seperti pada animasi berikut. Anda dapat dengan bebas menambahkan banyak TODO pada pengujian ini. Namun ternyata ketika halaman di-reload data yang ditampilkan hilang!
+
+    202104292042227cb55d57fcfb578410acc9390ba2bda0.gif
+
+    Langkah selanjutnya ialah membuka DevTools Console. Silakan klik kanan di sembarang tempat pada area halaman aplikasi, lalu pilih Inspect Element. Atau kamu bisa menekan tombol F12 untuk membukanya. Hasil yang diharapkan adalah seperti ini.
+
+    2021042920452825ad22dc1c013a7dbc806a78e1e00ede.png
+
+
+
+    Klik pada tab Console, ketikkan teks berikut pada console, lalu tekan enter.
+
+        localStorage.getItem("TODO_APPS");
+
+    Fungsi dari kode tersebut ialah mengambil objek JSON yang telah disimpan pada web storage, dengan nilai key TODO_APPS. Key yang sama yang digunakan oleh aplikasi untuk mengelola data pada storage. Kemudian karena sekarang posisinya adalah di console, maka nilai kembalian dari fungsi tersebut bisa langsung ditampilkan pada layar. Kira - kira seperti ini jadinya:
+
+    20210429204630ce3af890413a6837e6e49690b660171d.gif
+
+    Great! Aplikasi kita sekarang sudah bisa menambahkan data ke dalam web storage. Jika, getItem() mengembalikan nilai undefined, silakan periksa kembali langkah - langkah sebelumnya, pastikan untuk tidak ada yang terlewat ya!
+
+    Eits.. Masih belum selesai di sini. Ketika aplikasi dimuat ulang (refresh/reload), data yang telah disimpan belum dapat dimuat oleh aplikasi, sekalipun berhasil ketika dites pada console DevTools. Untuk itu, yang perlu dilakukan selanjutnya adalah menambah fungsionalitas pada aplikasi supaya bisa memuat data dari web storage.
