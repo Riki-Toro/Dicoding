@@ -1,0 +1,96 @@
+Menambahkan Fungsionalitas untuk Memuat Data saat Startup
+    Langkah yang dilakukan adalah tambahkan terlebih dahulu helper function refreshDataFromTodos() pada file js/data.js.
+
+        function refreshDataFromTodos() {
+            const listUncompleted = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
+            let listCompleted = document.getElementById(COMPLETED_LIST_TODO_ID);
+        
+        
+            for(todo of todos){
+                const newTodo = makeTodo(todo.task, todo.timestamp, todo.isCompleted);
+                newTodo[TODO_ITEMID] = todo.id;
+            
+            
+                if(todo.isCompleted){
+                    listCompleted.append(newTodo);
+                } else {
+                    listUncompleted.append(newTodo);
+                }
+            }
+        }
+        
+    Fungsi ini digunakan untuk me-render data TODO yang ada pada object array todos. Dalam mengambil data dari array, tentu kita membutuhkan sebuah perulangan atau iterasi supaya data yang ada pada array tersebut bisa diakses satu per satu. Nah, kali ini kita menggunakan for - of style yang lebih simple dalam deklarasinya.
+
+    Mari kita beralih ke callback function, yaitu fungsi yang berada pada argumen dari forEach(). Hiraukan kode yang dicoret.
+
+        for(todo of todos){
+            const newTodo = makeTodo(todo.task, todo.timestamp, todo.isCompleted);
+            newTodo[TODO_ITEMID] = todo.id;
+            
+            
+            if(todo.isCompleted){
+                listCompleted.append(newTodo);
+            } else {
+                listUncompleted.append(newTodo);
+            }
+        }
+
+    Jika dilihat sekilas, fungsi ini mirip seperti addTodo(). Di mana akan membuat elemen task TODO, kemudian diteruskan dengan percabangan untuk menentukan ‘tempat’ bagi elemen tersebut dibuat. Nah, di sinilah letak penting dari property isCompleted.
+
+    Jika nilai dari isCompleted bernilai true, maka elemen TODO akan ditempatkan di dalam elemen listCompleted, atau jika dilihat pada halaman webnya ada di daftar ‘Yang Sudah Dilakukan’. Begitu juga sebaliknya, ketika bernilai false, elemen akan ditempatkan di dalam listUncompleted, yang jika dilihat ada pada daftar ‘Yang harus dilakukan’.
+
+    Nah, sudah paham kan sekarang? Akan tetapi, dengan menambahkan kode di atas belum serta merta aplikasi bisa memuat data dari webstorage ketika di refresh lho, kita masih perlu memanggil kode tersebut pada js/script.js. Silakan tambahkan beberapa kode yang ditebalkan berikut ini:
+
+        document.addEventListener("DOMContentLoaded", function () {
+        
+        
+            const submitForm = document.getElementById("form");
+            
+            
+            submitForm.addEventListener("submit", function (event) {
+                event.preventDefault();
+                addTodo();
+            });
+            
+            
+            if(isStorageExist()){
+                loadDataFromStorage();
+            }
+        });
+    
+    
+        document.addEventListener("ondatasaved", () => {
+            console.log("Data berhasil disimpan.");
+        });
+
+        document.addEventListener("ondataloaded", () => {
+            refreshDataFromTodos();
+        });
+
+    Setelah menambahkan kode di atas, mungkin di benak Anda ada beberapa kode yang belum familier, seperti pada kode custom event listener. Mari kita bahas satu per satu ya!
+
+        if(isStorageExist()){
+            loadDataFromStorage();
+        }
+
+    Kode di atas berfungsi untuk memanggil fungsi yang digunakan untuk memuat data dari storage (loadDataFromStorage()) ketika semua elemen sudah ready.
+
+        document.addEventListener("ondatasaved", () => {
+            console.log("Data berhasil disimpan.");
+        });
+
+    Kode di atas berguna untuk catch (menangkap) event yang telah kita buat. Event yang ditangkap bernama ‘ondatasaved’, yang berfungsi untuk memberitahu kepada observer (event listener) bahwa data telah berhasil disimpan. Yang mana, event ini dipanggil (dispatch) oleh fungsi saveData() yang telah kita buat sebelumnya.
+
+        document.addEventListener("ondataloaded", () => {
+            refreshDataFromTodos();
+        });
+
+    Sama seperti penjelasan sebelumnya, kode di atas digunakan untuk menangkap event ketika data berhasil dimuat ke dalam array todos. Setelah itu, kita panggil fungsi refreshDataFromTodos() yang telah dibuat sebelumnya.
+
+    Okay, akhirnya kita sudah menerapkan mekanisme web storage pada aplikasi TODO Apps! Selanjutnya, pastikan ‘modifikasi’ yang dilakukan telah berhasil dengan menjalankan langsung aplikasi TODO App-nya pada browser.
+
+    202104292052095d980ef3b42c8bfa992c9dbea8a62a0c.gif
+
+    Hore! Sekarang, kita tidak perlu khawatir data akan hilang ketika di muat ulang. Good Job!
+
+    Untuk source code lengkap di latihan ini bisa Anda unduh di tautan berikut ini: Proyek TODO Apps - Web Storage
