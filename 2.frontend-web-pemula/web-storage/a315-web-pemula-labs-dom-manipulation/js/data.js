@@ -78,3 +78,24 @@ function findToDoIndex(todoId) {
 
     return -1;
 }
+
+
+function refreshDataFromToDo() {
+
+    const listUncompleted = document.getElementById('UNCOMPLETED_LIST_TODO_ID');
+    let listCompleted = document.getElementById('COMPLETED_LIST_TODO_ID');
+
+    for( todo of todos ) {
+
+        const newTodo = makeTodo(todo.task, todo.timestamp, todo.isCompleted);
+        newTodo[TODO_ITEMID] = todo.id;
+
+        if( todo.isCompleted ) {
+            listCompleted.append(newTodo);
+        } else {
+            listUncompleted.append(newTodo);
+        }
+
+    }
+
+}
