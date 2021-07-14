@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const submitForm /* HTMLFormElement */ = document.getElementById("form");
+    const submitForm = document.getElementById("form");
 
     submitForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -14,10 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-document.addEventListener('ondatasaved', () => {
+document.addEventListener("ondatasaved", () => {
     console.log("Data berhasil disimpan!");
 });
 
-document.addEventListener('ondataloaded', () => {
+document.addEventListener("ondataloaded", () => {
     refreshDataFromToDo();
 });

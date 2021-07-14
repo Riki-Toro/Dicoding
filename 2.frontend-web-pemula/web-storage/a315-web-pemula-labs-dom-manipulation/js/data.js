@@ -82,8 +82,8 @@ function findToDoIndex(todoId) {
 
 function refreshDataFromToDo() {
 
-    const listUncompleted = document.getElementById('UNCOMPLETED_LIST_TODO_ID');
-    let listCompleted = document.getElementById('COMPLETED_LIST_TODO_ID');
+    const listUncompleted = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
+    let listCompleted = document.getElementById(COMPLETED_LIST_TODO_ID);
 
     for( todo of todos ) {
 
