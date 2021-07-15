@@ -1,4 +1,5 @@
 const UNCOMPLETED_BOOK_ID = "incompleteBookshelfList";
+const COMPLETED_BOOK_ID = "completeBookshelfList";
 
 
 function buatKotak( judul, penulis, tahun) {
@@ -45,3 +46,9 @@ function buatTombol(cssClas, eventListener) {
     });
     return tombol;
 }
+
+
+function tambahToSelesai(taskElement) {
+    taskElement.remove(); //untuk menghapus todo yang belum selesai.
+}
+
