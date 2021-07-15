@@ -13,6 +13,9 @@ function buatKotak( judul, penulis, tahun) {
     const kontainer = document.createElement('div');
     kontainer.append(textJudul, textPenulis, textTahun);
 
+    // memanggil fungsi cekTombol()
+    kontainer.append(cekTombol());
+
     return kontainer;
 }
 
@@ -38,9 +41,10 @@ function tambahBuku() {
 
 
 // membuat tombol
-function buatTombol(cssClas, eventListener) {
+function buatTombol(red, eventListener) {
     const tombol = document.createElement("button");
-    tombol.classList.add(cssClas);
+    tombol.innerText = "Hapus buku";
+    tombol.classList.add(red);
     tombol.addEventListener('click', function(event) {
         eventListener(event);
     });
@@ -52,3 +56,9 @@ function tambahToSelesai(taskElement) {
     taskElement.remove(); //untuk menghapus todo yang belum selesai.
 }
 
+
+function cekTombol() {
+    return buatTombol("check-button", function(event) {
+        tambahToSelesai(event.target.parentElement);
+    });
+}
