@@ -37,7 +37,11 @@ function tambahBuku() {
 
 
 // membuat tombol
-function buatTombol(eventListener) {
+function buatTombol(cssClas, eventListener) {
     const tombol = document.createElement("button");
-    
+    tombol.classList.add(cssClas);
+    tombol.addEventListener('click', function(event) {
+        eventListener(event);
+    });
+    return tombol;
 }
