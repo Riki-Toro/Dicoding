@@ -34,3 +34,10 @@ function tambahBuku() {
     uncompleted.append(book);
 
 }
+
+
+// membuat tombol
+function buatTombol(eventListener) {
+    const tombol = document.createElement("button");
+    
+}
