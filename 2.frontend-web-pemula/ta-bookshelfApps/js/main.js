@@ -59,7 +59,7 @@ function tambahToSelesai(taskElement) {
 
 
 function cekTombol() {
-    return buatTombol('book_shelf', function(event) {
+    return buatTombol('red', function(event) {
         tambahToSelesai(event.target.parentElement.parentElement);
     });
 }
