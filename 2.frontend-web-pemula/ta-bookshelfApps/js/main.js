@@ -10,11 +10,15 @@ function buatKotak( judul, penulis, tahun) {
     const textTahun = document.createElement('p');
     textTahun.innerText = "Tahun : " + tahun;
 
-    const kontainer = document.createElement('div');
-    kontainer.append(textJudul, textPenulis, textTahun);
+    const divTombol = document.createElement('div');
 
     // memanggil fungsi cekTombol()
-    kontainer.append(cekTombol());
+    divTombol.append(cekTombol());
+
+    const kontainer = document.createElement('div');
+    kontainer.append(textJudul, textPenulis, textTahun, divTombol);
+
+
 
     return kontainer;
 }
@@ -29,9 +33,6 @@ function tambahBuku() {
     const judul = document.getElementById('inputBookTitle').value;
     const penulis = document.getElementById('inputBookAuthor').value;
     const tahun = document.getElementById('inputBookYear').value;
-    console.log("judul : " + judul);
-    console.log("penulis : " + penulis);
-    console.log("tahun : " + tahun);
 
 
     const book = buatKotak(judul, penulis, tahun);
@@ -58,7 +59,7 @@ function tambahToSelesai(taskElement) {
 
 
 function cekTombol() {
-    return buatTombol("check-button", function(event) {
-        tambahToSelesai(event.target.parentElement);
+    return buatTombol('book_shelf', function(event) {
+        tambahToSelesai(event.target.parentElement.parentElement);
     });
 }
