@@ -2,7 +2,7 @@ const UNCOMPLETED_BOOK_ID = "incompleteBookshelfList";
 const COMPLETED_BOOK_ID = "completeBookshelfList";
 
 
-function buatKotak( judul, penulis, tahun) {
+function buatKotak(judul, penulis, tahun) {
     const textJudul = document.createElement('h3');
     textJudul.innerText = judul;
     const textPenulis = document.createElement('p');
@@ -16,7 +16,8 @@ function buatKotak( judul, penulis, tahun) {
     divTombol.append(cekTombol());
 
     const kontainer = document.createElement('div');
-    kontainer.append(textJudul, textPenulis, textTahun, divTombol);
+    // kontainer.classList.add(book_shelf);
+    kontainer.append(textJudul, textPenulis, textTahun, divTombol /*,cekTombol() */);
 
 
 
@@ -42,10 +43,10 @@ function tambahBuku() {
 
 
 // membuat tombol
-function buatTombol(red, eventListener) {
+function buatTombol(green, eventListener) {
     const tombol = document.createElement("button");
-    tombol.innerText = "Hapus buku";
-    tombol.classList.add(red);
+    tombol.innerText = "Selesai dibaca";
+    tombol.classList.add(green);
     tombol.addEventListener('click', function(event) {
         eventListener(event);
     });
@@ -53,13 +54,26 @@ function buatTombol(red, eventListener) {
 }
 
 
-function tambahToSelesai(taskElement) {
+// untuk menampilkan todo yang sudah ditandai sebagai todo yang telah selesai
+function tambahToSelesai(taskElement) { // addtasktocompleted
+
+    const taskJudul = taskElement.querySelector('.book_list > h3');
+    const taskPenulis = taskElement.querySelector('.book_list > p');
+    const taskTahun = taskElement.querySelector('.book_list > p');
+
+    const newBook = buatKotak(taskJudul, taskPenulis, taskTahun);
+    const listCompleted = document.getElementById(COMPLETED_BOOK_ID);
+
+    listCompleted.append(newBook);
+
     taskElement.remove(); //untuk menghapus todo yang belum selesai.
 }
 
 
 function cekTombol() {
-    return buatTombol('red', function(event) {
+    return buatTombol('green', function(event) {
         tambahToSelesai(event.target.parentElement.parentElement);
     });
 }
+
+
