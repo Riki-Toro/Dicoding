@@ -10,6 +10,9 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
     const textTahun = document.createElement('p');
     textTahun.innerText = "Tahun : " + tahun;
 
+    
+
+
     const divTombol = document.createElement('div');
 
     // memanggil fungsi cekTombol()
@@ -18,7 +21,6 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
     const kontainer = document.createElement('div');
     // kontainer.classList.add(book_shelf);
     kontainer.append(textJudul, textPenulis, textTahun, divTombol /*,cekTombol() */);
-
 
     if( isCompleted ) {
         kontainer.append(tambahTrashTombol());
