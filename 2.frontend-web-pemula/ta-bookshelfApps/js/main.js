@@ -10,29 +10,38 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
     const textTahun = document.createElement('p');
     textTahun.innerText = "Tahun : " + tahun;
 
-    
-
 
     const divTombol = document.createElement('div');
 
     // memanggil fungsi cekTombol()
-    divTombol.append(cekTombol());
+    // divTombol.append(cekTombol());
 
     const kontainer = document.createElement('div');
     // kontainer.classList.add(book_shelf);
     kontainer.append(textJudul, textPenulis, textTahun, divTombol /*,cekTombol() */);
 
     if( isCompleted ) {
-        kontainer.append(tambahTrashTombol());
+        divTombol.append(tambahTrashTombol());
     } else {
-        kontainer.append(cekTombol());
+        divTombol.append(cekTombol());
     }
 
 
     return kontainer;
 }
 
+function cekTombol() { //createCheckButton()
+    return buatTombol('green', function(event) {
+        tambahToSelesai(event.target.parentElement.parentElement);
+    });
+}
 
+
+function tambahTrashTombol() { //createTrashButton()
+    return buatTombol('red', function(event) {
+        hapusSetelahSelesai(event.target.parentElement.parentElement);
+    });
+}
 
 
 function tambahBuku() {
@@ -53,7 +62,7 @@ function tambahBuku() {
 // membuat tombol
 function buatTombol(buttonTypeClass, eventListener) {
     const tombol = document.createElement("button");
-    tombol.innerText = "Selesai dibaca";
+    // tombol.innerText = "Selesai dibaca";
     tombol.classList.add(buttonTypeClass);
     tombol.addEventListener('click', function(event) {
         eventListener(event);
@@ -82,20 +91,10 @@ function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
 }
 
 
-function cekTombol() { //createCheckButton()
-    return buatTombol('green', function(event) {
-        tambahToSelesai(event.target.parentElement.parentElement);
-    });
-}
-
 
 function hapusSetelahSelesai(taskElement) { //removeTaskFromCompleted()
     taskElement.remove();
 }
 
 
-function tambahTrashTombol() { //createTrashButton()
-    return buatTombol('red', function(event) {
-        hapusSetelahSelesai(event.target.parentElement.parentElement);
-    });
-}
+
