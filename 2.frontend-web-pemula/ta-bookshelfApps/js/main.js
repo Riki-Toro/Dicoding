@@ -49,10 +49,10 @@ function tambahBuku() {
 
 
 // membuat tombol
-function buatTombol(green, eventListener) {
+function buatTombol(buttonTypeClass, eventListener) {
     const tombol = document.createElement("button");
     tombol.innerText = "Selesai dibaca";
-    tombol.classList.add(green);
+    tombol.classList.add(buttonTypeClass);
     tombol.addEventListener('click', function(event) {
         eventListener(event);
     });
@@ -93,7 +93,7 @@ function hapusSetelahSelesai(taskElement) { //removeTaskFromCompleted()
 
 
 function tambahTrashTombol() { //createTrashButton()
-    return buatTombol('', function(event) {
-        hapusSetelahSelesai(event.target.parentElement);
+    return buatTombol('red', function(event) {
+        hapusSetelahSelesai(event.target.parentElement.parentElement);
     });
 }
