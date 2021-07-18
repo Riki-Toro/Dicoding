@@ -43,6 +43,10 @@ function tambahTrashTombol() { //createTrashButton()
     });
 }
 
+function kembaliBelumSelesai() { // createUndoButton()
+
+}
+
 
 function tambahBuku() {
 
@@ -87,7 +91,14 @@ function tambahToSelesai(taskElement) { // addtasktocompleted
 }
 
 function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
+    const listUncompleted = document.getElementById(UNCOMPLETED_BOOK_ID);
+    const taskJudul = taskElement.querySelector('.book_list > h3');
+    const taskPenulis = taskElement.querySelector('.book_list > p');
+    const taskTahun = taskElement.querySelector('.book_list > p');
+
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, false);
+
+    listUncompleted.append(newBook);
 }
 
 
