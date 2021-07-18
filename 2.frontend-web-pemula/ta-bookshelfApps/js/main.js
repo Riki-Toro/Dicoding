@@ -83,9 +83,11 @@ function buatTombol(buttonTypeClass, eventListener) {
 // untuk menampilkan todo yang sudah ditandai sebagai todo yang telah selesai
 function tambahToSelesai(taskElement) { // addtasktocompleted
 
-    const taskJudul = taskElement.querySelector('.book_list > h3');
-    const taskPenulis = taskElement.querySelector('.book_list > p');
-    const taskTahun = taskElement.querySelector('.book_list > p');
+    const taskJudul = taskElement.querySelector('h3').innerText;
+    const taskPenulis = taskElement.querySelector('p').innerText;
+    const taskTahun = taskElement.querySelector('p').innerText;
+
+    console.log(taskJudul, taskPenulis, taskTahun);
 
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, true);
     const listCompleted = document.getElementById(COMPLETED_BOOK_ID);
@@ -97,9 +99,9 @@ function tambahToSelesai(taskElement) { // addtasktocompleted
 
 function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
     const listUncompleted = document.getElementById(UNCOMPLETED_BOOK_ID);
-    const taskJudul = taskElement.querySelector('.book_list > h3');
-    const taskPenulis = taskElement.querySelector('.book_list > p');
-    const taskTahun = taskElement.querySelector('.book_list > p');
+    const taskJudul = taskElement.querySelector('h3').innerText;
+    const taskPenulis = taskElement.querySelector('p').innerText;
+    const taskTahun = taskElement.querySelector('p').innerText;
 
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, false);
 
