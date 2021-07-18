@@ -44,7 +44,9 @@ function tambahTrashTombol() { //createTrashButton()
 }
 
 function kembaliBelumSelesai() { // createUndoButton()
-
+    return buatTombol('green', function(event) {
+        belumSelesaiToKembali(event.target.parentElement.parentElement);
+    });
 }
 
 
