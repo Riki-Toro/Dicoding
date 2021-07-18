@@ -6,9 +6,13 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
     const textJudul = document.createElement('h3');
     textJudul.innerText = judul;
     const textPenulis = document.createElement('p');
-    textPenulis.innerText = "Penulis : " + penulis ;
+    textPenulis.innerText = "Penulis : " + penulis;
     const textTahun = document.createElement('p');
     textTahun.innerText = "Tahun : " + tahun;
+
+
+    textPenulis.classList.add('penulis');
+    textTahun.classList.add('tahun');
 
 
     const divTombol = document.createElement('div');
@@ -62,7 +66,7 @@ function tambahBuku() {
     const tahun = document.getElementById('inputBookYear').value;
 
 
-    const book = buatKotak(judul, penulis, tahun);
+    const book = buatKotak(judul, penulis, tahun, false);
     uncompleted.append(book);
 
 }
@@ -84,8 +88,8 @@ function buatTombol(buttonTypeClass, eventListener) {
 function tambahToSelesai(taskElement) { // addtasktocompleted
 
     const taskJudul = taskElement.querySelector('h3').innerText;
-    const taskPenulis = taskElement.querySelector('p').innerText;
-    const taskTahun = taskElement.querySelector('p').innerText;
+    const taskPenulis = taskElement.querySelector('.penulis').innerText;
+    const taskTahun = taskElement.querySelector('.tahun').innerText;
 
     console.log(taskJudul, taskPenulis, taskTahun);
 
@@ -100,8 +104,10 @@ function tambahToSelesai(taskElement) { // addtasktocompleted
 function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
     const listUncompleted = document.getElementById(UNCOMPLETED_BOOK_ID);
     const taskJudul = taskElement.querySelector('h3').innerText;
-    const taskPenulis = taskElement.querySelector('p').innerText;
-    const taskTahun = taskElement.querySelector('p').innerText;
+    const taskPenulis = taskElement.querySelector('.penulis').innerText;
+    const taskTahun = taskElement.querySelector('.tahun').innerText;
+
+    console.log(taskJudul, taskPenulis, taskTahun);
 
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, false);
 
