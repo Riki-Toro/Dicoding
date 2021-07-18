@@ -21,7 +21,10 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
     kontainer.append(textJudul, textPenulis, textTahun, divTombol /*,cekTombol() */);
 
     if( isCompleted ) {
-        divTombol.append(tambahTrashTombol());
+        divTombol.append(
+            kembaliBelumSelesai(),
+            tambahTrashTombol()
+            );
     } else {
         divTombol.append(cekTombol());
     }
@@ -101,6 +104,8 @@ function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, false);
 
     listUncompleted.append(newBook);
+
+    taskElement.remove();
 }
 
 
