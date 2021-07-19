@@ -75,7 +75,7 @@ function tambahBuku() {
 // membuat tombol
 function buatTombol(buttonTypeClass, eventListener) {
     const tombol = document.createElement("button");
-    // tombol.innerText = "Selesai dibaca";
+    tombol.setAttribute('value', 'selesai dibaca');
     tombol.classList.add(buttonTypeClass);
     tombol.addEventListener('click', function(event) {
         eventListener(event);
