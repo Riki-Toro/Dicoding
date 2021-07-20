@@ -67,14 +67,26 @@ function kembaliBelumSelesai() { // createUndoButton()
 function tambahBuku() {
 
     const uncompleted = document.getElementById(UNCOMPLETED_BOOK_ID);
+    const completed = document.getElementById(COMPLETED_BOOK_ID);
 
     const judul = document.getElementById('inputBookTitle').value;
     const penulis = document.getElementById('inputBookAuthor').value;
     const tahun = document.getElementById('inputBookYear').value;
 
 
+    // const cekbox = document.getElementById('inputBookIsComplete').value;
+    // console.log(cekbox);
+
+
+
     const book = buatKotak(judul, penulis, tahun, false);
     uncompleted.append(book);
+
+
+
+
+
+
 
 }
 
