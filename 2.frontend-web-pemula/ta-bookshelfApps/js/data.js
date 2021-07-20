@@ -9,4 +9,31 @@ function cekStorage() {
     }
     return true;
 }
-console.log(cekStorage());
+// console.log(books);
+
+function simpanData() { //saveData()
+    const parsed = JSON.stringify(books);
+    localStorage.setItem(STORAGE_KEY, parsed);
+    document.dispatchEvent(new Event("datadisimpan"));
+}
+
+
+function loadDataFromStorage() {
+    const serializedData = localStorage.getItem(STORAGE_KEY);
+
+    let data = JSON.parse(serializedData);
+
+    if( data !== null ) {
+        books = data;
+    }
+
+    document.dispatchEvent(new Event("dataloaded"));
+}
+
+
+function updateDataToStorage() {
+    if( cekStorage() ) {
+        simpanData();
+    }
+}
+
