@@ -74,18 +74,24 @@ function tambahBuku() {
     const tahun = document.getElementById('inputBookYear').value;
 
 
-    // const cekbox = document.getElementById('inputBookIsComplete').value;
-    // console.log(cekbox);
+    // const cekbok = document.getElementById('inputBookIsComplete');
+    // cekbok.addEventListener('klik', function() {
+    //     const isi = true;
+    //     return isi;
+    // });
+    
+    // if( cekbok == true ) {
+    //     let book = buatKotak(judul, penulis, tahun, true);
+    //     completed.append(book);
+    // } else {
+    //     let book = buatKotak(judul, penulis, tahun, false);
+    //     uncompleted.append(book);
+    // }
 
 
 
     const book = buatKotak(judul, penulis, tahun, false);
     uncompleted.append(book);
-
-
-
-
-
 
 
 }
