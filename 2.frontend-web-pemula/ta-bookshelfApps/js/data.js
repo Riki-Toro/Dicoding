@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'BOOK_APPS';
+const STORAGE_KEY = 'RIKIBOOK_APPS';
 
 let books = [];
 
