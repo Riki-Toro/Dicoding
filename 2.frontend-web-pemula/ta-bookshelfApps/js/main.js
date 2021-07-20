@@ -25,12 +25,12 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
     kontainer.append(textJudul, textPenulis, textTahun, divTombol /*,cekTombol() */);
 
     if( isCompleted ) {
-        divTombol.append(
-            kembaliBelumSelesai(),
+        kontainer.append(
+            // kembaliBelumSelesai(),
             tambahTrashTombol()
             );
     } else {
-        divTombol.append(cekTombol());
+        kontainer.append(cekTombol());
     }
 
 
@@ -39,22 +39,22 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
 
 function cekTombol() { //createCheckButton()
     return buatTombol('green', function(event) {
-        tambahToSelesai(event.target.parentElement.parentElement);
+        tambahToSelesai(event.target.parentElement);
     });
 }
 
 
 function tambahTrashTombol() { //createTrashButton()
     return buatTombol('red', function(event) {
-        hapusSetelahSelesai(event.target.parentElement.parentElement);
+        hapusSetelahSelesai(event.target.parentElement);
     });
 }
 
-function kembaliBelumSelesai() { // createUndoButton()
-    return buatTombol('green', function(event) {
-        belumSelesaiToKembali(event.target.parentElement.parentElement);
-    });
-}
+// function kembaliBelumSelesai() { // createUndoButton()
+//     return buatTombol('green', function(event) {
+//         belumSelesaiToKembali(event.target.parentElement.parentElement);
+//     });
+// }
 
 
 function tambahBuku() {
@@ -74,7 +74,8 @@ function tambahBuku() {
 
 // membuat tombol
 function buatTombol(buttonTypeClass, eventListener) {
-    const tombol = document.createElement("button");
+    const tombol = document.createElement("input");
+    tombol.setAttribute('type', 'submit');
     tombol.setAttribute('value', 'selesai dibaca');
     tombol.classList.add(buttonTypeClass);
     tombol.addEventListener('click', function(event) {
@@ -101,20 +102,20 @@ function tambahToSelesai(taskElement) { // addtasktocompleted
     taskElement.remove(); //untuk menghapus todo yang belum selesai.
 }
 
-function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
-    const listUncompleted = document.getElementById(UNCOMPLETED_BOOK_ID);
-    const taskJudul = taskElement.querySelector('h3').innerText;
-    const taskPenulis = taskElement.querySelector('.penulis').innerText;
-    const taskTahun = taskElement.querySelector('.tahun').innerText;
+// function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
+//     const listUncompleted = document.getElementById(UNCOMPLETED_BOOK_ID);
+//     const taskJudul = taskElement.querySelector('h3').innerText;
+//     const taskPenulis = taskElement.querySelector('.penulis').innerText;
+//     const taskTahun = taskElement.querySelector('.tahun').innerText;
 
-    console.log(taskJudul, taskPenulis, taskTahun);
+//     console.log(taskJudul, taskPenulis, taskTahun);
 
-    const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, false);
+//     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, false);
 
-    listUncompleted.append(newBook);
+//     listUncompleted.append(newBook);
 
-    taskElement.remove();
-}
+//     taskElement.remove();
+// }
 
 
 
