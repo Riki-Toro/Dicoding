@@ -37,3 +37,12 @@ function updateDataToStorage() {
     }
 }
 
+function composeBookObjek(judul, penulis, tahun, isCompleted) {
+    return {
+        id : +new Date(),
+        judul,
+        penulis,
+        tahun,
+        isCompleted
+    };
+}
