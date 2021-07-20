@@ -25,12 +25,12 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
     kontainer.append(textJudul, textPenulis, textTahun, divTombol /*,cekTombol() */);
 
     if( isCompleted ) {
-        kontainer.append(
+        divTombol.append(
             // kembaliBelumSelesai(),
             tambahTrashTombol()
             );
     } else {
-        kontainer.append(cekTombol());
+        divTombol.append(cekTombol());
     }
 
 
@@ -39,14 +39,14 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
 
 function cekTombol() { //createCheckButton()
     return buatTombol('green', function(event) {
-        tambahToSelesai(event.target.parentElement);
+        tambahToSelesai(event.target.parentElement.parentElement);
     });
 }
 
 
 function tambahTrashTombol() { //createTrashButton()
     return buatTombol('red', function(event) {
-        hapusSetelahSelesai(event.target.parentElement);
+        hapusSetelahSelesai(event.target.parentElement.parentElement);
     });
 }
 
