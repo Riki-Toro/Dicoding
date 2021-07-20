@@ -38,14 +38,14 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
 }
 
 function cekTombol() { //createCheckButton()
-    return buatTombol('green', function(event) {
+    return buatTombolSelesai('green', function(event) {
         tambahToSelesai(event.target.parentElement.parentElement);
     });
 }
 
 
 function tambahTrashTombol() { //createTrashButton()
-    return buatTombol('red', function(event) {
+    return buatTombolHapus('red', function(event) {
         hapusSetelahSelesai(event.target.parentElement.parentElement);
     });
 }
@@ -73,10 +73,30 @@ function tambahBuku() {
 
 
 // membuat tombol
-function buatTombol(buttonTypeClass, eventListener) {
+function buatTombolSelesai(buttonTypeClass, eventListener) {
     const tombol = document.createElement("input");
     tombol.setAttribute('type', 'submit');
-    tombol.setAttribute('value', 'selesai dibaca');
+    tombol.setAttribute('value', 'Selesai dibaca');
+    tombol.classList.add(buttonTypeClass);
+    tombol.addEventListener('click', function(event) {
+        eventListener(event);
+    });
+    return tombol;
+}
+function buatTombolHapus(buttonTypeClass, eventListener) {
+    const tombol = document.createElement("input");
+    tombol.setAttribute('type', 'submit');
+    tombol.setAttribute('value', 'Hapus Buku');
+    tombol.classList.add(buttonTypeClass);
+    tombol.addEventListener('click', function(event) {
+        eventListener(event);
+    });
+    return tombol;
+}
+function buatTombolKembali(buttonTypeClass, eventListener) {
+    const tombol = document.createElement("input");
+    tombol.setAttribute('type', 'submit');
+    tombol.setAttribute('value', 'Belum Selesai dibaca');
     tombol.classList.add(buttonTypeClass);
     tombol.addEventListener('click', function(event) {
         eventListener(event);
