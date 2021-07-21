@@ -174,9 +174,20 @@ function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
 
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, false);
 
+
+    const book = findBook(taskElement[BOOK_ITEMID]);
+    book.isCompleted = false;
+    newBook[BOOK_ITEMID] = book.id;
+
+
+
+
     listUncompleted.append(newBook);
 
     taskElement.remove();
+
+
+    updateDataToStorage();
 }
 
 
