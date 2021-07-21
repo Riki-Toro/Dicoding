@@ -68,3 +68,23 @@ function findBookIndex(bookId) {
     }
     return -1;
 }
+
+
+
+function refreshDataFromBooks() {
+    const uncompleted = document.getElementById(UNCOMPLETED_BOOK_ID);
+    let completed = document.getElementById(COMPLETED_BOOK_ID);
+
+
+    for( book of books ) {
+        const newBook = buatKotak(book.judul, book.penulis, book.tahun, book.isComplete);
+        newBook[BOOK_ITEMID] = book.id;
+
+
+        if( isComplete ) {
+            completed.append(newBook);
+        } else {
+            uncompleted.append(newBook);
+        }
+    }
+}
