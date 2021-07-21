@@ -150,11 +150,18 @@ function tambahToSelesai(taskElement) { // addtasktocompleted
 
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, true);
 
-    
+    const book = findBook(taskElement[BOOK_ITEMID]);
+    book.isCompleted = true;
+    newBook[BOOK_ITEMID] = book.id;
+
+
+
 
     listCompleted.append(newBook);
 
     taskElement.remove(); //untuk menghapus todo yang belum selesai.
+
+    updateDataToStorage();
 }
 
 function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
@@ -175,7 +182,14 @@ function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
 
 
 function hapusSetelahSelesai(taskElement) { //removeTaskFromCompleted()
+
+    const bookPosition = findBookIndex(taskElement[BOOK_ITEMID]);
+    books.splice(bookPosition, 1);
+
+
     taskElement.remove();
+
+    updateDataToStorage();
 }
 
 
