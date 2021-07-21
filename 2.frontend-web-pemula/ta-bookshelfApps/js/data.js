@@ -46,3 +46,25 @@ function composeBookObjek(judul, penulis, tahun, isCompleted) {
         isCompleted
     };
 }
+
+
+function findBook(bookId) {
+    for( book of books ) {
+        if( book.id === bookId ) {
+            return book;
+        }
+    }
+    return null;
+}
+
+
+function findBookIndex(bookId) {
+    let index = 0;
+    for( book of books ) {
+        if( book.id === bookId ) {
+            return index;
+        }
+        index++;
+    }
+    return -1;
+}
