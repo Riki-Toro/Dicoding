@@ -1,15 +1,12 @@
 const UNCOMPLETED_BOOK_ID = "incompleteBookshelfList";
 const COMPLETED_BOOK_ID = "completeBookshelfList";
 
+const BOOK_ITEMID = "itemId";
+
 
 function buatKotak(judul, penulis, tahun, isComplete) {
     const textJudul = document.createElement('h3');
     textJudul.innerText = judul;
-    // const textPenulis = document.createElement('p');
-    // textPenulis.innerText = "Penulis : " + penulis;
-    // const textTahun = document.createElement('p');
-    // textTahun.innerText = "Tahun : " + tahun;
-
     const textPenulis = document.createElement('p');
     textPenulis.innerHTML = "Penulis : <span>" + penulis + "</span>";
     const textTahun = document.createElement('p');
@@ -91,7 +88,18 @@ function tambahBuku() {
 
 
     const book = buatKotak(judul, penulis, tahun, false);
+
+    const bookObject = composeBookObjek(judul, penulis, tahun, false);
+
+    book[BOOK_ITEMID] = bookObject.id;
+    books.push(bookObject);
+
+
+
+
     uncompleted.append(book);
+
+    updateDataToStorage();
 
 
 }
@@ -133,6 +141,7 @@ function buatTombolKembali(buttonTypeClass, eventListener) {
 // untuk menampilkan todo yang sudah ditandai sebagai todo yang telah selesai
 function tambahToSelesai(taskElement) { // addtasktocompleted
 
+    const listCompleted = document.getElementById(COMPLETED_BOOK_ID);
     const taskJudul = taskElement.querySelector('h3').innerText;
     const taskPenulis = taskElement.querySelector('.penulis > span').innerText;
     const taskTahun = taskElement.querySelector('.tahun > span').innerText;
@@ -140,7 +149,8 @@ function tambahToSelesai(taskElement) { // addtasktocompleted
     console.log(taskJudul, taskPenulis, taskTahun);
 
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, true);
-    const listCompleted = document.getElementById(COMPLETED_BOOK_ID);
+
+    
 
     listCompleted.append(newBook);
 
