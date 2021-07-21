@@ -7,4 +7,19 @@ document.addEventListener("DOMContentLoaded", function() {
         tambahBuku();
     });
 
+
+    if( cekStorage() ) {
+        loadDataFromStorage();
+    }
+
+});
+
+
+
+document.addEventListener("datadisimpan", () => {
+    console.log('Data berhasil disimpan!');
+});
+
+document.addEventListener("dataloaded", () => {
+    refreshDataFromBooks();
 });

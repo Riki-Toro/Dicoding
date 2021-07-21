@@ -77,11 +77,11 @@ function refreshDataFromBooks() {
 
 
     for( book of books ) {
-        const newBook = buatKotak(book.judul, book.penulis, book.tahun, book.isComplete);
+        const newBook = buatKotak(book.judul, book.penulis, book.tahun, book.isCompleted);
         newBook[BOOK_ITEMID] = book.id;
 
 
-        if( isComplete ) {
+        if( book.isCompleted ) {
             completed.append(newBook);
         } else {
             uncompleted.append(newBook);

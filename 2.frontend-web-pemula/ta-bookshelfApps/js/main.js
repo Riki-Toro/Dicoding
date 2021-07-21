@@ -4,7 +4,7 @@ const COMPLETED_BOOK_ID = "completeBookshelfList";
 const BOOK_ITEMID = "itemId";
 
 
-function buatKotak(judul, penulis, tahun, isComplete) {
+function buatKotak(judul, penulis, tahun, isCompleted) {
     const textJudul = document.createElement('h3');
     textJudul.innerText = judul;
     const textPenulis = document.createElement('p');
@@ -26,7 +26,7 @@ function buatKotak(judul, penulis, tahun, isComplete) {
     // kontainer.classList.add(book_shelf);
     kontainer.append(textJudul, textPenulis, textTahun, divTombol /*,cekTombol() */);
 
-    if( isComplete ) {
+    if( isCompleted ) {
         divTombol.append(
             kembaliBelumSelesai(),
             tambahTrashTombol()
@@ -64,7 +64,6 @@ function kembaliBelumSelesai() { // createUndoButton()
 function tambahBuku() {
 
     const uncompleted = document.getElementById(UNCOMPLETED_BOOK_ID);
-    const completed = document.getElementById(COMPLETED_BOOK_ID);
 
     const judul = document.getElementById('inputBookTitle').value;
     const penulis = document.getElementById('inputBookAuthor').value;
@@ -98,10 +97,9 @@ function tambahBuku() {
 
 
     uncompleted.append(book);
+    alert("Buku berhasil ditambahkan!");
 
     updateDataToStorage();
-
-
 }
 
 
@@ -146,8 +144,6 @@ function tambahToSelesai(taskElement) { // addtasktocompleted
     const taskPenulis = taskElement.querySelector('.penulis > span').innerText;
     const taskTahun = taskElement.querySelector('.tahun > span').innerText;
 
-    console.log(taskJudul, taskPenulis, taskTahun);
-
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, true);
 
     const book = findBook(taskElement[BOOK_ITEMID]);
@@ -155,10 +151,7 @@ function tambahToSelesai(taskElement) { // addtasktocompleted
     newBook[BOOK_ITEMID] = book.id;
 
 
-
-
     listCompleted.append(newBook);
-
     taskElement.remove(); //untuk menghapus todo yang belum selesai.
 
     updateDataToStorage();
@@ -170,8 +163,6 @@ function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
     const taskPenulis = taskElement.querySelector('.penulis > span').innerText;
     const taskTahun = taskElement.querySelector('.tahun > span').innerText;
 
-    console.log(taskJudul, taskPenulis, taskTahun);
-
     const newBook = buatKotak(taskJudul, taskPenulis, taskTahun, false);
 
 
@@ -180,10 +171,7 @@ function belumSelesaiToKembali(taskElement) { //undoTaskFromCompleted()
     newBook[BOOK_ITEMID] = book.id;
 
 
-
-
     listUncompleted.append(newBook);
-
     taskElement.remove();
 
 
@@ -199,7 +187,9 @@ function hapusSetelahSelesai(taskElement) { //removeTaskFromCompleted()
 
 
     taskElement.remove();
-
+    alert("Buku berhasil dihapus!");
+    
+    
     updateDataToStorage();
 }
 
