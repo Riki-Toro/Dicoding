@@ -19,12 +19,9 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
 
     const divTombol = document.createElement('div');
 
-    // memanggil fungsi cekTombol()
-    // divTombol.append(cekTombol());
-
     const kontainer = document.createElement('div');
-    // kontainer.classList.add(book_shelf);
-    kontainer.append(textJudul, textPenulis, textTahun, divTombol /*,cekTombol() */);
+    
+    kontainer.append(textJudul, textPenulis, textTahun, divTombol);
 
     if( isCompleted ) {
         divTombol.append(
@@ -41,19 +38,17 @@ function buatKotak(judul, penulis, tahun, isCompleted) {
     return kontainer;
 }
 
+
 function cekTombol() { //createCheckButton()
     return buatTombolSelesai('green', function(event) {
         tambahToSelesai(event.target.parentElement.parentElement);
     });
 }
-
-
 function tambahTrashTombol() { //createTrashButton()
     return buatTombolHapus('red', function(event) {
         hapusSetelahSelesai(event.target.parentElement.parentElement);
     });
 }
-
 function kembaliBelumSelesai() { // createUndoButton()
     return buatTombolKembali('green', function(event) {
         belumSelesaiToKembali(event.target.parentElement.parentElement);
@@ -62,7 +57,6 @@ function kembaliBelumSelesai() { // createUndoButton()
 
 
 function tambahBuku() {
-
     const uncompleted = document.getElementById(UNCOMPLETED_BOOK_ID);
 
     const judul = document.getElementById('inputBookTitle').value;
@@ -70,34 +64,16 @@ function tambahBuku() {
     const tahun = document.getElementById('inputBookYear').value;
 
 
-    // const cekbok = document.getElementById('inputBookIsComplete');
-    // cekbok.addEventListener('klik', function() {
-    //     const isi = true;
-    //     return isi;
-    // });
-    
-    // if( cekbok == true ) {
-    //     let book = buatKotak(judul, penulis, tahun, true);
-    //     completed.append(book);
-    // } else {
-    //     let book = buatKotak(judul, penulis, tahun, false);
-    //     uncompleted.append(book);
-    // }
-
-
-
     const book = buatKotak(judul, penulis, tahun, false);
 
     const bookObject = composeBookObjek(judul, penulis, tahun, false);
-
     book[BOOK_ITEMID] = bookObject.id;
     books.push(bookObject);
 
 
-
-
     uncompleted.append(book);
     alert("Buku berhasil ditambahkan!");
+
 
     updateDataToStorage();
 }
@@ -192,6 +168,4 @@ function hapusSetelahSelesai(taskElement) { //removeTaskFromCompleted()
     
     updateDataToStorage();
 }
-
-
 

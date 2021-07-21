@@ -9,7 +9,7 @@ function cekStorage() {
     }
     return true;
 }
-// console.log(books);
+
 
 function simpanData() { //saveData()
     const parsed = JSON.stringify(books);
