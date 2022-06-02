@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamental Javascript</title>
+</head>
+<body>
+    <h1>Tipe Data, variabel, comment</h1>
+
+    <script>
+        console.log('Hello World!');
+
+
+        // ini komentar satu baris
+
+        /* ini komentar
+        dua baris */
+
+        // tipe data
+        let x;
+        console.log(x);
+        console.log(typeof(x));
+
+        let lima = 5;
+        // console.log(lima++);
+        // console.log(lima);
+        console.log(++lima);
+
+        const num = 12345678901111111111111111111111111111111111;
+        const numInt = 12345678901111111111111111111111111111111111n;
+
+        console.log(num);
+        console.log(numInt);
+
+        console.log(5n + 4n);
+        console.log(7n / 2n);
+
+        const hello = "Hello World!";
+        console.log(hello);
+        console.log(typeof(hello));
+
+        const question = '"What do you think of JavaScript?" I asked';
+        console.log(question);
+
+        const question2 = '"What do you think\'s of JavaScript?" I asked';
+        console.log(question2);
+
+        // string template
+        const nama = 'riki';
+        console.log(`Hallo, nama saya adalah ${nama}`);
+
+        // boolean
+        let a = true;
+        let b = false;
+
+        console.log(typeof(a));
+        console.log(b);
+
+        let c = 10;
+        let d = 20;
+        let hasilPertama = c > d;
+        let hasilKedua = c < d;
+
+        console.log(hasilPertama);
+        console.log(hasilKedua);
+
+        // null
+        let nilaiNull = null;
+        console.log(nilaiNull);
+
+        // symbol
+        let namaku = Symbol('riki widiantoro');
+        let namaku2 = Symbol('riki widiantoro');
+        console.log(namaku);
+        console.log(namaku2);
+        console.log(namaku === namaku2);
+
+    </script>
+</body>
+</html>

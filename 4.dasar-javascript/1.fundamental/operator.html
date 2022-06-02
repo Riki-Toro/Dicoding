@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamental Javascript</title>
+</head>
+<body>
+    <h1>operator javascript</h1>
+
+    <script>
+
+        // assignment
+        let a = 10;
+        let b = 12;
+
+        // let c = a+=b;
+        // console.log(c);
+
+        // Comparison
+        // console.log(a < b);
+        // console.log(a > b);
+
+        let aString = '20';
+        let aNumber = 20;
+        console.log(aString == aNumber);
+        console.log(aString === aNumber);
+
+        console.log('-----')
+
+        // logical
+        /* AND operator */
+        console.log(a < 15 && b > 10); // (true && true) -> true
+        console.log(a > 15 && b > 10); // (false && true) -> false
+
+        /* OR operator */
+        console.log(a < 15 || b > 10); // (true || true) -> true
+        console.log(a > 15 || b > 10); // (false || true) -> true
+
+        /* NOT operator */
+        console.log(!(a < 15)); // !(true) -> false
+        console.log(!(a < 15 && b > 10)); // !(true && true) -> !(true) -> false
+
+    </script>
+</body>
+</html>
