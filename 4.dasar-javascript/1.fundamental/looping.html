@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamental Javascript</title>
+</head>
+<body>
+    <h1>looping javascript</h1>
+
+    <script>
+        // for loop
+        for( let i = 0; i < 5; i++ ) {
+            console.log(i);
+        }
+        console.log('------------------------------');
+
+        // for of loop
+        let myArray = ["Luke", "Han", "Chewbacca", "Leia"];
+        for( arrayItem of myArray ) {
+            console.log(arrayItem);
+        }
+        console.log('------------------------------');
+
+        // while
+        let w = 1;
+
+        while( w <= 10 ) {
+            console.log(w);
+            w++;
+        }
+
+        console.log('------------------------------');
+
+        // do while
+        let d = 1;
+
+        do {
+            console.log(d);
+            d++;
+        } while( d <= 10 );
+
+    </script>
+</body>
+</html>

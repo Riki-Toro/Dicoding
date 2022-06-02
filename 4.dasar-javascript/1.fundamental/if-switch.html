@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fundamental Javascript</title>
+</head>
+<body>
+    <h1>if statement dan switch case</h1>
+
+    <script>
+        // if statement
+        const isRaining = false;
+
+        console.log("Persiapan sebelum berangkat kegiatan.");
+        if( isRaining ) {
+            console.log("Hari ini hujan. Bawa payung.")
+        }
+        console.log("Berangkat kegiatan.");
+
+
+        const x = 50;
+
+        if( x > 70 ) {
+            console.log(x);
+        } else {
+            console.log("Nilai kurang dari 70");
+        }
+
+
+        let language = "French";
+        let greeting = "Selamat Pagi";
+
+        if( language === "English" ) {
+            greeting = "Good Morning!";
+        } else if( language === "French" ) {
+            greeting = "Bonjour!";
+        } else if( language === "Japanese" ) {
+            greeting = "Ohayou Gozaimasu!";
+        }
+
+        console.log(greeting);
+
+
+        // ternary operator atau conditional expressions
+        // condition ? true expression : false expression
+
+        let isMember = true;
+        let diskon = isMember ? 0.1 : 0;
+
+        console.log(`Anda mendapatkan diskon sebesar ${diskon * 100}%`);
+
+        // truthy & falsy
+        let nama = "";
+        if(nama) {
+            console.log(`Hallo, ${nama}`);
+        } else {
+            console.log("Nama masih kosong");
+        }
+
+        console.log('---------------------------------');
+
+        // switch statement
+        let bahasa = "French";
+        let ucapan = null;
+
+        switch(bahasa) {
+            case "English":
+                ucapan = 'Good Morning!';
+                break;
+            case "French":
+                ucapan = 'Bonjour!';
+                break;
+            case "Japanese":
+                ucapan = 'Ohayou Gozaimasu!';
+                break;
+            default:
+                ucapan = 'Selamat Pagi!';
+        }
+
+        console.log(ucapan);
+
+    </script>
+</body>
+</html>
