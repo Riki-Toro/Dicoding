@@ -17,3 +17,20 @@ console.log(multi(10, 2));
 
 console.log('');
 console.log('');
+
+
+// Variable Scope
+console.log('---------------------------- variable scope ----------------------------');
+function mul(num) {
+    total = num * num;
+    return total;
+}
+
+let total = 9;
+let numbe = mul(20);
+
+console.log(total);
+
+
+console.log('');
+console.log('');
