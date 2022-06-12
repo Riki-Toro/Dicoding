@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Coding</title>
+</head>
+<body>
+    <h1>Kuis Coding: Object-Oriented Programming</h1>
+
+    /**
+    * TODO:
+    * 1. Buatlah class bernama Animal dengan ketentuan:
+    *    - Memiliki properti:
+    *      - name: string
+    *      - age: int
+    *      - isMammal: boolean
+    *    - Memiliki constructor untuk menginisialisasi properti:
+    *      - name
+    *      - age
+    *      - isMammal
+    * 2. Buatlah class bernama Rabbit dengan ketentuan:
+    *    - Merupakan turunan dari class Animal
+    *    - Memiliki method:
+    *      - eat yang mengembalikan nilai string `${this.name} sedang makan!`
+    *    - Ketika diinstansiasi, properti isMammal harus bernilai true
+    * 3. Buatlah class bernama Eagle dengan ketentuan:
+    *    - Merupakan turunan dari class Animal
+    *    - Memiliki method:
+    *      - fly yang mengembalikan nilai string `${this.name} sedang terbang!`
+    *    - Ketika diinstansiasi, properti isMammal harus bernilai false
+    * 4. Buatlah instance dari class Rabbit bernama "myRabbit" dengan ketentuan:
+    *    - properti name bernilai: "Labi"
+    *    - properti age bernilai: 2
+    * 5. Buatlah instance dari class Eagle bernama "myEagle" dengan ketentuan:
+    *    - properti name bernilai: "Elo"
+    *    - properti age bernilai: 4
+    */
+
+    <script>
+        class Animal {
+            constructor() {
+                this.name = null;
+                this.age = [];
+                this.isMammal = Boolean;
+            }
+        }
+
+        class Rabbit extends Animal {
+            constructor() {
+                super();
+                this.name = 'Labi';
+                this.age = 2;
+                this.isMammal = true;
+            }
+            eat() {
+                return `${this.name} sedang makan!`;
+                // console.log(`${this.name} sedang makan!`);
+            }
+        }
+
+        class Eagle extends Animal {
+            constructor() {
+                super();
+                this.name = 'Elo';
+                this.age = 4;
+                this.isMammal = false;
+            }
+            fly() {
+                return `${this.name} sedang terbang!`;
+                // console.log(`${this.name} sedang terbang!`);
+            }
+        }
+
+        // instance
+        const myRabbit = new Rabbit();
+        myRabbit.eat('Labi', 2);
+
+        const myEagle = new Eagle();
+        myEagle.fly('Elo', 4);
+    </script>
+</body>
+</html>

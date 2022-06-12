@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Oriented Programming</title>
+</head>
+<body>
+    <h1>Materi 4 Object Oriented Programming</h1>
+    <ol>
+        <li><h4>Object Composition</h4></li>
+        <li><h4>Built-in Class</h4></li>
+    </ol>
+
+    <script>
+        // [1] list of abstractions
+        const canSendMessage = self => ({
+            sendMessage: () => console.log('send message:', self.message)
+        });
+
+        const checkIsValidPhone = self => ({
+            isValid: () => console.log('valid phone', self.from)
+        });
+
+        // [2] crate object composition
+        const personalEnterprise = (from, message, store) => {
+        // [3] attributes
+        const self = {
+            from,
+            message,
+            store
+        };
+        // [4] method
+        const personalEnterpriseBehaviors = self => ({
+            createCatalog: () => console.log('Catalog has created: ', self.store)
+        });
+        
+        // [5] create object composition
+        return Object.assign(self, personalEnterpriseBehaviors(self), canSendMessage(self), checkIsValidPhone(self));
+        };
+
+        const pe1 = personalEnterprise('pengirim@gmail.com', 'hei produk baru nih', 'Dicoding Store');
+        pe1.createCatalog(); //Catalog has created:  Dicoding Store
+        pe1.sendMessage(); //send message: hei produk baru nih
+
+        console.log('');
+        console.log('-------------------------------- Object Composition --------------------------------');
+        console.log('');
+        console.log('');
+
+
+
+        // daftar method yang umum digunakan
+        const myDate = new Date();
+        console.log('Mounth: ' + myDate.getMonth());
+        console.log('Year: ' + myDate.getFullYear());
+        console.log('Date: ' + myDate.getDate());
+        console.log('Hours: ' + myDate.getHours());
+        console.log('Minutes: ' + myDate.getMinutes());
+        console.log('Seconds: ' + myDate.getSeconds());
+        console.log('Milliseconds: ' + myDate.getMilliseconds());
+        console.log('Time: ' + myDate.getTime());
+        console.log('Day: ' + myDate.getDay());
+        console.log('');
+
+
+        // static method
+        console.log(Date.parse("2021-01-01"));
+        console.log(Date.UTC(2021, 01, 01));
+        console.log('');
+
+
+        // Date String Format
+        // parameter birthday dapat berupa miliseconds ataupun date string
+        const myAge = birthday => {
+            const birtday = new Date(birthday);
+            const today = Date.now(); // today menghasilkan nilai miliseconds saat ini
+            
+            const diff_ms = today - birtday.getTime(); // menghitung selisih nilai miliseconds hari ini dan tanggal lahir
+            const diffDate = new Date(diff_ms);
+            
+            return diffDate.getFullYear() - 1970; // 1970 adalah representasi 0 dari miliseconds
+        };
+
+        console.log(myAge('1998-11-15')); // 23 tahun
+        console.log('');
+
+        const listOfContent = [1,2,"President", {}];
+        console.log(Array.isArray(listOfContent)); 
+        // result is true
+        
+        const splitText = "12:20:00".split(':');
+        console.log(splitText);
+        // result is [ '12', '20', '00' ]
+
+        console.log('');
+        console.log('-------------------------------- Built-in Class --------------------------------');
+        console.log('');
+        </script>
+
+</body>
+</html>
