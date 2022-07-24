@@ -52,7 +52,6 @@ class ValidationError extends Error {
 }
 // TODO 2
 function validateNumberInput(a, b, c) {
-    try {
       if(!a) {
         throw new ValidationError("Argumen pertama harus number");
       }
@@ -66,35 +65,41 @@ function validateNumberInput(a, b, c) {
       console.log(a);
       console.log(b);
       console.log(c);
-    } catch (error) {
-      if (error instanceof SyntaxError) {
-          console.log(`JSON Syntax Error: ${error.message}`);
-      } else if (error instanceof ValidationError) {
-          console.log(`Invalid data: ${error.message}`);
-      } else if (error instanceof ReferenceError) {
-          console.log(error.message);
-      } else {
-          console.log(error.stack);
-      }
+    
+  //   catch (error) {
+  //     if (error instanceof SyntaxError) {
+  //         console.log(`Syntax Error: ${error.message}`);
+  //     } else if (error instanceof ValidationError) {
+  //         console.log(`Invalid data: ${error.message}`);
+  //     } else if (error instanceof ReferenceError) {
+  //         console.log(error.message);
+  //     } else {
+  //         console.log(error.stack);
+  //     }
 
-      // return 
-  }
+  //     // return 
+  // }
 }
 
 const detectTriangle = (a, b, c) => {
     // TODO 3
-    validateNumberInput(a, b, c);
-    if (a === b && b === c) {
-      // return 'Segitiga sama sisi';
-      console.log('Segitiga sama sisi');
-    } else if (a === b || a === c || b === c) {
-      // return 'Segitiga sama kaki';
-      console.log('Segitiga sama kaki');
-    } else {
-      
-    // return 'Segitiga sembarang';
-    console.log('Segitiga sembarang');
+    try {
+      validateNumberInput(a, b, c);
+
+      if (a === b && b === c) {
+        // return 'Segitiga sama sisi';
+        console.log('Segitiga sama sisi');
+      } else if (a === b || a === c || b === c) {
+        // return 'Segitiga sama kaki';
+        console.log('Segitiga sama kaki');
+      } else {
+        
+      // return 'Segitiga sembarang';
+      console.log('Segitiga sembarang');
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
   
-detectTriangle( 1, 1, 2 );
+detectTriangle( 1, 1, null );
