@@ -35,22 +35,46 @@
   }
   
   // TODO: 1
-  const fetchingUserFromInternet = (callback, isOffline) => {
-    setTimeout(() => {
-      if (isOffline) {
-        callback(new NetworkError('Gagal mendapatkan data dari internet'), null);
-      }
-      callback(null, { name: 'John', age: 18 });
-    }, 500);
+  // const fetchingUserFromInternet = (callback, isOffline) => {
+  //   // setTimeout(() => {
+  //   //   if (isOffline) {
+  //   //     callback(new NetworkError('Gagal mendapatkan data dari internet'), null);
+  //   //   }
+  //   //   callback(null, { name: 'John', age: 18 });
+  //   // }, 500);
+  // };
+  const fetchingUserFromInternet = () => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (isOffline) {
+          resolve({ name: 'John', age: 18 });
+        } else {
+          reject(NetworkError('Gagal mendapatkan data dari internet'));
+        }
+      }, 500);
+    });
   };
   
   
   // TODO: 2
+  // const gettingUserName = () => {
+  //   fetchingUserFromInternet((error, user) => {
+  //     if (error) {
+  //       return error.message;
+  //     }
+  //     return user.name;
+  //   }, false);
+  // };
+
   const gettingUserName = () => {
-    fetchingUserFromInternet((error, user) => {
-      if (error) {
-        return error.message;
+    async function fetchingUserFromInternet() {
+      try {
+        await user.name;
+      } catch(error) {
+        error.message;
       }
-      return user.name;
-    }, false);
+      
+    };
+
+    fetchingUserFromInternet();
   };
