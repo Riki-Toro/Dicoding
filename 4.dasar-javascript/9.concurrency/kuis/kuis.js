@@ -43,13 +43,13 @@
   //   //   callback(null, { name: 'John', age: 18 });
   //   // }, 500);
   // };
-  const fetchingUserFromInternet = () => {
+  const fetchingUserFromInternet = (isOffline) => {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (isOffline) {
-          resolve({ name: 'John', age: 18 });
+          reject( new NetworkError('Gagal mendapatkan data dari internet'));
         } else {
-          reject(NetworkError('Gagal mendapatkan data dari internet'));
+          resolve({ name: 'John', age: 18 });
         }
       }, 500);
     });
@@ -66,15 +66,14 @@
   //   }, false);
   // };
 
-  const gettingUserName = () => {
-    async function fetchingUserFromInternet() {
+  async function gettingUserName() {
       try {
-        await user.name;
+        const result = await fetchingUserFromInternet(false);
+        return result.name;
       } catch(error) {
-        error.message;
+        return error.message;
       }
       
     };
-
-    fetchingUserFromInternet();
-  };
+gettingUserName()
+    .then((result) => console.log(result));
